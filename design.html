@@ -172,24 +172,34 @@
       background: #fff;
     }
     .periodo-body.aberto { display: block; }
-    .periodo-body table {
+
+    /* ===== WRAPPER PARA ROLAGEM HORIZONTAL DA TABELA ===== */
+    .table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-top: 0.5rem;
+    }
+    .table-wrapper table {
       width: 100%;
       border-collapse: collapse;
       font-size: 0.9rem;
-      margin-top: 0.5rem;
+      min-width: 480px; /* força rolagem horizontal em telas pequenas */
     }
-    .periodo-body table th {
+    .table-wrapper table th {
       text-align: left;
       background: var(--azul-medio);
       color: #fff;
       padding: 0.4rem 0.6rem;
       font-weight: 500;
+      white-space: nowrap;
     }
-    .periodo-body table td {
+    .table-wrapper table td {
       padding: 0.4rem 0.6rem;
       border-bottom: 1px solid #e9ecef;
+      white-space: nowrap;
     }
-    .periodo-body table tr:last-child td { border-bottom: none; }
+    .table-wrapper table tr:last-child td { border-bottom: none; }
+
     .periodo-body .ch-total {
       margin-top: 0.6rem;
       font-weight: 500;
@@ -242,12 +252,14 @@
       .conteudo { padding: 1.5rem; }
       .grid-links { grid-template-columns: 1fr 1fr; }
       .optativas-grid { grid-template-columns: 1fr; }
+      .table-wrapper table { font-size: 0.8rem; min-width: 420px; }
+      .table-wrapper table th, .table-wrapper table td { padding: 0.3rem 0.4rem; }
     }
     @media (max-width: 480px) {
       .hero h1 { font-size: 1.5rem; }
       .grid-links { grid-template-columns: 1fr; }
-      .periodo-body table { font-size: 0.8rem; }
-      .periodo-body table th, .periodo-body table td { padding: 0.3rem 0.4rem; }
+      .table-wrapper table { font-size: 0.7rem; min-width: 360px; }
+      .table-wrapper table th, .table-wrapper table td { padding: 0.25rem 0.3rem; }
     }
 
     /* ===== RODAPÉ ===== */
@@ -350,14 +362,16 @@
       <div class="periodo">
         <div class="periodo-header" onclick="togglePeriodo(this)">1º Período <span class="seta">▼</span></div>
         <div class="periodo-body">
-          <table>
-            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-            <tr><td>COMSO0109</td><td>Sist. de Repres. Bidimensional</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>COMSO0105</td><td>Design Contemporâneo</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>COMSO0111</td><td>Metodologia Visual</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>COMSO0104</td><td>História do Design</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>COMSO0110</td><td>Sist. de Repres. Tridimensional</td><td>60h</td><td>Obrigatória</td></tr>
-          </table>
+          <div class="table-wrapper">
+            <table>
+              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+              <tr><td>COMSO0109</td><td>Sist. de Repres. Bidimensional</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>COMSO0105</td><td>Design Contemporâneo</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>COMSO0111</td><td>Metodologia Visual</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>COMSO0104</td><td>História do Design</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>COMSO0110</td><td>Sist. de Repres. Tridimensional</td><td>60h</td><td>Obrigatória</td></tr>
+            </table>
+          </div>
           <div class="ch-total">CH Total: 300h</div>
         </div>
       </div>
@@ -366,14 +380,16 @@
       <div class="periodo">
         <div class="periodo-header" onclick="togglePeriodo(this)">2º Período <span class="seta">▼</span></div>
         <div class="periodo-body">
-          <table>
-            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-            <tr><td>COMSO0112</td><td>Design e Sociedade A (História da Arte)</td><td>60h</td><td>Optativa</td></tr>
-            <tr><td>COMSO0124</td><td>Design e Tecnologia A (Introdução à Computação Gráfica)</td><td>60h</td><td>Optativa</td></tr>
-            <tr><td>COMSO0130</td><td>Design e Estética A (Plástica)</td><td>60h</td><td>Optativa</td></tr>
-            <tr><td>COMSO0131</td><td>Design e Estética B (Cultura e Design)</td><td>60h</td><td>Optativa</td></tr>
-            <tr><td>COMSO0113</td><td>Design e Sociedade B (História do Design no Brasil)</td><td>60h</td><td>Optativa</td></tr>
-          </table>
+          <div class="table-wrapper">
+            <table>
+              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+              <tr><td>COMSO0112</td><td>Design e Sociedade A (História da Arte)</td><td>60h</td><td>Optativa</td></tr>
+              <tr><td>COMSO0124</td><td>Design e Tecnologia A (Introdução à Computação Gráfica)</td><td>60h</td><td>Optativa</td></tr>
+              <tr><td>COMSO0130</td><td>Design e Estética A (Plástica)</td><td>60h</td><td>Optativa</td></tr>
+              <tr><td>COMSO0131</td><td>Design e Estética B (Cultura e Design)</td><td>60h</td><td>Optativa</td></tr>
+              <tr><td>COMSO0113</td><td>Design e Sociedade B (História do Design no Brasil)</td><td>60h</td><td>Optativa</td></tr>
+            </table>
+          </div>
           <div class="ch-total">CH Total: 300h</div>
         </div>
       </div>
@@ -382,14 +398,16 @@
       <div class="periodo">
         <div class="periodo-header" onclick="togglePeriodo(this)">3º Período <span class="seta">▼</span></div>
         <div class="periodo-body">
-          <table>
-            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-            <tr><td>COMSO0125</td><td>Design e Tecnologia B (Desenho Geométrico)</td><td>60h</td><td>Optativa</td></tr>
-            <tr><td>COMSO0126</td><td>Design e Tecnologia C (Produção Gráfica I)</td><td>60h</td><td>Optativa</td></tr>
-            <tr><td>COMSO0117</td><td>Design e Sociedade F (História da Tipografia)</td><td>60h</td><td>Optativa</td></tr>
-            <tr><td>COMSO0135</td><td>Design e Estética F (Percepção da Forma)</td><td>60h</td><td>Optativa</td></tr>
-            <tr><td>COMSO0120</td><td>Design e Ciência C (Ergonomia)</td><td>60h</td><td>Optativa</td></tr>
-          </table>
+          <div class="table-wrapper">
+            <table>
+              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+              <tr><td>COMSO0125</td><td>Design e Tecnologia B (Desenho Geométrico)</td><td>60h</td><td>Optativa</td></tr>
+              <tr><td>COMSO0126</td><td>Design e Tecnologia C (Produção Gráfica I)</td><td>60h</td><td>Optativa</td></tr>
+              <tr><td>COMSO0117</td><td>Design e Sociedade F (História da Tipografia)</td><td>60h</td><td>Optativa</td></tr>
+              <tr><td>COMSO0135</td><td>Design e Estética F (Percepção da Forma)</td><td>60h</td><td>Optativa</td></tr>
+              <tr><td>COMSO0120</td><td>Design e Ciência C (Ergonomia)</td><td>60h</td><td>Optativa</td></tr>
+            </table>
+          </div>
           <div class="ch-total">CH Total: 300h</div>
         </div>
       </div>
@@ -398,13 +416,15 @@
       <div class="periodo">
         <div class="periodo-header" onclick="togglePeriodo(this)">4º Período <span class="seta">▼</span></div>
         <div class="periodo-body">
-          <table>
-            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-            <tr><td>COMSO0132</td><td>Design e Estética C (Experimentação Gráfica)</td><td>60h</td><td>Optativa</td></tr>
-            <tr><td>COMSO0114</td><td>Design e Sociedade C (Arte e Tecnologia)</td><td>60h</td><td>Optativa</td></tr>
-            <tr><td>COMSO0121</td><td>Design e Ciência D (Tipografia Digital)</td><td>60h</td><td>Optativa</td></tr>
-            <tr><td>COMSO0128</td><td>Design e Tecnologia E (Diagramação I)</td><td>60h</td><td>Optativa</td></tr>
-          </table>
+          <div class="table-wrapper">
+            <table>
+              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+              <tr><td>COMSO0132</td><td>Design e Estética C (Experimentação Gráfica)</td><td>60h</td><td>Optativa</td></tr>
+              <tr><td>COMSO0114</td><td>Design e Sociedade C (Arte e Tecnologia)</td><td>60h</td><td>Optativa</td></tr>
+              <tr><td>COMSO0121</td><td>Design e Ciência D (Tipografia Digital)</td><td>60h</td><td>Optativa</td></tr>
+              <tr><td>COMSO0128</td><td>Design e Tecnologia E (Diagramação I)</td><td>60h</td><td>Optativa</td></tr>
+            </table>
+          </div>
           <div class="ch-total">CH Total: 240h</div>
         </div>
       </div>
@@ -413,13 +433,15 @@
       <div class="periodo">
         <div class="periodo-header" onclick="togglePeriodo(this)">5º Período <span class="seta">▼</span></div>
         <div class="periodo-body">
-          <table>
-            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-            <tr><td>COMSO0133</td><td>Design e Estética D (Identidade Visual)</td><td>60h</td><td>Optativa</td></tr>
-            <tr><td>COMSO0115</td><td>Design e Sociedade D (Legislação e Ética Profissional)</td><td>60h</td><td>Optativa</td></tr>
-            <tr><td>COMSO0127</td><td>Design e Tecnologia D (Produção Gráfica II)</td><td>60h</td><td>Optativa</td></tr>
-            <tr><td>COMSO0122</td><td>Design e Ciência E (Semiótica)</td><td>60h</td><td>Optativa</td></tr>
-          </table>
+          <div class="table-wrapper">
+            <table>
+              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+              <tr><td>COMSO0133</td><td>Design e Estética D (Identidade Visual)</td><td>60h</td><td>Optativa</td></tr>
+              <tr><td>COMSO0115</td><td>Design e Sociedade D (Legislação e Ética Profissional)</td><td>60h</td><td>Optativa</td></tr>
+              <tr><td>COMSO0127</td><td>Design e Tecnologia D (Produção Gráfica II)</td><td>60h</td><td>Optativa</td></tr>
+              <tr><td>COMSO0122</td><td>Design e Ciência E (Semiótica)</td><td>60h</td><td>Optativa</td></tr>
+            </table>
+          </div>
           <div class="ch-total">CH Total: 240h</div>
         </div>
       </div>
@@ -428,14 +450,16 @@
       <div class="periodo">
         <div class="periodo-header" onclick="togglePeriodo(this)">6º Período <span class="seta">▼</span></div>
         <div class="periodo-body">
-          <table>
-            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-            <tr><td>COMSO0118</td><td>Design e Ciência A (Antropologia Visual)</td><td>60h</td><td>Optativa</td></tr>
-            <tr><td>COMSO0116</td><td>Design e Sociedade E (Gestão em Design)</td><td>60h</td><td>Optativa</td></tr>
-            <tr><td>COMSO0134</td><td>Design e Estética E (Introdução à Fotografia)</td><td>60h</td><td>Optativa</td></tr>
-            <tr><td>COMSO0129</td><td>Design e Tecnologia G (Interfaces Digitais)</td><td>60h</td><td>Optativa</td></tr>
-            <tr><td>COMSO0123</td><td>Design e Ciência G (Metodologia do Projeto em Design)</td><td>60h</td><td>Optativa</td></tr>
-          </table>
+          <div class="table-wrapper">
+            <table>
+              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+              <tr><td>COMSO0118</td><td>Design e Ciência A (Antropologia Visual)</td><td>60h</td><td>Optativa</td></tr>
+              <tr><td>COMSO0116</td><td>Design e Sociedade E (Gestão em Design)</td><td>60h</td><td>Optativa</td></tr>
+              <tr><td>COMSO0134</td><td>Design e Estética E (Introdução à Fotografia)</td><td>60h</td><td>Optativa</td></tr>
+              <tr><td>COMSO0129</td><td>Design e Tecnologia G (Interfaces Digitais)</td><td>60h</td><td>Optativa</td></tr>
+              <tr><td>COMSO0123</td><td>Design e Ciência G (Metodologia do Projeto em Design)</td><td>60h</td><td>Optativa</td></tr>
+            </table>
+          </div>
           <div class="ch-total">CH Total: 300h</div>
         </div>
       </div>
@@ -444,12 +468,14 @@
       <div class="periodo">
         <div class="periodo-header" onclick="togglePeriodo(this)">7º Período <span class="seta">▼</span></div>
         <div class="periodo-body">
-          <table>
-            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-            <tr><td>COMSO0136</td><td>Trabalho de Conclusão de Curso I (TCC I)</td><td>285h</td><td>Optativa</td></tr>
-            <tr><td>COMSO0138</td><td>Estágio Supervisionado I</td><td>210h</td><td>Obrigatória</td></tr>
-            <tr><td>COMSO0119</td><td>Design e Ciência B (Embalagem)</td><td>60h</td><td>Optativa</td></tr>
-          </table>
+          <div class="table-wrapper">
+            <table>
+              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+              <tr><td>COMSO0136</td><td>Trabalho de Conclusão de Curso I (TCC I)</td><td>285h</td><td>Optativa</td></tr>
+              <tr><td>COMSO0138</td><td>Estágio Supervisionado I</td><td>210h</td><td>Obrigatória</td></tr>
+              <tr><td>COMSO0119</td><td>Design e Ciência B (Embalagem)</td><td>60h</td><td>Optativa</td></tr>
+            </table>
+          </div>
           <div class="ch-total">CH Total: 555h</div>
         </div>
       </div>
@@ -458,11 +484,13 @@
       <div class="periodo">
         <div class="periodo-header" onclick="togglePeriodo(this)">8º Período <span class="seta">▼</span></div>
         <div class="periodo-body">
-          <table>
-            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-            <tr><td>COMSO0137</td><td>Trabalho de Conclusão de Curso II (TCC II)</td><td>285h</td><td>Optativa</td></tr>
-            <tr><td>COMSO0139</td><td>Estágio Supervisionado II</td><td>210h</td><td>Obrigatória</td></tr>
-          </table>
+          <div class="table-wrapper">
+            <table>
+              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+              <tr><td>COMSO0137</td><td>Trabalho de Conclusão de Curso II (TCC II)</td><td>285h</td><td>Optativa</td></tr>
+              <tr><td>COMSO0139</td><td>Estágio Supervisionado II</td><td>210h</td><td>Obrigatória</td></tr>
+            </table>
+          </div>
           <div class="ch-total">CH Total: 495h</div>
         </div>
       </div>
