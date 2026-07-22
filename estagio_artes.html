@@ -555,32 +555,53 @@
     const SHEET_NAME = 'ESTÁGIO ARTES';
 
     // Data de início do período 2026.1 (23/03/2026)
-    const DATA_INICIO = new Date(2026, 2, 23); // mês é 0-indexado (2 = março)
+    const DATA_INICIO = new Date(2026, 2, 23);
 
-    // Colunas que serão exibidas (use os nomes exatos do cabeçalho da planilha)
+    // ============================================================
+    // DEFINIÇÃO DAS COLUNAS – USANDO OS NOMES EXATOS DO CABEÇALHO
+    // ============================================================
     const COLUNAS = [
       { rotulo: 'Matrícula', origem: 'Seu número de matrícula na UFS:' },
       { rotulo: 'Nome Completo', origem: 'Seu nome completo, sem abreviações:' },
       { rotulo: 'Atividade de Estágio', origem: 'Assinale a atividade de estágio para a qual você solicita este ofício:' },
       { rotulo: 'Escola', origem: 'Nome completo da escola onde será realizado o Estágio Supervisionado em Artes Visuais:' },
-      { rotulo: 'Diretor(a)', origem: 'Nome completo do/a diretor/a da escola onde será realizado o Estágio Supervisionado em Artes Visuais:' },
+      // Corrigido para corresponder ao CSV: "Nome completo do diretor/a ..." (sem "do/a")
+      { rotulo: 'Diretor(a)', origem: 'Nome completo do diretor/a da escola onde será realizado o Estágio Supervisionado em Artes Visuais:' },
       { rotulo: 'Professor(a) Preceptor(a)', origem: 'Nome completo do/a professor/a que acompanhará, na escola, o Estágio Supervisionado em Artes Visuais:' }
     ];
 
-    // Nome da coluna de data/hora do Forms (normalmente é "Carimbo de data/hora")
     const COLUNA_DATA = 'Carimbo de data/hora';
 
     // ============================================================
-    // FUNÇÃO PARA CONVERTER DATA DO GOOGLE SHEETS
+    // FUNÇÕES AUXILIARES
     // ============================================================
+    function normalizarTexto(texto) {
+      return (texto || '').trim().replace(/\s+/g, ' ');
+    }
+
+    function encontrarIndiceFlexivel(headers, nomeBuscado) {
+      const normalizado = normalizarTexto(nomeBuscado);
+      // Tenta correspondência exata após normalização
+      for (let i = 0; i < headers.length; i++) {
+        if (normalizarTexto(headers[i]) === normalizado) {
+          return i;
+        }
+      }
+      // Fallback: procura por substring (ignorando "a/" vs "/a")
+      const semBarra = normalizado.replace(/[\/a]/g, '').toLowerCase();
+      for (let i = 0; i < headers.length; i++) {
+        const headerClean = normalizarTexto(headers[i]).replace(/[\/a]/g, '').toLowerCase();
+        if (headerClean.includes(semBarra) || semBarra.includes(headerClean)) {
+          return i;
+        }
+      }
+      return -1;
+    }
+
     function converterDataGoogleSheets(valor) {
       if (!valor || typeof valor !== 'string') return null;
-      // Tenta vários formatos
-      // 1. Formato ISO: "2026-03-23T10:30:00"
       let data = new Date(valor);
       if (!isNaN(data)) return data;
-
-      // 2. Formato DD/MM/YYYY (comum em planilhas brasileiras)
       const match = valor.match(/(\d{2})\/(\d{2})\/(\d{4})/);
       if (match) {
         const dia = parseInt(match[1]);
@@ -589,14 +610,11 @@
         data = new Date(ano, mes, dia);
         if (!isNaN(data)) return data;
       }
-
-      // 3. Número serial do Google Sheets (dias desde 30/12/1899)
       const num = parseFloat(valor);
       if (!isNaN(num) && num > 30000 && num < 60000) {
         const dataSerial = new Date((num - 25569) * 86400 * 1000);
         if (!isNaN(dataSerial)) return dataSerial;
       }
-
       return null;
     }
 
@@ -629,14 +647,13 @@
           return;
         }
 
-        // --- Encontra a linha do cabeçalho ---
+        // --- Encontra a linha do cabeçalho (mais robusto) ---
         let headerRowIndex = -1;
-        // Tenta encontrar a linha que contém "Carimbo de data/hora" e a primeira coluna de interesse
-        const colunasOrigem = COLUNAS.map(c => c.origem.trim());
+        const colunasOrigem = COLUNAS.map(c => normalizarTexto(c.origem));
         for (let i = 0; i < Math.min(rows.length, 15); i++) {
           const row = rows[i];
           if (!row) continue;
-          const rowTrimmed = row.map(cell => (cell || '').trim());
+          const rowTrimmed = row.map(cell => normalizarTexto(cell));
           // Verifica se contém a coluna de data E pelo menos uma das colunas de interesse
           if (rowTrimmed.includes(COLUNA_DATA) && rowTrimmed.some(c => colunasOrigem.includes(c))) {
             headerRowIndex = i;
@@ -644,31 +661,47 @@
           }
         }
 
+        if (headerRowIndex === -1) {
+          // Fallback: procura pela coluna de data apenas
+          for (let i = 0; i < Math.min(rows.length, 15); i++) {
+            const row = rows[i];
+            if (row && row.some(cell => normalizarTexto(cell) === COLUNA_DATA)) {
+              headerRowIndex = i;
+              break;
+            }
+          }
+        }
+
         if (headerRowIndex === -1) throw new Error('Cabeçalho com as colunas necessárias não encontrado.');
 
-        const headers = rows[headerRowIndex].map(cell => (cell || '').trim());
+        const headers = rows[headerRowIndex].map(cell => normalizarTexto(cell));
 
-        // --- Mapeia índices ---
+        // Exibe os cabeçalhos no console para depuração
+        console.log('Cabeçalhos encontrados:', headers);
+
+        // --- Mapeia índices usando busca flexível ---
         const idxData = headers.indexOf(COLUNA_DATA);
-        const indices = COLUNAS.map(col => headers.indexOf(col.origem.trim()));
+        const indices = COLUNAS.map(col => encontrarIndiceFlexivel(headers, col.origem));
 
         if (idxData === -1) throw new Error(`Coluna "${COLUNA_DATA}" não encontrada.`);
+
+        // Verifica se alguma coluna não foi encontrada
+        const colunasNaoEncontradas = COLUNAS.filter((col, i) => indices[i] === -1);
+        if (colunasNaoEncontradas.length > 0) {
+          console.warn('Colunas não encontradas:', colunasNaoEncontradas.map(c => c.origem));
+        }
 
         // --- Filtra linhas ---
         const linhasFiltradas = [];
         for (let i = headerRowIndex + 1; i < rows.length; i++) {
           const row = rows[i];
-          if (!row || row.length === 0 || row.every(cell => !cell || cell.trim() === '')) continue;
+          if (!row || row.length === 0 || row.every(cell => !cell || normalizarTexto(cell) === '')) continue;
 
-          // Pega a data
           const dataStr = row[idxData] ? row[idxData].trim() : '';
           const dataObj = converterDataGoogleSheets(dataStr);
-          if (!dataObj) continue; // ignora se não conseguir converter
-
-          // Filtra pela data de início
+          if (!dataObj) continue;
           if (dataObj < DATA_INICIO) continue;
 
-          // Verifica se tem pelo menos matrícula ou nome
           const matricula = (indices[0] !== -1 && row[indices[0]]) ? row[indices[0]].trim() : '';
           const nome = (indices[1] !== -1 && row[indices[1]]) ? row[indices[1]].trim() : '';
           if (!matricula && !nome) continue;
@@ -718,7 +751,6 @@
     // ============================================================
     document.addEventListener('DOMContentLoaded', carregarSolicitacoes);
 
-    // Data no rodapé
     document.getElementById('updateDate').textContent =
       new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
   </script>
