@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -37,10 +36,6 @@
     a {
       text-decoration: none;
       color: inherit;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
     }
 
     /* ===== CONTEÚDO PRINCIPAL ===== */
@@ -398,9 +393,9 @@
   <main class="main">
 
     <!-- ===== HERO / BANNER ===== -->
-    <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('https://via.placeholder.com/1200x400/004DA4/ffffff?text=Estagio+Artes+Visuais'); background-size: cover; background-position: center;">
+    <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
       <h1>Estágio – <strong>Artes Visuais</strong></h1>
-      <p>Informações e orientações sobre o estágio curricular obrigatório e não‑obrigatório</p>
+      <p>Informações e orientações sobre o estágio curricular obrigatório e não‑obrigatório do curso de Artes Visuais – Licenciatura</p>
       <a href="index.html" class="btn-voltar">Voltar</a>
     </section>
 
@@ -555,9 +550,12 @@
     // ============================================================
     // CONFIGURAÇÃO – SUBSTITUA PELOS SEUS DADOS
     // ============================================================
-    const API_KEY = 'AIzaSyB4HGlhilR63RhEzu3L8dYV-SxtosOsoII';               // Chave da API do Google Sheets
-    const SHEET_ID = '1CL-Z60KDyLFGjvRVbexSnACs6TKqXGy4UQhikqBuASs';             // ID da planilha
-    const SHEET_NAME = 'ESTÁGIO ARTES';        // Nome da aba (ex: "ARTES VISUAIS" ou "Respostas do Formulário")
+    const API_KEY = 'AIzaSyB4HGlhilR63RhEzu3L8dYV-SxtosOsoII';
+    const SHEET_ID = '1CL-Z60KDyLFGjvRVbexSnACs6TKqXGy4UQhikqBuASs';
+    const SHEET_NAME = 'ESTÁGIO ARTES';
+
+    // Data de início do período 2026.1 (23/03/2026)
+    const DATA_INICIO = new Date(2026, 2, 23); // mês é 0-indexado (2 = março)
 
     // Colunas que serão exibidas (use os nomes exatos do cabeçalho da planilha)
     const COLUNAS = [
@@ -569,10 +567,42 @@
       { rotulo: 'Professor(a) Preceptor(a)', origem: 'Nome completo do/a professor/a que acompanhará, na escola, o Estágio Supervisionado em Artes Visuais:' }
     ];
 
-    // ============================================================
-    // FUNÇÕES
-    // ============================================================
+    // Nome da coluna de data/hora do Forms (normalmente é "Carimbo de data/hora")
+    const COLUNA_DATA = 'Carimbo de data/hora';
 
+    // ============================================================
+    // FUNÇÃO PARA CONVERTER DATA DO GOOGLE SHEETS
+    // ============================================================
+    function converterDataGoogleSheets(valor) {
+      if (!valor || typeof valor !== 'string') return null;
+      // Tenta vários formatos
+      // 1. Formato ISO: "2026-03-23T10:30:00"
+      let data = new Date(valor);
+      if (!isNaN(data)) return data;
+
+      // 2. Formato DD/MM/YYYY (comum em planilhas brasileiras)
+      const match = valor.match(/(\d{2})\/(\d{2})\/(\d{4})/);
+      if (match) {
+        const dia = parseInt(match[1]);
+        const mes = parseInt(match[2]) - 1;
+        const ano = parseInt(match[3]);
+        data = new Date(ano, mes, dia);
+        if (!isNaN(data)) return data;
+      }
+
+      // 3. Número serial do Google Sheets (dias desde 30/12/1899)
+      const num = parseFloat(valor);
+      if (!isNaN(num) && num > 30000 && num < 60000) {
+        const dataSerial = new Date((num - 25569) * 86400 * 1000);
+        if (!isNaN(dataSerial)) return dataSerial;
+      }
+
+      return null;
+    }
+
+    // ============================================================
+    // FUNÇÃO PRINCIPAL
+    // ============================================================
     async function carregarSolicitacoes() {
       const container = document.getElementById('solicitacoes-container');
       const contador = document.getElementById('contador-solicitacoes');
@@ -599,42 +629,68 @@
           return;
         }
 
-        // --- Encontra a linha do cabeçalho (procura pela primeira coluna que usamos) ---
+        // --- Encontra a linha do cabeçalho ---
         let headerRowIndex = -1;
-        const primeiraColuna = COLUNAS[0].origem;
-        for (let i = 0; i < Math.min(rows.length, 10); i++) {
-          if (rows[i] && rows[i].some(cell => cell && cell.trim() === primeiraColuna)) {
+        // Tenta encontrar a linha que contém "Carimbo de data/hora" e a primeira coluna de interesse
+        const colunasOrigem = COLUNAS.map(c => c.origem.trim());
+        for (let i = 0; i < Math.min(rows.length, 15); i++) {
+          const row = rows[i];
+          if (!row) continue;
+          const rowTrimmed = row.map(cell => (cell || '').trim());
+          // Verifica se contém a coluna de data E pelo menos uma das colunas de interesse
+          if (rowTrimmed.includes(COLUNA_DATA) && rowTrimmed.some(c => colunasOrigem.includes(c))) {
             headerRowIndex = i;
             break;
           }
         }
-        if (headerRowIndex === -1) throw new Error(`Cabeçalho "${primeiraColuna}" não encontrado.`);
 
-        const headers = rows[headerRowIndex];
+        if (headerRowIndex === -1) throw new Error('Cabeçalho com as colunas necessárias não encontrado.');
 
-        // --- Mapeia índices das colunas que queremos ---
-        const indices = COLUNAS.map(col => headers.indexOf(col.origem));
+        const headers = rows[headerRowIndex].map(cell => (cell || '').trim());
 
-        // --- Filtra as linhas (ignora cabeçalho e linhas vazias) ---
+        // --- Mapeia índices ---
+        const idxData = headers.indexOf(COLUNA_DATA);
+        const indices = COLUNAS.map(col => headers.indexOf(col.origem.trim()));
+
+        if (idxData === -1) throw new Error(`Coluna "${COLUNA_DATA}" não encontrada.`);
+
+        // --- Filtra linhas ---
         const linhasFiltradas = [];
         for (let i = headerRowIndex + 1; i < rows.length; i++) {
           const row = rows[i];
           if (!row || row.length === 0 || row.every(cell => !cell || cell.trim() === '')) continue;
-          // Pega pelo menos a matrícula ou nome para considerar válida
-          const matricula = row[indices[0]] ? row[indices[0]].trim() : '';
-          const nome = row[indices[1]] ? row[indices[1]].trim() : '';
+
+          // Pega a data
+          const dataStr = row[idxData] ? row[idxData].trim() : '';
+          const dataObj = converterDataGoogleSheets(dataStr);
+          if (!dataObj) continue; // ignora se não conseguir converter
+
+          // Filtra pela data de início
+          if (dataObj < DATA_INICIO) continue;
+
+          // Verifica se tem pelo menos matrícula ou nome
+          const matricula = (indices[0] !== -1 && row[indices[0]]) ? row[indices[0]].trim() : '';
+          const nome = (indices[1] !== -1 && row[indices[1]]) ? row[indices[1]].trim() : '';
           if (!matricula && !nome) continue;
+
           linhasFiltradas.push(row);
         }
 
+        // Ordena por data (mais recente primeiro)
+        linhasFiltradas.sort((a, b) => {
+          const dataA = converterDataGoogleSheets(a[idxData]);
+          const dataB = converterDataGoogleSheets(b[idxData]);
+          return dataB - dataA;
+        });
+
         if (linhasFiltradas.length === 0) {
-          container.innerHTML = '<p style="color:#4a5a6e;">Nenhuma solicitação em andamento no momento.</p>';
-          contador.textContent = 'Nenhuma solicitação em andamento.';
+          container.innerHTML = '<p style="color:#4a5a6e;">Nenhuma solicitação a partir de 23/03/2026.</p>';
+          contador.textContent = 'Nenhuma solicitação neste período.';
           return;
         }
 
         const total = linhasFiltradas.length;
-        contador.textContent = `${total} solicitação(ões) em andamento.`;
+        contador.textContent = `${total} solicitação(ões) a partir de 23/03/2026.`;
 
         let html = '<div class="solicitacoes-lista">';
         linhasFiltradas.forEach((row) => {
