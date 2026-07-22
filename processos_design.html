@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAVD/UFS – Processos Design Gráfico (Professores)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET E VARIÁVEIS ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --azul-escuro: #272B7D;
+      --azul-medio: #004DA4;
+      --azul-claro: #1a73e8;
+      --laranja: #e67e22;
+      --cinza-fundo: #f4f7fc;
+      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+      --radius: 24px;
+      --branco: #ffffff;
+    }
+    body {
+      font-family: 'Ubuntu', sans-serif;
+      background: var(--cinza-fundo);
+      color: #1e2a3a;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== CONTEÚDO PRINCIPAL ===== */
+    .main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      width: 100%;
+    }
+
+    /* ===== HERO / BANNER ===== */
+    .hero {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: var(--radius);
+      padding: 3rem 2.5rem;
+      margin-bottom: 2rem;
+      text-align: left;
+      color: #fff;
+      position: relative;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+    }
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
+    .hero h1 strong { font-weight: 700; }
+    .hero p {
+      font-size: 1.05rem;
+      color: #f0f0f0;
+      margin: 0.3rem 0 1.5rem;
+      max-width: 700px;
+    }
+    .hero .btn-voltar {
+      display: inline-block;
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.5rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: background 0.25s;
+      border: none;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+    .hero .btn-voltar:hover { background: var(--azul-escuro); }
+
+    /* ===== SEÇÃO DE CONTEÚDO ===== */
+    .conteudo {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2rem;
+    }
+    .conteudo h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--azul-escuro);
+      margin: 0 0 0.8rem;
+      border-bottom: 2px solid var(--azul-medio);
+      padding-bottom: 0.4rem;
+    }
+    .conteudo p {
+      font-size: 0.9rem;
+      color: #4a5a6e;
+      margin-bottom: 0.8rem;
+    }
+
+    /* ===== LISTA DE PROCESSOS (CARDS) ===== */
+    .processos-lista {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin: 0.8rem 0;
+    }
+    .processo-card {
+      background: var(--cinza-fundo);
+      border-radius: 12px;
+      padding: 0.8rem 1.2rem;
+      border-left: 4px solid var(--azul-medio);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .processo-card:hover {
+      transform: translateX(3px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .processo-card .campo {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 0.2rem;
+      gap: 0.5rem;
+    }
+    .processo-card .campo .rotulo {
+      font-weight: 600;
+      color: var(--azul-escuro);
+      min-width: 160px;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .processo-card .campo .valor {
+      font-size: 0.85rem;
+      color: #1e2a3a;
+      word-break: break-word;
+      flex: 1;
+    }
+    .processo-card .campo .valor.vazio {
+      color: #999;
+      font-style: italic;
+    }
+    /* Link do processo */
+    .processo-link {
+      color: var(--azul-medio);
+      font-weight: 600;
+      cursor: pointer;
+      border-bottom: 1px dashed var(--azul-medio);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .processo-link:hover {
+      color: var(--azul-escuro);
+      border-bottom-color: var(--azul-escuro);
+    }
+
+    /* ===== STATUS DE CARREGAMENTO ===== */
+    .loading {
+      text-align: center;
+      padding: 1.5rem;
+      color: #4a5a6e;
+    }
+    .loading .spinner {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      border: 3px solid #e9ecef;
+      border-top: 3px solid var(--azul-medio);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ===== MENSAGEM DE ERRO ===== */
+    .erro {
+      background: #fde8e8;
+      border: 1px solid #f5c6c6;
+      border-radius: 12px;
+      padding: 1.2rem;
+      color: #721c24;
+    }
+    .erro a { color: var(--azul-medio); text-decoration: underline; }
+
+    /* ===== RESPONSIVO ===== */
+    @media (max-width: 768px) {
+      .hero { padding: 2rem 1.5rem; }
+      .hero h1 { font-size: 1.8rem; }
+      .conteudo { padding: 1.2rem; }
+      .processo-card .campo .rotulo { min-width: 120px; font-size: 0.8rem; }
+      .processo-card .campo .valor { font-size: 0.8rem; }
+    }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.5rem; }
+      .processo-card { padding: 0.6rem 0.8rem; }
+      .processo-card .campo .rotulo { min-width: 100px; font-size: 0.75rem; }
+      .processo-card .campo .valor { font-size: 0.75rem; }
+    }
+
+    /* ===== RODAPÉ ===== */
+    .footer {
+      background: #2c2c2c;
+      color: #d4e2ed;
+      padding: 2rem 1.5rem 1rem;
+      margin-top: 1.5rem;
+      border-top: 4px solid var(--laranja);
+    }
+    .footer .grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+    }
+    .footer h4 { color: #fff; font-weight: 500; margin-bottom: 0.6rem; font-size: 0.95rem; }
+    .footer ul { list-style: none; padding: 0; }
+    .footer ul li { margin-bottom: 0.3rem; }
+    .footer ul li a {
+      color: #b0c4de;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .footer ul li a:hover { color: #fff; text-decoration: underline; }
+    .footer .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .footer .social-links a {
+      color: #b0c4de;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .footer .social-links a:hover { color: #fff; text-decoration: underline; }
+    .footer .endereco {
+      font-size: 0.85rem;
+      color: #b0c4de;
+      line-height: 1.4;
+    }
+    .footer .endereco a { color: var(--laranja); text-decoration: underline; }
+    .footer .copy {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #8a9aa8;
+      border-top: 1px solid #3a4a5e;
+      padding-top: 1rem;
+      margin-top: 1.5rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== FORMULÁRIO OCULTO PARA ENVIO AO SEI ===== -->
+  <form id="formSei" method="POST" target="_blank"
+        action="https://sei.ufs.br/sei/modulos/pesquisa/md_pesq_processo_pesquisar.php?acao_externa=protocolo_pesquisar&acao_origem_externa=protocolo_pesquisar&id_orgao_acesso_externo=0">
+    <input type="hidden" name="txtProtocoloPesquisa" id="seiProtocolo" />
+    <input type="hidden" name="chkSinProcessos" value="P" />
+    <input type="hidden" name="hdnFlagPesquisa" value="1" />
+    <input type="hidden" name="hdnCaptchaMd5" value="" />
+    <input type="hidden" name="partialfields" value="" />
+    <input type="hidden" name="requiredfields" value="" />
+  </form>
+
+  <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+  <main class="main">
+
+    <!-- ===== HERO / BANNER ===== -->
+    <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('https://via.placeholder.com/1200x400/004DA4/ffffff?text=Processos+Design'); background-size: cover; background-position: center;">
+      <h1>Processos Discentes – <strong>Design Gráfico</strong></h1>
+      <p>Acompanhamento de processos dos alunos do curso de Design Gráfico</p>
+      <a href="sei.html" class="btn-voltar">Voltar</a>
+    </section>
+
+    <!-- ===== CONTEÚDO ===== -->
+    <div class="conteudo">
+      <h2>Processos em andamento</h2>
+      <p id="contador-processos">Carregando processos...</p>
+
+      <div id="processos-container">
+        <div class="loading">
+          <div class="spinner"></div>
+          <p style="margin-top: 0.8rem;">Carregando processos...</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ===== RODAPÉ ===== -->
+  <footer class="footer">
+    <div class="grid">
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
+          <li><a href="tel:+557931946925">(79) 3194-6925</a></li>
+          <li style="color:#b0c4de; font-size:0.8rem;">Segunda a sexta</li>
+          <li style="color:#b0c4de; font-size:0.8rem;">08h00 às 12h00 • 13h00 às 21h00</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Localização</h4>
+        <div class="endereco">
+          <p>Cidade Univ. Prof. José Aloísio de Campos<br />Av. Marcelo Déda Chagas, s/n, Bairro Rosa Elze<br />São Cristóvão/SE – CEP 49107-230</p>
+          <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank">Ver no mapa</a>
+        </div>
+      </div>
+      <div>
+        <h4>Redes Artes</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/cenarteufs" target="_blank">Centro Acadêmico: <strong>@cenarteufs</strong></a>
+        </div>
+      </div>
+      <div>
+        <h4>Redes Design</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/designufs" target="_blank">Curso: <strong>@designufs</strong></a>
+          <a href="https://instagram.com/cadeufs" target="_blank">Centro Acadêmico: <strong>@cadeufs</strong></a>
+          <a href="https://instagram.com/designemcurso.ufs" target="_blank">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
+          <a href="https://instagram.com/tiposdaufs" target="_blank">Tipos da UFS: <strong>@tiposdaufs</strong></a>
+        </div>
+      </div>
+    </div>
+    <div class="copy">
+      <p>Universidade Federal de Sergipe – DAVD © 2026</p>
+      <p style="margin-top:0.2rem; font-size:0.7rem; opacity:0.6;">Última atualização: <span id="updateDate"></span></p>
+    </div>
+  </footer>
+
+  <script>
+    // ===== CONFIGURAÇÕES =====
+    const API_KEY = 'AIzaSyB4HGlhilR63RhEzu3L8dYV-SxtosOsoII';
+    const SHEET_ID = '1ij52WFzjCCeVD6ehtt4Q_BtxNxrUHv26iPx-8wdk1XQ';
+    const SHEET_NAME = 'DESIGN';
+
+    // Mapeamento de colunas (rótulo exibido -> nome original na planilha)
+    const COLUNAS = [
+      { rotulo: 'Processo', origem: 'Nº do Processo no SEI' },
+      { rotulo: 'Interessado', origem: 'Interessado/a/e' },
+      { rotulo: 'Assunto', origem: 'Assunto' },
+      { rotulo: 'Envio ao DAVD', origem: 'Data de movimentação do SEMOP para o DAVD' },
+      { rotulo: 'Atribuído em', origem: 'Data de atribuição ao professor pelo DAVD' },
+      { rotulo: 'Relator(a)', origem: 'Relator/a' },
+      { rotulo: 'Data Colegiado', origem: 'Data de relatoria no Colegiado' },
+      { rotulo: 'Data Conselho', origem: 'Data de relatoria no Conselho' },
+      { rotulo: 'Observação', origem: 'OBSERVAÇÕES' }
+    ];
+
+    // ===== FUNÇÃO PARA FORMATAR DATAS =====
+    function formatarData(valor) {
+      if (!valor || valor.trim() === '') return '';
+      if (!isNaN(valor) && typeof valor === 'string') {
+        const num = parseFloat(valor);
+        if (!isNaN(num) && num > 30000 && num < 60000) {
+          const data = new Date((num - 25569) * 86400 * 1000);
+          return data.toLocaleDateString('pt-BR');
+        }
+      }
+      const match = valor.match(/(\d{2})\/(\d{2})\/(\d{4})/);
+      if (match) return `${match[1]}/${match[2]}/${match[3]}`;
+      return valor;
+    }
+
+    // ===== FUNÇÃO PARA SUBMETER AO SEI =====
+    function consultarAndamento(processo) {
+      const form = document.getElementById('formSei');
+      document.getElementById('seiProtocolo').value = processo;
+      form.submit();
+    }
+
+    // ===== BUSCAR DADOS DA API =====
+    async function carregarProcessos() {
+      const container = document.getElementById('processos-container');
+      const contador = document.getElementById('contador-processos');
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(SHEET_NAME)}?key=${API_KEY}`;
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          let erroMsg = `Erro ${response.status}`;
+          try {
+            const erroJson = await response.json();
+            if (erroJson.error && erroJson.error.message) erroMsg += `: ${erroJson.error.message}`;
+          } catch (e) {}
+          throw new Error(erroMsg);
+        }
+
+        const data = await response.json();
+        const rows = data.values;
+        if (!rows || rows.length === 0) {
+          container.innerHTML = '<p style="color:#e67e22;">Nenhum dado encontrado na planilha.</p>';
+          contador.textContent = 'Nenhum dado encontrado.';
+          return;
+        }
+
+        // Encontra a linha do cabeçalho
+        let headerRowIndex = -1;
+        for (let i = 0; i < Math.min(rows.length, 5); i++) {
+          if (rows[i] && rows[i].includes('Nº do Processo no SEI')) {
+            headerRowIndex = i;
+            break;
+          }
+        }
+        if (headerRowIndex === -1) throw new Error('Cabeçalho "Nº do Processo no SEI" não encontrado.');
+
+        const headers = rows[headerRowIndex];
+        const idxProcesso = headers.indexOf('Nº do Processo no SEI');
+        const idxStatus = headers.indexOf('STATUS');
+        if (idxProcesso === -1) throw new Error('Coluna "Nº do Processo no SEI" não encontrada.');
+
+        // Mapeia índices para cada campo
+        const indices = COLUNAS.map(c => headers.indexOf(c.origem));
+
+        // Filtra linhas
+        const linhasFiltradas = [];
+        for (let i = headerRowIndex + 1; i < rows.length; i++) {
+          const row = rows[i];
+          if (!row || row.length === 0 || row.every(cell => !cell || cell.trim() === '')) continue;
+          const processo = row[idxProcesso];
+          if (!processo || processo.trim() === '' || isNaN(parseFloat(processo))) continue;
+          if (idxStatus !== -1) {
+            const status = row[idxStatus];
+            if (status && status.trim() !== '') continue;
+          }
+          linhasFiltradas.push(row);
+        }
+
+        if (linhasFiltradas.length === 0) {
+          container.innerHTML = '<p style="color:#4a5a6e;">Nenhum processo em andamento no momento.</p>';
+          contador.textContent = 'Nenhum processo em andamento.';
+          return;
+        }
+
+        const total = linhasFiltradas.length;
+        contador.textContent = `${total} processo(s) em andamento.`;
+
+        let html = '<div class="processos-lista">';
+        linhasFiltradas.forEach((row) => {
+          const campos = COLUNAS.map((col, i) => {
+            const idx = indices[i];
+            let valor = (idx !== -1 && row[idx]) ? row[idx].trim() : '';
+            if (col.rotulo.includes('Data') && valor) valor = formatarData(valor);
+            const classe = valor ? 'valor' : 'valor vazio';
+            const display = valor || '—';
+
+            if (col.rotulo === 'Processo' && valor) {
+              const processoNum = valor;
+              return `<div class="campo"><span class="rotulo">${col.rotulo}</span>
+                      <span class="${classe}">
+                        <a href="#" class="processo-link" onclick="consultarAndamento('${processoNum}'); return false;" title="Consulte o Andamento">${display}</a>
+                      </span></div>`;
+            }
+
+            return `<div class="campo"><span class="rotulo">${col.rotulo}</span><span class="${classe}">${display}</span></div>`;
+          }).join('');
+          html += `<div class="processo-card">${campos}</div>`;
+        });
+        html += '</div>';
+        container.innerHTML = html;
+
+      } catch (error) {
+        console.error(error);
+        container.innerHTML = `<div class="erro"><strong>⚠️ Erro ao carregar os dados:</strong><br>${error.message}</div>`;
+        contador.textContent = 'Erro ao carregar processos.';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', carregarProcessos);
+    document.getElementById('updateDate').textContent =
+      new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAVD/UFS – Reuniões de Conselho</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET E VARIÁVEIS ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --azul-escuro: #272B7D;
+      --azul-medio: #004DA4;
+      --azul-claro: #1a73e8;
+      --laranja: #e67e22;
+      --cinza-fundo: #f4f7fc;
+      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+      --radius: 24px;
+      --branco: #ffffff;
+    }
+    body {
+      font-family: 'Ubuntu', sans-serif;
+      background: var(--cinza-fundo);
+      color: #1e2a3a;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    .main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      width: 100%;
+    }
+
+    .hero {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: var(--radius);
+      padding: 3rem 2.5rem;
+      margin-bottom: 2rem;
+      text-align: left;
+      color: #fff;
+      position: relative;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+    }
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
+    .hero h1 strong { font-weight: 700; }
+    .hero p {
+      font-size: 1.05rem;
+      color: #f0f0f0;
+      margin: 0.3rem 0 1.5rem;
+      max-width: 700px;
+    }
+    .hero .btn-voltar {
+      display: inline-block;
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.5rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: background 0.25s;
+      border: none;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+    .hero .btn-voltar:hover { background: var(--azul-escuro); }
+
+    .conteudo {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2rem;
+    }
+    .conteudo h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--azul-escuro);
+      margin: 0 0 1rem;
+      border-bottom: 2px solid var(--azul-medio);
+      padding-bottom: 0.4rem;
+    }
+    .conteudo > p {
+      font-size: 0.95rem;
+      color: #4a5a6e;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ===== ACORDEÃO ===== */
+    .accordion-ano {
+      border: 1px solid #e0e4e8;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .accordion-ano:hover { border-color: var(--azul-medio); }
+
+    .accordion-ano-header {
+      background: var(--cinza-fundo);
+      padding: 0.8rem 1.2rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      color: var(--azul-escuro);
+      transition: background 0.2s;
+      user-select: none;
+    }
+    .accordion-ano-header:hover { background: #dce1e8; }
+    .accordion-ano-header .titulo { font-size: 1.1rem; }
+    .accordion-ano-header .seta {
+      font-size: 1.2rem;
+      transition: transform 0.3s ease;
+    }
+    .accordion-ano-header .seta.aberto { transform: rotate(180deg); }
+
+    .accordion-ano-body {
+      padding: 0.8rem 1.2rem;
+      display: none;
+      background: #fff;
+    }
+    .accordion-ano-body.aberto { display: block; }
+
+    .slide-item {
+      border-bottom: 1px solid #e9ecef;
+      padding: 0.6rem 0;
+    }
+    .slide-item:last-child { border-bottom: none; }
+    .slide-header {
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 500;
+      color: var(--azul-escuro);
+      padding: 0.3rem 0.2rem;
+      transition: color 0.2s;
+    }
+    .slide-header:hover { color: var(--azul-medio); }
+    .slide-header .seta {
+      font-size: 1rem;
+      transition: transform 0.25s ease;
+    }
+    .slide-header .seta.aberto { transform: rotate(180deg); }
+
+    .slide-body {
+      padding: 0.5rem 0 0.2rem;
+      display: none;
+    }
+    .slide-body.aberto { display: block; }
+
+    .slide-body .iframe-wrapper {
+      position: relative;
+      overflow: hidden;
+      padding-top: 56.25%; /* 16:9 */
+      border-radius: 8px;
+      background: #f8f9fa;
+    }
+    .slide-body .iframe-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* ===== CARREGAMENTO ===== */
+    .loading {
+      text-align: center;
+      padding: 2rem;
+      color: #4a5a6e;
+    }
+    .loading .spinner {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      border: 3px solid #e9ecef;
+      border-top: 3px solid var(--azul-medio);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ===== RESPONSIVO ===== */
+    @media (max-width: 768px) {
+      .hero { padding: 2rem 1.5rem; }
+      .hero h1 { font-size: 1.8rem; }
+      .conteudo { padding: 1.2rem; }
+      .accordion-ano-header .titulo { font-size: 1rem; }
+    }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.5rem; }
+      .accordion-ano-header { padding: 0.6rem 0.8rem; }
+      .accordion-ano-header .titulo { font-size: 0.9rem; }
+      .slide-header { font-size: 0.9rem; }
+    }
+
+    /* ===== RODAPÉ ===== */
+    .footer {
+      background: #2c2c2c;
+      color: #d4e2ed;
+      padding: 2rem 1.5rem 1rem;
+      margin-top: 1.5rem;
+      border-top: 4px solid var(--laranja);
+    }
+    .footer .grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+    }
+    .footer h4 { color: #fff; font-weight: 500; margin-bottom: 0.6rem; font-size: 0.95rem; }
+    .footer ul { list-style: none; padding: 0; }
+    .footer ul li { margin-bottom: 0.3rem; }
+    .footer ul li a {
+      color: #b0c4de;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .footer ul li a:hover { color: #fff; text-decoration: underline; }
+    .footer .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .footer .social-links a {
+      color: #b0c4de;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .footer .social-links a:hover { color: #fff; text-decoration: underline; }
+    .footer .endereco {
+      font-size: 0.85rem;
+      color: #b0c4de;
+      line-height: 1.4;
+    }
+    .footer .endereco a { color: var(--laranja); text-decoration: underline; }
+    .footer .copy {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #8a9aa8;
+      border-top: 1px solid #3a4a5e;
+      padding-top: 1rem;
+      margin-top: 1.5rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+  <main class="main">
+
+    <!-- ===== HERO / BANNER ===== -->
+    <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('https://via.placeholder.com/1200x400/004DA4/ffffff?text=Reunioes+Conselho'); background-size: cover; background-position: center;">
+      <h1>Reuniões de <strong>Conselho</strong></h1>
+      <p>Convocações e pautas das reuniões do DAVD</p>
+      <a href="index.html" class="btn-voltar">Voltar</a>
+    </section>
+
+    <!-- ===== CONTEÚDO ===== -->
+    <div class="conteudo">
+      <h2>Convocações</h2>
+      <p id="contador">Carregando convocações...</p>
+      <div id="accordion-container">
+        <div class="loading">
+          <div class="spinner"></div>
+          <p style="margin-top: 0.8rem;">Carregando dados da planilha...</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ===== RODAPÉ ===== -->
+  <footer class="footer">
+    <div class="grid">
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
+          <li><a href="tel:+557931946925">(79) 3194-6925</a></li>
+          <li style="color:#b0c4de; font-size:0.8rem;">Segunda a sexta</li>
+          <li style="color:#b0c4de; font-size:0.8rem;">08h00 às 12h00 • 13h00 às 21h00</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Localização</h4>
+        <div class="endereco">
+          <p>Cidade Univ. Prof. José Aloísio de Campos<br />Av. Marcelo Déda Chagas, s/n, Bairro Rosa Elze<br />São Cristóvão/SE – CEP 49107-230</p>
+          <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank">Ver no mapa</a>
+        </div>
+      </div>
+      <div>
+        <h4>Redes Artes</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/cenarteufs" target="_blank">Centro Acadêmico: <strong>@cenarteufs</strong></a>
+        </div>
+      </div>
+      <div>
+        <h4>Redes Design</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/designufs" target="_blank">Curso: <strong>@designufs</strong></a>
+          <a href="https://instagram.com/cadeufs" target="_blank">Centro Acadêmico: <strong>@cadeufs</strong></a>
+          <a href="https://instagram.com/designemcurso.ufs" target="_blank">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
+          <a href="https://instagram.com/tiposdaufs" target="_blank">Tipos da UFS: <strong>@tiposdaufs</strong></a>
+        </div>
+      </div>
+    </div>
+    <div class="copy">
+      <p>Universidade Federal de Sergipe – DAVD © 2026</p>
+      <p style="margin-top:0.2rem; font-size:0.7rem; opacity:0.6;">Última atualização: <span id="updateDate"></span></p>
+    </div>
+  </footer>
+
+  <script>
+    // ===== CONFIGURAÇÕES =====
+    // Substitua "SUA_CHAVE_API_AQUI" pela sua chave de API do Google Cloud
+    const API_KEY = 'AIzaSyB4HGlhilR63RhEzu3L8dYV-SxtosOsoII';
+    const SHEET_ID = '1RLccS1BBtFQZP6JD0_t18t5BW2kBZ9a1JMEjtPM5dWs';
+    const SHEET_NAME = 'CONSELHO';
+
+    // ===== BUSCAR DADOS DA API =====
+    async function carregarReunioes() {
+      const container = document.getElementById('accordion-container');
+      const contador = document.getElementById('contador');
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(SHEET_NAME)}?key=${API_KEY}`;
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          let erroMsg = `Erro ${response.status}`;
+          try {
+            const erroJson = await response.json();
+            if (erroJson.error && erroJson.error.message) {
+              erroMsg += `: ${erroJson.error.message}`;
+            }
+          } catch (e) {}
+          throw new Error(erroMsg);
+        }
+
+        const data = await response.json();
+        const rows = data.values;
+        if (!rows || rows.length === 0) {
+          container.innerHTML = '<p style="color:#e67e22;">Nenhum dado encontrado na planilha.</p>';
+          contador.textContent = 'Nenhum dado encontrado.';
+          return;
+        }
+
+        // Primeira linha = cabeçalhos
+        const headers = rows[0];
+        const idxAno = headers.indexOf('Ano');
+        const idxConvocacao = headers.indexOf('Convocação');
+        const idxData = headers.indexOf('Data');
+        const idxLink = headers.indexOf('Link da Apresentação');
+
+        if (idxAno === -1 || idxConvocacao === -1 || idxData === -1 || idxLink === -1) {
+          throw new Error('Colunas necessárias não encontradas: Ano, Convocação, Data, Link da Apresentação');
+        }
+
+        // Agrupar por ano
+        const anos = {};
+        for (let i = 1; i < rows.length; i++) {
+          const row = rows[i];
+          if (!row || row.length === 0 || row.every(cell => !cell || cell.trim() === '')) continue;
+
+          const ano = row[idxAno]?.trim() || '';
+          if (!ano) continue;
+
+          if (!anos[ano]) anos[ano] = [];
+          anos[ano].push({
+            convocacao: row[idxConvocacao]?.trim() || '',
+            data: row[idxData]?.trim() || '',
+            link: row[idxLink]?.trim() || ''
+          });
+        }
+
+        // ===== ORDENAÇÃO INVERSA (anti-horário) =====
+        // 1. Ordenar anos de forma decrescente (2026 → 2025 → 2024)
+        const anosOrdenados = Object.keys(anos).sort((a, b) => b - a);
+
+        if (anosOrdenados.length === 0) {
+          container.innerHTML = '<p style="color:#4a5a6e;">Nenhuma reunião cadastrada.</p>';
+          contador.textContent = 'Nenhuma reunião encontrada.';
+          return;
+        }
+
+        const total = anosOrdenados.reduce((acc, ano) => acc + anos[ano].length, 0);
+        contador.textContent = `${total} convocações encontradas.`;
+
+        // Construir HTML
+        let html = '';
+        anosOrdenados.forEach(ano => {
+          // Inverter a ordem dos slides dentro do ano (mais recente primeiro)
+          const slides = anos[ano].reverse();
+
+          html += `
+            <div class="accordion-ano">
+              <div class="accordion-ano-header" onclick="toggleAno(this)">
+                <span class="titulo">ANO ${ano}</span>
+                <span class="seta">▼</span>
+              </div>
+              <div class="accordion-ano-body">
+          `;
+
+          slides.forEach(slide => {
+            // Extrai o ID do documento do link
+            let docId = slide.link;
+            if (docId.includes('/d/')) {
+              const match = docId.match(/\/d\/([a-zA-Z0-9_-]+)/);
+              if (match) docId = match[1];
+            }
+
+            const titulo = `${slide.convocacao} | ${slide.data}`;
+            html += `
+              <div class="slide-item">
+                <div class="slide-header" onclick="toggleSlide(this)">
+                  <span>${titulo}</span>
+                  <span class="seta">▶</span>
+                </div>
+                <div class="slide-body">
+                  <div class="iframe-wrapper">
+                    <iframe data-src="https://docs.google.com/presentation/d/${docId}/embed?authuser=0" frameborder="0" allowfullscreen></iframe>
+                  </div>
+                </div>
+              </div>
+            `;
+          });
+
+          html += `
+              </div>
+            </div>
+          `;
+        });
+
+        container.innerHTML = html;
+
+        // Abrir o primeiro ano por padrão (agora será o mais recente: 2026)
+        const primeirosAnos = container.querySelectorAll('.accordion-ano');
+        if (primeirosAnos.length > 0) {
+          const primeiroHeader = primeirosAnos[0].querySelector('.accordion-ano-header');
+          if (primeiroHeader) toggleAno(primeiroHeader);
+        }
+
+      } catch (error) {
+        console.error(error);
+        container.innerHTML = `
+          <div style="background:#fde8e8; border:1px solid #f5c6c6; border-radius:12px; padding:1.2rem; color:#721c24;">
+            <strong>⚠️ Erro ao carregar os dados:</strong><br>
+            ${error.message}<br><br>
+            <strong>Possíveis causas:</strong>
+            <ul style="margin-top:0.5rem; padding-left:1.2rem;">
+              <li>A planilha não está pública (configuração de compartilhamento).</li>
+              <li>A chave de API é inválida ou não tem permissão.</li>
+              <li>O nome da aba está incorreto (deve ser exatamente "${SHEET_NAME}").</li>
+              <li>As colunas necessárias (Ano, Convocação, Data, Link da Apresentação) não foram encontradas.</li>
+            </ul>
+            <br>
+            <a href="https://console.cloud.google.com/apis/credentials" target="_blank" style="color:#004DA4; text-decoration:underline;">Criar chave de API no Google Cloud</a>
+          </div>
+        `;
+        contador.textContent = 'Erro ao carregar dados.';
+      }
+    }
+
+    // ===== FUNÇÕES DE TOGGLE (acordeão) =====
+    function toggleAno(header) {
+      const body = header.nextElementSibling;
+      const seta = header.querySelector('.seta');
+      const isOpen = body.classList.contains('aberto');
+
+      document.querySelectorAll('.accordion-ano-body').forEach(el => {
+        if (el !== body) {
+          el.classList.remove('aberto');
+          el.previousElementSibling.querySelector('.seta').classList.remove('aberto');
+        }
+      });
+
+      if (isOpen) {
+        body.classList.remove('aberto');
+        seta.classList.remove('aberto');
+      } else {
+        body.classList.add('aberto');
+        seta.classList.add('aberto');
+      }
+    }
+
+    function toggleSlide(header) {
+      const body = header.nextElementSibling;
+      const seta = header.querySelector('.seta');
+      const isOpen = body.classList.contains('aberto');
+
+      const parentBody = header.closest('.accordion-ano-body');
+      if (parentBody) {
+        parentBody.querySelectorAll('.slide-body').forEach(el => {
+          if (el !== body) {
+            el.classList.remove('aberto');
+            el.previousElementSibling.querySelector('.seta').classList.remove('aberto');
+          }
+        });
+      }
+
+      if (isOpen) {
+        body.classList.remove('aberto');
+        seta.classList.remove('aberto');
+      } else {
+        body.classList.add('aberto');
+        seta.classList.add('aberto');
+        const iframe = body.querySelector('iframe');
+        if (iframe && iframe.dataset.src && !iframe.src) {
+          iframe.src = iframe.dataset.src;
+        }
+      }
+    }
+
+    // ===== EXECUTAR =====
+    document.addEventListener('DOMContentLoaded', function() {
+      carregarReunioes();
+
+      document.getElementById('updateDate').textContent =
+        new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAVD/UFS – Espaços Compartilhados</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET E VARIÁVEIS ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --azul-escuro: #272B7D;
+      --azul-medio: #004DA4;
+      --azul-claro: #1a73e8;
+      --laranja: #e67e22;
+      --cinza-fundo: #f4f7fc;
+      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+      --radius: 24px;
+      --branco: #ffffff;
+    }
+    body {
+      font-family: 'Ubuntu', sans-serif;
+      background: var(--cinza-fundo);
+      color: #1e2a3a;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== CONTEÚDO PRINCIPAL ===== */
+    .main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      width: 100%;
+    }
+
+    /* ===== HERO / BANNER ===== */
+    .hero {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: var(--radius);
+      padding: 3rem 2.5rem;
+      margin-bottom: 2rem;
+      text-align: left;
+      color: #fff;
+      position: relative;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+    }
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
+    .hero h1 strong { font-weight: 700; }
+    .hero p {
+      font-size: 1.05rem;
+      color: #f0f0f0;
+      margin: 0.3rem 0 1.5rem;
+      max-width: 700px;
+    }
+    .hero .btn-voltar {
+      display: inline-block;
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.5rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: background 0.25s;
+      border: none;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+    .hero .btn-voltar:hover { background: var(--azul-escuro); }
+
+    /* ===== SEÇÃO DE CONTEÚDO ===== */
+    .conteudo {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2rem;
+    }
+    .conteudo h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--azul-escuro);
+      margin: 0 0 1rem;
+      border-bottom: 2px solid var(--azul-medio);
+      padding-bottom: 0.4rem;
+    }
+    .conteudo > p {
+      font-size: 0.95rem;
+      color: #4a5a6e;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ===== ACORDEÃO ===== */
+    .accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .accordion-item {
+      border: 1px solid #e0e4e8;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .accordion-item:hover {
+      border-color: var(--azul-medio);
+    }
+
+    .accordion-header {
+      background: var(--cinza-fundo);
+      padding: 0.8rem 1.2rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      color: var(--azul-escuro);
+      transition: background 0.2s;
+      user-select: none;
+    }
+    .accordion-header:hover {
+      background: #dce1e8;
+    }
+    .accordion-header .titulo {
+      font-size: 1.05rem;
+    }
+    .accordion-header .seta {
+      font-size: 1.2rem;
+      transition: transform 0.3s ease;
+    }
+    .accordion-header .seta.aberto {
+      transform: rotate(180deg);
+    }
+
+    .accordion-body {
+      padding: 0.8rem 0.8rem 0.8rem;
+      display: none;
+      background: #fff;
+    }
+    .accordion-body.aberto {
+      display: block;
+    }
+
+    /* ===== WRAPPER DO CALENDÁRIO ===== */
+    .calendar-wrapper {
+      position: relative;
+      overflow: hidden;
+      padding-top: 56.25%; /* Proporção 16:9 */
+      border-radius: 8px;
+      background: #f8f9fa;
+    }
+    .calendar-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* ===== LINK DE AGENDAMENTO ===== */
+    .agendamento-link {
+      margin-top: 1.8rem;
+      text-align: center;
+      font-size: 1.05rem;
+    }
+    .agendamento-link a {
+      display: inline-block;
+      background: var(--laranja);
+      color: #fff;
+      padding: 0.7rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 4px 12px rgba(230, 126, 34, 0.3);
+    }
+    .agendamento-link a:hover {
+      background: #d35400;
+      transform: translateY(-2px);
+    }
+
+    /* ===== RESPONSIVO ===== */
+    @media (max-width: 768px) {
+      .hero { padding: 2rem 1.5rem; }
+      .hero h1 { font-size: 1.8rem; }
+      .conteudo { padding: 1.2rem; }
+      .accordion-header .titulo { font-size: 0.95rem; }
+      .calendar-wrapper { padding-top: 75%; }
+    }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.5rem; }
+      .accordion-header { padding: 0.6rem 0.8rem; }
+      .accordion-header .titulo { font-size: 0.85rem; }
+      .calendar-wrapper { padding-top: 100%; }
+    }
+
+    /* ===== RODAPÉ ===== */
+    .footer {
+      background: #2c2c2c;
+      color: #d4e2ed;
+      padding: 2rem 1.5rem 1rem;
+      margin-top: 1.5rem;
+      border-top: 4px solid var(--laranja);
+    }
+    .footer .grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+    }
+    .footer h4 { color: #fff; font-weight: 500; margin-bottom: 0.6rem; font-size: 0.95rem; }
+    .footer ul { list-style: none; padding: 0; }
+    .footer ul li { margin-bottom: 0.3rem; }
+    .footer ul li a {
+      color: #b0c4de;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .footer ul li a:hover { color: #fff; text-decoration: underline; }
+    .footer .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .footer .social-links a {
+      color: #b0c4de;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .footer .social-links a:hover { color: #fff; text-decoration: underline; }
+    .footer .endereco {
+      font-size: 0.85rem;
+      color: #b0c4de;
+      line-height: 1.4;
+    }
+    .footer .endereco a { color: var(--laranja); text-decoration: underline; }
+    .footer .copy {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #8a9aa8;
+      border-top: 1px solid #3a4a5e;
+      padding-top: 1rem;
+      margin-top: 1.5rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+  <main class="main">
+
+    <!-- ===== HERO / BANNER ===== -->
+    <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('https://via.placeholder.com/1200x400/004DA4/ffffff?text=Espacos+Compartilhados'); background-size: cover; background-position: center;">
+      <h1>Espaços <strong>Compartilhados</strong></h1>
+      <p>Agendamento e disponibilidade dos espaços do DAVD</p>
+      <a href="index.html" class="btn-voltar">Voltar</a>
+    </section>
+
+    <!-- ===== CONTEÚDO ===== -->
+    <div class="conteudo">
+      <h2>Agendamento de Espaços</h2>
+      <p>Clique em um espaço para visualizar a agenda e verificar a disponibilidade.</p>
+
+      <div class="accordion">
+
+        <!-- ===== 1. Didática VI - Sala 11 ===== -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span class="titulo">Didática VI - Sala 11</span>
+            <span class="seta">▼</span>
+          </div>
+          <div class="accordion-body">
+            <div class="calendar-wrapper">
+              <iframe src="https://calendar.google.com/calendar/embed?src=c_700e2875dc77854a85cec43119d4ed2fb3399fa2fb15e72b110816af0b26b7cb%40group.calendar.google.com&ctz=America%2FMaceio" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== 2. Laboratório de Bi-Tridimensionais ===== -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span class="titulo">Laboratório de Bi-Tridimensionais</span>
+            <span class="seta">▼</span>
+          </div>
+          <div class="accordion-body">
+            <div class="calendar-wrapper">
+              <iframe src="https://calendar.google.com/calendar/embed?src=c_624b501a3a6bb2121fde608a9c767e03f9aaad3404beb0fdf891424b5e7a916f%40group.calendar.google.com&ctz=America%2FMaceio" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== 3. Laboratório de Computação Gráfica ===== -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span class="titulo">Laboratório de Computação Gráfica</span>
+            <span class="seta">▼</span>
+          </div>
+          <div class="accordion-body">
+            <div class="calendar-wrapper">
+              <iframe src="https://calendar.google.com/calendar/embed?src=c_7f87fd87828faf20896981b09ce4a71fa1532810d1e6fa30b111aef83133c694%40group.calendar.google.com&ctz=America%2FMaceio" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== 4. Sala de Reuniões ===== -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span class="titulo">Sala de Reuniões</span>
+            <span class="seta">▼</span>
+          </div>
+          <div class="accordion-body">
+            <div class="calendar-wrapper">
+              <iframe src="https://calendar.google.com/calendar/embed?src=c_65fdfeaf3538ab0ba4ca086684a20c580b30241b956809158c5423576312ed4b%40group.calendar.google.com&ctz=America%2FMaceio" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ===== LINK PARA AGENDAMENTO ===== -->
+      <div class="agendamento-link">
+        <a href="mailto:davd@academico.ufs.br">Para agendar, clique aqui</a>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ===== RODAPÉ ===== -->
+  <footer class="footer">
+    <div class="grid">
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
+          <li><a href="tel:+557931946925">(79) 3194-6925</a></li>
+          <li style="color:#b0c4de; font-size:0.8rem;">Segunda a sexta</li>
+          <li style="color:#b0c4de; font-size:0.8rem;">08h00 às 12h00 • 13h00 às 21h00</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Localização</h4>
+        <div class="endereco">
+          <p>Cidade Univ. Prof. José Aloísio de Campos<br />Av. Marcelo Déda Chagas, s/n, Bairro Rosa Elze<br />São Cristóvão/SE – CEP 49107-230</p>
+          <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank">Ver no mapa</a>
+        </div>
+      </div>
+      <div>
+        <h4>Redes Artes</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/cenarteufs" target="_blank">Centro Acadêmico: <strong>@cenarteufs</strong></a>
+        </div>
+      </div>
+      <div>
+        <h4>Redes Design</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/designufs" target="_blank">Curso: <strong>@designufs</strong></a>
+          <a href="https://instagram.com/cadeufs" target="_blank">Centro Acadêmico: <strong>@cadeufs</strong></a>
+          <a href="https://instagram.com/designemcurso.ufs" target="_blank">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
+          <a href="https://instagram.com/tiposdaufs" target="_blank">Tipos da UFS: <strong>@tiposdaufs</strong></a>
+        </div>
+      </div>
+    </div>
+    <div class="copy">
+      <p>Universidade Federal de Sergipe – DAVD © 2026</p>
+      <p style="margin-top:0.2rem; font-size:0.7rem; opacity:0.6;">Última atualização: <span id="updateDate"></span></p>
+    </div>
+  </footer>
+
+  <script>
+    // ===== FUNÇÃO PARA ABRIR/FECHAR ACORDEÃO =====
+    function toggleAccordion(header) {
+      const body = header.nextElementSibling;
+      const seta = header.querySelector('.seta');
+      const isOpen = body.classList.contains('aberto');
+
+      // Fecha todos os outros
+      document.querySelectorAll('.accordion-body').forEach(el => {
+        if (el !== body) {
+          el.classList.remove('aberto');
+          el.previousElementSibling.querySelector('.seta').classList.remove('aberto');
+        }
+      });
+
+      // Alterna o atual
+      if (isOpen) {
+        body.classList.remove('aberto');
+        seta.classList.remove('aberto');
+      } else {
+        body.classList.add('aberto');
+        seta.classList.add('aberto');
+      }
+    }
+
+    // Data atual no rodapé
+    document.getElementById('updateDate').textContent =
+      new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+
+    // Abrir o primeiro item por padrão
+    document.addEventListener('DOMContentLoaded', function() {
+      const firstHeader = document.querySelector('.accordion-header');
+      if (firstHeader) {
+        const firstBody = firstHeader.nextElementSibling;
+        const firstSeta = firstHeader.querySelector('.seta');
+        firstBody.classList.add('aberto');
+        firstSeta.classList.add('aberto');
+      }
+    });
+  </script>
+
+</body>
+</html>

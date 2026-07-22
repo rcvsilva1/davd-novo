@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAVD/UFS – Artes Visuais</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET E VARIÁVEIS ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --azul-escuro: #272B7D;
+      --azul-medio: #004DA4;
+      --azul-claro: #1a73e8;
+      --laranja: #e67e22;
+      --cinza-fundo: #f4f7fc;
+      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+      --radius: 24px;
+      --branco: #ffffff;
+    }
+    body {
+      font-family: 'Ubuntu', sans-serif;
+      background: var(--cinza-fundo);
+      color: #1e2a3a;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* ===== CONTEÚDO PRINCIPAL ===== */
+    .main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      width: 100%;
+    }
+
+    /* ===== HERO / BANNER ===== */
+    .hero {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: var(--radius);
+      padding: 4rem 3rem;
+      margin-bottom: 2.5rem;
+      text-align: left;
+      color: #fff;
+      position: relative;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+    }
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .hero h1 strong {
+      font-weight: 700;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: #f0f0f0;
+      margin: 0.5rem 0 1.8rem;
+      max-width: 700px;
+    }
+    .hero .btn-voltar {
+      display: inline-block;
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.6rem 2rem;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: background 0.25s;
+      border: none;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+    .hero .btn-voltar:hover {
+      background: var(--azul-escuro);
+    }
+
+    /* ===== SEÇÃO DE CONTEÚDO ===== */
+    .conteudo {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2.5rem;
+    }
+    .conteudo h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--azul-escuro);
+      margin: 2rem 0 1rem;
+      border-bottom: 2px solid var(--azul-medio);
+      padding-bottom: 0.5rem;
+    }
+    .conteudo h2:first-of-type {
+      margin-top: 0;
+    }
+    .conteudo h3 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--azul-medio);
+      margin: 1.5rem 0 0.8rem;
+    }
+    .conteudo p {
+      font-size: 1rem;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+
+    /* ===== LINKS ÚTEIS ===== */
+    .grid-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .card-link {
+      background: var(--cinza-fundo);
+      border-radius: 14px;
+      padding: 1rem 0.8rem;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .card-link a {
+      display: block;
+      font-weight: 500;
+      color: var(--azul-medio);
+      font-size: 0.9rem;
+    }
+    .card-link a:hover {
+      text-decoration: underline;
+    }
+    .card-link .icone {
+      font-size: 1.6rem;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    /* ===== GRADE CURRICULAR (ACORDEÃO) ===== */
+    .periodo {
+      margin-bottom: 0.8rem;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #e0e4e8;
+    }
+    .periodo-header {
+      background: var(--cinza-fundo);
+      padding: 0.8rem 1.2rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      color: var(--azul-escuro);
+      transition: background 0.2s;
+      user-select: none;
+    }
+    .periodo-header:hover {
+      background: #dce1e8;
+    }
+    .periodo-header .seta {
+      font-size: 1.2rem;
+      transition: transform 0.25s;
+    }
+    .periodo-header .seta.aberto {
+      transform: rotate(180deg);
+    }
+    .periodo-body {
+      padding: 0 1.2rem 1.2rem;
+      display: none;
+      background: #fff;
+    }
+    .periodo-body.aberto {
+      display: block;
+    }
+    .periodo-body table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+    .periodo-body table th {
+      text-align: left;
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.4rem 0.6rem;
+      font-weight: 500;
+    }
+    .periodo-body table td {
+      padding: 0.4rem 0.6rem;
+      border-bottom: 1px solid #e9ecef;
+    }
+    .periodo-body table tr:last-child td {
+      border-bottom: none;
+    }
+    .periodo-body .ch-total {
+      margin-top: 0.6rem;
+      font-weight: 500;
+      color: var(--azul-escuro);
+      text-align: right;
+    }
+
+    /* ===== OPTATIVAS ===== */
+    .optativas-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+    .optativas-grid .item-opt {
+      background: var(--cinza-fundo);
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: #2c3e50;
+    }
+    .optativas-grid .item-opt .codigo {
+      font-weight: 500;
+      color: var(--azul-medio);
+      font-size: 0.8rem;
+      display: block;
+    }
+    .optativas-grid .item-opt .carga {
+      font-size: 0.8rem;
+      color: #4a5a6e;
+    }
+
+    /* ===== INFORMAÇÕES DO CURRÍCULO ===== */
+    .info-curriculo {
+      background: var(--cinza-fundo);
+      border-radius: 16px;
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.8rem;
+    }
+    .info-curriculo .item {
+      font-size: 0.9rem;
+    }
+    .info-curriculo .item strong {
+      color: var(--azul-escuro);
+    }
+
+    /* ===== RESPONSIVO ===== */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 2.5rem 1.5rem;
+        min-height: 160px;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .conteudo {
+        padding: 1.5rem;
+      }
+      .grid-links {
+        grid-template-columns: 1fr 1fr;
+      }
+      .optativas-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+      .grid-links {
+        grid-template-columns: 1fr;
+      }
+      .periodo-body table {
+        font-size: 0.8rem;
+      }
+      .periodo-body table th,
+      .periodo-body table td {
+        padding: 0.3rem 0.4rem;
+      }
+    }
+
+    /* ===== RODAPÉ ===== */
+    .footer {
+      background: #2c2c2c;
+      color: #d4e2ed;
+      padding: 2.5rem 1.5rem 1.5rem;
+      margin-top: 2rem;
+      border-top: 4px solid var(--laranja);
+    }
+    .footer .grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    .footer h4 {
+      color: #fff;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+      font-size: 1rem;
+    }
+    .footer ul {
+      list-style: none;
+      padding: 0;
+    }
+    .footer ul li {
+      margin-bottom: 0.4rem;
+    }
+    .footer ul li a {
+      color: #b0c4de;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer ul li a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .footer .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .footer .social-links a {
+      color: #b0c4de;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer .social-links a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .footer .endereco {
+      font-size: 0.9rem;
+      color: #b0c4de;
+      line-height: 1.5;
+    }
+    .footer .endereco a {
+      color: var(--laranja);
+      text-decoration: underline;
+    }
+    .footer .copy {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #8a9aa8;
+      border-top: 1px solid #3a4a5e;
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+  <main class="main">
+
+    <!-- ===== HERO / BANNER ===== -->
+    <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('https://via.placeholder.com/1200x400/004DA4/ffffff?text=Artes+Visuais'); background-size: cover; background-position: center;">
+      <h1>Artes Visuais – <strong>Licenciatura</strong></h1>
+      <p>Curso presencial – Vespertino – São Cristóvão</p>
+      <a href="index.html" class="btn-voltar">Voltar</a>
+    </section>
+
+    <!-- ===== CONTEÚDO ===== -->
+    <div class="conteudo">
+
+      <!-- ===== LINKS ÚTEIS ===== -->
+      <h2>Links Úteis</h2>
+      <div class="grid-links">
+        <div class="card-link">
+          <span class="icone">📅</span>
+          <a href="https://prograd.ufs.br/pagina/25642" target="_blank">Calendário Acadêmico</a>
+        </div>
+        <div class="card-link">
+          <span class="icone">📋</span>
+          <a href="#">Oferta de Componentes</a>
+        </div>
+        <div class="card-link">
+          <span class="icone">📌</span>
+          <a href="#">Estágio Obrigatório</a>
+        </div>
+        <div class="card-link">
+          <span class="icone">📌</span>
+          <a href="#">Estágio Não Obrigatório</a>
+        </div>
+        <div class="card-link">
+          <span class="icone">📘</span>
+          <a href="#">Atividades Complementares</a>
+        </div>
+        <div class="card-link">
+          <span class="icone">🔄</span>
+          <a href="#">Aproveitamento</a>
+        </div>
+        <div class="card-link">
+          <span class="icone">👨‍🏫</span>
+          <a href="#">Ensino Individual</a>
+        </div>
+        <div class="card-link">
+          <span class="icone">📄</span>
+          <a href="https://presencial.ufs.br/pagina/22196" target="_blank">Requerimentos Diversos</a>
+        </div>
+      </div>
+
+      <!-- ===== INFORMAÇÕES DO CURRÍCULO ===== -->
+      <h2>Estrutura Curricular</h2>
+      <div class="info-curriculo">
+        <div class="item"><strong>Código:</strong> 08</div>
+        <div class="item"><strong>Matriz Curricular:</strong> ARTES VISUAIS - São Cristóvão - Presencial - Vespertino - Licenciatura Plena</div>
+        <div class="item"><strong>Período de Vigência:</strong> 2012-1</div>
+        <div class="item"><strong>Carga Horária Total Mínima:</strong> 3045h</div>
+        <div class="item"><strong>Optativas Mínima:</strong> 240h</div>
+        <div class="item"><strong>Prazos (períodos):</strong> Mínimo 8, Médio 8, Máximo 12</div>
+        <div class="item"><strong>Créditos por período:</strong> Mínimo 12, Médio 25, Máximo 32</div>
+      </div>
+
+      <!-- ===== GRADE CURRICULAR (ACORDEÃO) ===== -->
+
+      <!-- 1º Período -->
+      <div class="periodo">
+        <div class="periodo-header" onclick="togglePeriodo(this)">
+          1º Período <span class="seta">▼</span>
+        </div>
+        <div class="periodo-body">
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>410121</td><td>LABORATÓRIO ENSINO FORMAS EXPRES BIDIMENSIONAIS I</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410146</td><td>INTRODUCAO A PRODUCAO E ANALISE DA IMAGEM</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410101</td><td>HISTÓRIA DAS ARTES VISUAIS I</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410141</td><td>MÉTODOS E TÉCNICAS DE PESQUISA EM ARTES VISUAIS</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410113</td><td>FUNDAMENTOS DA ARTE I</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>405011</td><td>ANTROPOLOGIA I</td><td>60h</td><td>Obrigatória</td></tr>
+          </table>
+          <div class="ch-total">CH Total: 360h</div>
+        </div>
+      </div>
+
+      <!-- 2º Período -->
+      <div class="periodo">
+        <div class="periodo-header" onclick="togglePeriodo(this)">
+          2º Período <span class="seta">▼</span>
+        </div>
+        <div class="periodo-body">
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>410122</td><td>LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS II</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410102</td><td>HISTÓRIA DAS ARTES VISUAIS II</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410131</td><td>LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS I</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410114</td><td>FUNDAMENTOS DA ARTE II</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>401363</td><td>ESTRUTURA E FUNCIONAMENTO DA EDUCAÇÃO BÁSICA</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>406251</td><td>INTRODUÇÃO À PSICOLOGIA DO DESENVOLVIMENTO</td><td>60h</td><td>Obrigatória</td></tr>
+          </table>
+          <div class="ch-total">CH Total: 360h</div>
+        </div>
+      </div>
+
+      <!-- 3º Período -->
+      <div class="periodo">
+        <div class="periodo-header" onclick="togglePeriodo(this)">
+          3º Período <span class="seta">▼</span>
+        </div>
+        <div class="periodo-body">
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>410147</td><td>INTRODUÇÃO À COMPUTAÇÃO GRÁFICA</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410123</td><td>LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS III</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410100</td><td>HISTÓRIA DAS ARTES VISUAIS III</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410132</td><td>LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSINAIS II</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>401355</td><td>LÍNGUA BRASILEIRA DE SINAIS – LIBRAS</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>406256</td><td>INTRODUÇÃO À PSICOLOGIA DA APRENDIZAGEM</td><td>60h</td><td>Obrigatória</td></tr>
+          </table>
+          <div class="ch-total">CH Total: 360h</div>
+        </div>
+      </div>
+
+      <!-- 4º Período -->
+      <div class="periodo">
+        <div class="periodo-header" onclick="togglePeriodo(this)">
+          4º Período <span class="seta">▼</span>
+        </div>
+        <div class="periodo-body">
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>410133</td><td>LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS III</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410103</td><td>HISTÓRIA DAS ARTES VISUAIS IV</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410104</td><td>HISTÓRIA DAS ARTES VISUAIS NO BRASIL I</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410151</td><td>ESTÁGIO SUPERVISIONADO P ENSINO ARTES VISUAIS I</td><td>75h</td><td>Obrigatória</td></tr>
+            <tr><td>410124</td><td>LABORATORIO ENSINO FORMAS EXPRESSIVAS BIDIMEN IV</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>401101</td><td>DIDATICA</td><td>75h</td><td>Obrigatória</td></tr>
+          </table>
+          <div class="ch-total">CH Total: 390h</div>
+        </div>
+      </div>
+
+      <!-- 5º Período -->
+      <div class="periodo">
+        <div class="periodo-header" onclick="togglePeriodo(this)">
+          5º Período <span class="seta">▼</span>
+        </div>
+        <div class="periodo-body">
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>410125</td><td>LABORATORIO ENSINO FORMAS EXPRESS BIDIMENSION V</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410105</td><td>HISTÓRIA DAS ARTES VISUAIS NO BRASIL II</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410111</td><td>FUNDAMENTOS DO ENSINO DE ARTES VISUAIS NO BRASIL I</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410152</td><td>ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS II</td><td>75h</td><td>Obrigatória</td></tr>
+            <tr><td>405018</td><td>CULTURA BRASILEIRA</td><td>60h</td><td>Obrigatória</td></tr>
+          </table>
+          <div class="ch-total">CH Total: 315h</div>
+        </div>
+      </div>
+
+      <!-- 6º Período -->
+      <div class="periodo">
+        <div class="periodo-header" onclick="togglePeriodo(this)">
+          6º Período <span class="seta">▼</span>
+        </div>
+        <div class="periodo-body">
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>410106</td><td>HISTÓRIA DAS ARTES VISUAIS NO BRASIL III</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410126</td><td>LABORATORIO ENSINO FORMAS EXPRES BIDIMENSIONAIS VI</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410153</td><td>ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS III</td><td>75h</td><td>Obrigatória</td></tr>
+            <tr><td>410112</td><td>FUNDAMENTOS ENSINO DE ARTES VISUAIS NO BRASIL II</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410145</td><td>ARTES VISUAIS E NOVAS TECNOLOGIAS</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>401354</td><td>FUNDAMENTOS DA EDUCAÇÃO INCLUSIVA</td><td>60h</td><td>Obrigatória</td></tr>
+          </table>
+          <div class="ch-total">CH Total: 375h</div>
+        </div>
+      </div>
+
+      <!-- 7º Período -->
+      <div class="periodo">
+        <div class="periodo-header" onclick="togglePeriodo(this)">
+          7º Período <span class="seta">▼</span>
+        </div>
+        <div class="periodo-body">
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>410154</td><td>ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS IV</td><td>75h</td><td>Obrigatória</td></tr>
+            <tr><td>410107</td><td>HISTÓRIA DAS ARTES VISUAIS EM SERGIPE</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410142</td><td>TRABALHO DE CONCLUSÃO DE CURSO ARTES VISUAIS I</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410115</td><td>TEORIA E CRÍTICA DE ARTE</td><td>60h</td><td>Obrigatória</td></tr>
+          </table>
+          <div class="ch-total">CH Total: 255h</div>
+        </div>
+      </div>
+
+      <!-- 8º Período -->
+      <div class="periodo">
+        <div class="periodo-header" onclick="togglePeriodo(this)">
+          8º Período <span class="seta">▼</span>
+        </div>
+        <div class="periodo-body">
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>410144</td><td>TRABALHO DE CONCLUSÃO DE CURSO ARTES VISUAIS II</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410155</td><td>ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS V</td><td>120h</td><td>Obrigatória</td></tr>
+            <tr><td>DESIG0083</td><td>ATIVIDADES COMPLEMENTARES EM ARTES VISUAIS</td><td>210h</td><td>Obrigatória</td></tr>
+          </table>
+          <div class="ch-total">CH Total: 390h</div>
+        </div>
+      </div>
+
+      <!-- ===== FORMAÇÃO COMPLEMENTAR (OPTATIVAS) ===== -->
+      <h2>Formação Complementar – Optativas</h2>
+      <p style="font-size:0.95rem; color:#4a5a6e;">Carga horária mínima de <strong>240h</strong> em disciplinas optativas.</p>
+      <div class="optativas-grid">
+        <div class="item-opt"><span class="codigo">900001</span> MONITORIA I <span class="carga">30h</span></div>
+        <div class="item-opt"><span class="codigo">900002</span> MONITORIA II <span class="carga">30h</span></div>
+        <div class="item-opt"><span class="codigo">900003</span> MONITORIA III <span class="carga">30h</span></div>
+        <div class="item-opt"><span class="codigo">900004</span> MONITORIA IV <span class="carga">30h</span></div>
+        <div class="item-opt"><span class="codigo">410221</span> HISTÓRIA DO DESIGN <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">410222</span> DESIGN CONTEMPORÂNEO <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">410161</span> SISTEMAS DE REPRESENTACAO BIDIMENSIONAL <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">410162</span> SISTEMAS DE REPRESENTACAO TRIDIMENSIONAL <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">410163</span> METODOLOGIA VISUAL <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0084</span> ATIVIDADES COMPLEMENTARES <span class="carga">45h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0085</span> ATIVIDADE DE EXTENSÃO INTEGRADORA DE FORMAÇÃO I – SEMAC <span class="carga">15h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0086</span> UFS-COMUNIDADE <span class="carga">30h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0090</span> UFS – COMUNIDADE <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0091</span> TÓPICOS EM MEDIAÇÃO CULTURAL <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0092</span> TÓPICOS ESPECIAIS EM GRAVURA <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0093</span> TÓPICOS ESPECIAIS EM ESTÉTICA E POLÍTICA <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0094</span> TÓPICOS ESPECIAIS EM HISTÓRIA DA ARTE CONTEMPORÂNEA I <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0095</span> TÓPICOS ESPECIAIS EM HISTÓRIA DA ARTE CONTEMPORÂNEA II <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0096</span> TÓPICOS EM ARTE AFRO-BRASILEIRA <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0097</span> TÓPICOS ESPECIAIS EM ESTUDOS DE PERSPECTIVA ARTÍSTICA <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0098</span> TÓPICOS ESPECIAIS EM EXPERIMENTAÇÃO VISUAL: MIXED MEDIA <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0099</span> TÓPICOS ESPECIAIS EM ARTESANATO BRASILEIRO <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0100</span> TÓPICOS ESPECIAIS EM POÉTICAS TRIDIMENSIONAIS <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0101</span> TÓPICOS ESPECIAIS EM MATÉRIA E CRIATIVIDADE <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0102</span> TÓPICOS ESPECIAIS EM VISUALIDADES INDÍGENAS <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0103</span> TÓPICOS ESPECIAIS EM ARTE E CIDADE <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0104</span> TÓPICOS ESPECIAIS : ARTE, CULTURA E ESPAÇO PÚBLICO <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">401301</span> FUNDAMENTOS FILOSOFICOS DA EDUCACAO <span class="carga">75h</span></div>
+        <div class="item-opt"><span class="codigo">401302</span> FUNDAMENTOS SOCIOLOGICOS DA EDUCACAO <span class="carga">75h</span></div>
+        <div class="item-opt"><span class="codigo">401304</span> ANTROPOLOGIA NA EDUCACAO <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">401353</span> TEORIAS DE CURRICULO <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">407031</span> INTRODUCAO A FILOSOFIA <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">407211</span> HISTÓRIA DA FILOSOFIA CLÁSSICA E HELENÍSTICA I <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">407212</span> HISTÓRIA DA FILOSOFIA CLÁSSICA E HELENÍSTICA II <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">407213</span> HISTÓRIA DA FILOSOFIA MEDIEVAL I <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">407214</span> HISTÓRIA DA FILOSOFIA MEDIEVAL II <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">407215</span> HISTÓRIA DA FILOSOFIA MODERNA I <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">407216</span> HISTÓRIA DA FILOSOFIA MODERNA II <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">407218</span> HISTÓRIA DA FILOSOFIA CONTEMPORÂNEA I <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">407219</span> HISTÓRIA DA FILOSOFIA CONTEMPORÂNEA II <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">402351</span> HISTÓRIA E PATRIMÔNIO CULTURAL <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">402326</span> TEMAS DE HISTÓRIA DE SERGIPE I <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">402261</span> HISTÓRIA DA EDUCAÇÃO <span class="carga">75h</span></div>
+        <div class="item-opt"><span class="codigo">405012</span> ANTROPOLOGIA II <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">405015</span> FOLCLORE BRASILEIRO <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">405016</span> ETNOLOGIA BRASILEIRA I <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">405017</span> ETNOLOGIA BRASILEIRA II <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">405041</span> SOCIOLOGIA I <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">405121</span> SOCIOLOGIA II <span class="carga">60h</span></div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ===== RODAPÉ ===== -->
+  <footer class="footer">
+    <div class="grid">
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
+          <li><a href="tel:+557931946925">(79) 3194-6925</a></li>
+          <li style="color:#b0c4de; font-size:0.9rem;">Segunda a sexta</li>
+          <li style="color:#b0c4de; font-size:0.9rem;">08h00 às 12h00 • 13h00 às 21h00</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Localização</h4>
+        <div class="endereco">
+          <p>Cidade Univ. Prof. José Aloísio de Campos<br />
+          Av. Marcelo Déda Chagas, s/n, Bairro Rosa Elze<br />
+          São Cristóvão/SE – CEP 49107-230</p>
+          <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank">Ver no mapa</a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Redes Artes</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/cenarteufs" target="_blank">Centro Acadêmico: <strong>@cenarteufs</strong></a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Redes Design</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/designufs" target="_blank">Curso: <strong>@designufs</strong></a>
+          <a href="https://instagram.com/cadeufs" target="_blank">Centro Acadêmico: <strong>@cadeufs</strong></a>
+          <a href="https://instagram.com/designemcurso.ufs" target="_blank">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
+          <a href="https://instagram.com/tiposdaufs" target="_blank">Tipos da UFS: <strong>@tiposdaufs</strong></a>
+        </div>
+      </div>
+    </div>
+    <div class="copy">
+      <p>Universidade Federal de Sergipe – DAVD © 2026</p>
+      <p style="margin-top:0.3rem; font-size:0.75rem; opacity:0.6;">
+        Última atualização: <span id="updateDate"></span>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // ===== FUNÇÃO PARA ABRIR/FECHAR PERÍODOS =====
+    function togglePeriodo(header) {
+      var body = header.nextElementSibling;
+      var seta = header.querySelector('.seta');
+      body.classList.toggle('aberto');
+      seta.classList.toggle('aberto');
+    }
+
+    // Data atual no rodapé
+    document.getElementById('updateDate').textContent =
+      new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+  </script>
+</body>
+</html>

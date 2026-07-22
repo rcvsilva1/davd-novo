@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAVD/UFS – Design Gráfico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET E VARIÁVEIS ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --azul-escuro: #272B7D;
+      --azul-medio: #004DA4;
+      --azul-claro: #1a73e8;
+      --laranja: #e67e22;
+      --cinza-fundo: #f4f7fc;
+      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+      --radius: 24px;
+      --branco: #ffffff;
+    }
+    body {
+      font-family: 'Ubuntu', sans-serif;
+      background: var(--cinza-fundo);
+      color: #1e2a3a;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; height: auto; }
+
+    /* ===== CONTEÚDO PRINCIPAL ===== */
+    .main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      width: 100%;
+    }
+
+    /* ===== HERO / BANNER ===== */
+    .hero {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: var(--radius);
+      padding: 4rem 3rem;
+      margin-bottom: 2.5rem;
+      text-align: left;
+      color: #fff;
+      position: relative;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+    }
+    .hero h1 { font-size: 2.4rem; font-weight: 400; color: #fff; margin-bottom: 0.5rem; }
+    .hero h1 strong { font-weight: 700; }
+    .hero p {
+      font-size: 1.15rem;
+      color: #f0f0f0;
+      margin: 0.5rem 0 1.8rem;
+      max-width: 700px;
+    }
+    .hero .btn-voltar {
+      display: inline-block;
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.6rem 2rem;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: background 0.25s;
+      border: none;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+    .hero .btn-voltar:hover { background: var(--azul-escuro); }
+
+    /* ===== SEÇÃO DE CONTEÚDO ===== */
+    .conteudo {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2.5rem;
+    }
+    .conteudo h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--azul-escuro);
+      margin: 2rem 0 1rem;
+      border-bottom: 2px solid var(--azul-medio);
+      padding-bottom: 0.5rem;
+    }
+    .conteudo h2:first-of-type { margin-top: 0; }
+    .conteudo h3 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--azul-medio);
+      margin: 1.5rem 0 0.8rem;
+    }
+    .conteudo p {
+      font-size: 1rem;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+
+    /* ===== LINKS ÚTEIS ===== */
+    .grid-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .card-link {
+      background: var(--cinza-fundo);
+      border-radius: 14px;
+      padding: 1rem 0.8rem;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .card-link a {
+      display: block;
+      font-weight: 500;
+      color: var(--azul-medio);
+      font-size: 0.9rem;
+    }
+    .card-link a:hover { text-decoration: underline; }
+    .card-link .icone {
+      font-size: 1.6rem;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    /* ===== GRADE CURRICULAR (ACORDEÃO) ===== */
+    .periodo {
+      margin-bottom: 0.8rem;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #e0e4e8;
+    }
+    .periodo-header {
+      background: var(--cinza-fundo);
+      padding: 0.8rem 1.2rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      color: var(--azul-escuro);
+      transition: background 0.2s;
+      user-select: none;
+    }
+    .periodo-header:hover { background: #dce1e8; }
+    .periodo-header .seta {
+      font-size: 1.2rem;
+      transition: transform 0.25s;
+    }
+    .periodo-header .seta.aberto { transform: rotate(180deg); }
+    .periodo-body {
+      padding: 0 1.2rem 1.2rem;
+      display: none;
+      background: #fff;
+    }
+    .periodo-body.aberto { display: block; }
+    .periodo-body table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+    .periodo-body table th {
+      text-align: left;
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.4rem 0.6rem;
+      font-weight: 500;
+    }
+    .periodo-body table td {
+      padding: 0.4rem 0.6rem;
+      border-bottom: 1px solid #e9ecef;
+    }
+    .periodo-body table tr:last-child td { border-bottom: none; }
+    .periodo-body .ch-total {
+      margin-top: 0.6rem;
+      font-weight: 500;
+      color: var(--azul-escuro);
+      text-align: right;
+    }
+
+    /* ===== INFORMAÇÕES DO CURRÍCULO ===== */
+    .info-curriculo {
+      background: var(--cinza-fundo);
+      border-radius: 16px;
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.8rem;
+    }
+    .info-curriculo .item { font-size: 0.9rem; }
+    .info-curriculo .item strong { color: var(--azul-escuro); }
+
+    /* ===== OPTATIVAS ===== */
+    .optativas-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+    .optativas-grid .item-opt {
+      background: var(--cinza-fundo);
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: #2c3e50;
+    }
+    .optativas-grid .item-opt .codigo {
+      font-weight: 500;
+      color: var(--azul-medio);
+      font-size: 0.8rem;
+      display: block;
+    }
+    .optativas-grid .item-opt .carga {
+      font-size: 0.8rem;
+      color: #4a5a6e;
+    }
+
+    /* ===== RESPONSIVO ===== */
+    @media (max-width: 768px) {
+      .hero { padding: 2.5rem 1.5rem; min-height: 160px; }
+      .hero h1 { font-size: 1.8rem; }
+      .conteudo { padding: 1.5rem; }
+      .grid-links { grid-template-columns: 1fr 1fr; }
+      .optativas-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.5rem; }
+      .grid-links { grid-template-columns: 1fr; }
+      .periodo-body table { font-size: 0.8rem; }
+      .periodo-body table th, .periodo-body table td { padding: 0.3rem 0.4rem; }
+    }
+
+    /* ===== RODAPÉ ===== */
+    .footer {
+      background: #2c2c2c;
+      color: #d4e2ed;
+      padding: 2.5rem 1.5rem 1.5rem;
+      margin-top: 2rem;
+      border-top: 4px solid var(--laranja);
+    }
+    .footer .grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    .footer h4 { color: #fff; font-weight: 500; margin-bottom: 0.8rem; font-size: 1rem; }
+    .footer ul { list-style: none; padding: 0; }
+    .footer ul li { margin-bottom: 0.4rem; }
+    .footer ul li a {
+      color: #b0c4de;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer ul li a:hover { color: #fff; text-decoration: underline; }
+    .footer .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .footer .social-links a {
+      color: #b0c4de;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer .social-links a:hover { color: #fff; text-decoration: underline; }
+    .footer .endereco {
+      font-size: 0.9rem;
+      color: #b0c4de;
+      line-height: 1.5;
+    }
+    .footer .endereco a { color: var(--laranja); text-decoration: underline; }
+    .footer .copy {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #8a9aa8;
+      border-top: 1px solid #3a4a5e;
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+  <main class="main">
+
+    <!-- ===== HERO / BANNER ===== -->
+    <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('https://via.placeholder.com/1200x400/004DA4/ffffff?text=Design+Grafico'); background-size: cover; background-position: center;">
+      <h1>Design Gráfico – <strong>Bacharelado</strong></h1>
+      <p>Curso presencial – Noturno – São Cristóvão</p>
+      <a href="index.html" class="btn-voltar">Voltar</a>
+    </section>
+
+    <!-- ===== CONTEÚDO ===== -->
+    <div class="conteudo">
+
+      <!-- ===== LINKS ÚTEIS ===== -->
+      <h2>Links Úteis</h2>
+      <div class="grid-links">
+        <div class="card-link"><span class="icone">📅</span><a href="https://prograd.ufs.br/pagina/25642" target="_blank">Calendário Acadêmico</a></div>
+        <div class="card-link"><span class="icone">📋</span><a href="#">Oferta de Componentes</a></div>
+        <div class="card-link"><span class="icone">📌</span><a href="#">Estágio Obrigatório</a></div>
+        <div class="card-link"><span class="icone">📌</span><a href="#">Estágio Não Obrigatório</a></div>
+        <div class="card-link"><span class="icone">📘</span><a href="#">Atividades Complementares</a></div>
+        <div class="card-link"><span class="icone">🔄</span><a href="#">Aproveitamento</a></div>
+        <div class="card-link"><span class="icone">👨‍🏫</span><a href="#">Ensino Individual</a></div>
+        <div class="card-link"><span class="icone">📄</span><a href="https://presencial.ufs.br/pagina/22196" target="_blank">Requerimentos Diversos</a></div>
+      </div>
+
+      <!-- ===== INFORMAÇÕES DO CURRÍCULO ===== -->
+      <h2>Estrutura Curricular</h2>
+      <div class="info-curriculo">
+        <div class="item"><strong>Código:</strong> 02</div>
+        <div class="item"><strong>Matriz Curricular:</strong> DESIGN GRÁFICO - São Cristóvão - Presencial - Noturno - Bacharelado</div>
+        <div class="item"><strong>Período de Vigência:</strong> 2019-1</div>
+        <div class="item"><strong>Carga Horária Total Mínima:</strong> 3210h</div>
+        <div class="item"><strong>Optativas Mínima:</strong> 2490h</div>
+        <div class="item"><strong>Prazos (períodos):</strong> Mínimo 8, Médio 8, Máximo 12</div>
+        <div class="item"><strong>Créditos por período:</strong> Mínimo 18, Médio 23, Máximo 41</div>
+      </div>
+
+      <!-- ===== GRADE CURRICULAR (ACORDEÃO) ===== -->
+
+      <!-- 1º Período -->
+      <div class="periodo">
+        <div class="periodo-header" onclick="togglePeriodo(this)">1º Período <span class="seta">▼</span></div>
+        <div class="periodo-body">
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>COMSO0109</td><td>Sist. de Repres. Bidimensional</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>COMSO0105</td><td>Design Contemporâneo</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>COMSO0111</td><td>Metodologia Visual</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>COMSO0104</td><td>História do Design</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>COMSO0110</td><td>Sist. de Repres. Tridimensional</td><td>60h</td><td>Obrigatória</td></tr>
+          </table>
+          <div class="ch-total">CH Total: 300h</div>
+        </div>
+      </div>
+
+      <!-- 2º Período -->
+      <div class="periodo">
+        <div class="periodo-header" onclick="togglePeriodo(this)">2º Período <span class="seta">▼</span></div>
+        <div class="periodo-body">
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>COMSO0112</td><td>Design e Sociedade A (História da Arte)</td><td>60h</td><td>Optativa</td></tr>
+            <tr><td>COMSO0124</td><td>Design e Tecnologia A (Introdução à Computação Gráfica)</td><td>60h</td><td>Optativa</td></tr>
+            <tr><td>COMSO0130</td><td>Design e Estética A (Plástica)</td><td>60h</td><td>Optativa</td></tr>
+            <tr><td>COMSO0131</td><td>Design e Estética B (Cultura e Design)</td><td>60h</td><td>Optativa</td></tr>
+            <tr><td>COMSO0113</td><td>Design e Sociedade B (História do Design no Brasil)</td><td>60h</td><td>Optativa</td></tr>
+          </table>
+          <div class="ch-total">CH Total: 300h</div>
+        </div>
+      </div>
+
+      <!-- 3º Período -->
+      <div class="periodo">
+        <div class="periodo-header" onclick="togglePeriodo(this)">3º Período <span class="seta">▼</span></div>
+        <div class="periodo-body">
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>COMSO0125</td><td>Design e Tecnologia B (Desenho Geométrico)</td><td>60h</td><td>Optativa</td></tr>
+            <tr><td>COMSO0126</td><td>Design e Tecnologia C (Produção Gráfica I)</td><td>60h</td><td>Optativa</td></tr>
+            <tr><td>COMSO0117</td><td>Design e Sociedade F (História da Tipografia)</td><td>60h</td><td>Optativa</td></tr>
+            <tr><td>COMSO0135</td><td>Design e Estética F (Percepção da Forma)</td><td>60h</td><td>Optativa</td></tr>
+            <tr><td>COMSO0120</td><td>Design e Ciência C (Ergonomia)</td><td>60h</td><td>Optativa</td></tr>
+          </table>
+          <div class="ch-total">CH Total: 300h</div>
+        </div>
+      </div>
+
+      <!-- 4º Período -->
+      <div class="periodo">
+        <div class="periodo-header" onclick="togglePeriodo(this)">4º Período <span class="seta">▼</span></div>
+        <div class="periodo-body">
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>COMSO0132</td><td>Design e Estética C (Experimentação Gráfica)</td><td>60h</td><td>Optativa</td></tr>
+            <tr><td>COMSO0114</td><td>Design e Sociedade C (Arte e Tecnologia)</td><td>60h</td><td>Optativa</td></tr>
+            <tr><td>COMSO0121</td><td>Design e Ciência D (Tipografia Digital)</td><td>60h</td><td>Optativa</td></tr>
+            <tr><td>COMSO0128</td><td>Design e Tecnologia E (Diagramação I)</td><td>60h</td><td>Optativa</td></tr>
+          </table>
+          <div class="ch-total">CH Total: 240h</div>
+        </div>
+      </div>
+
+      <!-- 5º Período -->
+      <div class="periodo">
+        <div class="periodo-header" onclick="togglePeriodo(this)">5º Período <span class="seta">▼</span></div>
+        <div class="periodo-body">
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>COMSO0133</td><td>Design e Estética D (Identidade Visual)</td><td>60h</td><td>Optativa</td></tr>
+            <tr><td>COMSO0115</td><td>Design e Sociedade D (Legislação e Ética Profissional)</td><td>60h</td><td>Optativa</td></tr>
+            <tr><td>COMSO0127</td><td>Design e Tecnologia D (Produção Gráfica II)</td><td>60h</td><td>Optativa</td></tr>
+            <tr><td>COMSO0122</td><td>Design e Ciência E (Semiótica)</td><td>60h</td><td>Optativa</td></tr>
+          </table>
+          <div class="ch-total">CH Total: 240h</div>
+        </div>
+      </div>
+
+      <!-- 6º Período -->
+      <div class="periodo">
+        <div class="periodo-header" onclick="togglePeriodo(this)">6º Período <span class="seta">▼</span></div>
+        <div class="periodo-body">
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>COMSO0118</td><td>Design e Ciência A (Antropologia Visual)</td><td>60h</td><td>Optativa</td></tr>
+            <tr><td>COMSO0116</td><td>Design e Sociedade E (Gestão em Design)</td><td>60h</td><td>Optativa</td></tr>
+            <tr><td>COMSO0134</td><td>Design e Estética E (Introdução à Fotografia)</td><td>60h</td><td>Optativa</td></tr>
+            <tr><td>COMSO0129</td><td>Design e Tecnologia G (Interfaces Digitais)</td><td>60h</td><td>Optativa</td></tr>
+            <tr><td>COMSO0123</td><td>Design e Ciência G (Metodologia do Projeto em Design)</td><td>60h</td><td>Optativa</td></tr>
+          </table>
+          <div class="ch-total">CH Total: 300h</div>
+        </div>
+      </div>
+
+      <!-- 7º Período -->
+      <div class="periodo">
+        <div class="periodo-header" onclick="togglePeriodo(this)">7º Período <span class="seta">▼</span></div>
+        <div class="periodo-body">
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>COMSO0136</td><td>Trabalho de Conclusão de Curso I (TCC I)</td><td>285h</td><td>Optativa</td></tr>
+            <tr><td>COMSO0138</td><td>Estágio Supervisionado I</td><td>210h</td><td>Obrigatória</td></tr>
+            <tr><td>COMSO0119</td><td>Design e Ciência B (Embalagem)</td><td>60h</td><td>Optativa</td></tr>
+          </table>
+          <div class="ch-total">CH Total: 555h</div>
+        </div>
+      </div>
+
+      <!-- 8º Período -->
+      <div class="periodo">
+        <div class="periodo-header" onclick="togglePeriodo(this)">8º Período <span class="seta">▼</span></div>
+        <div class="periodo-body">
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>COMSO0137</td><td>Trabalho de Conclusão de Curso II (TCC II)</td><td>285h</td><td>Optativa</td></tr>
+            <tr><td>COMSO0139</td><td>Estágio Supervisionado II</td><td>210h</td><td>Obrigatória</td></tr>
+          </table>
+          <div class="ch-total">CH Total: 495h</div>
+        </div>
+      </div>
+
+      <!-- ===== FORMAÇÃO COMPLEMENTAR ===== -->
+      <h2>Formação Complementar</h2>
+      <p style="font-size:0.95rem; color:#4a5a6e;">Disciplinas optativas disponíveis para complementação da formação. Carga horária mínima de <strong>2490h</strong>.</p>
+      <div class="optativas-grid">
+        <div class="item-opt"><span class="codigo">408313</span> TÓPICOS ESPECIAIS I <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408314</span> TÓPICOS ESPECIAIS II <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408315</span> TÓPICOS ESPECIAIS III <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408331</span> DESIGN E SOCIEDADE A <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408332</span> DESIGN E SOCIEDADE B <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408333</span> DESIGN E SOCIEDADE C <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408334</span> DESIGN E SOCIEDADE D <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408335</span> DESIGN E SOCIEDADE E <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408336</span> DESIGN E SOCIEDADE F <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408341</span> DESIGN E CIENCIA A <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408342</span> DESIGN E CIENCIA B <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408343</span> DESIGN E CIENCIA C <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408344</span> DESIGN E CIENCIA D <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408345</span> DESIGN E CIENCIA E <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408347</span> DESIGN E CIENCIA G <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408351</span> DESIGN E TECNOLOGIA A <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408352</span> DESIGN E TECNOLOGIA B <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408353</span> DESIGN E TECNOLOGIA C <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408354</span> DESIGN E TECNOLOGIA D <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408355</span> DESIGN E TECNOLOGIA E <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408357</span> DESIGN E TECNOLOGIA G <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408361</span> DESIGN E ESTETICA A <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408362</span> DESIGN E ESTETICA B <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408363</span> DESIGN E ESTETICA C <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408364</span> DESIGN E ESTETICA D <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408365</span> DESIGN E ESTETICA E <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408366</span> DESIGN E ESTETICA F <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408371</span> TRABALHO DE CONCLUSAO DE CURSO I <span class="carga">285h</span></div>
+        <div class="item-opt"><span class="codigo">408372</span> TRABALHO DE CONCLUSAO DE CURSO II <span class="carga">285h</span></div>
+        <div class="item-opt"><span class="codigo">408375</span> ATIVIDADE COMPLEMENTAR I <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408376</span> ATIVIDADE COMPLEMENTAR II <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408377</span> ATIVIDADE COMPLEMENTAR III <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408378</span> ATIVIDADE COMPLEMENTAR IV <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">408379</span> ATIVIDADE COMPLEMENTAR V <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">COMSO0403</span> UFS-COMUNIDADE <span class="carga">30h</span></div>
+        <div class="item-opt"><span class="codigo">900001</span> MONITORIA I <span class="carga">30h</span></div>
+        <div class="item-opt"><span class="codigo">900002</span> MONITORIA II <span class="carga">30h</span></div>
+        <div class="item-opt"><span class="codigo">900003</span> MONITORIA III <span class="carga">30h</span></div>
+        <div class="item-opt"><span class="codigo">900004</span> MONITORIA IV <span class="carga">30h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0085</span> ATIVIDADE DE EXTENSÃO INTEGRADORA DE FORMAÇÃO I – SEMAC <span class="carga">15h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0087</span> ATIVIDADES COMPLEMENTARES OPTATIVAS <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0088</span> TÓPICOS ESPECIAIS IV – DESIGN E ECONOMIA CRIATIVA <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0089</span> TÓPICOS ESPECIAIS V – SEMIÓTICA APLICADA AO DESIGN GRÁFICO <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">DESIG0090</span> UFS – COMUNIDADE <span class="carga">60h</span></div>
+        <div class="item-opt"><span class="codigo">401355</span> LÍNGUA BRASILEIRA DE SINAIS – LIBRAS <span class="carga">60h</span></div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ===== RODAPÉ ===== -->
+  <footer class="footer">
+    <div class="grid">
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
+          <li><a href="tel:+557931946925">(79) 3194-6925</a></li>
+          <li style="color:#b0c4de; font-size:0.9rem;">Segunda a sexta</li>
+          <li style="color:#b0c4de; font-size:0.9rem;">08h00 às 12h00 • 13h00 às 21h00</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Localização</h4>
+        <div class="endereco">
+          <p>Cidade Univ. Prof. José Aloísio de Campos<br />Av. Marcelo Déda Chagas, s/n, Bairro Rosa Elze<br />São Cristóvão/SE – CEP 49107-230</p>
+          <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank">Ver no mapa</a>
+        </div>
+      </div>
+      <div>
+        <h4>Redes Artes</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/cenarteufs" target="_blank">Centro Acadêmico: <strong>@cenarteufs</strong></a>
+        </div>
+      </div>
+      <div>
+        <h4>Redes Design</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/designufs" target="_blank">Curso: <strong>@designufs</strong></a>
+          <a href="https://instagram.com/cadeufs" target="_blank">Centro Acadêmico: <strong>@cadeufs</strong></a>
+          <a href="https://instagram.com/designemcurso.ufs" target="_blank">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
+          <a href="https://instagram.com/tiposdaufs" target="_blank">Tipos da UFS: <strong>@tiposdaufs</strong></a>
+        </div>
+      </div>
+    </div>
+    <div class="copy">
+      <p>Universidade Federal de Sergipe – DAVD © 2026</p>
+      <p style="margin-top:0.3rem; font-size:0.75rem; opacity:0.6;">Última atualização: <span id="updateDate"></span></p>
+    </div>
+  </footer>
+
+  <script>
+    // ===== FUNÇÃO PARA ABRIR/FECHAR PERÍODOS =====
+    function togglePeriodo(header) {
+      var body = header.nextElementSibling;
+      var seta = header.querySelector('.seta');
+      body.classList.toggle('aberto');
+      seta.classList.toggle('aberto');
+    }
+    // Data atual no rodapé
+    document.getElementById('updateDate').textContent =
+      new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+  </script>
+</body>
+</html>

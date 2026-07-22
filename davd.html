@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAVD/UFS – Saiba Mais</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET E VARIÁVEIS ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --azul-escuro: #272B7D;
+      --azul-medio: #004DA4;
+      --azul-claro: #1a73e8;
+      --laranja: #e67e22;
+      --cinza-fundo: #f4f7fc;
+      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+      --radius: 24px;
+      --branco: #ffffff;
+    }
+    body {
+      font-family: 'Ubuntu', sans-serif;
+      background: var(--cinza-fundo);
+      color: #1e2a3a;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* ===== CONTEÚDO PRINCIPAL ===== */
+    .main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      width: 100%;
+    }
+
+    /* ===== HERO / BANNER ===== */
+    .hero {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: var(--radius);
+      padding: 4rem 3rem;
+      margin-bottom: 2.5rem;
+      text-align: left;
+      color: #fff;
+      position: relative;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+    }
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .hero h1 strong {
+      font-weight: 700;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: #f0f0f0;
+      margin: 0.5rem 0 1.8rem;
+      max-width: 700px;
+    }
+    .hero .btn-voltar {
+      display: inline-block;
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.6rem 2rem;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: background 0.25s;
+      border: none;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+    .hero .btn-voltar:hover {
+      background: var(--azul-escuro);
+    }
+
+    /* ===== SEÇÃO DE CONTEÚDO ===== */
+    .conteudo {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2.5rem;
+    }
+    .conteudo h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--azul-escuro);
+      margin: 2rem 0 1rem;
+      border-bottom: 2px solid var(--azul-medio);
+      padding-bottom: 0.5rem;
+    }
+    .conteudo h2:first-of-type {
+      margin-top: 0;
+    }
+    .conteudo h3 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--azul-medio);
+      margin: 1.5rem 0 0.8rem;
+    }
+    .conteudo p {
+      font-size: 1rem;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+    .conteudo blockquote {
+      background: var(--cinza-fundo);
+      border-left: 4px solid var(--azul-medio);
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+      border-radius: 0 12px 12px 0;
+      font-style: italic;
+      color: #3a4a5e;
+    }
+
+    /* ===== CARDS DE COORDENAÇÃO ===== */
+    .grid-coordenacao {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 1.5rem 0;
+    }
+    .card-coord {
+      background: var(--cinza-fundo);
+      border-radius: 18px;
+      padding: 1.5rem;
+      border-top: 6px solid var(--azul-medio);
+    }
+    .card-coord.design {
+      border-top-color: var(--laranja);
+    }
+    .card-coord h4 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--azul-escuro);
+      margin-bottom: 0.5rem;
+    }
+    .card-coord p {
+      font-size: 0.95rem;
+      color: #3a4a5e;
+      margin: 0.2rem 0;
+    }
+    .card-coord .email {
+      color: var(--azul-medio);
+      font-weight: 500;
+    }
+    .card-coord .btn-saiba {
+      display: inline-block;
+      margin-top: 1rem;
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.5rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .card-coord .btn-saiba:hover {
+      background: var(--azul-escuro);
+    }
+    .card-coord .btn-saiba.orange {
+      background: var(--laranja);
+    }
+    .card-coord .btn-saiba.orange:hover {
+      background: #d35400;
+    }
+
+    /* ===== CORPO DOCENTE ===== */
+    .grid-docentes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .card-docente {
+      background: var(--cinza-fundo);
+      border-radius: 16px;
+      padding: 1.2rem 1.5rem;
+      border-left: 4px solid var(--azul-medio);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card-docente:hover {
+      transform: translateX(4px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .card-docente .nome {
+      font-weight: 700;
+      color: var(--azul-escuro);
+      font-size: 1.05rem;
+    }
+    .card-docente .titulacao {
+      font-size: 0.85rem;
+      color: var(--azul-medio);
+      font-weight: 500;
+    }
+    .card-docente .bio {
+      font-size: 0.9rem;
+      color: #3a4a5e;
+      margin-top: 0.3rem;
+      line-height: 1.4;
+    }
+    .card-docente .lattes {
+      display: inline-block;
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--azul-medio);
+      font-weight: 500;
+      text-decoration: underline;
+    }
+
+    /* ===== CORPO ADMINISTRATIVO ===== */
+    .grid-administrativo {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .card-admin {
+      background: var(--cinza-fundo);
+      border-radius: 16px;
+      padding: 1.2rem 1.5rem;
+      text-align: center;
+      border-top: 4px solid var(--azul-medio);
+    }
+    .card-admin .nome {
+      font-weight: 700;
+      color: var(--azul-escuro);
+      font-size: 1rem;
+    }
+    .card-admin .cargo {
+      font-size: 0.85rem;
+      color: #4a5a6e;
+      margin: 0.2rem 0;
+    }
+    .card-admin .email {
+      font-size: 0.85rem;
+      color: var(--azul-medio);
+    }
+
+    /* ===== INFORMAÇÕES DE CONTATO ===== */
+    .info-contato {
+      background: var(--cinza-fundo);
+      border-radius: 18px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .info-contato p {
+      margin: 0.2rem 0;
+      font-size: 0.95rem;
+    }
+    .info-contato strong {
+      color: var(--azul-escuro);
+    }
+
+    /* ===== RESPONSIVO ===== */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 2.5rem 1.5rem;
+        min-height: 160px;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .conteudo {
+        padding: 1.5rem;
+      }
+      .grid-coordenacao {
+        grid-template-columns: 1fr;
+      }
+      .grid-docentes {
+        grid-template-columns: 1fr;
+      }
+      .grid-administrativo {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+    }
+
+    /* ===== RODAPÉ ===== */
+    .footer {
+      background: #2c2c2c;
+      color: #d4e2ed;
+      padding: 2.5rem 1.5rem 1.5rem;
+      margin-top: 2rem;
+      border-top: 4px solid var(--laranja);
+    }
+    .footer .grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    .footer h4 {
+      color: #fff;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+      font-size: 1rem;
+    }
+    .footer ul {
+      list-style: none;
+      padding: 0;
+    }
+    .footer ul li {
+      margin-bottom: 0.4rem;
+    }
+    .footer ul li a {
+      color: #b0c4de;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer ul li a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .footer .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .footer .social-links a {
+      color: #b0c4de;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer .social-links a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .footer .endereco {
+      font-size: 0.9rem;
+      color: #b0c4de;
+      line-height: 1.5;
+    }
+    .footer .endereco a {
+      color: var(--laranja);
+      text-decoration: underline;
+    }
+    .footer .copy {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #8a9aa8;
+      border-top: 1px solid #3a4a5e;
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+  <main class="main">
+
+    <!-- ===== HERO / BANNER ===== -->
+    <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('https://via.placeholder.com/1200x400/004DA4/ffffff?text=DAVD'); background-size: cover; background-position: center;">
+      <h1>Conheça o <strong>DAVD</strong></h1>
+      <p>Departamento de Artes Visuais e Design – Universidade Federal de Sergipe</p>
+      <a href="index.html" class="btn-voltar">Voltar</a>
+    </section>
+
+    <!-- ===== CONTEÚDO ===== -->
+    <div class="conteudo">
+
+      <!-- História do DAVD -->
+      <h2>Nossa História</h2>
+      <p>
+        Em 23 de setembro de 2013 o <strong>NADE – Núcleo de Artes e Design</strong> (criado em 19 de maio de 2010, Portaria nº 1125) torna-se <strong>Departamento de Artes Visuais e Design – DAVD</strong> da Universidade Federal de Sergipe, a partir da Resolução nº 46/2013/CONSU, com a proposição de manter o curso de graduação em <strong>Artes Visuais – Licenciatura</strong> e o curso de graduação em <strong>Design – Bacharelado</strong>.
+      </p>
+
+      <!-- Artes Visuais -->
+      <h2>Artes Visuais – Licenciatura</h2>
+      <p>
+        Conforme a Lei nº 9.394/96, que estabelece as Diretrizes e Bases da Educação Nacional, no artigo 26, parágrafo 2º desta lei, pode-se ler:
+      </p>
+      <blockquote>
+        “O ensino da arte constituirá componente curricular obrigatório, nos diversos níveis da educação básica, de forma a promover o desenvolvimento cultural dos alunos”.
+      </blockquote>
+      <p>
+        Atendendo ao que determina a referida lei, o curso de Licenciatura em Artes Visuais tem por principal finalidade formar uma parcela dos professores que atuarão na Educação Básica.
+      </p>
+      <p>
+        Como é de conhecimento corrente, a Educação Básica é composta pela Educação Infantil (primeira etapa da Educação Básica, destinada à criança de zero a seis anos de idade), pelo Ensino Fundamental (com duração mínima de oito anos) e pelo Ensino Médio (etapa final da Educação Básica, com duração mínima de três anos).
+      </p>
+      <p>
+        Ao tempo em que também se propõe a instrumentalizar os alunos para a compreensão do conjunto de linguagens afeitas à área de conhecimento de Artes, em especial das Artes Visuais.
+      </p>
+      <p>
+        As Diretrizes Curriculares Nacionais do Curso de Graduação em Artes Visuais, bacharelado e licenciatura, em seu artigo 3º, estabelecem que:
+      </p>
+      <blockquote>
+        “O curso de graduação em Artes Visuais deve ensejar como perfil do formando, capacitação para a produção, a pesquisa, a crítica e o ensino das Artes Visuais, visando contemplar o desenvolvimento da percepção, da reflexão e do potencial criativo, dentro da especificidade do pensamento visual, de modo a privilegiar a apropriação do pensamento reflexivo, da sensibilidade artística, da utilização de técnicas e procedimentos tradicionais e experimentais, e da sensibilidade estética através do conhecimento de estilos, tendências, obras e outras criações visuais, revelando habilidades e aptidões indispensáveis à atuação profissional na sociedade, nas dimensões artísticas, culturais, sociais, científicas e tecnológicas, inerentes à área das Artes Visuais.”
+      </blockquote>
+
+      <!-- Design Gráfico -->
+      <h2>Design Gráfico – Bacharelado</h2>
+      <p>
+        O Curso de Graduação em Design – Bacharelado – Habilitação Design Gráfico da UFS tem como objetivo geral formar profissionais criativos e habilitados para a concepção, projetação e acompanhamento da produção de objetos gráficos a serem produzidos pelos diversos meios tecnológicos digitais, industriais e/ou artesanais, que estabeleçam alguma forma de interface com o ser humano, do ponto de vista de sua utilização prática, estética e simbólica.
+      </p>
+      <p>
+        O Curso busca propiciar uma formação de caráter analítico, estético, estratégico, propositivo, técnico e criativo, o que qualifica e amplia a formação do aluno e o seu espectro profissional.
+      </p>
+
+      <!-- Coordenações -->
+      <h2>Coordenações</h2>
+      <div class="grid-coordenacao">
+        <!-- Artes Visuais -->
+        <div class="card-coord">
+          <h4>🎨 Artes Visuais – Licenciatura</h4>
+          <p><strong>Coordenadora:</strong> Profª Drª Adriana Dantas Nogueira</p>
+          <p><strong>E-mail:</strong> <span class="email">coord.artesvisuais@academico.ufs.br</span></p>
+          <a href="artes.html" class="btn-saiba">Saiba Mais</a>
+        </div>
+        <!-- Design Gráfico -->
+        <div class="card-coord design">
+          <h4>🖥️ Design Gráfico – Bacharelado</h4>
+          <p><strong>Coordenadora:</strong> Profª Drª Isadora Burmeister Dickie</p>
+          <p><strong>E-mail:</strong> <span class="email">coord.design@academico.ufs.br</span></p>
+          <a href="design.html" class="btn-saiba orange">Saiba Mais</a>
+        </div>
+      </div>
+
+      <!-- Chefia do Departamento -->
+      <h2>Chefia do Departamento</h2>
+      <div class="info-contato">
+        <p><strong>Chefe do DAVD:</strong> Profª Drª Isadora Burmeister Dickie</p>
+        <p><strong>Telefone:</strong> (79) 3194-6925 (Secretaria)</p>
+        <p><strong>E-mail:</strong> davd@academico.ufs.br</p>
+      </div>
+
+      <!-- Corpo Docente -->
+      <h2>Corpo Docente</h2>
+      <div class="grid-docentes">
+
+        <!-- Adriana Dantas Nogueira -->
+        <div class="card-docente">
+          <div class="nome">Adriana Dantas Nogueira</div>
+          <div class="titulacao">Doutora</div>
+          <div class="bio">Professora Titular da UFS, ministra disciplinas de Desenho e Pintura (aquarela, pastel, guache, lápis de cor, acrílica e óleo). Membro do Grupo de Pesquisa em História da Arte da UFS e do Grupo de Pesquisa em Estudos Urbanos e Culturais. Coordenadora do Urban Sketchers Aracaju desde 2015. Coordenou o PIBID-Artes na UFS. Pós-Doutora em Artes pela UFMG (2023) e em Belas-Artes pela Universidade de Lisboa (2014). Doutora em Arquitetura e Urbanismo pela UFBA (2004).</div>
+          <a href="http://lattes.cnpq.br/1135979280785667" target="_blank" class="lattes">Currículo Lattes</a>
+        </div>
+
+        <!-- Fabricia Guimaraes Sobral Cabral -->
+        <div class="card-docente">
+          <div class="nome">Fabricia Guimaraes Sobral Cabral</div>
+          <div class="titulacao">Doutora</div>
+          <div class="bio">Graduada em Desenho Industrial pela UFPB (2001), Mestre em Design pela PUC-Rio (2007) e Doutora em Ciências Antropológicas pela Universidad Autonoma Metropolitana – México (2016).</div>
+          <a href="http://lattes.cnpq.br/0554246039214919" target="_blank" class="lattes">Currículo Lattes</a>
+        </div>
+
+        <!-- Germana Gonçalves de Araujo -->
+        <div class="card-docente">
+          <div class="nome">Germana Gonçalves de Araujo</div>
+          <div class="titulacao">Doutora</div>
+          <div class="bio">Professora efetiva do curso de Design Gráfico desde 2010. Doutora em Cultura e Sociedade pela UFBA (2013), Mestra em Desenho, Cultura e Interatividade pela UEFS (2008). Coordenadora gráfica da Editora UFS. Autora de diversas obras premiadas, como "Bonita Maria do Capitão" (1º lugar no Prêmio Aloísio Magalhães da Fundação Biblioteca Nacional, 2011) e "Cândido de Faria: um ilustrador sergipano das artes aplicadas" (2º lugar no 33º Prêmio Museu da Casa Brasileira, 2019).</div>
+          <a href="http://lattes.cnpq.br/5486386468044529" target="_blank" class="lattes">Currículo Lattes</a>
+        </div>
+
+        <!-- Isadora Burmeister Dickie -->
+        <div class="card-docente">
+          <div class="nome">Isadora Burmeister Dickie</div>
+          <div class="titulacao">Doutora</div>
+          <div class="bio">Doutora em Design pela UFPR, Mestra em Design e Expressão Gráfica pela UFSC. Atua nas áreas de Métodos e Ferramentas de Projeto, Design Participativo, Design Estratégico e Sustentabilidade. Idealizadora das plataformas Projectool e Cria Junto (premiada no Design for a Better World, 2021). Diretora da ADGBrasil (Gestão 2020-2022).</div>
+          <a href="http://lattes.cnpq.br/0907445019291980" target="_blank" class="lattes">Currículo Lattes</a>
+        </div>
+
+        <!-- Luis Americo Silva Bonfim -->
+        <div class="card-docente">
+          <div class="nome">Luis Americo Silva Bonfim</div>
+          <div class="titulacao">Doutor</div>
+          <div class="bio">Professor Associado II do DAVD, professor efetivo do Programa de Pós-graduação em Ciências da Religião (PPGCR). Líder do Grupo de Pesquisa Observare/Expressão Religiosa, Imagem e Som. Membro da SBPC, ABA, ABRALIN e SOCINE. Doutor em Ciências Sociais pela UFBA (2007), Mestre em Sociologia pela UFBA (2000).</div>
+          <a href="http://lattes.cnpq.br/3977133344349420" target="_blank" class="lattes">Currículo Lattes</a>
+        </div>
+
+        <!-- Luis Muller Posca -->
+        <div class="card-docente">
+          <div class="nome">Luis Muller Posca</div>
+          <div class="titulacao">Doutor</div>
+          <div class="bio">Arte/Educador e Artista visual. Doutor em Artes Visuais pela UnB (2023), Mestre em Artes pela UFU (2017). Especialista em Arte e Educação e Licenciado em Artes Visuais. Atua nas áreas de Artes Visuais e Representação Tridimensional.</div>
+          <a href="https://lattes.cnpq.br/5086906765195980" target="_blank" class="lattes">Currículo Lattes</a>
+        </div>
+
+        <!-- Luiz Fernando Cajueiro dos Santos -->
+        <div class="card-docente">
+          <div class="nome">Luiz Fernando Cajueiro dos Santos</div>
+          <div class="titulacao">Doutor</div>
+          <div class="bio">Doutor. Formação não informada no SIGAA.</div>
+          <!-- Sem Lattes informado -->
+        </div>
+
+        <!-- Marjorie Garrido Severo -->
+        <div class="card-docente">
+          <div class="nome">Marjorie Garrido Severo</div>
+          <div class="titulacao">Doutora</div>
+          <div class="bio">Licenciada em Artes Visuais pela UFS (2000), MBA Executive Marketing pela FGV (2002), Mestre em Educação pela UFBA (2008) e Doutora em Educação pela UFS (2017). Professora efetiva do DAVD. Tem experiência em Artes Visuais e Design Gráfico, com ênfase em currículo, prática de ensino, semiótica, gravura e cultura visual.</div>
+          <a href="http://lattes.cnpq.br/8082531492816133" target="_blank" class="lattes">Currículo Lattes</a>
+        </div>
+
+        <!-- Michell Angelo Santos Lima -->
+        <div class="card-docente">
+          <div class="nome">Michell Angelo Santos Lima</div>
+          <div class="titulacao">Doutor</div>
+          <div class="bio">Graduado em Design Gráfico, Pós-graduado em Desenvolvimento de Aplicações Web e Mestre em Administração (Gestão da Inovação e Tecnologia). Atua em Tecnologias Assistivas, Realidade Aumentada, Design de Interação, Ergonomia & Usabilidade, User Experience e Game Design.</div>
+          <a href="http://lattes.cnpq.br/4611144274837868" target="_blank" class="lattes">Currículo Lattes</a>
+        </div>
+
+        <!-- Rosane Bezerra Soares -->
+        <div class="card-docente">
+          <div class="nome">Rosane Bezerra Soares</div>
+          <div class="titulacao">Doutora</div>
+          <div class="bio">Doutora. Formação não informada no SIGAA.</div>
+          <!-- Sem Lattes informado -->
+        </div>
+
+        <!-- Vladimir de Oliva Mota -->
+        <div class="card-docente">
+          <div class="nome">Vladimir de Oliva Mota</div>
+          <div class="titulacao">Doutor</div>
+          <div class="bio">Graduado em Filosofia pela UFS (2001), Mestre em Filosofia pela USP (2005) e Doutor em Filosofia pela USP (2012), com estágio doutoral na Université Paris I – Sorbonne. Atua em História da Filosofia Moderna e Estética Moderna e Contemporânea. Coordena o Grupo de Pesquisa em Estética e Política.</div>
+          <a href="http://lattes.cnpq.br/2566838305211068" target="_blank" class="lattes">Currículo Lattes</a>
+        </div>
+
+        <!-- Wellington Cesario -->
+        <div class="card-docente">
+          <div class="nome">Wellington Cesario</div>
+          <div class="titulacao">Doutor</div>
+          <div class="bio">Doutor em Artes Visuais pela UFRJ, com período sanduíche na Université du Québec à Montréal. Pós-Doutor pelo PPGCA da UFF. Atua nas áreas de Artes e Cultura, Filosofia e Educação, com ênfase em arte brasileira, arte contemporânea, arte moderna, filosofia e crítica da arte.</div>
+          <a href="http://lattes.cnpq.br/5516500370064721" target="_blank" class="lattes">Currículo Lattes</a>
+        </div>
+
+        <!-- Yasmin de Freitas Nogueira -->
+        <div class="card-docente">
+          <div class="nome">Yasmin de Freitas Nogueira</div>
+          <div class="titulacao">Doutora</div>
+          <div class="bio">Doutora em Artes Cênicas pela UFBA, Mestra em Cultura e Sociedade pela UFBA. Graduada em Artes Visuais pela UFRB. Professora Adjunta do DAVD. Atua em Artes Visuais, Design Gráfico, processos criativos, performance, arte e tecnologia.</div>
+          <a href="http://lattes.cnpq.br/7758040685083560" target="_blank" class="lattes">Currículo Lattes</a>
+        </div>
+
+      </div>
+
+      <!-- Professores Substitutos -->
+      <h3>Professores Substitutos</h3>
+      <div class="grid-docentes">
+        <div class="card-docente">
+          <div class="nome">Maria Clara Giacomet</div>
+          <div class="titulacao">Graduada</div>
+          <div class="bio">Graduada em Arquitetura e Urbanismo pela Pontifícia Universidade Católica do Paraná, com Especialização em Engenharia de Segurança do Trabalho pela UFS.</div>
+          <a href="https://lattes.cnpq.br/2526733127103503" target="_blank" class="lattes">Currículo Lattes</a>
+        </div>
+        <div class="card-docente">
+          <div class="nome">Vicent Bernardo Alves Santos</div>
+          <div class="titulacao">Mestre</div>
+          <div class="bio">Graduado em Design pela UFS e Mestre em Design pela UFPE.</div>
+          <a href="http://lattes.cnpq.br/2132383905871497" target="_blank" class="lattes">Currículo Lattes</a>
+        </div>
+      </div>
+
+      <!-- Corpo Administrativo -->
+      <h2>Corpo Administrativo</h2>
+      <div class="grid-administrativo">
+        <div class="card-admin">
+          <div class="nome">Kátia Betania Gomes</div>
+          <div class="cargo">Assistente em Administração</div>
+          <div class="email">katiabetania.ufs@gmail.com</div>
+        </div>
+        <div class="card-admin">
+          <div class="nome">Romário Carlos Vieira da Silva</div>
+          <div class="cargo">Técnico em Audiovisual</div>
+          <div class="email">rcvsilva@academico.ufs.br</div>
+        </div>
+        <div class="card-admin">
+          <div class="nome">Luiz Roberto dos Santos Pereira</div>
+          <div class="cargo">Técnico em Telecomunicação</div>
+          <div class="email">fasp268@yahoo.com.br</div>
+        </div>
+      </div>
+
+      <!-- Localização e Contato -->
+      <h2>Localização e Contato</h2>
+      <div class="info-contato">
+        <p><strong>Endereço:</strong> Cidade Universitária “Prof. José Aloísio de Campos” – CEP 49.100-000 – São Cristóvão – SE</p>
+        <p><strong>Horário de funcionamento:</strong> segunda a sexta-feira: 08h00 às 22h20</p>
+        <p><strong>Telefone:</strong> (79) 3194-6925 (Secretaria)</p>
+        <p><strong>E-mail:</strong> davd@academico.ufs.br</p>
+        <p style="margin-top:0.5rem;">
+          <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank" style="color:var(--azul-medio); text-decoration:underline;">Ver no mapa</a>
+        </p>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ===== RODAPÉ ===== -->
+  <footer class="footer">
+    <div class="grid">
+      <!-- Contato -->
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
+          <li><a href="tel:+557931946925">(79) 3194-6925</a></li>
+          <li style="color:#b0c4de; font-size:0.9rem;">Segunda a sexta</li>
+          <li style="color:#b0c4de; font-size:0.9rem;">08h00 às 12h00 • 13h00 às 21h00</li>
+        </ul>
+      </div>
+
+      <!-- Localização -->
+      <div>
+        <h4>Localização</h4>
+        <div class="endereco">
+          <p>Cidade Univ. Prof. José Aloísio de Campos<br />
+          Av. Marcelo Déda Chagas, s/n, Bairro Rosa Elze<br />
+          São Cristóvão/SE – CEP 49107-230</p>
+          <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank">Ver no mapa</a>
+        </div>
+      </div>
+
+      <!-- Redes Artes -->
+      <div>
+        <h4>Redes Artes</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/cenarteufs" target="_blank">Centro Acadêmico: <strong>@cenarteufs</strong></a>
+        </div>
+      </div>
+
+      <!-- Redes Design -->
+      <div>
+        <h4>Redes Design</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/designufs" target="_blank">Curso: <strong>@designufs</strong></a>
+          <a href="https://instagram.com/cadeufs" target="_blank">Centro Acadêmico: <strong>@cadeufs</strong></a>
+          <a href="https://instagram.com/designemcurso.ufs" target="_blank">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
+          <a href="https://instagram.com/tiposdaufs" target="_blank">Tipos da UFS: <strong>@tiposdaufs</strong></a>
+        </div>
+      </div>
+    </div>
+    <div class="copy">
+      <p>Universidade Federal de Sergipe – DAVD © 2026</p>
+      <p style="margin-top:0.3rem; font-size:0.75rem; opacity:0.6;">
+        Última atualização: <span id="updateDate"></span>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('updateDate').textContent =
+      new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+  </script>
+</body>
+</html>
