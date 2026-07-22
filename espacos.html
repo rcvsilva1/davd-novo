@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -149,7 +150,7 @@
     }
 
     .accordion-body {
-      padding: 0.8rem 0.8rem 0.8rem;
+      padding: 1.2rem 1.2rem 1.2rem;
       display: none;
       background: #fff;
     }
@@ -157,24 +158,42 @@
       display: block;
     }
 
-    /* ===== WRAPPER DO CALENDÁRIO ===== */
-    .calendar-wrapper {
-      position: relative;
-      overflow: hidden;
-      padding-top: 75%; /* Proporção 4:3 – mais espaço vertical para o mês */
-      border-radius: 8px;
-      background: #f8f9fa;
+    /* ===== BOTÕES DE AÇÃO ===== */
+    .botoes-agenda {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 0.5rem;
     }
-    .calendar-wrapper iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+    .botoes-agenda .btn {
+      display: inline-block;
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.5rem 1.4rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: background 0.2s, transform 0.2s;
       border: none;
+      cursor: pointer;
+      text-align: center;
+      flex: 0 1 auto;
+    }
+    .botoes-agenda .btn:hover {
+      background: var(--azul-escuro);
+      transform: translateY(-2px);
+    }
+    .botoes-agenda .btn-outline {
+      background: transparent;
+      color: var(--azul-medio);
+      border: 2px solid var(--azul-medio);
+    }
+    .botoes-agenda .btn-outline:hover {
+      background: var(--azul-medio);
+      color: #fff;
     }
 
-    /* ===== LINK DE AGENDAMENTO ===== */
+    /* ===== BOTÃO DE AGENDAMENTO (AZUL) ===== */
     .agendamento-link {
       margin-top: 1.8rem;
       text-align: center;
@@ -182,16 +201,16 @@
     }
     .agendamento-link a {
       display: inline-block;
-      background: var(--laranja);
+      background: var(--azul-medio);
       color: #fff;
       padding: 0.7rem 2.5rem;
       border-radius: 50px;
       font-weight: 500;
       transition: background 0.2s, transform 0.2s;
-      box-shadow: 0 4px 12px rgba(230, 126, 34, 0.3);
+      box-shadow: 0 4px 12px rgba(0, 77, 164, 0.3);
     }
     .agendamento-link a:hover {
-      background: #d35400;
+      background: var(--azul-escuro);
       transform: translateY(-2px);
     }
 
@@ -201,13 +220,14 @@
       .hero h1 { font-size: 1.8rem; }
       .conteudo { padding: 1.2rem; }
       .accordion-header .titulo { font-size: 0.95rem; }
-      .calendar-wrapper { padding-top: 75%; }
+      .botoes-agenda .btn { font-size: 0.8rem; padding: 0.4rem 1.2rem; }
+      .botoes-agenda { gap: 0.5rem; }
     }
     @media (max-width: 480px) {
       .hero h1 { font-size: 1.5rem; }
       .accordion-header { padding: 0.6rem 0.8rem; }
       .accordion-header .titulo { font-size: 0.85rem; }
-      .calendar-wrapper { padding-top: 100%; } /* Ocupa mais altura em telas pequenas, facilitando a visualização do mês */
+      .botoes-agenda .btn { font-size: 0.75rem; padding: 0.3rem 1rem; }
     }
 
     /* ===== RODAPÉ ===== */
@@ -270,7 +290,7 @@
   <main class="main">
 
     <!-- ===== HERO / BANNER ===== -->
-    <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
+    <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('https://via.placeholder.com/1200x400/004DA4/ffffff?text=Espacos+Compartilhados'); background-size: cover; background-position: center;">
       <h1>Espaços <strong>Compartilhados</strong></h1>
       <p>Agendamento e disponibilidade dos espaços do DAVD</p>
       <a href="index.html" class="btn-voltar">Voltar</a>
@@ -279,7 +299,7 @@
     <!-- ===== CONTEÚDO ===== -->
     <div class="conteudo">
       <h2>Agendamento de Espaços</h2>
-      <p>Clique em um espaço para visualizar a agenda e verificar a disponibilidade.</p>
+      <p>Clique em um espaço para visualizar as opções de agenda.</p>
 
       <div class="accordion">
 
@@ -290,8 +310,9 @@
             <span class="seta">▼</span>
           </div>
           <div class="accordion-body">
-            <div class="calendar-wrapper">
-              <iframe src="https://calendar.google.com/calendar/embed?src=c_700e2875dc77854a85cec43119d4ed2fb3399fa2fb15e72b110816af0b26b7cb%40group.calendar.google.com&ctz=America%2FMaceio" frameborder="0" allowfullscreen></iframe>
+            <div class="botoes-agenda">
+              <a href="https://calendar.google.com/calendar/embed?src=c_700e2875dc77854a85cec43119d4ed2fb3399fa2fb15e72b110816af0b26b7cb%40group.calendar.google.com&ctz=America%2FMaceio" target="_blank" class="btn">Abrir agenda</a>
+              <a href="https://calendar.google.com/calendar/u/0?cid=c_700e2875dc77854a85cec43119d4ed2fb3399fa2fb15e72b110816af0b26b7cb%40group.calendar.google.com" target="_blank" class="btn btn-outline">Importar agenda</a>
             </div>
           </div>
         </div>
@@ -303,8 +324,9 @@
             <span class="seta">▼</span>
           </div>
           <div class="accordion-body">
-            <div class="calendar-wrapper">
-              <iframe src="https://calendar.google.com/calendar/embed?src=c_624b501a3a6bb2121fde608a9c767e03f9aaad3404beb0fdf891424b5e7a916f%40group.calendar.google.com&ctz=America%2FMaceio" frameborder="0" allowfullscreen></iframe>
+            <div class="botoes-agenda">
+              <a href="https://calendar.google.com/calendar/embed?src=c_624b501a3a6bb2121fde608a9c767e03f9aaad3404beb0fdf891424b5e7a916f%40group.calendar.google.com&ctz=America%2FMaceio" target="_blank" class="btn">Abrir agenda</a>
+              <a href="https://calendar.google.com/calendar/u/0?cid=c_624b501a3a6bb2121fde608a9c767e03f9aaad3404beb0fdf891424b5e7a916f%40group.calendar.google.com" target="_blank" class="btn btn-outline">Importar agenda</a>
             </div>
           </div>
         </div>
@@ -316,8 +338,9 @@
             <span class="seta">▼</span>
           </div>
           <div class="accordion-body">
-            <div class="calendar-wrapper">
-              <iframe src="https://calendar.google.com/calendar/embed?src=c_7f87fd87828faf20896981b09ce4a71fa1532810d1e6fa30b111aef83133c694%40group.calendar.google.com&ctz=America%2FMaceio" frameborder="0" allowfullscreen></iframe>
+            <div class="botoes-agenda">
+              <a href="https://calendar.google.com/calendar/embed?src=c_7f87fd87828faf20896981b09ce4a71fa1532810d1e6fa30b111aef83133c694%40group.calendar.google.com&ctz=America%2FMaceio" target="_blank" class="btn">Abrir agenda</a>
+              <a href="https://calendar.google.com/calendar/u/0?cid=c_7f87fd87828faf20896981b09ce4a71fa1532810d1e6fa30b111aef83133c694%40group.calendar.google.com" target="_blank" class="btn btn-outline">Importar agenda</a>
             </div>
           </div>
         </div>
@@ -329,15 +352,16 @@
             <span class="seta">▼</span>
           </div>
           <div class="accordion-body">
-            <div class="calendar-wrapper">
-              <iframe src="https://calendar.google.com/calendar/embed?src=c_65fdfeaf3538ab0ba4ca086684a20c580b30241b956809158c5423576312ed4b%40group.calendar.google.com&ctz=America%2FMaceio" frameborder="0" allowfullscreen></iframe>
+            <div class="botoes-agenda">
+              <a href="https://calendar.google.com/calendar/embed?src=c_65fdfeaf3538ab0ba4ca086684a20c580b30241b956809158c5423576312ed4b%40group.calendar.google.com&ctz=America%2FMaceio" target="_blank" class="btn">Abrir agenda</a>
+              <a href="https://calendar.google.com/calendar/u/0?cid=c_65fdfeaf3538ab0ba4ca086684a20c580b30241b956809158c5423576312ed4b%40group.calendar.google.com" target="_blank" class="btn btn-outline">Importar agenda</a>
             </div>
           </div>
         </div>
 
       </div>
 
-      <!-- ===== LINK PARA AGENDAMENTO ===== -->
+      <!-- ===== LINK PARA AGENDAMENTO (AZUL) ===== -->
       <div class="agendamento-link">
         <a href="mailto:davd@academico.ufs.br">Para agendar, clique aqui</a>
       </div>
