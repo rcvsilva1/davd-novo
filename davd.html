@@ -293,6 +293,15 @@
       .grid-administrativo {
         grid-template-columns: 1fr;
       }
+
+      /* 👇 PADRÃO DE PADDING IGUAL PARA OS CARDS EM MOBILE */
+      .card-coord,
+      .card-docente {
+        padding: 1.2rem 1.5rem;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      /* Opcional: manter a borda superior da coordenação e lateral do docente, mas isso não afeta a largura */
     }
     @media (max-width: 480px) {
       .hero h1 {
