@@ -201,26 +201,36 @@
     .periodo-body.aberto {
       display: block;
     }
-    .periodo-body table {
+
+    /* ===== WRAPPER PARA ROLAGEM HORIZONTAL DA TABELA ===== */
+    .table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-top: 0.5rem;
+    }
+    .table-wrapper table {
       width: 100%;
       border-collapse: collapse;
       font-size: 0.9rem;
-      margin-top: 0.5rem;
+      min-width: 480px; /* força a rolagem horizontal em telas pequenas */
     }
-    .periodo-body table th {
+    .table-wrapper table th {
       text-align: left;
       background: var(--azul-medio);
       color: #fff;
       padding: 0.4rem 0.6rem;
       font-weight: 500;
+      white-space: nowrap;
     }
-    .periodo-body table td {
+    .table-wrapper table td {
       padding: 0.4rem 0.6rem;
       border-bottom: 1px solid #e9ecef;
+      white-space: nowrap;
     }
-    .periodo-body table tr:last-child td {
+    .table-wrapper table tr:last-child td {
       border-bottom: none;
     }
+
     .periodo-body .ch-total {
       margin-top: 0.6rem;
       font-weight: 500;
@@ -288,6 +298,14 @@
       .optativas-grid {
         grid-template-columns: 1fr;
       }
+      .table-wrapper table {
+        font-size: 0.8rem;
+        min-width: 420px;
+      }
+      .table-wrapper table th,
+      .table-wrapper table td {
+        padding: 0.3rem 0.4rem;
+      }
     }
     @media (max-width: 480px) {
       .hero h1 {
@@ -296,12 +314,13 @@
       .grid-links {
         grid-template-columns: 1fr;
       }
-      .periodo-body table {
-        font-size: 0.8rem;
+      .table-wrapper table {
+        font-size: 0.7rem;
+        min-width: 360px;
       }
-      .periodo-body table th,
-      .periodo-body table td {
-        padding: 0.3rem 0.4rem;
+      .table-wrapper table th,
+      .table-wrapper table td {
+        padding: 0.25rem 0.3rem;
       }
     }
 
@@ -450,15 +469,17 @@
           1º Período <span class="seta">▼</span>
         </div>
         <div class="periodo-body">
-          <table>
-            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-            <tr><td>410121</td><td>LABORATÓRIO ENSINO FORMAS EXPRES BIDIMENSIONAIS I</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>410146</td><td>INTRODUCAO A PRODUCAO E ANALISE DA IMAGEM</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>410101</td><td>HISTÓRIA DAS ARTES VISUAIS I</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>410141</td><td>MÉTODOS E TÉCNICAS DE PESQUISA EM ARTES VISUAIS</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>410113</td><td>FUNDAMENTOS DA ARTE I</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>405011</td><td>ANTROPOLOGIA I</td><td>60h</td><td>Obrigatória</td></tr>
-          </table>
+          <div class="table-wrapper">
+            <table>
+              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+              <tr><td>410121</td><td>LABORATÓRIO ENSINO FORMAS EXPRES BIDIMENSIONAIS I</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>410146</td><td>INTRODUCAO A PRODUCAO E ANALISE DA IMAGEM</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>410101</td><td>HISTÓRIA DAS ARTES VISUAIS I</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>410141</td><td>MÉTODOS E TÉCNICAS DE PESQUISA EM ARTES VISUAIS</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>410113</td><td>FUNDAMENTOS DA ARTE I</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>405011</td><td>ANTROPOLOGIA I</td><td>60h</td><td>Obrigatória</td></tr>
+            </table>
+          </div>
           <div class="ch-total">CH Total: 360h</div>
         </div>
       </div>
@@ -469,15 +490,17 @@
           2º Período <span class="seta">▼</span>
         </div>
         <div class="periodo-body">
-          <table>
-            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-            <tr><td>410122</td><td>LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS II</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>410102</td><td>HISTÓRIA DAS ARTES VISUAIS II</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>410131</td><td>LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS I</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>410114</td><td>FUNDAMENTOS DA ARTE II</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>401363</td><td>ESTRUTURA E FUNCIONAMENTO DA EDUCAÇÃO BÁSICA</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>406251</td><td>INTRODUÇÃO À PSICOLOGIA DO DESENVOLVIMENTO</td><td>60h</td><td>Obrigatória</td></tr>
-          </table>
+          <div class="table-wrapper">
+            <table>
+              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+              <tr><td>410122</td><td>LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS II</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>410102</td><td>HISTÓRIA DAS ARTES VISUAIS II</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>410131</td><td>LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS I</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>410114</td><td>FUNDAMENTOS DA ARTE II</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>401363</td><td>ESTRUTURA E FUNCIONAMENTO DA EDUCAÇÃO BÁSICA</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>406251</td><td>INTRODUÇÃO À PSICOLOGIA DO DESENVOLVIMENTO</td><td>60h</td><td>Obrigatória</td></tr>
+            </table>
+          </div>
           <div class="ch-total">CH Total: 360h</div>
         </div>
       </div>
@@ -488,15 +511,17 @@
           3º Período <span class="seta">▼</span>
         </div>
         <div class="periodo-body">
-          <table>
-            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-            <tr><td>410147</td><td>INTRODUÇÃO À COMPUTAÇÃO GRÁFICA</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>410123</td><td>LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS III</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>410100</td><td>HISTÓRIA DAS ARTES VISUAIS III</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>410132</td><td>LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSINAIS II</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>401355</td><td>LÍNGUA BRASILEIRA DE SINAIS – LIBRAS</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>406256</td><td>INTRODUÇÃO À PSICOLOGIA DA APRENDIZAGEM</td><td>60h</td><td>Obrigatória</td></tr>
-          </table>
+          <div class="table-wrapper">
+            <table>
+              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+              <tr><td>410147</td><td>INTRODUÇÃO À COMPUTAÇÃO GRÁFICA</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>410123</td><td>LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS III</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>410100</td><td>HISTÓRIA DAS ARTES VISUAIS III</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>410132</td><td>LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSINAIS II</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>401355</td><td>LÍNGUA BRASILEIRA DE SINAIS – LIBRAS</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>406256</td><td>INTRODUÇÃO À PSICOLOGIA DA APRENDIZAGEM</td><td>60h</td><td>Obrigatória</td></tr>
+            </table>
+          </div>
           <div class="ch-total">CH Total: 360h</div>
         </div>
       </div>
@@ -507,15 +532,17 @@
           4º Período <span class="seta">▼</span>
         </div>
         <div class="periodo-body">
-          <table>
-            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-            <tr><td>410133</td><td>LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS III</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>410103</td><td>HISTÓRIA DAS ARTES VISUAIS IV</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>410104</td><td>HISTÓRIA DAS ARTES VISUAIS NO BRASIL I</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>410151</td><td>ESTÁGIO SUPERVISIONADO P ENSINO ARTES VISUAIS I</td><td>75h</td><td>Obrigatória</td></tr>
-            <tr><td>410124</td><td>LABORATORIO ENSINO FORMAS EXPRESSIVAS BIDIMEN IV</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>401101</td><td>DIDATICA</td><td>75h</td><td>Obrigatória</td></tr>
-          </table>
+          <div class="table-wrapper">
+            <table>
+              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+              <tr><td>410133</td><td>LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS III</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>410103</td><td>HISTÓRIA DAS ARTES VISUAIS IV</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>410104</td><td>HISTÓRIA DAS ARTES VISUAIS NO BRASIL I</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>410151</td><td>ESTÁGIO SUPERVISIONADO P ENSINO ARTES VISUAIS I</td><td>75h</td><td>Obrigatória</td></tr>
+              <tr><td>410124</td><td>LABORATORIO ENSINO FORMAS EXPRESSIVAS BIDIMEN IV</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>401101</td><td>DIDATICA</td><td>75h</td><td>Obrigatória</td></tr>
+            </table>
+          </div>
           <div class="ch-total">CH Total: 390h</div>
         </div>
       </div>
@@ -526,14 +553,16 @@
           5º Período <span class="seta">▼</span>
         </div>
         <div class="periodo-body">
-          <table>
-            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-            <tr><td>410125</td><td>LABORATORIO ENSINO FORMAS EXPRESS BIDIMENSION V</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>410105</td><td>HISTÓRIA DAS ARTES VISUAIS NO BRASIL II</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>410111</td><td>FUNDAMENTOS DO ENSINO DE ARTES VISUAIS NO BRASIL I</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>410152</td><td>ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS II</td><td>75h</td><td>Obrigatória</td></tr>
-            <tr><td>405018</td><td>CULTURA BRASILEIRA</td><td>60h</td><td>Obrigatória</td></tr>
-          </table>
+          <div class="table-wrapper">
+            <table>
+              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+              <tr><td>410125</td><td>LABORATORIO ENSINO FORMAS EXPRESS BIDIMENSION V</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>410105</td><td>HISTÓRIA DAS ARTES VISUAIS NO BRASIL II</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>410111</td><td>FUNDAMENTOS DO ENSINO DE ARTES VISUAIS NO BRASIL I</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>410152</td><td>ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS II</td><td>75h</td><td>Obrigatória</td></tr>
+              <tr><td>405018</td><td>CULTURA BRASILEIRA</td><td>60h</td><td>Obrigatória</td></tr>
+            </table>
+          </div>
           <div class="ch-total">CH Total: 315h</div>
         </div>
       </div>
@@ -544,15 +573,17 @@
           6º Período <span class="seta">▼</span>
         </div>
         <div class="periodo-body">
-          <table>
-            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-            <tr><td>410106</td><td>HISTÓRIA DAS ARTES VISUAIS NO BRASIL III</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>410126</td><td>LABORATORIO ENSINO FORMAS EXPRES BIDIMENSIONAIS VI</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>410153</td><td>ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS III</td><td>75h</td><td>Obrigatória</td></tr>
-            <tr><td>410112</td><td>FUNDAMENTOS ENSINO DE ARTES VISUAIS NO BRASIL II</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>410145</td><td>ARTES VISUAIS E NOVAS TECNOLOGIAS</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>401354</td><td>FUNDAMENTOS DA EDUCAÇÃO INCLUSIVA</td><td>60h</td><td>Obrigatória</td></tr>
-          </table>
+          <div class="table-wrapper">
+            <table>
+              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+              <tr><td>410106</td><td>HISTÓRIA DAS ARTES VISUAIS NO BRASIL III</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>410126</td><td>LABORATORIO ENSINO FORMAS EXPRES BIDIMENSIONAIS VI</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>410153</td><td>ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS III</td><td>75h</td><td>Obrigatória</td></tr>
+              <tr><td>410112</td><td>FUNDAMENTOS ENSINO DE ARTES VISUAIS NO BRASIL II</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>410145</td><td>ARTES VISUAIS E NOVAS TECNOLOGIAS</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>401354</td><td>FUNDAMENTOS DA EDUCAÇÃO INCLUSIVA</td><td>60h</td><td>Obrigatória</td></tr>
+            </table>
+          </div>
           <div class="ch-total">CH Total: 375h</div>
         </div>
       </div>
@@ -563,13 +594,15 @@
           7º Período <span class="seta">▼</span>
         </div>
         <div class="periodo-body">
-          <table>
-            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-            <tr><td>410154</td><td>ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS IV</td><td>75h</td><td>Obrigatória</td></tr>
-            <tr><td>410107</td><td>HISTÓRIA DAS ARTES VISUAIS EM SERGIPE</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>410142</td><td>TRABALHO DE CONCLUSÃO DE CURSO ARTES VISUAIS I</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>410115</td><td>TEORIA E CRÍTICA DE ARTE</td><td>60h</td><td>Obrigatória</td></tr>
-          </table>
+          <div class="table-wrapper">
+            <table>
+              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+              <tr><td>410154</td><td>ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS IV</td><td>75h</td><td>Obrigatória</td></tr>
+              <tr><td>410107</td><td>HISTÓRIA DAS ARTES VISUAIS EM SERGIPE</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>410142</td><td>TRABALHO DE CONCLUSÃO DE CURSO ARTES VISUAIS I</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>410115</td><td>TEORIA E CRÍTICA DE ARTE</td><td>60h</td><td>Obrigatória</td></tr>
+            </table>
+          </div>
           <div class="ch-total">CH Total: 255h</div>
         </div>
       </div>
@@ -580,12 +613,14 @@
           8º Período <span class="seta">▼</span>
         </div>
         <div class="periodo-body">
-          <table>
-            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-            <tr><td>410144</td><td>TRABALHO DE CONCLUSÃO DE CURSO ARTES VISUAIS II</td><td>60h</td><td>Obrigatória</td></tr>
-            <tr><td>410155</td><td>ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS V</td><td>120h</td><td>Obrigatória</td></tr>
-            <tr><td>DESIG0083</td><td>ATIVIDADES COMPLEMENTARES EM ARTES VISUAIS</td><td>210h</td><td>Obrigatória</td></tr>
-          </table>
+          <div class="table-wrapper">
+            <table>
+              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+              <tr><td>410144</td><td>TRABALHO DE CONCLUSÃO DE CURSO ARTES VISUAIS II</td><td>60h</td><td>Obrigatória</td></tr>
+              <tr><td>410155</td><td>ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS V</td><td>120h</td><td>Obrigatória</td></tr>
+              <tr><td>DESIG0083</td><td>ATIVIDADES COMPLEMENTARES EM ARTES VISUAIS</td><td>210h</td><td>Obrigatória</td></tr>
+            </table>
+          </div>
           <div class="ch-total">CH Total: 390h</div>
         </div>
       </div>
