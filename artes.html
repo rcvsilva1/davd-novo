@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -158,10 +159,36 @@
     .card-link a:hover {
       text-decoration: underline;
     }
-    .card-link .icone {
-      font-size: 1.6rem;
-      display: block;
-      margin-bottom: 0.2rem;
+
+    /* ===== BLOCO DE INFORMAÇÕES DA ESTRUTURA CURRICULAR ===== */
+    .grid-info-curriculo {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .card-info {
+      background: var(--cinza-fundo);
+      border-radius: 14px;
+      padding: 1rem 1.2rem;
+      border-left: 4px solid var(--azul-medio);
+    }
+    .card-info .titulo {
+      font-weight: 700;
+      color: var(--azul-escuro);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.4rem;
+    }
+    .card-info .dado {
+      font-size: 0.95rem;
+      color: #2c3e50;
+      line-height: 1.5;
+    }
+    .card-info .dado strong {
+      color: var(--azul-medio);
+      font-weight: 600;
     }
 
     /* ===== GRADE CURRICULAR (ACORDEÃO) ===== */
@@ -201,36 +228,26 @@
     .periodo-body.aberto {
       display: block;
     }
-
-    /* ===== WRAPPER PARA ROLAGEM HORIZONTAL DA TABELA ===== */
-    .table-wrapper {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      margin-top: 0.5rem;
-    }
-    .table-wrapper table {
+    .periodo-body table {
       width: 100%;
       border-collapse: collapse;
       font-size: 0.9rem;
-      min-width: 480px; /* força a rolagem horizontal em telas pequenas */
+      margin-top: 0.5rem;
     }
-    .table-wrapper table th {
+    .periodo-body table th {
       text-align: left;
       background: var(--azul-medio);
       color: #fff;
       padding: 0.4rem 0.6rem;
       font-weight: 500;
-      white-space: nowrap;
     }
-    .table-wrapper table td {
+    .periodo-body table td {
       padding: 0.4rem 0.6rem;
       border-bottom: 1px solid #e9ecef;
-      white-space: nowrap;
     }
-    .table-wrapper table tr:last-child td {
+    .periodo-body table tr:last-child td {
       border-bottom: none;
     }
-
     .periodo-body .ch-total {
       margin-top: 0.6rem;
       font-weight: 500;
@@ -263,23 +280,6 @@
       color: #4a5a6e;
     }
 
-    /* ===== INFORMAÇÕES DO CURRÍCULO ===== */
-    .info-curriculo {
-      background: var(--cinza-fundo);
-      border-radius: 16px;
-      padding: 1rem 1.5rem;
-      margin: 1.5rem 0;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 0.8rem;
-    }
-    .info-curriculo .item {
-      font-size: 0.9rem;
-    }
-    .info-curriculo .item strong {
-      color: var(--azul-escuro);
-    }
-
     /* ===== RESPONSIVO ===== */
     @media (max-width: 768px) {
       .hero {
@@ -295,16 +295,11 @@
       .grid-links {
         grid-template-columns: 1fr 1fr;
       }
+      .grid-info-curriculo {
+        grid-template-columns: 1fr 1fr;
+      }
       .optativas-grid {
         grid-template-columns: 1fr;
-      }
-      .table-wrapper table {
-        font-size: 0.8rem;
-        min-width: 420px;
-      }
-      .table-wrapper table th,
-      .table-wrapper table td {
-        padding: 0.3rem 0.4rem;
       }
     }
     @media (max-width: 480px) {
@@ -314,13 +309,15 @@
       .grid-links {
         grid-template-columns: 1fr;
       }
-      .table-wrapper table {
-        font-size: 0.7rem;
-        min-width: 360px;
+      .grid-info-curriculo {
+        grid-template-columns: 1fr;
       }
-      .table-wrapper table th,
-      .table-wrapper table td {
-        padding: 0.25rem 0.3rem;
+      .periodo-body table {
+        font-size: 0.8rem;
+      }
+      .periodo-body table th,
+      .periodo-body table td {
+        padding: 0.3rem 0.4rem;
       }
     }
 
@@ -403,7 +400,7 @@
   <main class="main">
 
     <!-- ===== HERO / BANNER ===== -->
-    <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
+    <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('https://via.placeholder.com/1200x400/004DA4/ffffff?text=Artes+Visuais'); background-size: cover; background-position: center;">
       <h1>Artes Visuais – <strong>Licenciatura</strong></h1>
       <p>Curso presencial – Vespertino – São Cristóvão</p>
       <a href="index.html" class="btn-voltar">Voltar</a>
@@ -416,49 +413,59 @@
       <h2>Links Úteis</h2>
       <div class="grid-links">
         <div class="card-link">
-          <span class="icone">📅</span>
+          <a href="#">Projeto Pedagógico (PPP)</a>
+        </div>
+        <div class="card-link">
           <a href="https://prograd.ufs.br/pagina/25642" target="_blank">Calendário Acadêmico</a>
         </div>
         <div class="card-link">
-          <span class="icone">📋</span>
           <a href="#">Oferta de Componentes</a>
         </div>
         <div class="card-link">
-          <span class="icone">📌</span>
-          <a href="#">Estágio Obrigatório</a>
-        </div>
-        <div class="card-link">
-          <span class="icone">📌</span>
-          <a href="#">Estágio Não Obrigatório</a>
-        </div>
-        <div class="card-link">
-          <span class="icone">📘</span>
-          <a href="#">Atividades Complementares</a>
-        </div>
-        <div class="card-link">
-          <span class="icone">🔄</span>
-          <a href="#">Aproveitamento</a>
-        </div>
-        <div class="card-link">
-          <span class="icone">👨‍🏫</span>
           <a href="#">Ensino Individual</a>
         </div>
         <div class="card-link">
-          <span class="icone">📄</span>
+          <a href="estagio_artes.html">Estágio</a>
+        </div>
+        <div class="card-link">
+          <a href="#">Normas do TCC</a>
+        </div>
+        <div class="card-link">
+          <a href="#">Atividades Complementares</a>
+        </div>
+        <div class="card-link">
           <a href="https://presencial.ufs.br/pagina/22196" target="_blank">Requerimentos Diversos</a>
         </div>
       </div>
 
-      <!-- ===== INFORMAÇÕES DO CURRÍCULO ===== -->
+      <!-- ===== ESTRUTURA CURRICULAR (NOVOS BLOCOS) ===== -->
       <h2>Estrutura Curricular</h2>
-      <div class="info-curriculo">
-        <div class="item"><strong>Código:</strong> 08</div>
-        <div class="item"><strong>Matriz Curricular:</strong> ARTES VISUAIS - São Cristóvão - Presencial - Vespertino - Licenciatura Plena</div>
-        <div class="item"><strong>Período de Vigência:</strong> 2012-1</div>
-        <div class="item"><strong>Carga Horária Total Mínima:</strong> 3045h</div>
-        <div class="item"><strong>Optativas Mínima:</strong> 240h</div>
-        <div class="item"><strong>Prazos (períodos):</strong> Mínimo 8, Médio 8, Máximo 12</div>
-        <div class="item"><strong>Créditos por período:</strong> Mínimo 12, Médio 25, Máximo 32</div>
+      <div class="grid-info-curriculo">
+        <!-- Vigência -->
+        <div class="card-info">
+          <div class="titulo">Vigência</div>
+          <div class="dado">2012.1</div>
+        </div>
+        <!-- Prazos -->
+        <div class="card-info">
+          <div class="titulo">Prazos</div>
+          <div class="dado"><strong>Mínimo:</strong> 8 períodos<br /><strong>Máximo:</strong> 12 períodos</div>
+        </div>
+        <!-- Créditos por Período -->
+        <div class="card-info">
+          <div class="titulo">Créditos por Período</div>
+          <div class="dado"><strong>Mínimo:</strong> 12 créditos<br /><strong>Máximo:</strong> 32 créditos</div>
+        </div>
+        <!-- Carga Horária Total -->
+        <div class="card-info">
+          <div class="titulo">Carga Horária Total</div>
+          <div class="dado">3045h</div>
+        </div>
+        <!-- Optativas Mínima-->
+        <div class="card-info">
+          <div class="titulo">Optativas Mínima</div>
+          <div class="dado">240h</div>
+        </div>
       </div>
 
       <!-- ===== GRADE CURRICULAR (ACORDEÃO) ===== -->
@@ -469,17 +476,15 @@
           1º Período <span class="seta">▼</span>
         </div>
         <div class="periodo-body">
-          <div class="table-wrapper">
-            <table>
-              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-              <tr><td>410121</td><td>LABORATÓRIO ENSINO FORMAS EXPRES BIDIMENSIONAIS I</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>410146</td><td>INTRODUCAO A PRODUCAO E ANALISE DA IMAGEM</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>410101</td><td>HISTÓRIA DAS ARTES VISUAIS I</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>410141</td><td>MÉTODOS E TÉCNICAS DE PESQUISA EM ARTES VISUAIS</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>410113</td><td>FUNDAMENTOS DA ARTE I</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>405011</td><td>ANTROPOLOGIA I</td><td>60h</td><td>Obrigatória</td></tr>
-            </table>
-          </div>
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>410121</td><td>LABORATÓRIO ENSINO FORMAS EXPRES BIDIMENSIONAIS I</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410146</td><td>INTRODUCAO A PRODUCAO E ANALISE DA IMAGEM</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410101</td><td>HISTÓRIA DAS ARTES VISUAIS I</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410141</td><td>MÉTODOS E TÉCNICAS DE PESQUISA EM ARTES VISUAIS</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410113</td><td>FUNDAMENTOS DA ARTE I</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>405011</td><td>ANTROPOLOGIA I</td><td>60h</td><td>Obrigatória</td></tr>
+          </table>
           <div class="ch-total">CH Total: 360h</div>
         </div>
       </div>
@@ -490,17 +495,15 @@
           2º Período <span class="seta">▼</span>
         </div>
         <div class="periodo-body">
-          <div class="table-wrapper">
-            <table>
-              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-              <tr><td>410122</td><td>LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS II</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>410102</td><td>HISTÓRIA DAS ARTES VISUAIS II</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>410131</td><td>LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS I</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>410114</td><td>FUNDAMENTOS DA ARTE II</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>401363</td><td>ESTRUTURA E FUNCIONAMENTO DA EDUCAÇÃO BÁSICA</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>406251</td><td>INTRODUÇÃO À PSICOLOGIA DO DESENVOLVIMENTO</td><td>60h</td><td>Obrigatória</td></tr>
-            </table>
-          </div>
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>410122</td><td>LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS II</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410102</td><td>HISTÓRIA DAS ARTES VISUAIS II</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410131</td><td>LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS I</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410114</td><td>FUNDAMENTOS DA ARTE II</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>401363</td><td>ESTRUTURA E FUNCIONAMENTO DA EDUCAÇÃO BÁSICA</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>406251</td><td>INTRODUÇÃO À PSICOLOGIA DO DESENVOLVIMENTO</td><td>60h</td><td>Obrigatória</td></tr>
+          </table>
           <div class="ch-total">CH Total: 360h</div>
         </div>
       </div>
@@ -511,17 +514,15 @@
           3º Período <span class="seta">▼</span>
         </div>
         <div class="periodo-body">
-          <div class="table-wrapper">
-            <table>
-              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-              <tr><td>410147</td><td>INTRODUÇÃO À COMPUTAÇÃO GRÁFICA</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>410123</td><td>LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS III</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>410100</td><td>HISTÓRIA DAS ARTES VISUAIS III</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>410132</td><td>LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSINAIS II</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>401355</td><td>LÍNGUA BRASILEIRA DE SINAIS – LIBRAS</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>406256</td><td>INTRODUÇÃO À PSICOLOGIA DA APRENDIZAGEM</td><td>60h</td><td>Obrigatória</td></tr>
-            </table>
-          </div>
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>410147</td><td>INTRODUÇÃO À COMPUTAÇÃO GRÁFICA</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410123</td><td>LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS III</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410100</td><td>HISTÓRIA DAS ARTES VISUAIS III</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410132</td><td>LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSINAIS II</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>401355</td><td>LÍNGUA BRASILEIRA DE SINAIS – LIBRAS</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>406256</td><td>INTRODUÇÃO À PSICOLOGIA DA APRENDIZAGEM</td><td>60h</td><td>Obrigatória</td></tr>
+          </table>
           <div class="ch-total">CH Total: 360h</div>
         </div>
       </div>
@@ -532,17 +533,15 @@
           4º Período <span class="seta">▼</span>
         </div>
         <div class="periodo-body">
-          <div class="table-wrapper">
-            <table>
-              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-              <tr><td>410133</td><td>LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS III</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>410103</td><td>HISTÓRIA DAS ARTES VISUAIS IV</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>410104</td><td>HISTÓRIA DAS ARTES VISUAIS NO BRASIL I</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>410151</td><td>ESTÁGIO SUPERVISIONADO P ENSINO ARTES VISUAIS I</td><td>75h</td><td>Obrigatória</td></tr>
-              <tr><td>410124</td><td>LABORATORIO ENSINO FORMAS EXPRESSIVAS BIDIMEN IV</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>401101</td><td>DIDATICA</td><td>75h</td><td>Obrigatória</td></tr>
-            </table>
-          </div>
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>410133</td><td>LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS III</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410103</td><td>HISTÓRIA DAS ARTES VISUAIS IV</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410104</td><td>HISTÓRIA DAS ARTES VISUAIS NO BRASIL I</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410151</td><td>ESTÁGIO SUPERVISIONADO P ENSINO ARTES VISUAIS I</td><td>75h</td><td>Obrigatória</td></tr>
+            <tr><td>410124</td><td>LABORATORIO ENSINO FORMAS EXPRESSIVAS BIDIMEN IV</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>401101</td><td>DIDATICA</td><td>75h</td><td>Obrigatória</td></tr>
+          </table>
           <div class="ch-total">CH Total: 390h</div>
         </div>
       </div>
@@ -553,16 +552,14 @@
           5º Período <span class="seta">▼</span>
         </div>
         <div class="periodo-body">
-          <div class="table-wrapper">
-            <table>
-              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-              <tr><td>410125</td><td>LABORATORIO ENSINO FORMAS EXPRESS BIDIMENSION V</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>410105</td><td>HISTÓRIA DAS ARTES VISUAIS NO BRASIL II</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>410111</td><td>FUNDAMENTOS DO ENSINO DE ARTES VISUAIS NO BRASIL I</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>410152</td><td>ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS II</td><td>75h</td><td>Obrigatória</td></tr>
-              <tr><td>405018</td><td>CULTURA BRASILEIRA</td><td>60h</td><td>Obrigatória</td></tr>
-            </table>
-          </div>
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>410125</td><td>LABORATORIO ENSINO FORMAS EXPRESS BIDIMENSION V</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410105</td><td>HISTÓRIA DAS ARTES VISUAIS NO BRASIL II</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410111</td><td>FUNDAMENTOS DO ENSINO DE ARTES VISUAIS NO BRASIL I</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410152</td><td>ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS II</td><td>75h</td><td>Obrigatória</td></tr>
+            <tr><td>405018</td><td>CULTURA BRASILEIRA</td><td>60h</td><td>Obrigatória</td></tr>
+          </table>
           <div class="ch-total">CH Total: 315h</div>
         </div>
       </div>
@@ -573,17 +570,15 @@
           6º Período <span class="seta">▼</span>
         </div>
         <div class="periodo-body">
-          <div class="table-wrapper">
-            <table>
-              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-              <tr><td>410106</td><td>HISTÓRIA DAS ARTES VISUAIS NO BRASIL III</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>410126</td><td>LABORATORIO ENSINO FORMAS EXPRES BIDIMENSIONAIS VI</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>410153</td><td>ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS III</td><td>75h</td><td>Obrigatória</td></tr>
-              <tr><td>410112</td><td>FUNDAMENTOS ENSINO DE ARTES VISUAIS NO BRASIL II</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>410145</td><td>ARTES VISUAIS E NOVAS TECNOLOGIAS</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>401354</td><td>FUNDAMENTOS DA EDUCAÇÃO INCLUSIVA</td><td>60h</td><td>Obrigatória</td></tr>
-            </table>
-          </div>
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>410106</td><td>HISTÓRIA DAS ARTES VISUAIS NO BRASIL III</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410126</td><td>LABORATORIO ENSINO FORMAS EXPRES BIDIMENSIONAIS VI</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410153</td><td>ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS III</td><td>75h</td><td>Obrigatória</td></tr>
+            <tr><td>410112</td><td>FUNDAMENTOS ENSINO DE ARTES VISUAIS NO BRASIL II</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410145</td><td>ARTES VISUAIS E NOVAS TECNOLOGIAS</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>401354</td><td>FUNDAMENTOS DA EDUCAÇÃO INCLUSIVA</td><td>60h</td><td>Obrigatória</td></tr>
+          </table>
           <div class="ch-total">CH Total: 375h</div>
         </div>
       </div>
@@ -594,15 +589,13 @@
           7º Período <span class="seta">▼</span>
         </div>
         <div class="periodo-body">
-          <div class="table-wrapper">
-            <table>
-              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-              <tr><td>410154</td><td>ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS IV</td><td>75h</td><td>Obrigatória</td></tr>
-              <tr><td>410107</td><td>HISTÓRIA DAS ARTES VISUAIS EM SERGIPE</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>410142</td><td>TRABALHO DE CONCLUSÃO DE CURSO ARTES VISUAIS I</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>410115</td><td>TEORIA E CRÍTICA DE ARTE</td><td>60h</td><td>Obrigatória</td></tr>
-            </table>
-          </div>
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>410154</td><td>ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS IV</td><td>75h</td><td>Obrigatória</td></tr>
+            <tr><td>410107</td><td>HISTÓRIA DAS ARTES VISUAIS EM SERGIPE</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410142</td><td>TRABALHO DE CONCLUSÃO DE CURSO ARTES VISUAIS I</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410115</td><td>TEORIA E CRÍTICA DE ARTE</td><td>60h</td><td>Obrigatória</td></tr>
+          </table>
           <div class="ch-total">CH Total: 255h</div>
         </div>
       </div>
@@ -613,21 +606,18 @@
           8º Período <span class="seta">▼</span>
         </div>
         <div class="periodo-body">
-          <div class="table-wrapper">
-            <table>
-              <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
-              <tr><td>410144</td><td>TRABALHO DE CONCLUSÃO DE CURSO ARTES VISUAIS II</td><td>60h</td><td>Obrigatória</td></tr>
-              <tr><td>410155</td><td>ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS V</td><td>120h</td><td>Obrigatória</td></tr>
-              <tr><td>DESIG0083</td><td>ATIVIDADES COMPLEMENTARES EM ARTES VISUAIS</td><td>210h</td><td>Obrigatória</td></tr>
-            </table>
-          </div>
+          <table>
+            <tr><th>Código</th><th>Disciplina</th><th>CH</th><th>Natureza</th></tr>
+            <tr><td>410144</td><td>TRABALHO DE CONCLUSÃO DE CURSO ARTES VISUAIS II</td><td>60h</td><td>Obrigatória</td></tr>
+            <tr><td>410155</td><td>ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS V</td><td>120h</td><td>Obrigatória</td></tr>
+            <tr><td>DESIG0083</td><td>ATIVIDADES COMPLEMENTARES EM ARTES VISUAIS</td><td>210h</td><td>Obrigatória</td></tr>
+          </table>
           <div class="ch-total">CH Total: 390h</div>
         </div>
       </div>
 
       <!-- ===== FORMAÇÃO COMPLEMENTAR (OPTATIVAS) ===== -->
       <h2>Formação Complementar – Optativas</h2>
-      <p style="font-size:0.95rem; color:#4a5a6e;">Carga horária mínima de <strong>240h</strong> em disciplinas optativas.</p>
       <div class="optativas-grid">
         <div class="item-opt"><span class="codigo">900001</span> MONITORIA I <span class="carga">30h</span></div>
         <div class="item-opt"><span class="codigo">900002</span> MONITORIA II <span class="carga">30h</span></div>
