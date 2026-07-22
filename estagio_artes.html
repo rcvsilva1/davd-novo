@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAVD/UFS – Estágio Artes Visuais</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET E VARIÁVEIS ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --azul-escuro: #272B7D;
+      --azul-medio: #004DA4;
+      --azul-claro: #1a73e8;
+      --laranja: #e67e22;
+      --cinza-fundo: #f4f7fc;
+      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+      --radius: 24px;
+      --branco: #ffffff;
+    }
+    body {
+      font-family: 'Ubuntu', sans-serif;
+      background: var(--cinza-fundo);
+      color: #1e2a3a;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* ===== CONTEÚDO PRINCIPAL ===== */
+    .main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      width: 100%;
+    }
+
+    /* ===== HERO / BANNER ===== */
+    .hero {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: var(--radius);
+      padding: 4rem 3rem;
+      margin-bottom: 2.5rem;
+      text-align: left;
+      color: #fff;
+      position: relative;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+    }
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .hero h1 strong {
+      font-weight: 700;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: #f0f0f0;
+      margin: 0.5rem 0 1.8rem;
+      max-width: 700px;
+    }
+    .hero .btn-voltar {
+      display: inline-block;
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.6rem 2rem;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: background 0.25s;
+      border: none;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+    .hero .btn-voltar:hover {
+      background: var(--azul-escuro);
+    }
+
+    /* ===== SEÇÃO DE CONTEÚDO ===== */
+    .conteudo {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2.5rem;
+    }
+    .conteudo h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--azul-escuro);
+      margin: 2rem 0 1rem;
+      border-bottom: 2px solid var(--azul-medio);
+      padding-bottom: 0.5rem;
+    }
+    .conteudo h2:first-of-type {
+      margin-top: 0;
+    }
+    .conteudo h3 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--azul-medio);
+      margin: 1.5rem 0 0.8rem;
+    }
+    .conteudo p {
+      font-size: 1rem;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+    .conteudo ul {
+      margin: 0.5rem 0 1rem 1.5rem;
+      font-size: 1rem;
+      color: #2c3e50;
+    }
+    .conteudo ul li {
+      margin-bottom: 0.3rem;
+    }
+
+    /* ===== TABELAS RESPONSIVAS ===== */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1rem 0;
+      border-radius: 12px;
+      border: 1px solid #e0e4e8;
+    }
+    .table-wrapper table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      min-width: 400px;
+    }
+    .table-wrapper table th {
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.6rem 1rem;
+      text-align: left;
+      font-weight: 500;
+    }
+    .table-wrapper table td {
+      padding: 0.5rem 1rem;
+      border-bottom: 1px solid #e9ecef;
+    }
+    .table-wrapper table tr:last-child td {
+      border-bottom: none;
+    }
+    .table-wrapper table tr:hover td {
+      background: #f8f9fa;
+    }
+
+    /* ===== LINKS ÚTEIS (CARDS) ===== */
+    .grid-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .card-link {
+      background: var(--cinza-fundo);
+      border-radius: 14px;
+      padding: 1rem 1.2rem;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border-left: 4px solid var(--azul-medio);
+    }
+    .card-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .card-link a {
+      display: block;
+      font-weight: 500;
+      color: var(--azul-medio);
+      font-size: 0.95rem;
+    }
+    .card-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== LISTA DE SOLICITAÇÕES (CARDS) ===== */
+    .solicitacoes-lista {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin: 1rem 0;
+    }
+    .solicitacao-card {
+      background: var(--cinza-fundo);
+      border-radius: 12px;
+      padding: 0.8rem 1.2rem;
+      border-left: 4px solid var(--azul-medio);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .solicitacao-card:hover {
+      transform: translateX(3px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .solicitacao-card .campo {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 0.2rem;
+      gap: 0.5rem;
+    }
+    .solicitacao-card .campo .rotulo {
+      font-weight: 600;
+      color: var(--azul-escuro);
+      min-width: 180px;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .solicitacao-card .campo .valor {
+      font-size: 0.85rem;
+      color: #1e2a3a;
+      word-break: break-word;
+      flex: 1;
+    }
+    .solicitacao-card .campo .valor.vazio {
+      color: #999;
+      font-style: italic;
+    }
+
+    /* ===== STATUS DE CARREGAMENTO ===== */
+    .loading {
+      text-align: center;
+      padding: 1.5rem;
+      color: #4a5a6e;
+    }
+    .loading .spinner {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      border: 3px solid #e9ecef;
+      border-top: 3px solid var(--azul-medio);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ===== MENSAGEM DE ERRO ===== */
+    .erro {
+      background: #fde8e8;
+      border: 1px solid #f5c6c6;
+      border-radius: 12px;
+      padding: 1.2rem;
+      color: #721c24;
+    }
+    .erro a { color: var(--azul-medio); text-decoration: underline; }
+
+    /* ===== RESPONSIVO ===== */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 2.5rem 1.5rem;
+        min-height: 160px;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .conteudo {
+        padding: 1.5rem;
+      }
+      .solicitacao-card .campo .rotulo {
+        min-width: 120px;
+        font-size: 0.8rem;
+      }
+      .solicitacao-card .campo .valor {
+        font-size: 0.8rem;
+      }
+      .table-wrapper table {
+        font-size: 0.85rem;
+        min-width: 300px;
+      }
+      .table-wrapper table th,
+      .table-wrapper table td {
+        padding: 0.4rem 0.6rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+      .solicitacao-card {
+        padding: 0.6rem 0.8rem;
+      }
+      .solicitacao-card .campo .rotulo {
+        min-width: 100px;
+        font-size: 0.75rem;
+      }
+      .solicitacao-card .campo .valor {
+        font-size: 0.75rem;
+      }
+      .table-wrapper table {
+        font-size: 0.75rem;
+        min-width: 250px;
+      }
+    }
+
+    /* ===== RODAPÉ ===== */
+    .footer {
+      background: #2c2c2c;
+      color: #d4e2ed;
+      padding: 2.5rem 1.5rem 1.5rem;
+      margin-top: 2rem;
+      border-top: 4px solid var(--laranja);
+    }
+    .footer .grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    .footer h4 {
+      color: #fff;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+      font-size: 1rem;
+    }
+    .footer ul {
+      list-style: none;
+      padding: 0;
+    }
+    .footer ul li {
+      margin-bottom: 0.4rem;
+    }
+    .footer ul li a {
+      color: #b0c4de;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer ul li a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .footer .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .footer .social-links a {
+      color: #b0c4de;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer .social-links a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .footer .endereco {
+      font-size: 0.9rem;
+      color: #b0c4de;
+      line-height: 1.5;
+    }
+    .footer .endereco a {
+      color: var(--laranja);
+      text-decoration: underline;
+    }
+    .footer .copy {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #8a9aa8;
+      border-top: 1px solid #3a4a5e;
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+  <main class="main">
+
+    <!-- ===== HERO / BANNER ===== -->
+    <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('https://via.placeholder.com/1200x400/004DA4/ffffff?text=Estagio+Artes+Visuais'); background-size: cover; background-position: center;">
+      <h1>Estágio – <strong>Artes Visuais</strong></h1>
+      <p>Informações e orientações sobre o estágio curricular obrigatório e não‑obrigatório</p>
+      <a href="index.html" class="btn-voltar">Voltar</a>
+    </section>
+
+    <!-- ===== CONTEÚDO ===== -->
+    <div class="conteudo">
+
+      <!-- ===== TEXTO EXPLICATIVO ===== -->
+      <p>O estágio no curso de Artes Visuais – Licenciatura é um ato educativo escolar supervisionado, desenvolvido no ambiente de trabalho, com caráter pedagógico. Ele tem como objetivos oferecer ao aluno a oportunidade de desenvolver atividades típicas da futura profissão, contribuir para a formação de uma consciência crítica em relação à prática profissional, integrar os conhecimentos adquiridos ao longo do curso e aproximar a universidade da realidade das escolas de educação básica.</p>
+
+      <h3>Estágio Curricular Obrigatório</h3>
+      <p>O estágio obrigatório é composto por cinco disciplinas, totalizando 420 horas, distribuídas da seguinte forma:</p>
+
+      <!-- ===== TABELA 1 – DISCIPLINAS DE ESTÁGIO ===== -->
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Disciplina</th>
+              <th>Carga Horária</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Estágio Supervisionado para o Ensino de Artes Visuais I</td><td>75h</td></tr>
+            <tr><td>Estágio Supervisionado para o Ensino de Artes Visuais II</td><td>75h</td></tr>
+            <tr><td>Estágio Supervisionado para o Ensino de Artes Visuais III</td><td>75h</td></tr>
+            <tr><td>Estágio Supervisionado para o Ensino de Artes Visuais IV</td><td>75h</td></tr>
+            <tr><td>Estágio Supervisionado para o Ensino de Artes Visuais V</td><td>120h</td></tr>
+            <tr><td style="font-weight:700;">Total</td><td style="font-weight:700;">420h</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Os campos de estágio são, preferencialmente, escolas da rede pública de ensino, mas também podem ser escolas privadas, desde que atendam aos requisitos definidos pelo Colegiado de Curso. O aluno pode escolher um campo de estágio não divulgado pela Comissão de Estágio, desde que seja previamente aprovado pela comissão.</p>
+
+      <p>A supervisão do estágio é realizada por dois profissionais: o professor orientador, vinculado à UFS, que acompanha e avalia o estagiário; e o supervisor técnico, que é o professor regente na escola campo, responsável por orientar as atividades no local. Cada professor orientador pode acompanhar até dez estagiários.</p>
+
+      <p>A avaliação do estágio obrigatório considera cinco instrumentos, com os seguintes pesos:</p>
+
+      <!-- ===== TABELA 2 – PESOS DA AVALIAÇÃO ===== -->
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Instrumento de Avaliação</th>
+              <th>Peso</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Plano de estágio</td><td>1</td></tr>
+            <tr><td>Ficha de avaliação do supervisor técnico</td><td>1</td></tr>
+            <tr><td>Relatório final de estágio</td><td>4</td></tr>
+            <tr><td>Apresentação oral do relatório final</td><td>2</td></tr>
+            <tr><td>Ficha de avaliação do professor orientador</td><td>2</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>A nota final é a média ponderada desses itens, e o aluno é aprovado com nota igual ou superior a 5,0.</p>
+
+      <h3>Estágio Não‑Obrigatório</h3>
+      <p>O estágio não‑obrigatório é realizado voluntariamente pelo estudante, com o objetivo de enriquecer sua formação acadêmica e profissional. Ele não substitui o estágio obrigatório, mas pode ser convertido em créditos como atividade complementar, com limite máximo de 45 horas.</p>
+      <p>Para sua realização, são exigidos:</p>
+      <ul>
+        <li>Plano de estágio aprovado pela Comissão de Estágio do curso</li>
+        <li>Celebração de Termo de Compromisso entre o aluno, a unidade concedente e a UFS</li>
+        <li>Supervisão de um profissional do campo de estágio</li>
+        <li>Entrega de relatórios semestrais de atividades</li>
+      </ul>
+
+      <h3>Documentos e procedimentos</h3>
+      <p>Tanto para o estágio obrigatório quanto para o não‑obrigatório, é obrigatória a formalização por meio do Termo de Compromisso, que deve ser assinado pelo aluno, pela unidade concedente e pela UFS. O plano de estágio e o relatório final também são documentos exigidos e devem seguir os modelos definidos pelo Colegiado de Curso.</p>
+      <p>A Comissão de Estágio do curso é responsável por divulgar os campos de estágio, orientar os alunos, analisar os planos e relatórios, e encaminhar os Termos de Compromisso à Central de Estágios da UFS (CENEUFS). Qualquer dúvida sobre prazos, documentação ou procedimentos deve ser encaminhada à comissão ou à coordenação do curso.</p>
+
+      <!-- ===== LINKS ÚTEIS ===== -->
+      <h2>Links Úteis</h2>
+      <div class="grid-links">
+        <div class="card-link">
+          <a href="https://proex.ufs.br/pagina/18183" target="_blank">Coordenação de Estágios (CENEUFS)</a>
+        </div>
+        <div class="card-link">
+          <a href="https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11788.htm" target="_blank">Lei do Estágio (nº 11.788/2008)</a>
+        </div>
+        <div class="card-link">
+          <a href="https://forms.gle/zpiWqivK337Wt6Vr6" target="_blank">Formulário de Solicitação de Estágio</a>
+        </div>
+      </div>
+
+      <!-- ===== LISTA DINÂMICA DE SOLICITAÇÕES DE ESTÁGIO ===== -->
+      <h2>Solicitações de Estágio em andamento</h2>
+      <p id="contador-solicitacoes">Carregando solicitações...</p>
+
+      <div id="solicitacoes-container">
+        <div class="loading">
+          <div class="spinner"></div>
+          <p style="margin-top: 0.8rem;">Carregando solicitações...</p>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ===== RODAPÉ ===== -->
+  <footer class="footer">
+    <div class="grid">
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
+          <li><a href="tel:+557931946925">(79) 3194-6925</a></li>
+          <li style="color:#b0c4de; font-size:0.9rem;">Segunda a sexta</li>
+          <li style="color:#b0c4de; font-size:0.9rem;">08h00 às 12h00 • 13h00 às 21h00</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Localização</h4>
+        <div class="endereco">
+          <p>Cidade Univ. Prof. José Aloísio de Campos<br />
+          Av. Marcelo Déda Chagas, s/n, Bairro Rosa Elze<br />
+          São Cristóvão/SE – CEP 49107-230</p>
+          <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank">Ver no mapa</a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Redes Artes</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/cenarteufs" target="_blank">Centro Acadêmico: <strong>@cenarteufs</strong></a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Redes Design</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/designufs" target="_blank">Curso: <strong>@designufs</strong></a>
+          <a href="https://instagram.com/cadeufs" target="_blank">Centro Acadêmico: <strong>@cadeufs</strong></a>
+          <a href="https://instagram.com/designemcurso.ufs" target="_blank">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
+          <a href="https://instagram.com/tiposdaufs" target="_blank">Tipos da UFS: <strong>@tiposdaufs</strong></a>
+        </div>
+      </div>
+    </div>
+    <div class="copy">
+      <p>Universidade Federal de Sergipe – DAVD © 2026</p>
+      <p style="margin-top:0.3rem; font-size:0.75rem; opacity:0.6;">
+        Última atualização: <span id="updateDate"></span>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // ============================================================
+    // CONFIGURAÇÃO – SUBSTITUA PELOS SEUS DADOS
+    // ============================================================
+    const API_KEY = 'AIzaSyB4HGlhilR63RhEzu3L8dYV-SxtosOsoII';               // Chave da API do Google Sheets
+    const SHEET_ID = '1CL-Z60KDyLFGjvRVbexSnACs6TKqXGy4UQhikqBuASs';             // ID da planilha
+    const SHEET_NAME = 'ESTÁGIO ARTES';        // Nome da aba (ex: "ARTES VISUAIS" ou "Respostas do Formulário")
+
+    // Colunas que serão exibidas (use os nomes exatos do cabeçalho da planilha)
+    const COLUNAS = [
+      { rotulo: 'Matrícula', origem: 'Seu número de matrícula na UFS:' },
+      { rotulo: 'Nome Completo', origem: 'Seu nome completo, sem abreviações:' },
+      { rotulo: 'Atividade de Estágio', origem: 'Assinale a atividade de estágio para a qual você solicita este ofício:' },
+      { rotulo: 'Escola', origem: 'Nome completo da escola onde será realizado o Estágio Supervisionado em Artes Visuais:' },
+      { rotulo: 'Diretor(a)', origem: 'Nome completo do/a diretor/a da escola onde será realizado o Estágio Supervisionado em Artes Visuais:' },
+      { rotulo: 'Professor(a) Preceptor(a)', origem: 'Nome completo do/a professor/a que acompanhará, na escola, o Estágio Supervisionado em Artes Visuais:' }
+    ];
+
+    // ============================================================
+    // FUNÇÕES
+    // ============================================================
+
+    async function carregarSolicitacoes() {
+      const container = document.getElementById('solicitacoes-container');
+      const contador = document.getElementById('contador-solicitacoes');
+
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(SHEET_NAME)}?key=${API_KEY}`;
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          let erroMsg = `Erro ${response.status}`;
+          try {
+            const erroJson = await response.json();
+            if (erroJson.error && erroJson.error.message) erroMsg += `: ${erroJson.error.message}`;
+          } catch (e) {}
+          throw new Error(erroMsg);
+        }
+
+        const data = await response.json();
+        const rows = data.values;
+
+        if (!rows || rows.length === 0) {
+          container.innerHTML = '<p style="color:#e67e22;">Nenhum dado encontrado na planilha.</p>';
+          contador.textContent = 'Nenhuma solicitação encontrada.';
+          return;
+        }
+
+        // --- Encontra a linha do cabeçalho (procura pela primeira coluna que usamos) ---
+        let headerRowIndex = -1;
+        const primeiraColuna = COLUNAS[0].origem;
+        for (let i = 0; i < Math.min(rows.length, 10); i++) {
+          if (rows[i] && rows[i].some(cell => cell && cell.trim() === primeiraColuna)) {
+            headerRowIndex = i;
+            break;
+          }
+        }
+        if (headerRowIndex === -1) throw new Error(`Cabeçalho "${primeiraColuna}" não encontrado.`);
+
+        const headers = rows[headerRowIndex];
+
+        // --- Mapeia índices das colunas que queremos ---
+        const indices = COLUNAS.map(col => headers.indexOf(col.origem));
+
+        // --- Filtra as linhas (ignora cabeçalho e linhas vazias) ---
+        const linhasFiltradas = [];
+        for (let i = headerRowIndex + 1; i < rows.length; i++) {
+          const row = rows[i];
+          if (!row || row.length === 0 || row.every(cell => !cell || cell.trim() === '')) continue;
+          // Pega pelo menos a matrícula ou nome para considerar válida
+          const matricula = row[indices[0]] ? row[indices[0]].trim() : '';
+          const nome = row[indices[1]] ? row[indices[1]].trim() : '';
+          if (!matricula && !nome) continue;
+          linhasFiltradas.push(row);
+        }
+
+        if (linhasFiltradas.length === 0) {
+          container.innerHTML = '<p style="color:#4a5a6e;">Nenhuma solicitação em andamento no momento.</p>';
+          contador.textContent = 'Nenhuma solicitação em andamento.';
+          return;
+        }
+
+        const total = linhasFiltradas.length;
+        contador.textContent = `${total} solicitação(ões) em andamento.`;
+
+        let html = '<div class="solicitacoes-lista">';
+        linhasFiltradas.forEach((row) => {
+          const campos = COLUNAS.map((col, idx) => {
+            const i = indices[idx];
+            let valor = (i !== -1 && row[i]) ? row[i].trim() : '';
+            const classe = valor ? 'valor' : 'valor vazio';
+            const display = valor || '—';
+            return `<div class="campo"><span class="rotulo">${col.rotulo}</span><span class="${classe}">${display}</span></div>`;
+          }).join('');
+          html += `<div class="solicitacao-card">${campos}</div>`;
+        });
+        html += '</div>';
+        container.innerHTML = html;
+
+      } catch (error) {
+        console.error(error);
+        container.innerHTML = `<div class="erro"><strong>⚠️ Erro ao carregar os dados:</strong><br>${error.message}</div>`;
+        contador.textContent = 'Erro ao carregar solicitações.';
+      }
+    }
+
+    // ============================================================
+    // EXECUÇÃO
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', carregarSolicitacoes);
+
+    // Data no rodapé
+    document.getElementById('updateDate').textContent =
+      new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+  </script>
+
+</body>
+</html>
