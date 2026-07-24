@@ -555,22 +555,17 @@
     const SHEET_NAME = 'PUBLICO';
 
     // Data de início do período 2026.1 (23/03/2026)
-    const DATA_INICIO = new Date(2026, 2, 23);
+    // Data de início do período 2026.2 (16/08/2026)
 
-    // ============================================================
-    // DEFINIÇÃO DAS COLUNAS – USANDO OS NOMES EXATOS DO CABEÇALHO
-    // ============================================================
-    const COLUNAS = [
-      { rotulo: 'Matrícula', origem: 'Seu número de matrícula na UFS:' },
-      { rotulo: 'Nome Completo', origem: 'Seu nome completo, sem abreviações:' },
-      { rotulo: 'Atividade de Estágio', origem: 'Assinale a atividade de estágio para a qual você solicita este ofício:' },
-      { rotulo: 'Escola', origem: 'Nome completo da escola onde será realizado o Estágio Supervisionado em Artes Visuais:' },
-      // Corrigido para corresponder ao CSV: "Nome completo do diretor/a ..." (sem "do/a")
-      { rotulo: 'Diretor(a)', origem: 'Nome completo do diretor/a da escola onde será realizado o Estágio Supervisionado em Artes Visuais:' },
-      { rotulo: 'Professor(a) Preceptor(a)', origem: 'Nome completo do/a professor/a que acompanhará, na escola, o Estágio Supervisionado em Artes Visuais:' }
-    ];
-
-    const COLUNA_DATA = 'Carimbo de data/hora';
+const COLUNAS = [
+  
+  { rotulo: 'Matrícula', origem: 'Matrícula' },
+  { rotulo: 'Nome Completo', origem: 'Nome Completo' },
+  { rotulo: 'Atividade de Estágio', origem: 'Atividade de Estágio' },
+  { rotulo: 'Escola', origem: 'Escola' },
+  { rotulo: 'Diretor(a)', origem: 'Diretor(a)' },
+  { rotulo: 'Professor(a) Preceptor(a)', origem: 'Professor(a) Preceptor(a)' }
+];
 
     // ============================================================
     // FUNÇÕES AUXILIARES
@@ -619,7 +614,7 @@
     }
 
     // ============================================================
-    // FUNÇÃO PRINCIPAL
+    // FUNÇÃO PRINCIPAL (VERSÃO SIMPLIFICADA – SEM FILTRO POR DATA)
     // ============================================================
     async function carregarSolicitacoes() {
       const container = document.getElementById('solicitacoes-container');
@@ -647,61 +642,39 @@
           return;
         }
 
-        // --- Encontra a linha do cabeçalho (mais robusto) ---
+        // Encontra a linha do cabeçalho (primeira linha que contém "Matrícula")
         let headerRowIndex = -1;
-        const colunasOrigem = COLUNAS.map(c => normalizarTexto(c.origem));
-        for (let i = 0; i < Math.min(rows.length, 15); i++) {
+        for (let i = 0; i < Math.min(rows.length, 5); i++) {
           const row = rows[i];
-          if (!row) continue;
-          const rowTrimmed = row.map(cell => normalizarTexto(cell));
-          // Verifica se contém a coluna de data E pelo menos uma das colunas de interesse
-          if (rowTrimmed.includes(COLUNA_DATA) && rowTrimmed.some(c => colunasOrigem.includes(c))) {
+          if (row && row.some(cell => cell && cell.trim() === 'Matrícula')) {
             headerRowIndex = i;
             break;
           }
         }
 
-        if (headerRowIndex === -1) {
-          // Fallback: procura pela coluna de data apenas
-          for (let i = 0; i < Math.min(rows.length, 15); i++) {
-            const row = rows[i];
-            if (row && row.some(cell => normalizarTexto(cell) === COLUNA_DATA)) {
-              headerRowIndex = i;
-              break;
-            }
-          }
-        }
+        if (headerRowIndex === -1) throw new Error('Cabeçalho "Matrícula" não encontrado.');
 
-        if (headerRowIndex === -1) throw new Error('Cabeçalho com as colunas necessárias não encontrado.');
+        const headers = rows[headerRowIndex].map(cell => (cell || '').trim());
 
-        const headers = rows[headerRowIndex].map(cell => normalizarTexto(cell));
+        // Mapeia índices
+        const indices = COLUNAS.map(col => headers.indexOf(col.origem));
 
-        // Exibe os cabeçalhos no console para depuração
-        console.log('Cabeçalhos encontrados:', headers);
-
-        // --- Mapeia índices usando busca flexível ---
-        const idxData = headers.indexOf(COLUNA_DATA);
-        const indices = COLUNAS.map(col => encontrarIndiceFlexivel(headers, col.origem));
-
-        if (idxData === -1) throw new Error(`Coluna "${COLUNA_DATA}" não encontrada.`);
-
-        // Verifica se alguma coluna não foi encontrada
+        // Verifica se todas as colunas foram encontradas
         const colunasNaoEncontradas = COLUNAS.filter((col, i) => indices[i] === -1);
         if (colunasNaoEncontradas.length > 0) {
           console.warn('Colunas não encontradas:', colunasNaoEncontradas.map(c => c.origem));
         }
 
-        // --- Filtra linhas ---
+        // Filtra linhas válidas (ignora cabeçalho, linhas vazias e a linha do timestamp)
         const linhasFiltradas = [];
         for (let i = headerRowIndex + 1; i < rows.length; i++) {
           const row = rows[i];
-          if (!row || row.length === 0 || row.every(cell => !cell || normalizarTexto(cell) === '')) continue;
+          if (!row || row.length === 0 || row.every(cell => !cell || cell.trim() === '')) continue;
 
-          const dataStr = row[idxData] ? row[idxData].trim() : '';
-          const dataObj = converterDataGoogleSheets(dataStr);
-          if (!dataObj) continue;
-          if (dataObj < DATA_INICIO) continue;
+          // Ignora a linha que contém "Última atualização"
+          if (row.some(cell => cell && cell.includes('Última atualização'))) continue;
 
+          // Verifica se tem pelo menos matrícula ou nome
           const matricula = (indices[0] !== -1 && row[indices[0]]) ? row[indices[0]].trim() : '';
           const nome = (indices[1] !== -1 && row[indices[1]]) ? row[indices[1]].trim() : '';
           if (!matricula && !nome) continue;
@@ -709,21 +682,14 @@
           linhasFiltradas.push(row);
         }
 
-        // Ordena por data (mais recente primeiro)
-        linhasFiltradas.sort((a, b) => {
-          const dataA = converterDataGoogleSheets(a[idxData]);
-          const dataB = converterDataGoogleSheets(b[idxData]);
-          return dataB - dataA;
-        });
-
         if (linhasFiltradas.length === 0) {
-          container.innerHTML = '<p style="color:#4a5a6e;">Nenhuma solicitação a partir de 23/03/2026.</p>';
-          contador.textContent = 'Nenhuma solicitação neste período.';
+          container.innerHTML = '<p style="color:#4a5a6e;">Nenhuma solicitação em andamento.</p>';
+          contador.textContent = 'Nenhuma solicitação em andamento.';
           return;
         }
 
         const total = linhasFiltradas.length;
-        contador.textContent = `${total} solicitação(ões) a partir de 23/03/2026.`;
+        contador.textContent = `${total} solicitação(ões) em andamento.`;
 
         let html = '<div class="solicitacoes-lista">';
         linhasFiltradas.forEach((row) => {
