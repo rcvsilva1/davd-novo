@@ -548,23 +548,22 @@
 
   <script>
     // ============================================================
-    // CONFIGURAÇÃO – SUBSTITUA PELOS SEUS DADOS
+    // CONFIGURAÇÃO
     // ============================================================
     const API_KEY = 'AIzaSyB4HGlhilR63RhEzu3L8dYV-SxtosOsoII';
     const SHEET_ID = '1ne8WMDdLLD15nOk9C03e5WNSS845i4-MYB1qu0M5LNc';
     const SHEET_NAME = 'PUBLICO';
 
-    // Data de início do período 2026.1 (23/03/2026)
-    // Data de início do período 2026.2 (16/08/2026)
-
+    // ===== ATENÇÃO: as ORIGENS devem corresponder EXATAMENTE aos cabeçalhos da sua planilha =====
+    // Se você RENOMEOU as colunas na planilha, atualize a propriedade 'origem' com os novos nomes.
+    // Caso contrário, mantenha os nomes originais e altere apenas os 'rotulo' (rótulos exibidos).
 const COLUNAS = [
-  
   { rotulo: 'Matrícula', origem: 'Matrícula' },
-  { rotulo: 'Nome Completo', origem: 'Nome Completo' },
-  { rotulo: 'Atividade de Estágio', origem: 'Atividade de Estágio' },
-  { rotulo: 'Escola', origem: 'Escola' },
+  { rotulo: 'Nome', origem: 'Nome' },
+  { rotulo: 'Atividade', origem: 'Atividade' },
+  { rotulo: 'Instituição', origem: 'Instituição' },
   { rotulo: 'Diretor(a)', origem: 'Diretor(a)' },
-  { rotulo: 'Professor(a) Preceptor(a)', origem: 'Professor(a) Preceptor(a)' }
+  { rotulo: 'Preceptor(a)', origem: 'Preceptor(a)' }
 ];
 
     // ============================================================
@@ -576,7 +575,6 @@ const COLUNAS = [
 
     function encontrarIndiceFlexivel(headers, nomeBuscado) {
       const normalizado = normalizarTexto(nomeBuscado);
-      // Tenta correspondência exata após normalização
       for (let i = 0; i < headers.length; i++) {
         if (normalizarTexto(headers[i]) === normalizado) {
           return i;
@@ -593,28 +591,8 @@ const COLUNAS = [
       return -1;
     }
 
-    function converterDataGoogleSheets(valor) {
-      if (!valor || typeof valor !== 'string') return null;
-      let data = new Date(valor);
-      if (!isNaN(data)) return data;
-      const match = valor.match(/(\d{2})\/(\d{2})\/(\d{4})/);
-      if (match) {
-        const dia = parseInt(match[1]);
-        const mes = parseInt(match[2]) - 1;
-        const ano = parseInt(match[3]);
-        data = new Date(ano, mes, dia);
-        if (!isNaN(data)) return data;
-      }
-      const num = parseFloat(valor);
-      if (!isNaN(num) && num > 30000 && num < 60000) {
-        const dataSerial = new Date((num - 25569) * 86400 * 1000);
-        if (!isNaN(dataSerial)) return dataSerial;
-      }
-      return null;
-    }
-
     // ============================================================
-    // FUNÇÃO PRINCIPAL (VERSÃO SIMPLIFICADA – SEM FILTRO POR DATA)
+    // FUNÇÃO PRINCIPAL
     // ============================================================
     async function carregarSolicitacoes() {
       const container = document.getElementById('solicitacoes-container');
@@ -656,25 +634,22 @@ const COLUNAS = [
 
         const headers = rows[headerRowIndex].map(cell => (cell || '').trim());
 
-        // Mapeia índices
-        const indices = COLUNAS.map(col => headers.indexOf(col.origem));
-
-        // Verifica se todas as colunas foram encontradas
-        const colunasNaoEncontradas = COLUNAS.filter((col, i) => indices[i] === -1);
-        if (colunasNaoEncontradas.length > 0) {
-          console.warn('Colunas não encontradas:', colunasNaoEncontradas.map(c => c.origem));
-        }
+        // Mapeia índices usando a origem de cada coluna
+        const indices = COLUNAS.map(col => {
+          const idx = headers.indexOf(col.origem);
+          if (idx === -1) {
+            console.warn(`Coluna "${col.origem}" não encontrada.`);
+          }
+          return idx;
+        });
 
         // Filtra linhas válidas (ignora cabeçalho, linhas vazias e a linha do timestamp)
         const linhasFiltradas = [];
         for (let i = headerRowIndex + 1; i < rows.length; i++) {
           const row = rows[i];
           if (!row || row.length === 0 || row.every(cell => !cell || cell.trim() === '')) continue;
-
-          // Ignora a linha que contém "Última atualização"
           if (row.some(cell => cell && cell.includes('Última atualização'))) continue;
 
-          // Verifica se tem pelo menos matrícula ou nome
           const matricula = (indices[0] !== -1 && row[indices[0]]) ? row[indices[0]].trim() : '';
           const nome = (indices[1] !== -1 && row[indices[1]]) ? row[indices[1]].trim() : '';
           if (!matricula && !nome) continue;
