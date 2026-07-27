@@ -9,7 +9,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <style>
     /* ===== RESET E VARIÁVEIS ===== */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     :root {
       --azul-escuro: #272B7D;
       --azul-medio: #004DA4;
@@ -29,8 +33,14 @@
       display: flex;
       flex-direction: column;
     }
-    a { text-decoration: none; color: inherit; }
-    img { max-width: 100%; height: auto; }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
 
     /* ===== CONTEÚDO PRINCIPAL ===== */
     .main {
@@ -57,8 +67,15 @@
       background-size: cover;
       background-position: center;
     }
-    .hero h1 { font-size: 2.4rem; font-weight: 400; color: #fff; margin-bottom: 0.5rem; }
-    .hero h1 strong { font-weight: 700; }
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .hero h1 strong {
+      font-weight: 700;
+    }
     .hero p {
       font-size: 1.15rem;
       color: #f0f0f0;
@@ -78,7 +95,9 @@
       cursor: pointer;
       align-self: flex-start;
     }
-    .hero .btn-voltar:hover { background: var(--azul-escuro); }
+    .hero .btn-voltar:hover {
+      background: var(--azul-escuro);
+    }
 
     /* ===== SEÇÃO DE CONTEÚDO ===== */
     .conteudo {
@@ -96,7 +115,9 @@
       border-bottom: 2px solid var(--azul-medio);
       padding-bottom: 0.5rem;
     }
-    .conteudo h2:first-of-type { margin-top: 0; }
+    .conteudo h2:first-of-type {
+      margin-top: 0;
+    }
     .conteudo h3 {
       font-size: 1.3rem;
       font-weight: 500;
@@ -126,7 +147,7 @@
     }
     .card-link:hover {
       transform: translateY(-3px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
     .card-link a {
       display: block;
@@ -134,37 +155,40 @@
       color: var(--azul-medio);
       font-size: 0.9rem;
     }
-    .card-link a:hover { text-decoration: underline; }
+    .card-link a:hover {
+      text-decoration: underline;
+    }
 
-      <!-- ===== ESTRUTURA CURRICULAR (BLOCO DE INFORMAÇÕES) ===== -->
-      <h2>Estrutura Curricular</h2>
-      <div class="grid-info-curriculo">
-        <!-- Vigência -->
-        <div class="card-info">
-          <div class="titulo">Vigência</div>
-          <div class="dado">2019.1</div>
-        </div>
-        <!-- Prazos -->
-        <div class="card-info">
-          <div class="titulo">Prazos</div>
-          <div class="dado"><strong>Mínimo:</strong> 8 períodos<br /><strong>Máximo:</strong> 12 períodos</div>
-        </div>
-        <!-- Créditos por Período -->
-        <div class="card-info">
-          <div class="titulo">Créditos por Período</div>
-          <div class="dado"><strong>Mínimo:</strong> 18 créditos<br /><strong>Máximo:</strong> 41 créditos</div>
-        </div>
-        <!-- Carga Horária Total -->
-        <div class="card-info">
-          <div class="titulo">Carga Horária Total</div>
-          <div class="dado">3210h</div>
-        </div>
-        <!-- Optativas Mínima-->
-        <div class="card-info">
-          <div class="titulo">Optativas Mínima</div>
-          <div class="dado">2490h</div>
-        </div>
-      </div>
+    /* ===== BLOCO DE INFORMAÇÕES DA ESTRUTURA CURRICULAR ===== */
+    .grid-info-curriculo {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .card-info {
+      background: var(--cinza-fundo);
+      border-radius: 14px;
+      padding: 1rem 1.2rem;
+      border-left: 4px solid var(--azul-medio);
+    }
+    .card-info .titulo {
+      font-weight: 700;
+      color: var(--azul-escuro);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.4rem;
+    }
+    .card-info .dado {
+      font-size: 0.95rem;
+      color: #2c3e50;
+      line-height: 1.5;
+    }
+    .card-info .dado strong {
+      color: var(--azul-medio);
+      font-weight: 600;
+    }
 
     /* ===== GRADE CURRICULAR (ACORDEÃO) ===== */
     .periodo {
@@ -185,18 +209,24 @@
       transition: background 0.2s;
       user-select: none;
     }
-    .periodo-header:hover { background: #dce1e8; }
+    .periodo-header:hover {
+      background: #dce1e8;
+    }
     .periodo-header .seta {
       font-size: 1.2rem;
       transition: transform 0.25s;
     }
-    .periodo-header .seta.aberto { transform: rotate(180deg); }
+    .periodo-header .seta.aberto {
+      transform: rotate(180deg);
+    }
     .periodo-body {
       padding: 0 1.2rem 1.2rem;
       display: none;
       background: #fff;
     }
-    .periodo-body.aberto { display: block; }
+    .periodo-body.aberto {
+      display: block;
+    }
     .periodo-body table {
       width: 100%;
       border-collapse: collapse;
@@ -214,7 +244,9 @@
       padding: 0.4rem 0.6rem;
       border-bottom: 1px solid #e9ecef;
     }
-    .periodo-body table tr:last-child td { border-bottom: none; }
+    .periodo-body table tr:last-child td {
+      border-bottom: none;
+    }
     .periodo-body .ch-total {
       margin-top: 0.6rem;
       font-weight: 500;
@@ -249,21 +281,50 @@
 
     /* ===== RESPONSIVO ===== */
     @media (max-width: 768px) {
-      .hero { padding: 2.5rem 1.5rem; min-height: 160px; }
-      .hero h1 { font-size: 1.8rem; }
-      .conteudo { padding: 1.5rem; }
-      .grid-links { grid-template-columns: 1fr 1fr; }
-      .grid-info-curriculo { grid-template-columns: 1fr 1fr; }
-      .optativas-grid { grid-template-columns: 1fr; }
-      .periodo-body table { font-size: 0.8rem; }
-      .periodo-body table th, .periodo-body table td { padding: 0.3rem 0.4rem; }
+      .hero {
+        padding: 2.5rem 1.5rem;
+        min-height: 160px;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .conteudo {
+        padding: 1.5rem;
+      }
+      .grid-links {
+        grid-template-columns: 1fr 1fr;
+      }
+      .grid-info-curriculo {
+        grid-template-columns: 1fr 1fr;
+      }
+      .optativas-grid {
+        grid-template-columns: 1fr;
+      }
+      .periodo-body table {
+        font-size: 0.8rem;
+      }
+      .periodo-body table th,
+      .periodo-body table td {
+        padding: 0.3rem 0.4rem;
+      }
     }
     @media (max-width: 480px) {
-      .hero h1 { font-size: 1.5rem; }
-      .grid-links { grid-template-columns: 1fr; }
-      .grid-info-curriculo { grid-template-columns: 1fr; }
-      .periodo-body table { font-size: 0.7rem; }
-      .periodo-body table th, .periodo-body table td { padding: 0.25rem 0.3rem; }
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+      .grid-links {
+        grid-template-columns: 1fr;
+      }
+      .grid-info-curriculo {
+        grid-template-columns: 1fr;
+      }
+      .periodo-body table {
+        font-size: 0.7rem;
+      }
+      .periodo-body table th,
+      .periodo-body table td {
+        padding: 0.25rem 0.3rem;
+      }
     }
 
     /* ===== RODAPÉ ===== */
@@ -281,15 +342,28 @@
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 2rem;
     }
-    .footer h4 { color: #fff; font-weight: 500; margin-bottom: 0.8rem; font-size: 1rem; }
-    .footer ul { list-style: none; padding: 0; }
-    .footer ul li { margin-bottom: 0.4rem; }
+    .footer h4 {
+      color: #fff;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+      font-size: 1rem;
+    }
+    .footer ul {
+      list-style: none;
+      padding: 0;
+    }
+    .footer ul li {
+      margin-bottom: 0.4rem;
+    }
     .footer ul li a {
       color: #b0c4de;
       font-size: 0.9rem;
       transition: color 0.2s;
     }
-    .footer ul li a:hover { color: #fff; text-decoration: underline; }
+    .footer ul li a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
     .footer .social-links {
       display: flex;
       flex-direction: column;
@@ -300,13 +374,19 @@
       font-size: 0.9rem;
       transition: color 0.2s;
     }
-    .footer .social-links a:hover { color: #fff; text-decoration: underline; }
+    .footer .social-links a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
     .footer .endereco {
       font-size: 0.9rem;
       color: #b0c4de;
       line-height: 1.5;
     }
-    .footer .endereco a { color: var(--laranja); text-decoration: underline; }
+    .footer .endereco a {
+      color: var(--laranja);
+      text-decoration: underline;
+    }
     .footer .copy {
       text-align: center;
       font-size: 0.8rem;
@@ -364,32 +444,33 @@
         </div>
       </div>
 
-      <!-- ===== ESTRUTURA CURRICULAR (BLOCO DE INFORMAÇÕES) ===== -->
+      <!-- ===== ESTRUTURA CURRICULAR ===== -->
       <h2>Estrutura Curricular</h2>
       <div class="grid-info-curriculo">
-        <div class="card-info">
-          <div class="titulo">Código</div>
-          <div class="dado">02</div>
-        </div>
+        <!-- Vigência -->
         <div class="card-info">
           <div class="titulo">Vigência</div>
           <div class="dado">2019.1</div>
         </div>
-        <div class="card-info">
-          <div class="titulo">Carga Horária Total</div>
-          <div class="dado">3210h</div>
-        </div>
-        <div class="card-info">
-          <div class="titulo">Optativas Mínima</div>
-          <div class="dado">2490h</div>
-        </div>
+        <!-- Prazos -->
         <div class="card-info">
           <div class="titulo">Prazos</div>
           <div class="dado"><strong>Mínimo:</strong> 8 períodos<br /><strong>Máximo:</strong> 12 períodos</div>
         </div>
+        <!-- Créditos por Período -->
         <div class="card-info">
           <div class="titulo">Créditos por Período</div>
           <div class="dado"><strong>Mínimo:</strong> 18 créditos<br /><strong>Máximo:</strong> 41 créditos</div>
+        </div>
+        <!-- Carga Horária Total -->
+        <div class="card-info">
+          <div class="titulo">Carga Horária Total</div>
+          <div class="dado">3210h</div>
+        </div>
+        <!-- Optativas Mínima-->
+        <div class="card-info">
+          <div class="titulo">Optativas Mínima</div>
+          <div class="dado">2490h</div>
         </div>
       </div>
 
