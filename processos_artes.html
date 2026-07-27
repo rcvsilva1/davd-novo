@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -134,7 +133,7 @@
     .processo-card .campo .rotulo {
       font-weight: 600;
       color: var(--azul-escuro);
-      min-width: 160px;
+      min-width: 200px;
       font-size: 0.85rem;
       flex-shrink: 0;
     }
@@ -195,13 +194,13 @@
       .hero { padding: 2rem 1.5rem; }
       .hero h1 { font-size: 1.8rem; }
       .conteudo { padding: 1.2rem; }
-      .processo-card .campo .rotulo { min-width: 120px; font-size: 0.8rem; }
+      .processo-card .campo .rotulo { min-width: 140px; font-size: 0.8rem; }
       .processo-card .campo .valor { font-size: 0.8rem; }
     }
     @media (max-width: 480px) {
       .hero h1 { font-size: 1.5rem; }
       .processo-card { padding: 0.6rem 0.8rem; }
-      .processo-card .campo .rotulo { min-width: 100px; font-size: 0.75rem; }
+      .processo-card .campo .rotulo { min-width: 120px; font-size: 0.75rem; }
       .processo-card .campo .valor { font-size: 0.75rem; }
     }
 
@@ -342,12 +341,11 @@
 
   <script>
     // ===== CONFIGURAÇÕES =====
-    // Substitua "AIzaSyB4HGlhilR63RhEzu3L8dYV-SxtosOsoII" pela sua chave de API
     const API_KEY = 'AIzaSyB4HGlhilR63RhEzu3L8dYV-SxtosOsoII';
     const SHEET_ID = '1x7ystz407_zDG2qvYwicVULCD795QmtZ6cZPVMsdD20';
     const SHEET_NAME = 'ARTES VISUAIS';
 
-    // Mapeamento de colunas para exibição (rótulo -> nome original na planilha)
+    // ===== COLUNAS A EXIBIR (rótulo e nome original na planilha) =====
     const COLUNAS = [
       { rotulo: 'Processo', origem: 'Processo Nº' },
       { rotulo: 'Interessado', origem: 'Interessado/a/e' },
@@ -355,13 +353,16 @@
       { rotulo: 'Envio ao DAVD', origem: 'Data de movimentação do SEMOP para o DAVD' },
       { rotulo: 'Atribuído em', origem: 'Data de atribuição ao professor pelo DAVD' },
       { rotulo: 'Atribuído à(o)', origem: 'Atribuido à(o)' },
-      { rotulo: 'Data da Relatoria', origem: 'Data da Relatoria em Conselho' },
+      { rotulo: 'Relatoria em Colegiado', origem: 'Data de Relatoria em Colegiado' },
+      { rotulo: 'Relatoria em Conselho', origem: 'Data da Relatoria em Conselho' },
+      { rotulo: 'Inserção de Parecer no SEI', origem: 'Data de inserção de parecer no SEI pelo/a relator/a' },
       { rotulo: 'Observação', origem: 'OBS.' }
     ];
 
     // ===== FUNÇÃO PARA FORMATAR DATAS =====
     function formatarData(valor) {
       if (!valor || valor.trim() === '') return '';
+      // Se for número (data serial do Google Sheets)
       if (!isNaN(valor) && typeof valor === 'string') {
         const num = parseFloat(valor);
         if (!isNaN(num) && num > 30000 && num < 60000) {
@@ -369,6 +370,7 @@
           return data.toLocaleDateString('pt-BR');
         }
       }
+      // Se já estiver no formato dd/mm/aaaa
       const match = valor.match(/(\d{2})\/(\d{2})\/(\d{4})/);
       if (match) return `${match[1]}/${match[2]}/${match[3]}`;
       return valor;
@@ -424,7 +426,7 @@
         // Mapeia índices para cada campo
         const indices = COLUNAS.map(c => headers.indexOf(c.origem));
 
-        // Filtra linhas
+        // Filtra linhas (apenas linhas com status vazio = em andamento)
         const linhasFiltradas = [];
         for (let i = headerRowIndex + 1; i < rows.length; i++) {
           const row = rows[i];
@@ -433,7 +435,7 @@
           if (!processo || processo.trim() === '' || isNaN(parseFloat(processo))) continue;
           if (idxStatus !== -1) {
             const status = row[idxStatus];
-            if (status && status.trim() !== '') continue;
+            if (status && status.trim() !== '') continue; // ignora se status não estiver vazio
           }
           linhasFiltradas.push(row);
         }
@@ -449,14 +451,18 @@
 
         let html = '<div class="processos-lista">';
         linhasFiltradas.forEach((row) => {
-          const campos = COLUNAS.map((col, i) => {
+          // Gera os campos para cada coluna
+          const camposHtml = COLUNAS.map((col, i) => {
             const idx = indices[i];
             let valor = (idx !== -1 && row[idx]) ? row[idx].trim() : '';
-            if (col.rotulo.includes('Data') && valor) valor = formatarData(valor);
+            // Se o rótulo contém "Data", aplica formatação
+            if (col.rotulo.includes('Data') || col.rotulo.includes('Relatoria') || col.rotulo.includes('Inserção')) {
+              valor = formatarData(valor);
+            }
             const classe = valor ? 'valor' : 'valor vazio';
             const display = valor || '—';
 
-            // Se for a coluna "Processo", envolve em um link
+            // Se for a coluna "Processo", envolve em link
             if (col.rotulo === 'Processo' && valor) {
               const processoNum = valor;
               return `<div class="campo"><span class="rotulo">${col.rotulo}</span>
@@ -464,10 +470,10 @@
                         <a href="#" class="processo-link" onclick="consultarAndamento('${processoNum}'); return false;" title="Consulte o Andamento">${display}</a>
                       </span></div>`;
             }
-
             return `<div class="campo"><span class="rotulo">${col.rotulo}</span><span class="${classe}">${display}</span></div>`;
           }).join('');
-          html += `<div class="processo-card">${campos}</div>`;
+
+          html += `<div class="processo-card">${camposHtml}</div>`;
         });
         html += '</div>';
         container.innerHTML = html;
