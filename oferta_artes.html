@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAVD/UFS – Oferta 2026.2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --azul-escuro: #272B7D;
+      --azul-medio: #004DA4;
+      --laranja: #e67e22;
+      --cinza-fundo: #f4f7fc;
+      --card-shadow: 0 8px 24px rgba(0,0,0,0.07);
+      --radius: 24px;
+    }
+    body {
+      font-family: 'Ubuntu', sans-serif;
+      background: var(--cinza-fundo);
+      color: #1e2a3a;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { text-decoration: none; color: inherit; }
+    .main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      width: 100%;
+    }
+    .hero {
+      background: rgba(0,0,0,0.4);
+      border-radius: var(--radius);
+      padding: 4rem 3rem;
+      margin-bottom: 2.5rem;
+      color: #fff;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+    }
+    .hero h1 { font-size: 2.4rem; font-weight: 400; }
+    .hero h1 strong { font-weight: 700; }
+    .hero p { font-size: 1.15rem; margin: 0.5rem 0 1.8rem; max-width: 700px; }
+    .hero .btn-voltar {
+      display: inline-block;
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.6rem 2rem;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: background 0.25s;
+      align-self: flex-start;
+      border: none;
+      cursor: pointer;
+    }
+    .hero .btn-voltar:hover { background: var(--azul-escuro); }
+    .conteudo {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2.5rem;
+    }
+    .conteudo h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--azul-escuro);
+      margin: 2rem 0 1rem;
+      border-bottom: 2px solid var(--azul-medio);
+      padding-bottom: 0.5rem;
+    }
+    .conteudo h2:first-of-type { margin-top: 0; }
+    .conteudo p {
+      font-size: 1rem;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+    .legenda {
+      background: var(--cinza-fundo);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border-left: 4px solid var(--azul-medio);
+    }
+    .legenda h3 {
+      color: var(--azul-escuro);
+      font-size: 1.1rem;
+      margin-top: 0;
+      margin-bottom: 0.8rem;
+    }
+    .legenda p {
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+    .legenda a {
+      color: var(--azul-medio);
+      font-weight: 500;
+      text-decoration: underline;
+    }
+    .legenda a:hover { color: var(--azul-escuro); }
+    .legenda table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin: 0.5rem 0;
+    }
+    .legenda table th {
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.3rem 0.5rem;
+      text-align: center;
+    }
+    .legenda table td {
+      padding: 0.3rem 0.5rem;
+      border: 1px solid #d0d7dd;
+      text-align: center;
+      background: #fff;
+    }
+    .legenda table .turno-label {
+      font-weight: 600;
+      background: var(--cinza-fundo);
+      color: var(--azul-escuro);
+    }
+    .periodo {
+      margin-bottom: 0.8rem;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #e0e4e8;
+    }
+    .periodo-header {
+      background: var(--cinza-fundo);
+      padding: 0.8rem 1.2rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      color: var(--azul-escuro);
+      transition: background 0.2s;
+      user-select: none;
+    }
+    .periodo-header:hover { background: #dce1e8; }
+    .periodo-header .seta {
+      font-size: 1.2rem;
+      transition: transform 0.25s;
+    }
+    .periodo-header .seta.aberto { transform: rotate(180deg); }
+    .periodo-body {
+      padding: 0 1.2rem 1.2rem;
+      display: none;
+      background: #fff;
+      overflow-x: auto;
+    }
+    .periodo-body.aberto { display: block; }
+    .opcao-titulo {
+      font-weight: 600;
+      color: var(--azul-escuro);
+      font-size: 0.95rem;
+      margin: 1rem 0 0.3rem;
+      padding: 0.3rem 0.5rem;
+      background: #e9edf2;
+      border-radius: 6px;
+      display: inline-block;
+    }
+    .grade-horarios {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      margin-top: 0.3rem;
+      margin-bottom: 1.2rem;
+      min-width: 700px;
+      border: 1px solid #dde1e6;
+    }
+    .grade-horarios th {
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.4rem 0.3rem;
+      text-align: center;
+      border: 1px solid var(--azul-medio);
+      font-weight: 500;
+    }
+    .grade-horarios td {
+      border: 1px solid #dde1e6;
+      padding: 0.3rem 0.2rem;
+      vertical-align: top;
+      background: #fff;
+    }
+    .grade-horarios .bloco-label {
+      background: var(--cinza-fundo);
+      font-weight: 600;
+      color: var(--azul-escuro);
+      text-align: center;
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+    .grade-horarios .disciplina-cell {
+      font-size: 0.7rem;
+      line-height: 1.3;
+      padding: 0.15rem 0.2rem;
+      border-bottom: 1px dashed #e0e4e8;
+    }
+    .grade-horarios .disciplina-cell:last-child { border-bottom: none; }
+    .grade-horarios .disciplina-cell .nome {
+      font-weight: 500;
+      display: block;
+    }
+    .grade-horarios .disciplina-cell .docente {
+      display: block;
+      font-size: 0.6rem;
+      color: #4a5a6e;
+    }
+    .grade-horarios .disciplina-cell .turma-badge {
+      display: inline-block;
+      background: var(--azul-escuro);
+      color: #fff;
+      font-size: 0.55rem;
+      padding: 0.05rem 0.4rem;
+      border-radius: 10px;
+      font-weight: 500;
+      margin-top: 0.05rem;
+    }
+    .grade-horarios .vazio {
+      color: #b0b8c0;
+      font-size: 0.7rem;
+      text-align: center;
+      padding: 0.5rem 0;
+    }
+    @media (max-width: 768px) {
+      .hero { padding: 2.5rem 1.5rem; min-height: 160px; }
+      .hero h1 { font-size: 1.8rem; }
+      .conteudo { padding: 1.5rem; }
+      .grade-horarios { font-size: 0.7rem; min-width: 600px; }
+    }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.5rem; }
+      .grade-horarios { font-size: 0.6rem; min-width: 480px; }
+    }
+    .footer {
+      background: #2c2c2c;
+      color: #d4e2ed;
+      padding: 2.5rem 1.5rem 1.5rem;
+      margin-top: 2rem;
+      border-top: 4px solid var(--laranja);
+    }
+    .footer .grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+      gap: 2rem;
+    }
+    .footer h4 { color: #fff; font-weight: 500; margin-bottom: 0.8rem; }
+    .footer ul { list-style: none; padding: 0; }
+    .footer ul li { margin-bottom: 0.4rem; }
+    .footer ul li a { color: #b0c4de; font-size: 0.9rem; transition: color 0.2s; }
+    .footer ul li a:hover { color: #fff; text-decoration: underline; }
+    .footer .social-links { display: flex; flex-direction: column; gap: 0.3rem; }
+    .footer .social-links a { color: #b0c4de; font-size: 0.9rem; }
+    .footer .social-links a:hover { color: #fff; text-decoration: underline; }
+    .footer .endereco { font-size: 0.9rem; color: #b0c4de; line-height: 1.5; }
+    .footer .endereco a { color: var(--laranja); text-decoration: underline; }
+    .footer .copy {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #8a9aa8;
+      border-top: 1px solid #3a4a5e;
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+<main class="main">
+  <section class="hero" style="background: linear-gradient(135deg, rgba(39,43,125,0.75), rgba(0,77,164,0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
+    <h1>Oferta <strong>2026.2</strong></h1>
+    <p>Artes Visuais – Licenciatura – Grade de horários</p>
+    <a href="index.html" class="btn-voltar">Voltar</a>
+  </section>
+
+  <div class="conteudo">
+    <h2>Grade de Horários</h2>
+    <p>Relação das disciplinas oferecidas no período letivo 2026.2. Clique em cada período para visualizar os horários.</p>
+
+    <!-- LEGENDA -->
+    <div class="legenda">
+      <h3>Legenda – Códigos de horário</h3>
+      <p>
+        Os códigos como <strong>2T1234</strong> indicam dia da semana, turno e bloco horário.
+        A duração de cada bloco é de 45 minutos, conforme a
+        <a href="https://drive.google.com/file/d/19n4WFqM1TQnAgWc87Col2UWUqCYTVciM/view" target="_blank">Resolução nº 04/2024/CONEPE</a>.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Bloco</th>
+            <th>Manhã (M)</th>
+            <th>Tarde (T)</th>
+            <th>Noite (N)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="turno-label">1</td>
+            <td>07h30 – 08h15</td>
+            <td>13h30 – 14h15</td>
+            <td>19h00 – 19h45</td>
+          </tr>
+          <tr>
+            <td class="turno-label">2</td>
+            <td>08h15 – 09h00</td>
+            <td>14h15 – 15h00</td>
+            <td>19h45 – 20h30</td>
+          </tr>
+          <tr>
+            <td class="turno-label">3</td>
+            <td>09h15 – 10h00</td>
+            <td>15h15 – 16h00</td>
+            <td>20h45 – 21h30</td>
+          </tr>
+          <tr>
+            <td class="turno-label">4</td>
+            <td>10h00 – 10h45</td>
+            <td>16h00 – 16h45</td>
+            <td>21h30 – 22h15</td>
+          </tr>
+          <tr>
+            <td class="turno-label">5</td>
+            <td>11h00 – 11h45</td>
+            <td>17h00 – 17h45</td>
+            <td>–</td>
+          </tr>
+          <tr>
+            <td class="turno-label">6</td>
+            <td>11h45 – 12h30</td>
+            <td>17h45 – 18h30</td>
+            <td>–</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ============= 2º PERÍODO ============= -->
+    <div class="periodo">
+      <div class="periodo-header" onclick="togglePeriodo(this)">
+        2º Período <span class="seta">▼</span>
+      </div>
+      <div class="periodo-body">
+
+        <!-- Opção 1 -->
+        <span class="opcao-titulo">Opção 1</span>
+        <table class="grade-horarios">
+          <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
+          <tbody>
+            <tr><td class="bloco-label">T1</td>
+              <td><div class="disciplina-cell"><span class="nome">PSIC0089 – INTRODUÇÃO À PSICOLOGIA DO DESENVOLVIMENTO</span><span class="docente">KLEBER JEAN MATOS LOPES</span><span class="turma-badge">Turma 7</span></div></td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">PSIC0089 – INTRODUÇÃO À PSICOLOGIA DO DESENVOLVIMENTO</span><span class="docente">KLEBER JEAN MATOS LOPES</span><span class="turma-badge">Turma 7</span></div></td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0053 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS I</span><span class="docente">LUIS MULLER POSCA</span><span class="turma-badge">Turma 2</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">T2</td>
+              <td><div class="disciplina-cell"><span class="nome">PSIC0089 – INTRODUÇÃO À PSICOLOGIA DO DESENVOLVIMENTO</span><span class="docente">KLEBER JEAN MATOS LOPES</span><span class="turma-badge">Turma 7</span></div></td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">PSIC0089 – INTRODUÇÃO À PSICOLOGIA DO DESENVOLVIMENTO</span><span class="docente">KLEBER JEAN MATOS LOPES</span><span class="turma-badge">Turma 7</span></div></td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0053 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS I</span><span class="docente">LUIS MULLER POSCA</span><span class="turma-badge">Turma 2</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">T3</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0054 – FUNDAMENTOS DA ARTE II</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0051 – LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS II</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0052 – HISTÓRIA DAS ARTES VISUAIS II</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">EDU0108 – ESTRUTURA E FUNCIONAMENTO DA EDUCAÇÃO BÁSICA</span><span class="docente">ANAMARIA GONCALVES BUENO DE FREITAS</span><span class="turma-badge">Turma 7</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0053 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS I</span><span class="docente">LUIS MULLER POSCA</span><span class="turma-badge">Turma 2</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">T4</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0054 – FUNDAMENTOS DA ARTE II</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0051 – LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS II</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0052 – HISTÓRIA DAS ARTES VISUAIS II</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">EDU0108 – ESTRUTURA E FUNCIONAMENTO DA EDUCAÇÃO BÁSICA</span><span class="docente">ANAMARIA GONCALVES BUENO DE FREITAS</span><span class="turma-badge">Turma 7</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0053 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS I</span><span class="docente">LUIS MULLER POSCA</span><span class="turma-badge">Turma 2</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">T5</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0054 – FUNDAMENTOS DA ARTE II</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0051 – LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS II</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0052 – HISTÓRIA DAS ARTES VISUAIS II</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">EDU0108 – ESTRUTURA E FUNCIONAMENTO DA EDUCAÇÃO BÁSICA</span><span class="docente">ANAMARIA GONCALVES BUENO DE FREITAS</span><span class="turma-badge">Turma 7</span></div></td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">T6</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0054 – FUNDAMENTOS DA ARTE II</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0051 – LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS II</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0052 – HISTÓRIA DAS ARTES VISUAIS II</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">EDU0108 – ESTRUTURA E FUNCIONAMENTO DA EDUCAÇÃO BÁSICA</span><span class="docente">ANAMARIA GONCALVES BUENO DE FREITAS</span><span class="turma-badge">Turma 7</span></div></td>
+              <td class="vazio">–</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Opção 2 -->
+        <span class="opcao-titulo">Opção 2</span>
+        <table class="grade-horarios">
+          <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
+          <tbody>
+            <tr><td class="bloco-label">T1</td>
+              <td><div class="disciplina-cell"><span class="nome">PSIC0089 – INTRODUÇÃO À PSICOLOGIA DO DESENVOLVIMENTO</span><span class="docente">KLEBER JEAN MATOS LOPES</span><span class="turma-badge">Turma 7</span></div></td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">PSIC0089 – INTRODUÇÃO À PSICOLOGIA DO DESENVOLVIMENTO</span><span class="docente">KLEBER JEAN MATOS LOPES</span><span class="turma-badge">Turma 7</span></div></td>
+              <td class="vazio">–</td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">T2</td>
+              <td><div class="disciplina-cell"><span class="nome">PSIC0089 – INTRODUÇÃO À PSICOLOGIA DO DESENVOLVIMENTO</span><span class="docente">KLEBER JEAN MATOS LOPES</span><span class="turma-badge">Turma 7</span></div></td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">PSIC0089 – INTRODUÇÃO À PSICOLOGIA DO DESENVOLVIMENTO</span><span class="docente">KLEBER JEAN MATOS LOPES</span><span class="turma-badge">Turma 7</span></div></td>
+              <td class="vazio">–</td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">T3</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0054 – FUNDAMENTOS DA ARTE II</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0053 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS I</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0052 – HISTÓRIA DAS ARTES VISUAIS II</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">EDU0108 – ESTRUTURA E FUNCIONAMENTO DA EDUCAÇÃO BÁSICA</span><span class="docente">ANAMARIA GONCALVES BUENO DE FREITAS</span><span class="turma-badge">Turma 7</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0051 – LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS II</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 2</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">T4</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0054 – FUNDAMENTOS DA ARTE II</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0053 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS I</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0052 – HISTÓRIA DAS ARTES VISUAIS II</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">EDU0108 – ESTRUTURA E FUNCIONAMENTO DA EDUCAÇÃO BÁSICA</span><span class="docente">ANAMARIA GONCALVES BUENO DE FREITAS</span><span class="turma-badge">Turma 7</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0051 – LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS II</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 2</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">T5</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0054 – FUNDAMENTOS DA ARTE II</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0053 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS I</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0052 – HISTÓRIA DAS ARTES VISUAIS II</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">EDU0108 – ESTRUTURA E FUNCIONAMENTO DA EDUCAÇÃO BÁSICA</span><span class="docente">ANAMARIA GONCALVES BUENO DE FREITAS</span><span class="turma-badge">Turma 7</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0051 – LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS II</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 2</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">T6</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0054 – FUNDAMENTOS DA ARTE II</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0053 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS I</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0052 – HISTÓRIA DAS ARTES VISUAIS II</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">EDU0108 – ESTRUTURA E FUNCIONAMENTO DA EDUCAÇÃO BÁSICA</span><span class="docente">ANAMARIA GONCALVES BUENO DE FREITAS</span><span class="turma-badge">Turma 7</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0051 – LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS II</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 2</span></div></td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div><!-- /periodo-body -->
+    </div><!-- /periodo -->
+
+    <!-- ============= 4º PERÍODO ============= -->
+    <div class="periodo">
+      <div class="periodo-header" onclick="togglePeriodo(this)">
+        4º Período <span class="seta">▼</span>
+      </div>
+      <div class="periodo-body">
+
+        <!-- Opção 1 -->
+        <span class="opcao-titulo">Opção 1</span>
+        <table class="grade-horarios">
+          <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
+          <tbody>
+            <tr><td class="bloco-label">T1</td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">EDU0026 – DIDATICA</span><span class="docente">PAULO HEIMAR SOUTO</span><span class="turma-badge">Turma 3</span></div></td>
+              <td class="vazio">–</td>
+              <td class="vazio">–</td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">T2</td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">EDU0026 – DIDATICA</span><span class="docente">PAULO HEIMAR SOUTO</span><span class="turma-badge">Turma 3</span></div></td>
+              <td class="vazio">–</td>
+              <td class="vazio">–</td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">T3</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0058 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS III</span><span class="docente">LUIS MULLER POSCA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">EDU0026 – DIDATICA</span><span class="docente">PAULO HEIMAR SOUTO</span><span class="turma-badge">Turma 3</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0062 – LABORATORIO ENSINO FORMAS EXPRESSIVAS BIDIMEN IV</span><span class="docente">ADRIANA DANTAS NOGUEIRA</span><span class="turma-badge">Turma 2</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0059 – HISTÓRIA DAS ARTES VISUAIS IV</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">T4</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0058 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS III</span><span class="docente">LUIS MULLER POSCA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0060 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL I</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0062 – LABORATORIO ENSINO FORMAS EXPRESSIVAS BIDIMEN IV</span><span class="docente">ADRIANA DANTAS NOGUEIRA</span><span class="turma-badge">Turma 2</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0059 – HISTÓRIA DAS ARTES VISUAIS IV</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">T5</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0060 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL I</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0061 – ESTÁGIO SUPERVISIONADO P ENSINO ARTES VISUAIS I</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+              <td class="vazio">–</td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">T6</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0060 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL I</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0061 – ESTÁGIO SUPERVISIONADO P ENSINO ARTES VISUAIS I</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+              <td class="vazio">–</td>
+              <td class="vazio">–</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Opção 2 -->
+        <span class="opcao-titulo">Opção 2</span>
+        <table class="grade-horarios">
+          <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
+          <tbody>
+            <tr><td class="bloco-label">T1</td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">EDU0026 – DIDATICA</span><span class="docente">PAULO HEIMAR SOUTO</span><span class="turma-badge">Turma 3</span></div></td>
+              <td class="vazio">–</td>
+              <td class="vazio">–</td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">T2</td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">EDU0026 – DIDATICA</span><span class="docente">PAULO HEIMAR SOUTO</span><span class="turma-badge">Turma 3</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0062 – LABORATORIO ENSINO FORMAS EXPRESSIVAS BIDIMEN IV</span><span class="docente">ADRIANA DANTAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0062 – LABORATORIO ENSINO FORMAS EXPRESSIVAS BIDIMEN IV</span><span class="docente">ADRIANA DANTAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">T3</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0058 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS III</span><span class="docente">LUIS MULLER POSCA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">EDU0026 – DIDATICA</span><span class="docente">PAULO HEIMAR SOUTO</span><span class="turma-badge">Turma 3</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0062 – LABORATORIO ENSINO FORMAS EXPRESSIVAS BIDIMEN IV</span><span class="docente">ADRIANA DANTAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0059 – HISTÓRIA DAS ARTES VISUAIS IV</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">T4</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0058 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS III</span><span class="docente">LUIS MULLER POSCA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0060 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL I</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0062 – LABORATORIO ENSINO FORMAS EXPRESSIVAS BIDIMEN IV</span><span class="docente">ADRIANA DANTAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0059 – HISTÓRIA DAS ARTES VISUAIS IV</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">T5</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0060 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL I</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0061 – ESTÁGIO SUPERVISIONADO P ENSINO ARTES VISUAIS I</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+              <td class="vazio">–</td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">T6</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0060 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL I</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0061 – ESTÁGIO SUPERVISIONADO P ENSINO ARTES VISUAIS I</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+              <td class="vazio">–</td>
+              <td class="vazio">–</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+    <!-- ============= 6º PERÍODO ============= -->
+    <div class="periodo">
+      <div class="periodo-header" onclick="togglePeriodo(this)">
+        6º Período <span class="seta">▼</span>
+      </div>
+      <div class="periodo-body">
+
+        <!-- Opção 1 -->
+        <span class="opcao-titulo">Opção 1</span>
+        <table class="grade-horarios">
+          <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
+          <tbody>
+            <tr><td class="bloco-label">T1</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0071 – ARTES VISUAIS E NOVAS TECNOLOGIAS</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0070 – FUNDAMENTOS ENSINO DE ARTES VISUAIS NO BRASIL II</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">EDU0104 – FUNDAMENTOS DA EDUCAÇÃO INCLUSIVA</span><span class="docente">MARGARIDA MARIA TELES</span><span class="turma-badge">Turma 3</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0068 – LABORATORIO ENSINO FORMAS EXPRES BIDIMENSIONAIS VI</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">T2</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0071 – ARTES VISUAIS E NOVAS TECNOLOGIAS</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0070 – FUNDAMENTOS ENSINO DE ARTES VISUAIS NO BRASIL II</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">EDU0104 – FUNDAMENTOS DA EDUCAÇÃO INCLUSIVA</span><span class="docente">MARGARIDA MARIA TELES</span><span class="turma-badge">Turma 3</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0068 – LABORATORIO ENSINO FORMAS EXPRES BIDIMENSIONAIS VI</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">T3</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0071 – ARTES VISUAIS E NOVAS TECNOLOGIAS</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0070 – FUNDAMENTOS ENSINO DE ARTES VISUAIS NO BRASIL II</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">EDU0104 – FUNDAMENTOS DA EDUCAÇÃO INCLUSIVA</span><span class="docente">MARGARIDA MARIA TELES</span><span class="turma-badge">Turma 3</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0068 – LABORATORIO ENSINO FORMAS EXPRES BIDIMENSIONAIS VI</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">T4</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0071 – ARTES VISUAIS E NOVAS TECNOLOGIAS</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0070 – FUNDAMENTOS ENSINO DE ARTES VISUAIS NO BRASIL II</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">EDU0104 – FUNDAMENTOS DA EDUCAÇÃO INCLUSIVA</span><span class="docente">MARGARIDA MARIA TELES</span><span class="turma-badge">Turma 3</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0068 – LABORATORIO ENSINO FORMAS EXPRES BIDIMENSIONAIS VI</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">T5</td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0069 – ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS III</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0067 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL III</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0067 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL III</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">T6</td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0069 – ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS III</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0067 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL III</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0067 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL III</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Opção 2 -->
+        <span class="opcao-titulo">Opção 2</span>
+        <table class="grade-horarios">
+          <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
+          <tbody>
+            <tr><td class="bloco-label">T1</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0071 – ARTES VISUAIS E NOVAS TECNOLOGIAS</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0070 – FUNDAMENTOS ENSINO DE ARTES VISUAIS NO BRASIL II</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">EDU0104 – FUNDAMENTOS DA EDUCAÇÃO INCLUSIVA</span><span class="docente">MARGARIDA MARIA TELES</span><span class="turma-badge">Turma 3</span></div></td>
+              <td class="vazio">–</td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">T2</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0071 – ARTES VISUAIS E NOVAS TECNOLOGIAS</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0070 – FUNDAMENTOS ENSINO DE ARTES VISUAIS NO BRASIL II</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">EDU0104 – FUNDAMENTOS DA EDUCAÇÃO INCLUSIVA</span><span class="docente">MARGARIDA MARIA TELES</span><span class="turma-badge">Turma 3</span></div></td>
+              <td class="vazio">–</td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">T3</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0071 – ARTES VISUAIS E NOVAS TECNOLOGIAS</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0070 – FUNDAMENTOS ENSINO DE ARTES VISUAIS NO BRASIL II</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">EDU0104 – FUNDAMENTOS DA EDUCAÇÃO INCLUSIVA</span><span class="docente">MARGARIDA MARIA TELES</span><span class="turma-badge">Turma 3</span></div></td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0068 – LABORATORIO ENSINO FORMAS EXPRES BIDIMENSIONAIS VI</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 2</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">T4</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0071 – ARTES VISUAIS E NOVAS TECNOLOGIAS</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0070 – FUNDAMENTOS ENSINO DE ARTES VISUAIS NO BRASIL II</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">EDU0104 – FUNDAMENTOS DA EDUCAÇÃO INCLUSIVA</span><span class="docente">MARGARIDA MARIA TELES</span><span class="turma-badge">Turma 3</span></div></td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0068 – LABORATORIO ENSINO FORMAS EXPRES BIDIMENSIONAIS VI</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 2</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">T5</td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0069 – ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS III</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0067 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL III</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0067 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL III</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0068 – LABORATORIO ENSINO FORMAS EXPRES BIDIMENSIONAIS VI</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 2</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">T6</td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0069 – ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS III</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0067 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL III</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0067 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL III</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0068 – LABORATORIO ENSINO FORMAS EXPRES BIDIMENSIONAIS VI</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 2</span></div></td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+    <!-- ============= 8º PERÍODO ============= -->
+    <div class="periodo">
+      <div class="periodo-header" onclick="togglePeriodo(this)">
+        8º Período <span class="seta">▼</span>
+      </div>
+      <div class="periodo-body">
+        <table class="grade-horarios">
+          <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
+          <tbody>
+            <tr><td class="bloco-label">T1</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0099 – TÓPICOS ESPECIAIS EM ARTESANATO BRASILEIRO</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0096 – TÓPICOS EM ARTE AFRO-BRASILEIRA</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0094 – TÓPICOS ESPECIAIS EM HISTÓRIA DA ARTE CONTEMPORÂNEA I</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">T2</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0099 – TÓPICOS ESPECIAIS EM ARTESANATO BRASILEIRO</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0096 – TÓPICOS EM ARTE AFRO-BRASILEIRA</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0094 – TÓPICOS ESPECIAIS EM HISTÓRIA DA ARTE CONTEMPORÂNEA I</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">T3</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0099 – TÓPICOS ESPECIAIS EM ARTESANATO BRASILEIRO</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0096 – TÓPICOS EM ARTE AFRO-BRASILEIRA</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0104 – TÓPICOS ESPECIAIS: ARTE, CULTURA E ESPAÇO PÚBLICO</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0094 – TÓPICOS ESPECIAIS EM HISTÓRIA DA ARTE CONTEMPORÂNEA I</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0093 – TÓPICOS ESPECIAIS EM ESTÉTICA E POLÍTICA</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">T4</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0099 – TÓPICOS ESPECIAIS EM ARTESANATO BRASILEIRO</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0096 – TÓPICOS EM ARTE AFRO-BRASILEIRA</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0104 – TÓPICOS ESPECIAIS: ARTE, CULTURA E ESPAÇO PÚBLICO</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0094 – TÓPICOS ESPECIAIS EM HISTÓRIA DA ARTE CONTEMPORÂNEA I</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0093 – TÓPICOS ESPECIAIS EM ESTÉTICA E POLÍTICA</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">T5</td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0077 – ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS V</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0104 – TÓPICOS ESPECIAIS: ARTE, CULTURA E ESPAÇO PÚBLICO</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0093 – TÓPICOS ESPECIAIS EM ESTÉTICA E POLÍTICA</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">T6</td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0077 – ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS V</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0104 – TÓPICOS ESPECIAIS: ARTE, CULTURA E ESPAÇO PÚBLICO</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">DESIG0093 – TÓPICOS ESPECIAIS EM ESTÉTICA E POLÍTICA</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="grid">
+    <div>
+      <h4>Contato</h4>
+      <ul>
+        <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
+        <li><a href="tel:+557931946925">(79) 3194-6925</a></li>
+        <li style="color:#b0c4de; font-size:0.9rem;">Segunda a sexta</li>
+        <li style="color:#b0c4de; font-size:0.9rem;">08h00 às 12h00 • 13h00 às 21h00</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Localização</h4>
+      <div class="endereco">
+        <p>Cidade Univ. Prof. José Aloísio de Campos<br />
+        Av. Marcelo Déda Chagas, s/n, Bairro Rosa Elze<br />
+        São Cristóvão/SE – CEP 49107-230</p>
+        <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank">Ver no mapa</a>
+      </div>
+    </div>
+    <div>
+      <h4>Redes Artes</h4>
+      <div class="social-links">
+        <a href="https://instagram.com/cenarteufs" target="_blank">Centro Acadêmico: <strong>@cenarteufs</strong></a>
+      </div>
+    </div>
+    <div>
+      <h4>Redes Design</h4>
+      <div class="social-links">
+        <a href="https://instagram.com/designufs" target="_blank">Curso: <strong>@designufs</strong></a>
+        <a href="https://instagram.com/cadeufs" target="_blank">Centro Acadêmico: <strong>@cadeufs</strong></a>
+        <a href="https://instagram.com/designemcurso.ufs" target="_blank">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
+        <a href="https://instagram.com/tiposdaufs" target="_blank">Tipos da UFS: <strong>@tiposdaufs</strong></a>
+      </div>
+    </div>
+  </div>
+  <div class="copy">
+    <p>Universidade Federal de Sergipe – DAVD &copy; 2026</p>
+    <p style="margin-top:0.3rem; font-size:0.75rem; opacity:0.6;">
+      Última atualização: <span id="updateDate"></span>
+    </p>
+  </div>
+</footer>
+
+<script>
+  function togglePeriodo(header) {
+    const body = header.nextElementSibling;
+    const seta = header.querySelector('.seta');
+    body.classList.toggle('aberto');
+    seta.classList.toggle('aberto');
+  }
+  document.getElementById('updateDate').textContent =
+    new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+</script>
+</body>
+</html>
