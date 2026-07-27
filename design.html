@@ -136,36 +136,35 @@
     }
     .card-link a:hover { text-decoration: underline; }
 
-    /* ===== BLOCO DE INFORMAÇÕES DA ESTRUTURA CURRICULAR ===== */
-    .grid-info-curriculo {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin: 1.5rem 0;
-    }
-    .card-info {
-      background: var(--cinza-fundo);
-      border-radius: 14px;
-      padding: 1rem 1.2rem;
-      border-left: 4px solid var(--azul-medio);
-    }
-    .card-info .titulo {
-      font-weight: 700;
-      color: var(--azul-escuro);
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 0.4rem;
-    }
-    .card-info .dado {
-      font-size: 0.95rem;
-      color: #2c3e50;
-      line-height: 1.5;
-    }
-    .card-info .dado strong {
-      color: var(--azul-medio);
-      font-weight: 600;
-    }
+      <!-- ===== ESTRUTURA CURRICULAR (BLOCO DE INFORMAÇÕES) ===== -->
+      <h2>Estrutura Curricular</h2>
+      <div class="grid-info-curriculo">
+        <!-- Vigência -->
+        <div class="card-info">
+          <div class="titulo">Vigência</div>
+          <div class="dado">2019.1</div>
+        </div>
+        <!-- Prazos -->
+        <div class="card-info">
+          <div class="titulo">Prazos</div>
+          <div class="dado"><strong>Mínimo:</strong> 8 períodos<br /><strong>Máximo:</strong> 12 períodos</div>
+        </div>
+        <!-- Créditos por Período -->
+        <div class="card-info">
+          <div class="titulo">Créditos por Período</div>
+          <div class="dado"><strong>Mínimo:</strong> 18 créditos<br /><strong>Máximo:</strong> 41 créditos</div>
+        </div>
+        <!-- Carga Horária Total -->
+        <div class="card-info">
+          <div class="titulo">Carga Horária Total</div>
+          <div class="dado">3210h</div>
+        </div>
+        <!-- Optativas Mínima-->
+        <div class="card-info">
+          <div class="titulo">Optativas Mínima</div>
+          <div class="dado">2490h</div>
+        </div>
+      </div>
 
     /* ===== GRADE CURRICULAR (ACORDEÃO) ===== */
     .periodo {
@@ -386,7 +385,7 @@
         </div>
         <div class="card-info">
           <div class="titulo">Prazos</div>
-          <div class="dado"><strong>Mínimo:</strong> 8 períodos<br /><strong><strong>Máximo:</strong> 12 períodos</div>
+          <div class="dado"><strong>Mínimo:</strong> 8 períodos<br /><strong>Máximo:</strong> 12 períodos</div>
         </div>
         <div class="card-info">
           <div class="titulo">Créditos por Período</div>
