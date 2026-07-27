@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAVD/UFS – Ensino Individual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET E VARIÁVEIS ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --azul-escuro: #272B7D;
+      --azul-medio: #004DA4;
+      --azul-claro: #1a73e8;
+      --laranja: #e67e22;
+      --cinza-fundo: #f4f7fc;
+      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+      --radius: 24px;
+      --branco: #ffffff;
+    }
+    body {
+      font-family: 'Ubuntu', sans-serif;
+      background: var(--cinza-fundo);
+      color: #1e2a3a;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* ===== CONTEÚDO PRINCIPAL ===== */
+    .main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      width: 100%;
+    }
+
+    /* ===== HERO / BANNER ===== */
+    .hero {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: var(--radius);
+      padding: 4rem 3rem;
+      margin-bottom: 2.5rem;
+      text-align: left;
+      color: #fff;
+      position: relative;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+    }
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .hero h1 strong {
+      font-weight: 700;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: #f0f0f0;
+      margin: 0.5rem 0 1.8rem;
+      max-width: 700px;
+    }
+    .hero .btn-voltar {
+      display: inline-block;
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.6rem 2rem;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: background 0.25s;
+      border: none;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+    .hero .btn-voltar:hover {
+      background: var(--azul-escuro);
+    }
+
+    /* ===== SEÇÃO DE CONTEÚDO ===== */
+    .conteudo {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2.5rem;
+    }
+    .conteudo h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--azul-escuro);
+      margin: 2rem 0 1rem;
+      border-bottom: 2px solid var(--azul-medio);
+      padding-bottom: 0.5rem;
+    }
+    .conteudo h2:first-of-type {
+      margin-top: 0;
+    }
+    .conteudo h3 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--azul-medio);
+      margin: 1.5rem 0 0.8rem;
+    }
+    .conteudo p {
+      font-size: 1rem;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+    .conteudo ul, .conteudo ol {
+      margin: 0.5rem 0 1rem 1.5rem;
+      color: #2c3e50;
+    }
+    .conteudo li {
+      margin-bottom: 0.4rem;
+    }
+
+    /* ===== BLOCOS DE REGRAS (cards) ===== */
+    .grid-info-curriculo {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .card-info {
+      background: var(--cinza-fundo);
+      border-radius: 14px;
+      padding: 1rem 1.2rem;
+      border-left: 4px solid var(--azul-medio); /* PADRÃO: AZUL */
+      text-align: center; /* centralizado conforme solicitado */
+    }
+    .card-info .titulo {
+      font-weight: 700;
+      color: var(--azul-escuro);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.4rem;
+    }
+    .card-info .dado {
+      font-size: 0.95rem;
+      color: #2c3e50;
+      line-height: 1.5;
+    }
+
+    /* ===== GRID DE MANUAIS (simples) ===== */
+    .grid-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .card-link {
+      background: var(--cinza-fundo);
+      border-radius: 14px;
+      padding: 1rem 0.8rem;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .card-link a {
+      display: block;
+      font-weight: 500;
+      color: var(--azul-medio);
+      font-size: 0.95rem;
+    }
+    .card-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== RESPONSIVO ===== */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 2.5rem 1.5rem;
+        min-height: 160px;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .conteudo {
+        padding: 1.5rem;
+      }
+      .grid-info-curriculo {
+        grid-template-columns: 1fr 1fr;
+      }
+      .grid-links {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+      .grid-info-curriculo {
+        grid-template-columns: 1fr;
+      }
+      .grid-links {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== RODAPÉ ===== */
+    .footer {
+      background: #2c2c2c;
+      color: #d4e2ed;
+      padding: 2.5rem 1.5rem 1.5rem;
+      margin-top: 2rem;
+      border-top: 4px solid var(--laranja);
+    }
+    .footer .grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    .footer h4 {
+      color: #fff;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+      font-size: 1rem;
+    }
+    .footer ul {
+      list-style: none;
+      padding: 0;
+    }
+    .footer ul li {
+      margin-bottom: 0.4rem;
+    }
+    .footer ul li a {
+      color: #b0c4de;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer ul li a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .footer .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .footer .social-links a {
+      color: #b0c4de;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer .social-links a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .footer .endereco {
+      font-size: 0.9rem;
+      color: #b0c4de;
+      line-height: 1.5;
+    }
+    .footer .endereco a {
+      color: var(--laranja);
+      text-decoration: underline;
+    }
+    .footer .copy {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #8a9aa8;
+      border-top: 1px solid #3a4a5e;
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+  <main class="main">
+
+    <!-- ===== HERO / BANNER ===== -->
+    <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
+      <h1>Ensino <strong>Individual</strong></h1>
+      <p>Normas e procedimentos para oferta individualizada de componentes curriculares</p>
+      <a href="index.html" class="btn-voltar">Voltar</a>
+    </section>
+
+    <!-- ===== CONTEÚDO ===== -->
+    <div class="conteudo">
+
+      <!-- ===== INTRODUÇÃO ===== -->
+      <h2>O que é o Ensino Individual?</h2>
+      <p>
+        De acordo com as normas acadêmicas (Resolução nº 14/2015/CONEPE), o ensino individual caracteriza-se pelo repasse do conteúdo programático integral do componente curricular de forma individualizada ao estudante, a partir de um plano de trabalho voltado especificamente para integralizar o componente curricular sem necessariamente estabelecer uma carga horária semanal fixa.
+      </p>
+      <p>
+        Esta modalidade é restrita a componentes curriculares obrigatórios e destina-se a estudantes dos dois últimos períodos de integralização de um curso, permitindo cursar individualmente até dois componentes por período letivo.
+      </p>
+
+      <!-- ===== DISPOSIÇÕES GERAIS ===== -->
+      <h2>Disposições Gerais (Arts. 191 a 195)</h2>
+      <ul>
+        <li><strong>Art. 191</strong> – O ensino individual é restrito a componentes obrigatórios e atende estudantes dos dois últimos períodos, com limite de até 2 componentes por período. Para cursos com estágio obrigatório no último período, consideram-se os períodos imediatamente anteriores.</li>
+        <li><strong>Art. 192</strong> – A análise do pedido é feita pelo Departamento responsável, com parecer do Colegiado do Curso, avaliando a possibilidade e conveniência do oferecimento.</li>
+        <li><strong>Art. 193</strong> – O número máximo de alunos por turma de ensino individual é de 4. Se ultrapassado, a turma é convertida em turma regular em horário compatível. Caso não seja possível formar turma regular, o Departamento priorizará os requerentes com possibilidade de conclusão no período corrente.</li>
+        <li><strong>Art. 194</strong> – Turmas regulares com até 4 estudantes matriculados podem, a critério do Departamento, ser convertidas em ensino individual, independentemente dos requisitos do Art. 191.</li>
+        <li><strong>Art. 195</strong> – Indeferido o pedido, o Departamento deve dar ciência ao estudante com decisão fundamentada.</li>
+      </ul>
+
+      <!-- ===== PRINCIPAIS REGRAS EM BLOCOS (AGRUPADOS) ===== -->
+      <h3>Resumo</h3>
+      <div class="grid-info-curriculo">
+        <div class="card-info">
+          <div class="titulo">Público-alvo</div>
+          <div class="dado">Estudantes dos 2 (dois) últimos períodos</div>
+        </div>
+        <div class="card-info">
+          <div class="titulo">Limite</div>
+          <div class="dado">Até 2 componentes por período letivo</div>
+        </div>
+        <div class="card-info">
+          <div class="titulo">Vagas</div>
+          <div class="dado">Máximo de 4 alunos por turma</div>
+        </div>
+        <div class="card-info">
+          <div class="titulo">Análise</div>
+          <div class="dado">Departamento e Colegiado</div>
+        </div>
+        <div class="card-info">
+          <div class="titulo">Indeferimento</div>
+          <div class="dado">Fundamentado e comunicado ao estudante</div>
+        </div>
+      </div>
+
+      <!-- ===== MANUAIS E FORMULÁRIOS ===== -->
+      <h2>Manuais e Formulários</h2>
+      <div class="grid-links">
+        <div class="card-link">
+          <a href="https://drive.google.com/file/d/1vxo6NdnL2JrbhANW4edOnsG-roLiEuDs/view" target="_blank">Coordenador de Curso</a>
+        </div>
+        <div class="card-link">
+          <a href="https://drive.google.com/file/d/1ugnVVyJD1FFljEk0sBv-6XkPnMn_7GJS/view" target="_blank">Chefe de Departamento</a>
+        </div>
+        <div class="card-link">
+          <a href="https://presencial.ufs.br/pagina/22196" target="_blank">Requerimentos Diversos</a>
+        </div>
+      </div>
+
+      <p style="margin-top: 1.5rem; font-size: 0.95rem; color: #4a5a6e;">
+        Para formalizar o pedido de ensino individual, o estudante deve procurar a coordenação do seu curso e preencher documentação específica. Em caso de dúvidas, entre em contato com o DAVD.
+      </p>
+
+    </div>
+
+  </main>
+
+  <!-- ===== RODAPÉ ===== -->
+  <footer class="footer">
+    <div class="grid">
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
+          <li><a href="tel:+557931946925">(79) 3194-6925</a></li>
+          <li style="color:#b0c4de; font-size:0.9rem;">Segunda a sexta</li>
+          <li style="color:#b0c4de; font-size:0.9rem;">08h00 às 12h00 • 13h00 às 21h00</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Localização</h4>
+        <div class="endereco">
+          <p>Cidade Univ. Prof. José Aloísio de Campos<br />
+          Av. Marcelo Déda Chagas, s/n, Bairro Rosa Elze<br />
+          São Cristóvão/SE – CEP 49107-230</p>
+          <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank">Ver no mapa</a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Redes Artes</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/cenarteufs" target="_blank">Centro Acadêmico: <strong>@cenarteufs</strong></a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Redes Design</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/designufs" target="_blank">Curso: <strong>@designufs</strong></a>
+          <a href="https://instagram.com/cadeufs" target="_blank">Centro Acadêmico: <strong>@cadeufs</strong></a>
+          <a href="https://instagram.com/designemcurso.ufs" target="_blank">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
+          <a href="https://instagram.com/tiposdaufs" target="_blank">Tipos da UFS: <strong>@tiposdaufs</strong></a>
+        </div>
+      </div>
+    </div>
+    <div class="copy">
+      <p>Universidade Federal de Sergipe – DAVD © 2026</p>
+      <p style="margin-top:0.3rem; font-size:0.75rem; opacity:0.6;">
+        Última atualização: <span id="updateDate"></span>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Data atual no rodapé
+    document.getElementById('updateDate').textContent =
+      new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+  </script>
+</body>
+</html>
