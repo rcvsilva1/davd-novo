@@ -402,7 +402,7 @@
     <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
       <h1>Artes Visuais – <strong>Licenciatura</strong></h1>
       <p>Curso presencial – Vespertino – São Cristóvão</p>
-      <a href="index.html" class="btn-voltar">Voltar</a>
+      <a href="javascript:void(0)" class="btn-voltar" onclick="voltar()">Voltar</a>
     </section>
 
     <!-- ===== CONTEÚDO ===== -->
@@ -734,5 +734,14 @@
     document.getElementById('updateDate').textContent =
       new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
   </script>
+  <script>
+function voltar() {
+  if (document.referrer && document.referrer.includes(window.location.hostname)) {
+    history.back();
+  } else {
+    window.location.href = 'index.html';
+  }
+}
+</script>
 </body>
 </html>
