@@ -1,117 +1,22 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DAVD/UFS – Calendário Acadêmico 2026.2</title>
+    <meta name="description" content="Departamento de Artes Visuais e Design da UFS – informações sobre cursos, estágios, TCC, atividades complementares e muito mais." />
+    <meta property="og:title" content="DAVD/UFS – Departamento de Artes Visuais e Design" />
+    <meta property="og:description" content="Informações sobre Artes Visuais e Design Gráfico na Universidade Federal de Sergipe." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://rcvsilva1.github.io/davd-novo/" />
+    <meta property="og:image" content="https://rcvsilva1.github.io/davd-novo/assets/imagens/banner_ufs.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <!-- Estilos específicos da página de calendário -->
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        :root {
-            --azul-escuro: #272B7D;
-            --azul-medio: #004DA4;
-            --laranja: #e67e22;
-            --cinza-fundo: #f4f7fc;
-            --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
-            --radius: 24px;
-            --branco: #ffffff;
-            --feriado-bg: #fde8e8;
-            --feriado-border: #f5c6c6;
-            --recesso-bg: #fff3cd;
-            --recesso-border: #ffeaa7;
-            --destaque-bg: #d4edda;
-            --destaque-border: #c3e6cb;
-        }
-        body {
-            font-family: 'Ubuntu', sans-serif;
-            background: var(--cinza-fundo);
-            color: #1e2a3a;
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-        .main {
-            flex: 1;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1.5rem;
-            width: 100%;
-        }
-
-        /* HERO */
-        .hero {
-            background: linear-gradient(135deg, rgba(39, 43, 125, 0.85), rgba(0, 77, 164, 0.85)), url('assets/imagens/banner_ufs.jpg');
-            background-size: cover;
-            background-position: center;
-            border-radius: var(--radius);
-            padding: 3rem 2.5rem;
-            margin-bottom: 2.5rem;
-            color: #fff;
-            position: relative;
-            min-height: 180px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .hero h1 {
-            font-size: 2.2rem;
-            font-weight: 400;
-        }
-        .hero h1 strong {
-            font-weight: 700;
-        }
-        .hero .sub {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            margin-top: 0.3rem;
-        }
-        .hero .btn-voltar {
-            display: inline-block;
-            background: var(--azul-medio);
-            color: #fff;
-            padding: 0.5rem 1.8rem;
-            border-radius: 50px;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: background 0.25s;
-            border: none;
-            cursor: pointer;
-            align-self: flex-start;
-            margin-top: 1rem;
-        }
-        .hero .btn-voltar:hover {
-            background: var(--azul-escuro);
-        }
-
-        /* CONTEÚDO */
-        .conteudo {
-            background: #fff;
-            border-radius: var(--radius);
-            padding: 2.5rem;
-            box-shadow: var(--card-shadow);
-            margin-bottom: 2.5rem;
-        }
-        .conteudo h2 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--azul-escuro);
-            border-bottom: 2px solid var(--azul-medio);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        /* CARDS DE RESUMO */
         .resumo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -137,8 +42,6 @@
             color: var(--azul-escuro);
             margin-top: 0.2rem;
         }
-
-        /* GRADE DE CALENDÁRIOS */
         .calendarios {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -189,46 +92,19 @@
             background: transparent;
         }
         .mes .grid-dias .dia.feriado {
-            background: var(--feriado-bg);
-            border: 1px solid var(--feriado-border);
+            background: var(--feriado-bg, #fde8e8);
+            border: 1px solid var(--feriado-border, #f5c6c6);
             color: #721c24;
             font-weight: 700;
             border-radius: 50%;
         }
-        .mes .grid-dias .dia.recesso {
-            background: var(--recesso-bg);
-            border: 1px solid var(--recesso-border);
-            color: #856404;
-            font-weight: 700;
-            border-radius: 50%;
-        }
         .mes .grid-dias .dia.destaque {
-            background: var(--destaque-bg);
+            background: var(--destaque-bg, #d4edda);
             border: 2px solid #28a745;
             color: #155724;
             font-weight: 700;
             border-radius: 50%;
         }
-        .mes .grid-dias .dia .tooltip {
-            display: none;
-            position: absolute;
-            bottom: 110%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1e2a3a;
-            color: #fff;
-            font-size: 0.65rem;
-            font-weight: 400;
-            padding: 0.2rem 0.6rem;
-            border-radius: 8px;
-            white-space: nowrap;
-            z-index: 10;
-        }
-        .mes .grid-dias .dia:hover .tooltip {
-            display: block;
-        }
-
-        /* LEGENDA */
         .legenda {
             display: flex;
             flex-wrap: wrap;
@@ -249,19 +125,13 @@
             border: 1px solid #d0d7dd;
         }
         .legenda .cor.feriado {
-            background: var(--feriado-bg);
-            border-color: var(--feriado-border);
-        }
-        .legenda .cor.recesso {
-            background: var(--recesso-bg);
-            border-color: var(--recesso-border);
+            background: var(--feriado-bg, #fde8e8);
+            border-color: var(--feriado-border, #f5c6c6);
         }
         .legenda .cor.destaque {
-            background: var(--destaque-bg);
+            background: var(--destaque-bg, #d4edda);
             border-color: #28a745;
         }
-
-        /* LISTA DE EVENTOS */
         .eventos {
             margin-top: 2rem;
         }
@@ -270,7 +140,7 @@
             align-items: baseline;
             gap: 0.8rem;
             padding: 0.4rem 0;
-            border-bottom: 1px solid #e9ecef;
+            border-bottom: 1px solid var(--borda);
         }
         .eventos .item .data {
             font-weight: 700;
@@ -280,7 +150,7 @@
         }
         .eventos .item .desc {
             font-size: 0.9rem;
-            color: #2c3e50;
+            color: var(--texto-principal);
         }
         .eventos .item .desc .badge {
             display: inline-block;
@@ -297,136 +167,14 @@
         .eventos .item .desc .badge.recesso {
             background: #e67e22;
         }
-
-        /* LINKS ÚTEIS */
-        .grid-links {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-        .card-link {
-            background: var(--cinza-fundo);
-            border-radius: 14px;
-            padding: 1rem;
-            text-align: center;
-            border-left: 4px solid var(--azul-medio);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .card-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-        .card-link a {
-            display: block;
-            font-weight: 500;
-            color: var(--azul-medio);
-            font-size: 0.95rem;
-        }
-        .card-link a:hover {
-            text-decoration: underline;
-        }
-
-        /* RESPONSIVO */
         @media (max-width: 768px) {
-            .hero {
-                padding: 2rem 1.5rem;
-            }
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            .conteudo {
-                padding: 1.5rem;
-            }
-            .calendarios {
-                grid-template-columns: 1fr 1fr;
-            }
-            .eventos .item {
-                flex-wrap: wrap;
-            }
-            .eventos .item .data {
-                min-width: 80px;
-            }
+            .calendarios { grid-template-columns: 1fr 1fr; }
+            .eventos .item { flex-wrap: wrap; }
+            .eventos .item .data { min-width: 80px; }
         }
         @media (max-width: 480px) {
-            .calendarios {
-                grid-template-columns: 1fr;
-            }
-            .hero h1 {
-                font-size: 1.5rem;
-            }
-            .resumo-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        /* FOOTER */
-        .footer {
-            background: #2c2c2c;
-            color: #d4e2ed;
-            padding: 2.5rem 1.5rem 1.5rem;
-            margin-top: 2rem;
-            border-top: 4px solid var(--laranja);
-        }
-        .footer .grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-        }
-        .footer h4 {
-            color: #fff;
-            font-weight: 500;
-            margin-bottom: 0.8rem;
-        }
-        .footer ul {
-            list-style: none;
-            padding: 0;
-        }
-        .footer ul li {
-            margin-bottom: 0.4rem;
-        }
-        .footer ul li a {
-            color: #b0c4de;
-            font-size: 0.9rem;
-            transition: color 0.2s;
-        }
-        .footer ul li a:hover {
-            color: #fff;
-            text-decoration: underline;
-        }
-        .footer .social-links {
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-        }
-        .footer .social-links a {
-            color: #b0c4de;
-            font-size: 0.9rem;
-        }
-        .footer .social-links a:hover {
-            color: #fff;
-            text-decoration: underline;
-        }
-        .footer .endereco {
-            font-size: 0.9rem;
-            color: #b0c4de;
-            line-height: 1.5;
-        }
-        .footer .endereco a {
-            color: var(--laranja);
-            text-decoration: underline;
-        }
-        .footer .copy {
-            text-align: center;
-            font-size: 0.8rem;
-            color: #8a9aa8;
-            border-top: 1px solid #3a4a5e;
-            padding-top: 1.5rem;
-            margin-top: 2rem;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
+            .calendarios { grid-template-columns: 1fr; }
+            .resumo-grid { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -470,21 +218,28 @@
             <h2 style="margin-top:2rem;">Links Úteis</h2>
             <div class="grid-links">
                 <div class="card-link">
-                    <a href="https://prograd.ufs.br/pagina/25642" target="_blank"><strong>Calendário Completo</strong></a>
+                    <a href="https://prograd.ufs.br/pagina/25642" target="_blank" rel="noopener noreferrer"><strong>Calendário Completo</strong></a>
                 </div>
                 <div class="card-link">
                     <a href="requerimento.html"><strong>Requerimento Geral</strong></a>
                 </div>
                 <div class="card-link">
-                    <a href="https://presencial.ufs.br/pagina/22196" target="_blank"><strong>Outros Requerimentos</strong></a>
+                    <a href="https://presencial.ufs.br/pagina/22196" target="_blank" rel="noopener noreferrer"><strong>Outros Requerimentos</strong></a>
                 </div>
             </div>
 
         </div>
     </main>
 
+    <!-- ===== RODAPÉ ===== -->
     <footer class="footer">
         <div class="grid">
+            <div>
+                <h4>Tema</h4>
+                <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">
+                    🌙
+                </button>
+            </div>
             <div>
                 <h4>Contato</h4>
                 <ul>
@@ -498,22 +253,22 @@
                 <h4>Localização</h4>
                 <div class="endereco">
                     <p>Cidade Univ. Prof. José Aloísio de Campos<br />Av. Marcelo Déda Chagas, s/n, Bairro Rosa Elze<br />São Cristóvão/SE – CEP 49107-230</p>
-                    <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank">Ver no mapa</a>
+                    <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank" rel="noopener noreferrer">Ver no mapa</a>
                 </div>
             </div>
             <div>
                 <h4>Redes Artes</h4>
                 <div class="social-links">
-                    <a href="https://instagram.com/cenarteufs" target="_blank">Centro Acadêmico: <strong>@cenarteufs</strong></a>
+                    <a href="https://instagram.com/cenarteufs" target="_blank" rel="noopener noreferrer">Centro Acadêmico: <strong>@cenarteufs</strong></a>
                 </div>
             </div>
             <div>
                 <h4>Redes Design</h4>
                 <div class="social-links">
-                    <a href="https://instagram.com/designufs" target="_blank">Curso: <strong>@designufs</strong></a>
-                    <a href="https://instagram.com/cadeufs" target="_blank">Centro Acadêmico: <strong>@cadeufs</strong></a>
-                    <a href="https://instagram.com/designemcurso.ufs" target="_blank">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
-                    <a href="https://instagram.com/tiposdaufs" target="_blank">Tipos da UFS: <strong>@tiposdaufs</strong></a>
+                    <a href="https://instagram.com/designufs" target="_blank" rel="noopener noreferrer">Curso: <strong>@designufs</strong></a>
+                    <a href="https://instagram.com/cadeufs" target="_blank" rel="noopener noreferrer">Centro Acadêmico: <strong>@cadeufs</strong></a>
+                    <a href="https://instagram.com/designemcurso.ufs" target="_blank" rel="noopener noreferrer">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
+                    <a href="https://instagram.com/tiposdaufs" target="_blank" rel="noopener noreferrer">Tipos da UFS: <strong>@tiposdaufs</strong></a>
                 </div>
             </div>
         </div>
@@ -523,6 +278,11 @@
         </div>
     </footer>
 
+    <!-- ===== SCRIPTS ===== -->
+    <!-- Script centralizado -->
+    <script src="script.js"></script>
+
+    <!-- Script específico da página de calendário -->
     <script>
         // ===== DADOS DO CALENDÁRIO 2026.2 =====
         const MESES = [
@@ -573,8 +333,6 @@
             }
 
             for (let d = 1; d <= dias; d++) {
-                const dataObj = new Date(ano, mes, d);
-                const diaSemana = dataObj.getDay();
                 const chave = `${String(d).padStart(2,'0')}/${String(mes+1).padStart(2,'0')}`;
                 const feriadoNome = feriados[chave] || null;
                 const destaqueNome = destaques[chave] || null;
@@ -631,19 +389,6 @@
             `;
         });
         containerEventos.innerHTML = htmlEventos;
-
-        // ===== DATA ATUAL =====
-        document.getElementById('updateDate').textContent =
-            new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
-
-        // ===== FUNÇÃO VOLTAR =====
-        function voltar() {
-            if (document.referrer && document.referrer.includes(window.location.hostname)) {
-                history.back();
-            } else {
-                window.location.href = 'index.html';
-            }
-        }
     </script>
 
 </body>
