@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAVD/UFS – TCC Design Gráfico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET E VARIÁVEIS ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --azul-escuro: #272B7D;
+      --azul-medio: #004DA4;
+      --azul-claro: #1a73e8;
+      --laranja: #e67e22;
+      --cinza-fundo: #f4f7fc;
+      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+      --radius: 24px;
+      --branco: #ffffff;
+    }
+    body {
+      font-family: 'Ubuntu', sans-serif;
+      background: var(--cinza-fundo);
+      color: #1e2a3a;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* ===== CONTEÚDO PRINCIPAL ===== */
+    .main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      width: 100%;
+    }
+
+    /* ===== HERO / BANNER ===== */
+    .hero {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: var(--radius);
+      padding: 4rem 3rem;
+      margin-bottom: 2.5rem;
+      text-align: left;
+      color: #fff;
+      position: relative;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+    }
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .hero h1 strong {
+      font-weight: 700;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: #f0f0f0;
+      margin: 0.5rem 0 1.8rem;
+      max-width: 700px;
+    }
+    .hero .btn-voltar {
+      display: inline-block;
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.6rem 2rem;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: background 0.25s;
+      border: none;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+    .hero .btn-voltar:hover {
+      background: var(--azul-escuro);
+    }
+
+    /* ===== SEÇÃO DE CONTEÚDO ===== */
+    .conteudo {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2.5rem;
+    }
+    .conteudo h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--azul-escuro);
+      margin: 2rem 0 1rem;
+      border-bottom: 2px solid var(--azul-medio);
+      padding-bottom: 0.5rem;
+    }
+    .conteudo h2:first-of-type {
+      margin-top: 0;
+    }
+    .conteudo p {
+      font-size: 1rem;
+      color: #2c3e50;
+      margin-bottom: 1.2rem;
+      line-height: 1.8;
+    }
+    .conteudo p:last-child {
+      margin-bottom: 0;
+    }
+    .conteudo ul, .conteudo ol {
+      margin: 0.5rem 0 1rem 1.8rem;
+      color: #2c3e50;
+    }
+    .conteudo li {
+      margin-bottom: 0.4rem;
+    }
+    .conteudo .destaque {
+      background: var(--cinza-fundo);
+      padding: 0.2rem 0.6rem;
+      border-left: 4px solid var(--azul-medio);
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    /* ===== ACORDEÃO ===== */
+    .periodo {
+      margin-bottom: 0.8rem;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #e0e4e8;
+    }
+    .periodo-header {
+      background: var(--cinza-fundo);
+      padding: 0.8rem 1.2rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      color: var(--azul-escuro);
+      transition: background 0.2s;
+      user-select: none;
+    }
+    .periodo-header:hover {
+      background: #dce1e8;
+    }
+    .periodo-header .seta {
+      font-size: 1.2rem;
+      transition: transform 0.25s;
+    }
+    .periodo-header .seta.aberto {
+      transform: rotate(180deg);
+    }
+    .periodo-body {
+      padding: 1.2rem 1.2rem 1.5rem;
+      display: none;
+      background: #fff;
+    }
+    .periodo-body.aberto {
+      display: block;
+    }
+    .periodo-body p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 0.8rem;
+      color: #1e2a3a;
+    }
+    .periodo-body p:last-child {
+      margin-bottom: 0;
+    }
+    .periodo-body .sub {
+      font-weight: 600;
+      color: var(--azul-escuro);
+      margin-top: 0.8rem;
+      display: block;
+    }
+
+    /* ===== GRID DE LINKS (CARDS) ===== */
+    .grid-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .card-link {
+      background: var(--cinza-fundo);
+      border-radius: 14px;
+      padding: 1.2rem 1rem;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border-left: 4px solid var(--azul-medio);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .card-link a {
+      font-weight: 500;
+      color: var(--azul-medio);
+      font-size: 1rem;
+      display: block;
+    }
+    .card-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== RESPONSIVO ===== */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 2.5rem 1.5rem;
+        min-height: 160px;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .conteudo {
+        padding: 1.5rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+    }
+
+    /* ===== RODAPÉ ===== */
+    .footer {
+      background: #2c2c2c;
+      color: #d4e2ed;
+      padding: 2.5rem 1.5rem 1.5rem;
+      margin-top: 2rem;
+      border-top: 4px solid var(--laranja);
+    }
+    .footer .grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    .footer h4 {
+      color: #fff;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+      font-size: 1rem;
+    }
+    .footer ul {
+      list-style: none;
+      padding: 0;
+    }
+    .footer ul li {
+      margin-bottom: 0.4rem;
+    }
+    .footer ul li a {
+      color: #b0c4de;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer ul li a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .footer .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .footer .social-links a {
+      color: #b0c4de;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer .social-links a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .footer .endereco {
+      font-size: 0.9rem;
+      color: #b0c4de;
+      line-height: 1.5;
+    }
+    .footer .endereco a {
+      color: var(--laranja);
+      text-decoration: underline;
+    }
+    .footer .copy {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #8a9aa8;
+      border-top: 1px solid #3a4a5e;
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+  <main class="main">
+
+    <!-- ===== HERO / BANNER ===== -->
+    <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
+      <h1>Trabalho de Conclusão de Curso – <strong>Design Gráfico</strong></h1>
+      <p>Bacharelado – Presencial – Noturno – São Cristóvão</p>
+      <a href="index.html" class="btn-voltar">Voltar</a>
+    </section>
+
+    <!-- ===== CONTEÚDO ===== -->
+    <div class="conteudo">
+
+      <h2>Normas do TCC – Design Gráfico</h2>
+      <p>
+        O Trabalho de Conclusão de Curso (TCC) no Bacharelado em Design – Habilitação Design Gráfico é regulamentado pela Resolução nº 57/2009/CONEPE e consiste em duas disciplinas – <strong>Trabalho de Conclusão de Curso I</strong> e <strong>Trabalho de Conclusão de Curso II</strong> – totalizando 38 créditos (570 horas). O TCC tem como objetivo consolidar a formação do estudante, integrando os conhecimentos teóricos, práticos e tecnológicos adquiridos ao longo do curso, por meio da elaboração e execução de um projeto de pesquisa ou de um projeto prático de design, com defesa pública perante banca examinadora.
+      </p>
+
+      <!-- ===== TCC I ===== -->
+      <div class="periodo">
+        <div class="periodo-header" onclick="togglePeriodo(this)">
+          TCC I – Projeto de Pesquisa <span class="seta">▼</span>
+        </div>
+        <div class="periodo-body">
+          <p>
+            A disciplina <strong>Trabalho de Conclusão de Curso I</strong> (código 408371) tem carga horária de 285 horas (19 créditos) e consiste na elaboração de um projeto de pesquisa ou de um projeto prático de design, sob a orientação de um professor do curso. O estudante deverá realizar um trabalho que consolide sua participação no curso de design, orientado por um professor, apresentando-o sob a forma de uma monografia, podendo desenvolver também um produto. O aluno consolida a ênfase do seu curso com este trabalho.
+          </p>
+          <p>
+            A escolha do orientador é livre, desde que seja professor do curso de Design Gráfico – Bacharelado. Cada professor pode orientar até <strong>sete alunos</strong> em TCC I. A orientação exige encontros semanais regulares, nos quais o aluno discute o andamento do projeto com seu orientador.
+          </p>
+          <p>
+            Caso o aluno deseje ser orientado por um profissional externo à UFS (designer, pesquisador, técnico com titulação ou professor de outra instituição), é necessário apresentar uma solicitação por escrito ao professor da disciplina TCC I, justificando a escolha e anexando o currículo do proponente, até <strong>20 dias após o início do semestre</strong>. O professor da disciplina tem até <strong>10 dias úteis</strong> para dar seu parecer.
+          </p>
+          <p>
+            A formalização da orientação se dá por meio de um <strong>termo de aceite</strong>, assinado pelo orientador e pelo aluno, contendo o título provisório do trabalho. Qualquer mudança de orientador exige um novo termo.
+          </p>
+          <p>
+            Avaliação do TCC I: A nota final (de 0 a 10) é calculada com base nas notas atribuídas pelo orientador e pelo professor da disciplina. O aluno é aprovado se obtiver <strong>nota igual ou superior a 5,0</strong>. Em caso de reprovação, o orientador pode desvincular-se do compromisso, mediante comunicação formal.
+          </p>
+          <p>
+            O professor da disciplina TCC I é responsável por fornecer a ficha de avaliação ao orientador e, de posse dela, registrar a nota no sistema acadêmico. O orientador deve entregar uma cópia do projeto de pesquisa ou do projeto prático juntamente com a avaliação.
+          </p>
+        </div>
+      </div>
+
+      <!-- ===== TCC II ===== -->
+      <div class="periodo">
+        <div class="periodo-header" onclick="togglePeriodo(this)">
+          TCC II – Monografia / Memorial <span class="seta">▼</span>
+        </div>
+        <div class="periodo-body">
+          <p>
+            A disciplina <strong>Trabalho de Conclusão de Curso II</strong> (código 408372) tem carga horária de 285 horas (19 créditos) e corresponde à redação final da monografia ou, no caso de trabalhos práticos (projetos de design, produtos gráficos, sistemas visuais, etc.), de um <strong>memorial descritivo</strong>. O memorial deve seguir as normas da ABNT e conter: resumo (máximo 15 linhas), introdução com objetivos e metodologia, fundamentação teórica, desenvolvimento do projeto, resultados, conclusão e bibliografia.
+          </p>
+          <p>
+            A matrícula em TCC II exige que o aluno já tenha sido aprovado em <strong>Trabalho de Conclusão de Curso I</strong> e em <strong>Estágio Supervisionado I</strong>.
+          </p>
+          <p>
+            O ideal é que o mesmo orientador do TCC I acompanhe o aluno no TCC II. Caso isso não seja possível, é preciso comunicar o professor da disciplina TCC II por escrito até o <strong>20º dia do semestre</strong>. Se a mudança partir do aluno, ele deve providenciar um novo orientador; se partir do orientador, o professor da disciplina ajudará a encontrar um substituto.
+          </p>
+          <p>
+            O professor da disciplina TCC II acompanha todo o processo e promove reuniões periódicas com os alunos para verificar o andamento dos trabalhos.
+          </p>
+        </div>
+      </div>
+
+      <!-- ===== APRESENTAÇÃO E DEFESA ===== -->
+      <div class="periodo">
+        <div class="periodo-header" onclick="togglePeriodo(this)">
+          Apresentação e Defesa <span class="seta">▼</span>
+        </div>
+        <div class="periodo-body">
+          <p>
+            O TCC só pode ser apresentado para avaliação final se o orientador o recomendar por escrito. Caso o aluno discorde da recomendação, ele pode pedir ao Coordenador do DAVD que avalie a possibilidade de apresentação em outra data, desde que entregue sua solicitação e três cópias do trabalho com <strong>30 dias de antecedência</strong> do fim do semestre. O coordenador tem <strong>10 dias</strong> para se manifestar.
+          </p>
+          <p>
+            Com a recomendação do orientador, o aluno deve entregar três cópias do trabalho ao professor da disciplina TCC II e aos demais membros da banca com <strong>pelo menos 15 dias</strong> de antecedência do encerramento do semestre.
+          </p>
+          <p>
+            A defesa ocorre, preferencialmente, na <strong>última quinzena</strong> do semestre. A banca é composta pelo orientador (presidente) e mais dois professores, preferencialmente do curso de Design Gráfico, escolhidos em comum acordo entre orientador e aluno. Se o orientador for externo, os outros dois membros devem ser professores do curso. Se for interno, um dos membros pode ser convidado de fora.
+          </p>
+          <p>
+            Durante a defesa, o aluno tem <strong>até 20 minutos</strong> para apresentar o trabalho, e cada membro da banca tem até <strong>10 minutos</strong> para arguir, com igual tempo para o aluno responder.
+          </p>
+          <p>
+            Caso o orientador não possa comparecer, deve enviar por escrito seu parecer e a nota. Nesse caso, o professor da disciplina TCC II assume a presidência da banca.
+          </p>
+        </div>
+      </div>
+
+      <!-- ===== AVALIAÇÃO FINAL E PÓS-DEFESA ===== -->
+      <div class="periodo">
+        <div class="periodo-header" onclick="togglePeriodo(this)">
+          Avaliação Final e Pós-Defesa <span class="seta">▼</span>
+        </div>
+        <div class="periodo-body">
+          <p>
+            Cada membro da banca atribui uma nota de <strong>0 a 10</strong>. A nota final é a <strong>média aritmética</strong> das três notas. O aluno é aprovado se obtiver <strong>média igual ou superior a 5,0</strong>.
+          </p>
+          <p>
+            Após a defesa, o aluno deve incorporar as sugestões da banca e entregar, na Secretaria do DAVD:
+          </p>
+          <ul>
+            <li>um exemplar impresso, em <strong>capa dura de cor preta</strong>, da versão corrigida;</li>
+            <li>uma cópia em <strong>CD</strong> ou <strong>pendrive</strong> do mesmo trabalho.</li>
+          </ul>
+          <p>
+            A liberação da nota final no sistema acadêmico só ocorre após o depósito desses materiais. Se não houver tempo hábil para as correções, o aluno deve depositar a versão apresentada no dia da defesa.
+          </p>
+          <p>
+            O exemplar depositado no acervo do curso não pode ser emprestado – fica disponível para consulta e reprodução em casos específicos (concursos, premiações, divulgação etc.).
+          </p>
+          <p>
+            Em caso de reprovação, o aluno deve se matricular novamente em TCC II. Ele pode reformular o trabalho, mudar de tema ou de orientador, respeitando as regras desta norma.
+          </p>
+        </div>
+      </div>
+
+      <!-- ===== PAPEL DO PROFESSOR ===== -->
+      <div class="periodo">
+        <div class="periodo-header" onclick="togglePeriodo(this)">
+          Papel do Professor da Disciplina <span class="seta">▼</span>
+        </div>
+        <div class="periodo-body">
+          <p>
+            Caberá ao <strong>professor da disciplina TCC II</strong>:
+          </p>
+          <ul>
+            <li>acompanhar a elaboração do TCC de todos os alunos matriculados;</li>
+            <li>acompanhar as defesas, preencher e recolher a ata de avaliação (assinada por todos os membros e pelo aluno);</li>
+            <li>providenciar os equipamentos e recursos necessários para a defesa;</li>
+            <li>divulgar o calendário das defesas com título, autor, orientador, local e horário;</li>
+            <li>emitir declaração de participação para os membros da banca.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ==== DOCUMENTOS DO TCC ===== -->
+      <h2>Documentos do TCC</h2>
+      <div class="grid-links">
+        <div class="card-link">
+          <a href="https://drive.google.com/file/d/1PX3pE9r5qWDE1WK1nmlBhsLAwbSV0BHC/view?usp=drive_link" target="_blank">Projeto Pedagógico (PPP)</a>
+        </div>
+        <div class="card-link">
+          <a href="aceite_tcc_design.html">Termo de Aceite</a>
+        </div>
+        <div class="card-link">
+          <a href="ata_tcc_design.html">Ata de Defesa</a>
+        </div>
+      </div>
+
+    </div>
+    <!-- ===== FIM DO CONTEÚDO ===== -->
+
+  </main>
+
+  <!-- ===== RODAPÉ ===== -->
+  <footer class="footer">
+    <div class="grid">
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
+          <li><a href="tel:+557931946925">(79) 3194-6925</a></li>
+          <li style="color:#b0c4de; font-size:0.9rem;">Segunda a sexta</li>
+          <li style="color:#b0c4de; font-size:0.9rem;">08h00 às 12h00 • 13h00 às 21h00</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Localização</h4>
+        <div class="endereco">
+          <p>Cidade Univ. Prof. José Aloísio de Campos<br />
+          Av. Marcelo Déda Chagas, s/n, Bairro Rosa Elze<br />
+          São Cristóvão/SE – CEP 49107-230</p>
+          <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank">Ver no mapa</a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Redes Artes</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/cenarteufs" target="_blank">Centro Acadêmico: <strong>@cenarteufs</strong></a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Redes Design</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/designufs" target="_blank">Curso: <strong>@designufs</strong></a>
+          <a href="https://instagram.com/cadeufs" target="_blank">Centro Acadêmico: <strong>@cadeufs</strong></a>
+          <a href="https://instagram.com/designemcurso.ufs" target="_blank">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
+          <a href="https://instagram.com/tiposdaufs" target="_blank">Tipos da UFS: <strong>@tiposdaufs</strong></a>
+        </div>
+      </div>
+    </div>
+    <div class="copy">
+      <p>Universidade Federal de Sergipe – DAVD © 2026</p>
+      <p style="margin-top:0.3rem; font-size:0.75rem; opacity:0.6;">
+        Última atualização: <span id="updateDate"></span>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // ===== FUNÇÃO PARA ABRIR/FECHAR PERÍODOS =====
+    function togglePeriodo(header) {
+      var body = header.nextElementSibling;
+      var seta = header.querySelector('.seta');
+      body.classList.toggle('aberto');
+      seta.classList.toggle('aberto');
+    }
+
+    // Data atual no rodapé
+    document.getElementById('updateDate').textContent =
+      new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+  </script>
+</body>
+</html>
