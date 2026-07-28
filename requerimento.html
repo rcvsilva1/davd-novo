@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Requerimento Geral – DAVD/UFS</title>
+  <style>
+    /* ===== CONFIGURAÇÃO DA PÁGINA A4 ===== */
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      background: #d1d5db;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem;
+      color: #1e1e1e;
+    }
+
+    /* ===== FOLHA A4 COM ALTURA FIXA ===== */
+    .folha {
+      width: 210mm;
+      height: 297mm;
+      overflow: hidden;
+      background: #ffffff;
+      padding: 2cm 2.5cm;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== CABEÇALHO ===== */
+    .header {
+      text-align: center;
+      margin-bottom: 1.2rem;
+      border-bottom: 1.5px solid #1a1a1a;
+      padding-bottom: 0.6rem;
+      flex-shrink: 0;
+    }
+
+    .header .linha {
+      font-size: 0.95rem;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      line-height: 1.5;
+      display: block;
+    }
+
+    /* ===== TÍTULO ===== */
+    .titulo {
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 0.2rem 0 0.8rem;
+      flex-shrink: 0;
+    }
+
+    /* ===== CORPO ===== */
+    .corpo {
+      font-size: 0.85rem;
+      line-height: 1.8;
+      text-align: justify;
+      color: #1e1e1e;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== TABELA DE CAMPOS ===== */
+    .tabela-campos {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.3rem 0 0.5rem;
+      font-size: 0.85rem;
+    }
+
+    .tabela-campos td {
+      padding: 0.15rem 0.1rem;
+      vertical-align: middle;
+    }
+
+    .tabela-campos .rotulo {
+      font-weight: 600;
+      color: #1a1a1a;
+      white-space: nowrap;
+      width: 1%;
+      padding-right: 0.3rem;
+    }
+
+    .tabela-campos .campo {
+      display: inline-block;
+      width: 100%;
+      border-bottom: 1.5px solid #1a1a1a;
+      padding: 0.02rem 0.2rem 0.02rem;
+      outline: none;
+      background: transparent;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 0.85rem;
+      color: #1a1a1a;
+      font-weight: 400;
+    }
+
+    .tabela-campos .campo-menor {
+      min-width: 60px;
+    }
+
+    .tabela-campos .campo-medio {
+      min-width: 120px;
+    }
+
+    /* ===== LINHA REQUERIMENTO ===== */
+    .linha-requer {
+      margin: 0.5rem 0 0.2rem;
+      font-size: 0.85rem;
+      text-align: justify;
+    }
+
+    .linha-requer .campo-requer {
+      display: inline-block;
+      min-width: 200px;
+      border-bottom: 1.5px solid #1a1a1a;
+      padding: 0.02rem 0.2rem 0.02rem;
+      outline: none;
+      background: transparent;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 0.85rem;
+      color: #1a1a1a;
+      font-weight: 400;
+    }
+
+    /* ===== DECLARAÇÃO ===== */
+    .declaracao {
+      margin: 0.3rem 0 0.2rem;
+      font-size: 0.78rem;
+      line-height: 1.6;
+      text-align: justify;
+    }
+
+    .declaracao .campo-decl {
+      display: inline-block;
+      min-width: 120px;
+      border-bottom: 1.5px solid #1a1a1a;
+      padding: 0.02rem 0.2rem 0.02rem;
+      outline: none;
+      background: transparent;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 0.78rem;
+      color: #1a1a1a;
+      font-weight: 400;
+    }
+
+    /* ===== ASSINATURA E DATA ===== */
+    .linha-assinatura {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-shrink: 0;
+    }
+
+    .linha-assinatura .item {
+      flex: 1 1 200px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .linha-assinatura .item .label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    .linha-assinatura .item .campo-linha {
+      display: block;
+      width: 100%;
+      border-bottom: 1.5px solid #1a1a1a;
+      padding: 0.05rem 0.2rem 0.02rem;
+      margin-top: 1.5rem;
+      outline: none;
+      background: transparent;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 0.85rem;
+      color: #1a1a1a;
+      font-weight: 400;
+    }
+
+    /* ===== DATA ===== */
+    .data-local {
+      margin-top: 0.8rem;
+      text-align: right;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: #1e1e1e;
+      flex-shrink: 0;
+    }
+
+    .data-local .campo-data {
+      min-width: 40px;
+      text-align: center;
+      border-bottom: 1.5px solid #1a1a1a;
+      padding: 0.02rem 0.2rem 0.02rem;
+      outline: none;
+      background: transparent;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+    }
+
+    /* ===== RODAPÉ (NÃO IMPRIME) ===== */
+    .instrucao {
+      text-align: center;
+      font-size: 0.6rem;
+      color: #7a7a7a;
+      margin-top: 0.8rem;
+      border-top: 1px solid #d0d0d0;
+      padding-top: 0.4rem;
+      letter-spacing: 0.3px;
+      flex-shrink: 0;
+    }
+
+    .instrucao span {
+      background: #f2f2f2;
+      padding: 0.05rem 0.6rem;
+      border-radius: 20px;
+    }
+
+    .instrucao a {
+      color: #004DA4;
+      text-decoration: underline;
+    }
+
+    .instrucao a:hover {
+      color: #272B7D;
+    }
+
+    /* ===== IMPRESSÃO ===== */
+    @media print {
+      body {
+        background: #ffffff !important;
+        padding: 0 !important;
+        display: block;
+      }
+
+      .folha {
+        box-shadow: none !important;
+        padding: 2cm 2.5cm !important;
+        width: 100% !important;
+        height: 100vh !important;
+        overflow: visible !important;
+      }
+
+      .campo,
+      .campo-linha,
+      .campo-data,
+      .campo-menor,
+      .campo-medio,
+      .campo-requer,
+      .campo-decl {
+        border-bottom: 1.5px solid #000 !important;
+        color: #000 !important;
+      }
+
+      .instrucao {
+        display: none !important;
+      }
+
+      .header {
+        border-bottom-color: #000;
+      }
+
+      .tabela-campos .campo {
+        border-bottom-color: #000 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="folha">
+
+    <!-- CABEÇALHO -->
+    <div class="header">
+      <span class="linha">Serviço Público Federal</span>
+      <span class="linha">Universidade Federal de Sergipe</span>
+      <span class="linha">Pró-Reitoria de Graduação</span>
+      <span class="linha">Coordenação de Administração Acadêmica</span>
+    </div>
+
+    <!-- TÍTULO -->
+    <div class="titulo">Requerimento Geral</div>
+
+    <!-- CORPO -->
+    <div class="corpo">
+
+      <!-- ===== DADOS PESSOAIS ===== -->
+      <table class="tabela-campos">
+        <tr>
+          <td class="rotulo">Nome:</td>
+          <td colspan="3"><span class="campo" contenteditable="true" spellcheck="false"></span></td>
+          <td class="rotulo">CPF:</td>
+          <td><span class="campo campo-medio" contenteditable="true" spellcheck="false"></span></td>
+        </tr>
+        <tr>
+          <td class="rotulo">Matrícula:</td>
+          <td><span class="campo campo-medio" contenteditable="true" spellcheck="false"></span></td>
+          <td class="rotulo">Curso:</td>
+          <td colspan="3"><span class="campo" contenteditable="true" spellcheck="false"></span></td>
+        </tr>
+        <tr>
+          <td class="rotulo">Logradouro:</td>
+          <td colspan="3"><span class="campo" contenteditable="true" spellcheck="false"></span></td>
+          <td class="rotulo">Nº</td>
+          <td><span class="campo campo-menor" contenteditable="true" spellcheck="false"></span></td>
+        </tr>
+        <tr>
+          <td class="rotulo">Complemento:</td>
+          <td colspan="3"><span class="campo" contenteditable="true" spellcheck="false"></span></td>
+          <td class="rotulo">Bairro:</td>
+          <td><span class="campo campo-medio" contenteditable="true" spellcheck="false"></span></td>
+        </tr>
+        <tr>
+          <td class="rotulo">Cidade:</td>
+          <td><span class="campo campo-medio" contenteditable="true" spellcheck="false"></span></td>
+          <td class="rotulo">Estado:</td>
+          <td><span class="campo campo-menor" contenteditable="true" spellcheck="false"></span></td>
+          <td class="rotulo">CEP:</td>
+          <td><span class="campo campo-medio" contenteditable="true" spellcheck="false"></span></td>
+        </tr>
+        <tr>
+          <td class="rotulo">Fone(s):</td>
+          <td><span class="campo campo-medio" contenteditable="true" spellcheck="false"></span></td>
+          <td class="rotulo">E-mail:</td>
+          <td colspan="3"><span class="campo" contenteditable="true" spellcheck="false"></span></td>
+        </tr>
+      </table>
+
+      <!-- ===== REQUERIMENTO ===== -->
+      <div class="linha-requer">
+        Requer à Coordenação de Administração Acadêmica:
+        <span class="campo-requer" contenteditable="true" spellcheck="false"></span>
+      </div>
+
+      <!-- ===== DECLARAÇÃO ===== -->
+      <div class="declaracao">
+        Declaro que assumo inteira responsabilidade pelas informações prestadas, especialmente quanto à veracidade e à autenticidade das cópias de documentos apresentadas neste processo administrativo. Estou ciente de que os originais desta solicitação e dos demais documentos devem ficar em minha posse e poderão ser requisitados, a qualquer tempo, pela Pró-Reitoria de Graduação, podendo os atos praticados pela UFS em decorrência deste processo serem anulados caso não seja atendida a solicitação ou se, mesmo atendida, seja verificada qualquer falha na autenticidade ou veracidade das informações.
+      </div>
+
+      <div class="declaracao" style="margin-top:0.1rem;">
+        E por ser esta a expressão da verdade, firmo a presente solicitação.
+      </div>
+
+      <!-- ===== DATA E ASSINATURA ===== -->
+      <div class="data-local">
+        Em <span class="campo-data" contenteditable="true" spellcheck="false"></span> de <span class="campo-data" contenteditable="true" spellcheck="false"></span> de <span class="campo-data" contenteditable="true" spellcheck="false"></span>.
+      </div>
+
+      <div class="linha-assinatura">
+        <div class="item">
+          <span class="label">Assinatura do Discente</span>
+          <span class="campo-linha" contenteditable="true" spellcheck="false"></span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ===== INSTRUÇÃO – NÃO IMPRIME ===== -->
+    <div class="instrucao">
+      <span>
+        Este requerimento, o documento de identidade e a documentação que julgar necessária devem ser enviados, nesta ordem e em arquivo PDF único, para
+        <a href="mailto:protocolo@academico.ufs.br">protocolo@academico.ufs.br</a>.
+        A tramitação do processo deve ser acompanhada
+        <a href="https://sei.ufs.br/sei/modulos/pesquisa/md_pesq_processo_pesquisar.php?acao_externa=protocolo_pesquisar&acao_origem_externa=protocolo_pesquisar&id_orgao_acesso_externo=0" target="_blank">aqui</a>.
+      </span>
+    </div>
+
+  </div>
+
+</body>
+</html>
