@@ -1,266 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DAVD/UFS – Aproveitamento de Estudos</title>
+  <meta name="description" content="Departamento de Artes Visuais e Design da UFS – informações sobre cursos, estágios, TCC, atividades complementares e muito mais." />
+  <meta property="og:title" content="DAVD/UFS – Departamento de Artes Visuais e Design" />
+  <meta property="og:description" content="Informações sobre Artes Visuais e Design Gráfico na Universidade Federal de Sergipe." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rcvsilva1.github.io/davd-novo/" />
+  <meta property="og:image" content="https://rcvsilva1.github.io/davd-novo/assets/imagens/banner_ufs.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
-  <style>
-    /* ===== RESET E VARIÁVEIS ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    :root {
-      --azul-escuro: #272B7D;
-      --azul-medio: #004DA4;
-      --azul-claro: #1a73e8;
-      --laranja: #e67e22;
-      --cinza-fundo: #f4f7fc;
-      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
-      --radius: 24px;
-      --branco: #ffffff;
-    }
-    body {
-      font-family: 'Ubuntu', sans-serif;
-      background: var(--cinza-fundo);
-      color: #1e2a3a;
-      line-height: 1.7;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    /* ===== CONTEÚDO PRINCIPAL ===== */
-    .main {
-      flex: 1;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
-      width: 100%;
-    }
-
-    /* ===== HERO / BANNER ===== */
-    .hero {
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: var(--radius);
-      padding: 4rem 3rem;
-      margin-bottom: 2.5rem;
-      text-align: left;
-      color: #fff;
-      position: relative;
-      min-height: 200px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background-size: cover;
-      background-position: center;
-    }
-    .hero h1 {
-      font-size: 2.4rem;
-      font-weight: 400;
-      color: #fff;
-      margin-bottom: 0.5rem;
-    }
-    .hero h1 strong {
-      font-weight: 700;
-    }
-    .hero p {
-      font-size: 1.15rem;
-      color: #f0f0f0;
-      margin: 0.5rem 0 1.8rem;
-      max-width: 700px;
-    }
-    .hero .btn-voltar {
-      display: inline-block;
-      background: var(--azul-medio);
-      color: #fff;
-      padding: 0.6rem 2rem;
-      border-radius: 50px;
-      font-weight: 500;
-      font-size: 1rem;
-      transition: background 0.25s;
-      border: none;
-      cursor: pointer;
-      align-self: flex-start;
-    }
-    .hero .btn-voltar:hover {
-      background: var(--azul-escuro);
-    }
-
-    /* ===== SEÇÃO DE CONTEÚDO ===== */
-    .conteudo {
-      background: #fff;
-      border-radius: var(--radius);
-      padding: 2.5rem;
-      box-shadow: var(--card-shadow);
-      margin-bottom: 2.5rem;
-    }
-    .conteudo h2 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--azul-escuro);
-      margin: 2rem 0 1rem;
-      border-bottom: 2px solid var(--azul-medio);
-      padding-bottom: 0.5rem;
-    }
-    .conteudo h2:first-of-type {
-      margin-top: 0;
-    }
-    .conteudo h3 {
-      font-size: 1.3rem;
-      font-weight: 500;
-      color: var(--azul-medio);
-      margin: 1.5rem 0 0.8rem;
-    }
-    .conteudo p {
-      font-size: 1rem;
-      color: #2c3e50;
-      margin-bottom: 1rem;
-      line-height: 1.8;
-    }
-    .conteudo ul {
-      margin: 0.5rem 0 1rem 1.8rem;
-      color: #2c3e50;
-    }
-    .conteudo li {
-      margin-bottom: 0.4rem;
-    }
-    .conteudo .destaque {
-      background: var(--cinza-fundo);
-      padding: 0.2rem 0.6rem;
-      border-left: 4px solid var(--azul-medio);
-      border-radius: 4px;
-      font-weight: 500;
-    }
-
-    /* ===== GRID DE LINKS (CARDS) ===== */
-    .grid-links {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-      margin: 1.5rem 0;
-    }
-    .card-link {
-      background: var(--cinza-fundo);
-      border-radius: 14px;
-      padding: 1rem 1.2rem;
-      text-align: center;
-      transition: transform 0.2s, box-shadow 0.2s;
-      border-left: 4px solid var(--azul-medio);
-    }
-    .card-link:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-    .card-link a {
-      display: block;
-      font-weight: 500;
-      color: var(--azul-medio);
-      font-size: 0.95rem;
-    }
-    .card-link a:hover {
-      text-decoration: underline;
-    }
-
-    /* ===== RESPONSIVO ===== */
-    @media (max-width: 768px) {
-      .hero {
-        padding: 2.5rem 1.5rem;
-        min-height: 160px;
-      }
-      .hero h1 {
-        font-size: 1.8rem;
-      }
-      .conteudo {
-        padding: 1.5rem;
-      }
-    }
-    @media (max-width: 480px) {
-      .hero h1 {
-        font-size: 1.5rem;
-      }
-    }
-
-    /* ===== RODAPÉ ===== */
-    .footer {
-      background: #2c2c2c;
-      color: #d4e2ed;
-      padding: 2.5rem 1.5rem 1.5rem;
-      margin-top: 2rem;
-      border-top: 4px solid var(--laranja);
-    }
-    .footer .grid {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
-    }
-    .footer h4 {
-      color: #fff;
-      font-weight: 500;
-      margin-bottom: 0.8rem;
-      font-size: 1rem;
-    }
-    .footer ul {
-      list-style: none;
-      padding: 0;
-    }
-    .footer ul li {
-      margin-bottom: 0.4rem;
-    }
-    .footer ul li a {
-      color: #b0c4de;
-      font-size: 0.9rem;
-      transition: color 0.2s;
-    }
-    .footer ul li a:hover {
-      color: #fff;
-      text-decoration: underline;
-    }
-    .footer .social-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-    }
-    .footer .social-links a {
-      color: #b0c4de;
-      font-size: 0.9rem;
-      transition: color 0.2s;
-    }
-    .footer .social-links a:hover {
-      color: #fff;
-      text-decoration: underline;
-    }
-    .footer .endereco {
-      font-size: 0.9rem;
-      color: #b0c4de;
-      line-height: 1.5;
-    }
-    .footer .endereco a {
-      color: var(--laranja);
-      text-decoration: underline;
-    }
-    .footer .copy {
-      text-align: center;
-      font-size: 0.8rem;
-      color: #8a9aa8;
-      border-top: 1px solid #3a4a5e;
-      padding-top: 1.5rem;
-      margin-top: 2rem;
-      max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -353,6 +107,12 @@
   <footer class="footer">
     <div class="grid">
       <div>
+        <h4>Tema</h4>
+        <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">
+          🌙
+        </button>
+      </div>
+      <div>
         <h4>Contato</h4>
         <ul>
           <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
@@ -397,20 +157,8 @@
     </div>
   </footer>
 
-  <script>
-    // Data atual no rodapé
-    document.getElementById('updateDate').textContent =
-      new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
-
-    // Função voltar com fallback
-    function voltar() {
-      if (document.referrer && document.referrer.includes(window.location.hostname)) {
-        history.back();
-      } else {
-        window.location.href = 'index.html';
-      }
-    }
-  </script>
+  <!-- ===== SCRIPTS ===== -->
+  <script src="script.js"></script>
 
 </body>
 </html>
