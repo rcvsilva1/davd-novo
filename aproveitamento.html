@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAVD/UFS – Aproveitamento de Estudos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET E VARIÁVEIS ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --azul-escuro: #272B7D;
+      --azul-medio: #004DA4;
+      --azul-claro: #1a73e8;
+      --laranja: #e67e22;
+      --cinza-fundo: #f4f7fc;
+      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+      --radius: 24px;
+      --branco: #ffffff;
+    }
+    body {
+      font-family: 'Ubuntu', sans-serif;
+      background: var(--cinza-fundo);
+      color: #1e2a3a;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ===== CONTEÚDO PRINCIPAL ===== */
+    .main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      width: 100%;
+    }
+
+    /* ===== HERO / BANNER ===== */
+    .hero {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: var(--radius);
+      padding: 4rem 3rem;
+      margin-bottom: 2.5rem;
+      text-align: left;
+      color: #fff;
+      position: relative;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+    }
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .hero h1 strong {
+      font-weight: 700;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: #f0f0f0;
+      margin: 0.5rem 0 1.8rem;
+      max-width: 700px;
+    }
+    .hero .btn-voltar {
+      display: inline-block;
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.6rem 2rem;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: background 0.25s;
+      border: none;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+    .hero .btn-voltar:hover {
+      background: var(--azul-escuro);
+    }
+
+    /* ===== SEÇÃO DE CONTEÚDO ===== */
+    .conteudo {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2.5rem;
+    }
+    .conteudo h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--azul-escuro);
+      margin: 2rem 0 1rem;
+      border-bottom: 2px solid var(--azul-medio);
+      padding-bottom: 0.5rem;
+    }
+    .conteudo h2:first-of-type {
+      margin-top: 0;
+    }
+    .conteudo h3 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--azul-medio);
+      margin: 1.5rem 0 0.8rem;
+    }
+    .conteudo p {
+      font-size: 1rem;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+    .conteudo ul {
+      margin: 0.5rem 0 1rem 1.8rem;
+      color: #2c3e50;
+    }
+    .conteudo li {
+      margin-bottom: 0.4rem;
+    }
+    .conteudo .destaque {
+      background: var(--cinza-fundo);
+      padding: 0.2rem 0.6rem;
+      border-left: 4px solid var(--azul-medio);
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    /* ===== GRID DE LINKS (CARDS) ===== */
+    .grid-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .card-link {
+      background: var(--cinza-fundo);
+      border-radius: 14px;
+      padding: 1rem 1.2rem;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border-left: 4px solid var(--azul-medio);
+    }
+    .card-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .card-link a {
+      display: block;
+      font-weight: 500;
+      color: var(--azul-medio);
+      font-size: 0.95rem;
+    }
+    .card-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== RESPONSIVO ===== */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 2.5rem 1.5rem;
+        min-height: 160px;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .conteudo {
+        padding: 1.5rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+    }
+
+    /* ===== RODAPÉ ===== */
+    .footer {
+      background: #2c2c2c;
+      color: #d4e2ed;
+      padding: 2.5rem 1.5rem 1.5rem;
+      margin-top: 2rem;
+      border-top: 4px solid var(--laranja);
+    }
+    .footer .grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    .footer h4 {
+      color: #fff;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+      font-size: 1rem;
+    }
+    .footer ul {
+      list-style: none;
+      padding: 0;
+    }
+    .footer ul li {
+      margin-bottom: 0.4rem;
+    }
+    .footer ul li a {
+      color: #b0c4de;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer ul li a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .footer .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .footer .social-links a {
+      color: #b0c4de;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer .social-links a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .footer .endereco {
+      font-size: 0.9rem;
+      color: #b0c4de;
+      line-height: 1.5;
+    }
+    .footer .endereco a {
+      color: var(--laranja);
+      text-decoration: underline;
+    }
+    .footer .copy {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #8a9aa8;
+      border-top: 1px solid #3a4a5e;
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+  <main class="main">
+
+    <!-- ===== HERO / BANNER ===== -->
+    <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
+      <h1>Aproveitamento de <strong>Estudos</strong></h1>
+      <p>Como solicitar o aproveitamento de disciplinas</p>
+      <a href="javascript:void(0)" class="btn-voltar" onclick="voltar()">Voltar</a>
+    </section>
+
+    <!-- ===== CONTEÚDO ===== -->
+    <div class="conteudo">
+
+      <h2>O que é o Aproveitamento de Estudos?</h2>
+      <p>
+        O aproveitamento de estudos, ou equivalência de disciplinas, é o processo que permite que componentes curriculares realizados em outras instituições de ensino superior sejam validados pela UFS, desde que atendam a alguns critérios.
+      </p>
+      <p>
+        Basicamente, é uma forma de você não precisar refazer disciplinas que já cursou com aprovação em outro lugar, economizando tempo e esforço.
+      </p>
+
+      <h3>O que pode ser aproveitado?</h3>
+      <p>
+        Podem ser aproveitados componentes curriculares cursados em instituições de ensino superior <strong>nacionais ou estrangeiras</strong>, em cursos de graduação ou pós-graduação. Mas atenção:
+      </p>
+      <ul>
+        <li><strong>O curso de origem precisa ser reconhecido</strong> – se for no Brasil, tem que ter autorização ou reconhecimento do MEC.</li>
+        <li>O aproveitamento vale para disciplinas cursadas <strong>antes do seu ingresso na UFS</strong>. Se você já está matriculado e quer cursar disciplinas em outra faculdade, isso só é permitido em casos de <strong>mobilidade acadêmica</strong> (intercâmbio, convênio, etc.).</li>
+        <li><strong>Não é possível aproveitar</strong> atividades acadêmicas específicas, com exceção das atividades integradoras de formação.</li>
+      </ul>
+
+      <h3>Documentos necessários</h3>
+      <p>Para solicitar o aproveitamento, você precisa apresentar os seguintes documentos:</p>
+      <ul>
+        <li><strong>Histórico escolar atualizado</strong> – com as disciplinas cursadas, cargas horárias e notas.</li>
+        <li><strong>Programa (ementa) das disciplinas</strong> que você quer aproveitar.</li>
+        <li><strong>Comprovação de reconhecimento do curso</strong> (se for no Brasil).</li>
+        <li>Se o curso for no <strong>exterior</strong>, os documentos precisam ser autenticados pelo consulado brasileiro no país de origem e vir com <strong>tradução juramentada</strong> para o português.</li>
+      </ul>
+
+      <h3>Critérios</h3>
+      <p>
+        O Colegiado do Curso é quem analisa seu pedido. Para que uma disciplina seja aprovada, o conteúdo dela precisa corresponder a <strong>pelo menos 75%</strong> do conteúdo da disciplina equivalente na UFS. Além disso, a carga horária da disciplina na UFS é respeitada – ou seja, se você cursou 60h, mas a disciplina da UFS tem 75h, você aproveita os 60h e precisa complementar as 15h restantes (se for possível).
+      </p>
+      <p>
+        Se a disciplina que você cursou não for exatamente igual a uma da UFS, o Colegiado pode <strong>combinar mais de uma disciplina</strong> (ou partes delas) para formar uma equivalente.
+      </p>
+      <p>
+        Quando o pedido é aprovado, a disciplina aparece no seu histórico com o código da UFS, mas sem nota nem frequência – apenas com a menção de que foi <strong>"aproveitada"</strong>.
+      </p>
+
+      <h3>Disciplinas cursadas na UFS</h3>
+      <p>
+        Se você já cursou uma disciplina na UFS em outro curso ou em outra oportunidade, o aproveitamento pode ser <strong>automático</strong>. Você só precisa solicitar ao CAA (Coordenação de Administração Acadêmica) e, se os sistemas reconhecerem a equivalência, ela é liberada sem burocracia.
+      </p>
+      <p>
+        Porém, o aproveitamento automático só vale para disciplinas cursadas nos <strong>últimos 10 anos letivos</strong>. Se passou mais tempo, você precisa fazer o pedido manualmente, com os documentos.
+      </p>
+
+      <h3>Como e quando solicitar?</h3>
+      <p>
+        O pedido de aproveitamento deve ser feito dentro dos <strong>prazos do Calendário Acadêmico</strong> – geralmente no início de cada semestre. Fique de olho nas datas!
+      </p>
+      <p>
+        O processo é analisado pelo Colegiado do Curso, que pode pedir um parecer ao departamento responsável pela disciplina. Esse parecer tem que sair em até <strong>10 dias úteis</strong>. Depois de aprovado, o DAA registra o aproveitamento no seu histórico.
+      </p>
+
+      <!-- ===== LINKS ÚTEIS ===== -->
+      <h2>Links Úteis</h2>
+      <div class="grid-links">
+        <div class="card-link">
+          <a href="https://prograd.ufs.br/pagina/25642" target="_blank">Calendário Acadêmico</a>
+        </div>
+        <div class="card-link">
+          <a href="requerimento.html">Requerimento Geral</a>
+        </div>
+        <div class="card-link">
+          <a href="https://presencial.ufs.br/pagina/22196" target="_blank">Outros Requerimentos</a>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ===== RODAPÉ ===== -->
+  <footer class="footer">
+    <div class="grid">
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
+          <li><a href="tel:+557931946925">(79) 3194-6925</a></li>
+          <li style="color:#b0c4de; font-size:0.9rem;">Segunda a sexta</li>
+          <li style="color:#b0c4de; font-size:0.9rem;">08h00 às 12h00 • 13h00 às 21h00</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Localização</h4>
+        <div class="endereco">
+          <p>Cidade Univ. Prof. José Aloísio de Campos<br />
+          Av. Marcelo Déda Chagas, s/n, Bairro Rosa Elze<br />
+          São Cristóvão/SE – CEP 49107-230</p>
+          <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank">Ver no mapa</a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Redes Artes</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/cenarteufs" target="_blank">Centro Acadêmico: <strong>@cenarteufs</strong></a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Redes Design</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/designufs" target="_blank">Curso: <strong>@designufs</strong></a>
+          <a href="https://instagram.com/cadeufs" target="_blank">Centro Acadêmico: <strong>@cadeufs</strong></a>
+          <a href="https://instagram.com/designemcurso.ufs" target="_blank">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
+          <a href="https://instagram.com/tiposdaufs" target="_blank">Tipos da UFS: <strong>@tiposdaufs</strong></a>
+        </div>
+      </div>
+    </div>
+    <div class="copy">
+      <p>Universidade Federal de Sergipe – DAVD © 2026</p>
+      <p style="margin-top:0.3rem; font-size:0.75rem; opacity:0.6;">
+        Última atualização: <span id="updateDate"></span>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Data atual no rodapé
+    document.getElementById('updateDate').textContent =
+      new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+
+    // Função voltar com fallback
+    function voltar() {
+      if (document.referrer && document.referrer.includes(window.location.hostname)) {
+        history.back();
+      } else {
+        window.location.href = 'index.html';
+      }
+    }
+  </script>
+
+</body>
+</html>
