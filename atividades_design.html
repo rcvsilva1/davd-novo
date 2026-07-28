@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAVD/UFS – Atividades Complementares Design Gráfico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET E VARIÁVEIS ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --azul-escuro: #272B7D;
+      --azul-medio: #004DA4;
+      --azul-claro: #1a73e8;
+      --laranja: #e67e22;
+      --cinza-fundo: #f4f7fc;
+      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+      --radius: 24px;
+      --branco: #ffffff;
+    }
+    body {
+      font-family: 'Ubuntu', sans-serif;
+      background: var(--cinza-fundo);
+      color: #1e2a3a;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* ===== CONTEÚDO PRINCIPAL ===== */
+    .main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      width: 100%;
+    }
+
+    /* ===== HERO / BANNER ===== */
+    .hero {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: var(--radius);
+      padding: 4rem 3rem;
+      margin-bottom: 2.5rem;
+      text-align: left;
+      color: #fff;
+      position: relative;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+    }
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .hero h1 strong {
+      font-weight: 700;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: #f0f0f0;
+      margin: 0.5rem 0 1.8rem;
+      max-width: 700px;
+    }
+    .hero .btn-voltar {
+      display: inline-block;
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.6rem 2rem;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: background 0.25s;
+      border: none;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+    .hero .btn-voltar:hover {
+      background: var(--azul-escuro);
+    }
+
+    /* ===== SEÇÃO DE CONTEÚDO ===== */
+    .conteudo {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2.5rem;
+    }
+    .conteudo h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--azul-escuro);
+      margin: 2rem 0 1rem;
+      border-bottom: 2px solid var(--azul-medio);
+      padding-bottom: 0.5rem;
+    }
+    .conteudo h2:first-of-type {
+      margin-top: 0;
+    }
+    .conteudo h3 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--azul-medio);
+      margin: 1.5rem 0 0.8rem;
+    }
+    .conteudo p {
+      font-size: 1rem;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+    .conteudo ul {
+      margin: 0.5rem 0 1rem 1.8rem;
+      color: #2c3e50;
+    }
+    .conteudo li {
+      margin-bottom: 0.4rem;
+    }
+
+    /* ===== TABELA RESPONSIVA ===== */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: 12px;
+      border: 1px solid #e0e4e8;
+      -webkit-overflow-scrolling: touch;
+    }
+    .table-wrapper table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      min-width: 480px;
+    }
+    .table-wrapper table th {
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.6rem 0.8rem;
+      text-align: left;
+      font-weight: 500;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+    .table-wrapper table td {
+      padding: 0.5rem 0.8rem;
+      border-bottom: 1px solid #e9ecef;
+      vertical-align: middle;
+      line-height: 1.5;
+    }
+    .table-wrapper table tr:last-child td {
+      border-bottom: none;
+    }
+    .table-wrapper table tr:hover td {
+      background: #f8f9fa;
+    }
+    .table-wrapper table .total {
+      font-weight: 700;
+      color: var(--azul-escuro);
+      background: #f0f4fa;
+    }
+    .table-wrapper table .destaque-linha {
+      background: #fafbfc;
+    }
+
+    /* ===== LINKS ÚTEIS ===== */
+    .grid-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .card-link {
+      background: var(--cinza-fundo);
+      border-radius: 14px;
+      padding: 1rem 1.2rem;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border-left: 4px solid var(--azul-medio);
+    }
+    .card-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .card-link a {
+      display: block;
+      font-weight: 500;
+      color: var(--azul-medio);
+      font-size: 0.95rem;
+    }
+    .card-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== RESPONSIVO ===== */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 2.5rem 1.5rem;
+        min-height: 160px;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .conteudo {
+        padding: 1.5rem;
+      }
+      .table-wrapper table {
+        font-size: 0.8rem;
+        min-width: 400px;
+      }
+      .table-wrapper table th,
+      .table-wrapper table td {
+        padding: 0.4rem 0.5rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+      .table-wrapper table {
+        font-size: 0.7rem;
+        min-width: 340px;
+      }
+      .table-wrapper table th,
+      .table-wrapper table td {
+        padding: 0.3rem 0.4rem;
+      }
+    }
+
+    /* ===== RODAPÉ ===== */
+    .footer {
+      background: #2c2c2c;
+      color: #d4e2ed;
+      padding: 2.5rem 1.5rem 1.5rem;
+      margin-top: 2rem;
+      border-top: 4px solid var(--laranja);
+    }
+    .footer .grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    .footer h4 {
+      color: #fff;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+      font-size: 1rem;
+    }
+    .footer ul {
+      list-style: none;
+      padding: 0;
+    }
+    .footer ul li {
+      margin-bottom: 0.4rem;
+    }
+    .footer ul li a {
+      color: #b0c4de;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer ul li a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .footer .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .footer .social-links a {
+      color: #b0c4de;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer .social-links a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .footer .endereco {
+      font-size: 0.9rem;
+      color: #b0c4de;
+      line-height: 1.5;
+    }
+    .footer .endereco a {
+      color: var(--laranja);
+      text-decoration: underline;
+    }
+    .footer .copy {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #8a9aa8;
+      border-top: 1px solid #3a4a5e;
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+  <main class="main">
+
+    <!-- ===== HERO / BANNER ===== -->
+    <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
+      <h1>Atividades Complementares – <strong>Design Gráfico</strong></h1>
+      <p>Bacharelado – Resolução nº 61/2009/CONEPE</p>
+      <a href="index.html" class="btn-voltar">Voltar</a>
+    </section>
+
+    <!-- ===== CONTEÚDO ===== -->
+    <div class="conteudo">
+
+      <h2>Regulamento das Atividades Complementares</h2>
+      <p>
+        Para a obtenção do diploma de Bacharel em Design Gráfico, além das disciplinas obrigatórias que integram o currículo, é necessário integralizar <strong>pelo menos 20 créditos (300 horas)</strong> em atividades complementares, conforme o Art. 1º da Resolução nº 61/2009/CONEPE.
+      </p>
+      <p>
+        As atividades complementares visam o reconhecimento de habilidades e competências adquiridas pelo aluno dentro e fora da universidade, estimulando a prática de estudos independentes, transversais, interdisciplinares e de atualização profissional, integrando as peculiaridades regionais e culturais.
+      </p>
+
+      <h3>Atividades Aproveitadas</h3>
+      <p>De acordo com o Art. 4º do Regulamento, são consideradas atividades complementares as descritas na tabela abaixo:</p>
+
+      <!-- ===== TABELA RESPONSIVA ===== -->
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:50%;">Atividade</th>
+              <th style="width:20%;">Créditos</th>
+              <th style="width:30%;">Carga Horária</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Projetos de pesquisa</td><td>04</td><td>60</td></tr>
+            <tr><td>Monitoria</td><td>04</td><td>60</td></tr>
+            <tr><td>Iniciação à docência</td><td>04</td><td>60</td></tr>
+            <tr><td>Iniciação científica</td><td>04</td><td>60</td></tr>
+            <tr><td>Projetos de extensão</td><td>04</td><td>60</td></tr>
+            <tr><td>Seminários</td><td>01</td><td>15</td></tr>
+            <tr><td>Simpósios</td><td>01</td><td>15</td></tr>
+            <tr><td>Congressos</td><td>01</td><td>15</td></tr>
+            <tr><td>Conferências</td><td>01</td><td>15</td></tr>
+            <tr><td>Concursos (03 primeiros lugares)</td><td>02</td><td>30</td></tr>
+            <tr><td>Participação em exposições ou desfiles</td><td>02</td><td>30</td></tr>
+            <tr><td>Publicações em eventos científicos ou periódicos</td><td>04</td><td>60</td></tr>
+            <tr class="destaque-linha">
+              <td colspan="3" style="font-weight:600; color:var(--azul-escuro);">Disciplinas optativas (presenciais ou a distância)</td>
+            </tr>
+            <tr><td style="padding-left:1.2rem;">Oferecidas pelo curso de Design</td><td>—</td><td>De acordo com a carga horária</td></tr>
+            <tr><td style="padding-left:1.2rem;">Oferecidas em outros cursos da UFS</td><td>—</td><td>De acordo com a carga horária</td></tr>
+            <tr><td style="padding-left:1.2rem;">Oferecidas por instituições conveniadas à UFS</td><td>—</td><td>De acordo com a carga horária</td></tr>
+            <tr class="total">
+              <td><strong>Total mínimo</strong></td>
+              <td><strong>20 créditos</strong></td>
+              <td><strong>300 horas</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        O aluno deverá ter experiência em, no mínimo, <strong>duas espécies diferentes</strong> de atividades complementares (Parágrafo Único do Art. 4º).
+      </p>
+
+      <p style="font-size:0.9rem; color:#4a5a6e; margin-top:0.5rem;">
+        A carga horária total das atividades complementares deve obedecer a limites por atividade, de forma a estimular a pluralidade (Art. 10). O aluno deve integralizar, no mínimo, 300 horas (20 créditos).
+      </p>
+
+      <h3>Documentação Necessária</h3>
+      <p>Para o aproveitamento das atividades, o discente deve apresentar os comprovantes adequados (Art. 6º):</p>
+      <ul>
+        <li><strong>Projetos de pesquisa, monitoria, iniciação à docência, iniciação científica e projetos de extensão:</strong> declaração do professor orientador ou supervisor, e dos órgãos competentes.</li>
+        <li><strong>Participação em eventos (seminários, simpósios, congressos, conferências):</strong> certificado ou declaração de participação.</li>
+        <li><strong>Concursos e exposições/desfiles:</strong> certificado ou comprovação de premiação/participação.</li>
+        <li><strong>Publicações:</strong> cópia da publicação com referência completa.</li>
+        <li><strong>Disciplinas optativas:</strong> histórico escolar ou declaração de aprovação.</li>
+      </ul>
+      <p>
+        A participação em eventos técnico-científicos será considerada válida quando devidamente comprovada na condição de ouvinte ou expositor/debatedor, e quando os eventos forem de áreas correlatas ou afins (Art. 6º).
+      </p>
+      <p>
+        A participação discente em órgão colegiado, quando se tratar de representação oficial, também é considerada atividade complementar, respeitando os limites de carga horária (Art. 8º).
+      </p>
+
+      <h3>Procedimento</h3>
+      <p>
+        Todas as atividades complementares devem ser comprovadas pelo próprio discente e analisadas pelo Colegiado de Curso (Art. 12). O Coordenador do Curso encaminha as comprovações ao DAA para registro no histórico escolar (Art. 13).
+      </p>
+      <p>
+        As atividades devem ser distribuídas e desenvolvidas ao longo de todo o curso, conforme o Projeto Pedagógico (Art. 11).
+      </p>
+
+      <h3>Disposições Finais</h3>
+      <p>
+        Os casos omissos serão resolvidos pelo Colegiado do Curso, ouvido o Conselho Departamental (Art. 14).
+      </p>
+
+      <!-- ===== LINKS ÚTEIS ===== -->
+      <h2>Links Úteis</h2>
+      <div class="grid-links">
+        <div class="card-link">
+          <a href="https://prograd.ufs.br/pagina/25642" target="_blank">Calendário Acadêmico</a>
+        </div>
+        <div class="card-link">
+          <a href="https://presencial.ufs.br/pagina/22196" target="_blank">Requerimentos Diversos</a>
+        </div>
+        <div class="card-link">
+          <a href="processos_design.html" target="_blank">Processos Discentes</a>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ===== RODAPÉ ===== -->
+  <footer class="footer">
+    <div class="grid">
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
+          <li><a href="tel:+557931946925">(79) 3194-6925</a></li>
+          <li style="color:#b0c4de; font-size:0.9rem;">Segunda a sexta</li>
+          <li style="color:#b0c4de; font-size:0.9rem;">08h00 às 12h00 • 13h00 às 21h00</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Localização</h4>
+        <div class="endereco">
+          <p>Cidade Univ. Prof. José Aloísio de Campos<br />
+          Av. Marcelo Déda Chagas, s/n, Bairro Rosa Elze<br />
+          São Cristóvão/SE – CEP 49107-230</p>
+          <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank">Ver no mapa</a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Redes Artes</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/cenarteufs" target="_blank">Centro Acadêmico: <strong>@cenarteufs</strong></a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Redes Design</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/designufs" target="_blank">Curso: <strong>@designufs</strong></a>
+          <a href="https://instagram.com/cadeufs" target="_blank">Centro Acadêmico: <strong>@cadeufs</strong></a>
+          <a href="https://instagram.com/designemcurso.ufs" target="_blank">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
+          <a href="https://instagram.com/tiposdaufs" target="_blank">Tipos da UFS: <strong>@tiposdaufs</strong></a>
+        </div>
+      </div>
+    </div>
+    <div class="copy">
+      <p>Universidade Federal de Sergipe – DAVD © 2026</p>
+      <p style="margin-top:0.3rem; font-size:0.75rem; opacity:0.6;">
+        Última atualização: <span id="updateDate"></span>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('updateDate').textContent =
+      new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+  </script>
+</body>
+</html>
