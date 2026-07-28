@@ -1,0 +1,405 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ata de Defesa – TCC Artes Visuais</title>
+  <style>
+    /* ===== CONFIGURAÇÃO DA PÁGINA A4 ===== */
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      background: #d1d5db;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem;
+      color: #1e1e1e;
+    }
+
+    /* ===== FOLHA A4 COM ALTURA FIXA ===== */
+    .folha {
+      width: 210mm;
+      height: 297mm;
+      overflow: hidden;
+      background: #ffffff;
+      padding: 2cm 2.5cm;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== CABEÇALHO UNIFORME ===== */
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+      border-bottom: 1.5px solid #1a1a1a;
+      padding-bottom: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    .header .servico,
+    .header .ufs,
+    .header .centro,
+    .header .departamento {
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      line-height: 1.5;
+      display: block;
+    }
+
+    /* ===== TÍTULO ===== */
+    .titulo-ata {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 0.3rem 0 1.8rem;
+      flex-shrink: 0;
+    }
+
+    /* ===== CORPO DA ATA ===== */
+    .ata-body {
+      font-size: 0.95rem;
+      line-height: 2.0;
+      text-align: justify;
+      color: #1e1e1e;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ata-body p {
+      margin-bottom: 0.3rem;
+    }
+
+    /* ===== CAMPOS EDITÁVEIS (SEM PLACEHOLDER) ===== */
+    .campo {
+      display: inline-block;
+      min-width: 150px;
+      border-bottom: 1.5px solid #1a1a1a;
+      padding: 0.05rem 0.2rem 0.02rem;
+      color: #1a1a1a;
+      outline: none;
+      background: transparent;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: inherit;
+      font-weight: 400;
+    }
+
+    .campo-grande {
+      min-width: 280px;
+    }
+
+    .campo-hora {
+      min-width: 50px;
+      text-align: center;
+    }
+
+    .campo-data {
+      min-width: 50px;
+      text-align: center;
+    }
+
+    .campo-sala {
+      min-width: 120px;
+    }
+
+    .campo-situacao {
+      min-width: 120px;
+    }
+
+    /* ===== TABELA DA BANCA ===== */
+    .tabela-banca {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.8rem 0 1.2rem;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+
+    .tabela-banca th {
+      text-align: left;
+      font-weight: 600;
+      padding: 0.2rem 0.2rem;
+      border-bottom: 1.5px solid #1a1a1a;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .tabela-banca td {
+      padding: 0.3rem 0.2rem;
+      border-bottom: 1px solid #d0d0d0;
+      vertical-align: middle;
+    }
+
+    .tabela-banca td:first-child {
+      width: 40%;
+    }
+    .tabela-banca td:nth-child(2) {
+      width: 15%;
+      text-align: center;
+    }
+    .tabela-banca td:nth-child(3) {
+      width: 45%;
+    }
+
+    .tabela-banca .campo-linha {
+      display: inline-block;
+      width: 100%;
+      border-bottom: 1.5px solid #1a1a1a;
+      padding: 0.05rem 0.2rem 0.02rem;
+      outline: none;
+      background: transparent;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 0.95rem;
+      color: #1a1a1a;
+      font-weight: 400;
+    }
+
+    .tabela-banca .campo-nota {
+      display: inline-block;
+      width: 50px;
+      text-align: center;
+      border-bottom: 1.5px solid #1a1a1a;
+      padding: 0.05rem 0.2rem 0.02rem;
+      outline: none;
+      background: transparent;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 0.95rem;
+      color: #1a1a1a;
+      font-weight: 400;
+    }
+
+    /* ===== MÉDIA FINAL ===== */
+    .media-final {
+      margin: 0.3rem 0 0.2rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+
+    .media-final .campo-media {
+      min-width: 80px;
+      border-bottom: 1.5px solid #1a1a1a;
+      padding: 0.05rem 0.2rem 0.02rem;
+      outline: none;
+      background: transparent;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 0.95rem;
+      color: #1a1a1a;
+      font-weight: 400;
+    }
+
+    /* ===== DATA E LOCAL ===== */
+    .data-local {
+      margin-top: 1.2rem;
+      text-align: right;
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: #1e1e1e;
+      flex-shrink: 0;
+    }
+
+    .data-local .campo-data {
+      min-width: 50px;
+      text-align: center;
+      border-bottom: 1.5px solid #1a1a1a;
+      padding: 0.05rem 0.2rem 0.02rem;
+      outline: none;
+      background: transparent;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: inherit;
+      font-weight: 400;
+    }
+
+    /* ===== INSTRUÇÃO ===== */
+    .instrucao {
+      text-align: center;
+      font-size: 0.6rem;
+      color: #7a7a7a;
+      margin-top: 1.2rem;
+      border-top: 1px solid #d0d0d0;
+      padding-top: 0.6rem;
+      letter-spacing: 0.3px;
+      flex-shrink: 0;
+    }
+
+    .instrucao span {
+      background: #f2f2f2;
+      padding: 0.05rem 0.6rem;
+      border-radius: 20px;
+    }
+
+    /* ===== IMPRESSÃO ===== */
+    @media print {
+      body {
+        background: #ffffff !important;
+        padding: 0 !important;
+        display: block;
+      }
+
+      .folha {
+        box-shadow: none !important;
+        padding: 2cm 2.5cm !important;
+        width: 100% !important;
+        height: 100vh !important;
+        overflow: visible !important;
+      }
+
+      .campo,
+      .campo-linha,
+      .campo-nota,
+      .campo-data,
+      .campo-media,
+      .campo-situacao {
+        border-bottom: 1.5px solid #000 !important;
+        color: #000 !important;
+      }
+
+      .instrucao {
+        display: none !important;
+      }
+
+      .header {
+        border-bottom-color: #000;
+      }
+
+      .tabela-banca td {
+        border-bottom-color: #d0d0d0;
+      }
+
+      .tabela-banca th {
+        border-bottom-color: #000;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="folha">
+
+    <!-- CABEÇALHO -->
+    <div class="header">
+      <span class="servico">Serviço Público Federal</span>
+      <span class="ufs">Universidade Federal de Sergipe</span>
+      <span class="centro">Centro de Educação e Ciências Humanas</span>
+      <span class="departamento">Departamento de Artes Visuais e Design</span>
+    </div>
+
+    <!-- TÍTULO -->
+    <div class="titulo-ata">Ata da Sessão de Defesa do Trabalho de Conclusão do Curso de Licenciatura em Artes Visuais</div>
+
+    <!-- CORPO DA ATA -->
+    <div class="ata-body">
+
+      <p>
+        <strong>Título do Trabalho:</strong>
+        <span class="campo campo-grande" contenteditable="true" spellcheck="false"></span>
+      </p>
+
+      <p>
+        <strong>Aluno:</strong>
+        <span class="campo campo-grande" contenteditable="true" spellcheck="false"></span>
+      </p>
+
+      <p>
+        <strong>Data:</strong>
+        <span class="campo" contenteditable="true" spellcheck="false" style="min-width:90px;"></span>
+      </p>
+
+      <p>
+        Às <span class="campo campo-hora" contenteditable="true" spellcheck="false"></span> horas do dia
+        <span class="campo-data" contenteditable="true" spellcheck="false"></span> de
+        <span class="campo-data" contenteditable="true" spellcheck="false"></span> de
+        <span class="campo-data" contenteditable="true" spellcheck="false"></span>,
+        reuniu-se na Sala
+        <span class="campo campo-sala" contenteditable="true" spellcheck="false"></span>
+        da Universidade Federal de Sergipe, com a finalidade de proceder ao exame do Trabalho de Conclusão de Curso de Graduação, a Banca Examinadora composta pelos professores
+        <span class="campo" contenteditable="true" spellcheck="false" style="min-width:180px;"></span>
+        (Orientador),
+        <span class="campo" contenteditable="true" spellcheck="false" style="min-width:180px;"></span>
+        (1º Examinador) e
+        <span class="campo" contenteditable="true" spellcheck="false" style="min-width:180px;"></span>
+        (2º Examinador), que atribuíram, de próprio punho, as notas por eles auferidas.
+      </p>
+
+      <!-- TABELA DA BANCA -->
+      <table class="tabela-banca">
+        <thead>
+          <tr>
+            <th>Banca Examinadora</th>
+            <th>Nota</th>
+            <th>Assinatura</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="campo-linha" contenteditable="true" spellcheck="false"></span></td>
+            <td><span class="campo-nota" contenteditable="true" spellcheck="false"></span></td>
+            <td><span class="campo-linha" contenteditable="true" spellcheck="false"></span></td>
+          </tr>
+          <tr>
+            <td><span class="campo-linha" contenteditable="true" spellcheck="false"></span></td>
+            <td><span class="campo-nota" contenteditable="true" spellcheck="false"></span></td>
+            <td><span class="campo-linha" contenteditable="true" spellcheck="false"></span></td>
+          </tr>
+          <tr>
+            <td><span class="campo-linha" contenteditable="true" spellcheck="false"></span></td>
+            <td><span class="campo-nota" contenteditable="true" spellcheck="false"></span></td>
+            <td><span class="campo-linha" contenteditable="true" spellcheck="false"></span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- MÉDIA FINAL -->
+      <div class="media-final">
+        <span><strong>Média Aritmética Final:</strong></span>
+        <span class="campo-media" contenteditable="true" spellcheck="false"></span>
+      </div>
+
+      <p style="margin-top: 0.1rem;">
+        Com base na média expressa acima, o aluno foi considerado
+        <span class="campo campo-situacao" contenteditable="true" spellcheck="false"></span>.
+      </p>
+
+      <!-- DATA DE ASSINATURA -->
+      <div class="data-local">
+        São Cristóvão,
+        <span class="campo-data" contenteditable="true" spellcheck="false"></span>
+        de
+        <span class="campo-data" contenteditable="true" spellcheck="false"></span>
+        de
+        <span class="campo-data" contenteditable="true" spellcheck="false"></span>.
+      </div>
+
+    </div>
+
+    <!-- INSTRUÇÃO (aparece apenas na tela, não na impressão) -->
+    <div class="instrucao">
+      <span>Campos sublinhados podem ser preenchidos manualmente</span>
+    </div>
+
+  </div>
+
+</body>
+</html>
