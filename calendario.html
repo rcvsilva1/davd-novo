@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DAVD/UFS – Calendário Acadêmico 2026.2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --azul-escuro: #272B7D;
+            --azul-medio: #004DA4;
+            --laranja: #e67e22;
+            --cinza-fundo: #f4f7fc;
+            --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+            --radius: 24px;
+            --branco: #ffffff;
+            --feriado-bg: #fde8e8;
+            --feriado-border: #f5c6c6;
+            --recesso-bg: #fff3cd;
+            --recesso-border: #ffeaa7;
+            --destaque-bg: #d4edda;
+            --destaque-border: #c3e6cb;
+        }
+        body {
+            font-family: 'Ubuntu', sans-serif;
+            background: var(--cinza-fundo);
+            color: #1e2a3a;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            width: 100%;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, rgba(39, 43, 125, 0.85), rgba(0, 77, 164, 0.85)), url('assets/imagens/banner_ufs.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: var(--radius);
+            padding: 3rem 2.5rem;
+            margin-bottom: 2.5rem;
+            color: #fff;
+            position: relative;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 400;
+        }
+        .hero h1 strong {
+            font-weight: 700;
+        }
+        .hero .sub {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-top: 0.3rem;
+        }
+        .hero .btn-voltar {
+            display: inline-block;
+            background: var(--azul-medio);
+            color: #fff;
+            padding: 0.5rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: background 0.25s;
+            border: none;
+            cursor: pointer;
+            align-self: flex-start;
+            margin-top: 1rem;
+        }
+        .hero .btn-voltar:hover {
+            background: var(--azul-escuro);
+        }
+
+        /* CONTEÚDO */
+        .conteudo {
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 2.5rem;
+        }
+        .conteudo h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--azul-escuro);
+            border-bottom: 2px solid var(--azul-medio);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* CARDS DE RESUMO */
+        .resumo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .resumo-card {
+            background: var(--cinza-fundo);
+            border-radius: 14px;
+            padding: 1rem 1.2rem;
+            text-align: center;
+            border-left: 4px solid var(--azul-medio);
+        }
+        .resumo-card .label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #4a5a6e;
+            letter-spacing: 0.5px;
+        }
+        .resumo-card .value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--azul-escuro);
+            margin-top: 0.2rem;
+        }
+
+        /* GRADE DE CALENDÁRIOS */
+        .calendarios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .mes {
+            background: var(--cinza-fundo);
+            border-radius: 16px;
+            padding: 0.8rem 0.8rem 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .mes .nome {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--azul-escuro);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        .mes .dias-semana {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #4a5a6e;
+            text-align: center;
+            margin-bottom: 0.2rem;
+        }
+        .mes .grid-dias {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.15rem;
+        }
+        .mes .grid-dias .dia {
+            aspect-ratio: 1/1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border-radius: 50%;
+            background: #fff;
+            transition: background 0.15s;
+            cursor: default;
+            position: relative;
+        }
+        .mes .grid-dias .dia.vazio {
+            background: transparent;
+        }
+        .mes .grid-dias .dia.feriado {
+            background: var(--feriado-bg);
+            border: 1px solid var(--feriado-border);
+            color: #721c24;
+            font-weight: 700;
+            border-radius: 50%;
+        }
+        .mes .grid-dias .dia.recesso {
+            background: var(--recesso-bg);
+            border: 1px solid var(--recesso-border);
+            color: #856404;
+            font-weight: 700;
+            border-radius: 50%;
+        }
+        .mes .grid-dias .dia.destaque {
+            background: var(--destaque-bg);
+            border: 2px solid #28a745;
+            color: #155724;
+            font-weight: 700;
+            border-radius: 50%;
+        }
+        .mes .grid-dias .dia .tooltip {
+            display: none;
+            position: absolute;
+            bottom: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e2a3a;
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 400;
+            padding: 0.2rem 0.6rem;
+            border-radius: 8px;
+            white-space: nowrap;
+            z-index: 10;
+        }
+        .mes .grid-dias .dia:hover .tooltip {
+            display: block;
+        }
+
+        /* LEGENDA */
+        .legenda {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 1rem 0 0.5rem;
+            font-size: 0.85rem;
+            align-items: center;
+        }
+        .legenda .item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .legenda .cor {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 1px solid #d0d7dd;
+        }
+        .legenda .cor.feriado {
+            background: var(--feriado-bg);
+            border-color: var(--feriado-border);
+        }
+        .legenda .cor.recesso {
+            background: var(--recesso-bg);
+            border-color: var(--recesso-border);
+        }
+        .legenda .cor.destaque {
+            background: var(--destaque-bg);
+            border-color: #28a745;
+        }
+
+        /* LISTA DE EVENTOS */
+        .eventos {
+            margin-top: 2rem;
+        }
+        .eventos .item {
+            display: flex;
+            align-items: baseline;
+            gap: 0.8rem;
+            padding: 0.4rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .eventos .item .data {
+            font-weight: 700;
+            color: var(--azul-escuro);
+            min-width: 100px;
+            font-size: 0.9rem;
+        }
+        .eventos .item .desc {
+            font-size: 0.9rem;
+            color: #2c3e50;
+        }
+        .eventos .item .desc .badge {
+            display: inline-block;
+            background: var(--azul-medio);
+            color: #fff;
+            font-size: 0.65rem;
+            padding: 0.05rem 0.5rem;
+            border-radius: 12px;
+            margin-left: 0.4rem;
+        }
+        .eventos .item .desc .badge.feriado {
+            background: #d32f2f;
+        }
+        .eventos .item .desc .badge.recesso {
+            background: #e67e22;
+        }
+
+        /* LINKS ÚTEIS */
+        .grid-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .card-link {
+            background: var(--cinza-fundo);
+            border-radius: 14px;
+            padding: 1rem;
+            text-align: center;
+            border-left: 4px solid var(--azul-medio);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .card-link a {
+            display: block;
+            font-weight: 500;
+            color: var(--azul-medio);
+            font-size: 0.95rem;
+        }
+        .card-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 2rem 1.5rem;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .conteudo {
+                padding: 1.5rem;
+            }
+            .calendarios {
+                grid-template-columns: 1fr 1fr;
+            }
+            .eventos .item {
+                flex-wrap: wrap;
+            }
+            .eventos .item .data {
+                min-width: 80px;
+            }
+        }
+        @media (max-width: 480px) {
+            .calendarios {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+            .resumo-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #2c2c2c;
+            color: #d4e2ed;
+            padding: 2.5rem 1.5rem 1.5rem;
+            margin-top: 2rem;
+            border-top: 4px solid var(--laranja);
+        }
+        .footer .grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        .footer h4 {
+            color: #fff;
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+        }
+        .footer ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer ul li {
+            margin-bottom: 0.4rem;
+        }
+        .footer ul li a {
+            color: #b0c4de;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .footer ul li a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+        .footer .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+        .footer .social-links a {
+            color: #b0c4de;
+            font-size: 0.9rem;
+        }
+        .footer .social-links a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+        .footer .endereco {
+            font-size: 0.9rem;
+            color: #b0c4de;
+            line-height: 1.5;
+        }
+        .footer .endereco a {
+            color: var(--laranja);
+            text-decoration: underline;
+        }
+        .footer .copy {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #8a9aa8;
+            border-top: 1px solid #3a4a5e;
+            padding-top: 1.5rem;
+            margin-top: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="main">
+
+        <section class="hero">
+            <h1>Calendário Acadêmico <strong>2026.2</strong></h1>
+            <div class="sub">Período letivo: 17 de agosto a 21 de dezembro de 2026</div>
+            <a href="javascript:void(0)" class="btn-voltar" onclick="voltar()">Voltar</a>
+        </section>
+
+        <div class="conteudo">
+
+            <!-- Resumo -->
+            <div class="resumo-grid">
+                <div class="resumo-card"><div class="label">Início</div><div class="value">17/08/2026</div></div>
+                <div class="resumo-card"><div class="label">Término</div><div class="value">21/12/2026</div></div>
+                <div class="resumo-card"><div class="label">Dias Letivos</div><div class="value">103</div></div>
+                <div class="resumo-card"><div class="label">Feriados</div><div class="value">9</div></div>
+            </div>
+
+            <!-- Calendários mensais -->
+            <h2>Calendário Mensal</h2>
+            <div class="calendarios" id="calendarios"></div>
+
+            <!-- Legenda -->
+            <div class="legenda">
+                <span class="item"><span class="cor feriado"></span> Feriado / Recesso</span>
+                <span class="item"><span class="cor destaque"></span> Início / Término do período</span>
+            </div>
+
+            <!-- Lista de feriados e eventos -->
+            <div class="eventos">
+                <h2>Feriados e Recessos</h2>
+                <div id="lista-eventos"></div>
+            </div>
+
+            <!-- Links úteis -->
+            <h2 style="margin-top:2rem;">Links Úteis</h2>
+            <div class="grid-links">
+                <div class="card-link">
+                    <a href="https://prograd.ufs.br/pagina/25642" target="_blank"><strong>Calendário Completo</strong></a>
+                </div>
+                <div class="card-link">
+                    <a href="requerimento.html"><strong>Requerimento Geral</strong></a>
+                </div>
+                <div class="card-link">
+                    <a href="https://presencial.ufs.br/pagina/22196" target="_blank"><strong>Outros Requerimentos</strong></a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="grid">
+            <div>
+                <h4>Contato</h4>
+                <ul>
+                    <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
+                    <li><a href="tel:+557931946925">(79) 3194-6925</a></li>
+                    <li style="color:#b0c4de; font-size:0.9rem;">Segunda a sexta</li>
+                    <li style="color:#b0c4de; font-size:0.9rem;">08h00 às 12h00 • 13h00 às 21h00</li>
+                </ul>
+            </div>
+            <div>
+                <h4>Localização</h4>
+                <div class="endereco">
+                    <p>Cidade Univ. Prof. José Aloísio de Campos<br />Av. Marcelo Déda Chagas, s/n, Bairro Rosa Elze<br />São Cristóvão/SE – CEP 49107-230</p>
+                    <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank">Ver no mapa</a>
+                </div>
+            </div>
+            <div>
+                <h4>Redes Artes</h4>
+                <div class="social-links">
+                    <a href="https://instagram.com/cenarteufs" target="_blank">Centro Acadêmico: <strong>@cenarteufs</strong></a>
+                </div>
+            </div>
+            <div>
+                <h4>Redes Design</h4>
+                <div class="social-links">
+                    <a href="https://instagram.com/designufs" target="_blank">Curso: <strong>@designufs</strong></a>
+                    <a href="https://instagram.com/cadeufs" target="_blank">Centro Acadêmico: <strong>@cadeufs</strong></a>
+                    <a href="https://instagram.com/designemcurso.ufs" target="_blank">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
+                    <a href="https://instagram.com/tiposdaufs" target="_blank">Tipos da UFS: <strong>@tiposdaufs</strong></a>
+                </div>
+            </div>
+        </div>
+        <div class="copy">
+            <p>Universidade Federal de Sergipe – DAVD &copy; 2026</p>
+            <p style="margin-top:0.3rem; font-size:0.75rem; opacity:0.6;">Última atualização: <span id="updateDate"></span></p>
+        </div>
+    </footer>
+
+    <script>
+        // ===== DADOS DO CALENDÁRIO 2026.2 =====
+        const MESES = [
+            { nome: 'Agosto', ano: 2026, mes: 7 },  // 0-indexado: 7 = agosto
+            { nome: 'Setembro', ano: 2026, mes: 8 },
+            { nome: 'Outubro', ano: 2026, mes: 9 },
+            { nome: 'Novembro', ano: 2026, mes: 10 },
+            { nome: 'Dezembro', ano: 2026, mes: 11 }
+        ];
+
+        // Feriados e recessos no formato 'DD/MM'
+        const feriados = {
+            '07/09': 'Independência do Brasil',
+            '08/09': 'N. Sra. da Vitória (feriado municipal)',
+            '12/10': 'N. Sra. Aparecida',
+            '28/10': 'Dia do Servidor Público (recesso)',
+            '02/11': 'Dia de Finados',
+            '15/11': 'Proclamação da República',
+            '20/11': 'Consciência Negra',
+            '24/12': 'Véspera do Natal (recesso)',
+            '25/12': 'Natal',
+            '31/12': 'Véspera do Ano Novo (recesso)'
+        };
+
+        // Datas de destaque (início e fim do período)
+        const destaques = {
+            '17/08': 'Início do período',
+            '21/12': 'Término do período'
+        };
+
+        const DIAS_SEMANA = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+
+        function gerarMes(ano, mes, nome) {
+            const primeiroDia = new Date(ano, mes, 1);
+            const ultimoDia = new Date(ano, mes + 1, 0);
+            const dias = ultimoDia.getDate();
+            const inicioSemana = primeiroDia.getDay();
+
+            let html = `<div class="mes"><div class="nome">${nome}</div>`;
+            html += `<div class="dias-semana">`;
+            for (let i = 0; i < 7; i++) {
+                html += `<span>${DIAS_SEMANA[i].substring(0,3)}</span>`;
+            }
+            html += `</div><div class="grid-dias">`;
+
+            for (let i = 0; i < inicioSemana; i++) {
+                html += `<div class="dia vazio"></div>`;
+            }
+
+            for (let d = 1; d <= dias; d++) {
+                const dataObj = new Date(ano, mes, d);
+                const diaSemana = dataObj.getDay();
+                const chave = `${String(d).padStart(2,'0')}/${String(mes+1).padStart(2,'0')}`;
+                const feriadoNome = feriados[chave] || null;
+                const destaqueNome = destaques[chave] || null;
+                const isFeriado = !!feriadoNome;
+                const isDestaque = !!destaqueNome;
+
+                let classe = 'dia';
+                if (isFeriado) classe += ' feriado';
+                else if (isDestaque) classe += ' destaque';
+
+                let title = '';
+                if (isFeriado) title = feriadoNome;
+                else if (isDestaque) title = destaqueNome;
+
+                html += `<div class="${classe}" title="${title}">${d}</div>`;
+            }
+
+            html += `</div></div>`;
+            return html;
+        }
+
+        // Montar calendários
+        const container = document.getElementById('calendarios');
+        let htmlCalendarios = '';
+        MESES.forEach(m => {
+            htmlCalendarios += gerarMes(m.ano, m.mes, m.nome);
+        });
+        container.innerHTML = htmlCalendarios;
+
+        // ===== LISTA DE EVENTOS =====
+        const eventosLista = [
+            { data: '07/09', desc: 'Independência do Brasil', tipo: 'feriado' },
+            { data: '08/09', desc: 'N. Sra. da Vitória (feriado municipal)', tipo: 'feriado' },
+            { data: '12/10', desc: 'N. Sra. Aparecida', tipo: 'feriado' },
+            { data: '28/10', desc: 'Dia do Servidor Público (recesso)', tipo: 'recesso' },
+            { data: '02/11', desc: 'Dia de Finados', tipo: 'feriado' },
+            { data: '15/11', desc: 'Proclamação da República', tipo: 'feriado' },
+            { data: '20/11', desc: 'Consciência Negra', tipo: 'feriado' },
+            { data: '24/12', desc: 'Véspera do Natal (recesso)', tipo: 'recesso' },
+            { data: '25/12', desc: 'Natal', tipo: 'feriado' },
+            { data: '31/12', desc: 'Véspera do Ano Novo (recesso)', tipo: 'recesso' }
+        ];
+
+        const containerEventos = document.getElementById('lista-eventos');
+        let htmlEventos = '';
+        eventosLista.forEach(e => {
+            const badge = e.tipo === 'feriado' ? 'Feriado' : 'Recesso';
+            const badgeClass = e.tipo === 'feriado' ? 'feriado' : 'recesso';
+            htmlEventos += `
+                <div class="item">
+                    <span class="data">${e.data}</span>
+                    <span class="desc">${e.desc} <span class="badge ${badgeClass}">${badge}</span></span>
+                </div>
+            `;
+        });
+        containerEventos.innerHTML = htmlEventos;
+
+        // ===== DATA ATUAL =====
+        document.getElementById('updateDate').textContent =
+            new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+
+        // ===== FUNÇÃO VOLTAR =====
+        function voltar() {
+            if (document.referrer && document.referrer.includes(window.location.hostname)) {
+                history.back();
+            } else {
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+
+</body>
+</html>
