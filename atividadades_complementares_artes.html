@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAVD/UFS – Atividades Complementares Artes Visuais</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET E VARIÁVEIS ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --azul-escuro: #272B7D;
+      --azul-medio: #004DA4;
+      --azul-claro: #1a73e8;
+      --laranja: #e67e22;
+      --cinza-fundo: #f4f7fc;
+      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+      --radius: 24px;
+      --branco: #ffffff;
+    }
+    body {
+      font-family: 'Ubuntu', sans-serif;
+      background: var(--cinza-fundo);
+      color: #1e2a3a;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* ===== CONTEÚDO PRINCIPAL ===== */
+    .main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      width: 100%;
+    }
+
+    /* ===== HERO / BANNER ===== */
+    .hero {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: var(--radius);
+      padding: 4rem 3rem;
+      margin-bottom: 2.5rem;
+      text-align: left;
+      color: #fff;
+      position: relative;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+    }
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .hero h1 strong {
+      font-weight: 700;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: #f0f0f0;
+      margin: 0.5rem 0 1.8rem;
+      max-width: 700px;
+    }
+    .hero .btn-voltar {
+      display: inline-block;
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.6rem 2rem;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: background 0.25s;
+      border: none;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+    .hero .btn-voltar:hover {
+      background: var(--azul-escuro);
+    }
+
+    /* ===== SEÇÃO DE CONTEÚDO ===== */
+    .conteudo {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2.5rem;
+    }
+    .conteudo h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--azul-escuro);
+      margin: 2rem 0 1rem;
+      border-bottom: 2px solid var(--azul-medio);
+      padding-bottom: 0.5rem;
+    }
+    .conteudo h2:first-of-type {
+      margin-top: 0;
+    }
+    .conteudo h3 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--azul-medio);
+      margin: 1.5rem 0 0.8rem;
+    }
+    .conteudo p {
+      font-size: 1rem;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+    .conteudo ul {
+      margin: 0.5rem 0 1rem 1.8rem;
+      color: #2c3e50;
+    }
+    .conteudo li {
+      margin-bottom: 0.4rem;
+    }
+
+    /* ===== TABELA RESPONSIVA ===== */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: 12px;
+      border: 1px solid #e0e4e8;
+      -webkit-overflow-scrolling: touch;
+    }
+    .table-wrapper table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      min-width: 680px;
+    }
+    .table-wrapper table th {
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.6rem 0.8rem;
+      text-align: left;
+      font-weight: 500;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+    .table-wrapper table td {
+      padding: 0.5rem 0.8rem;
+      border-bottom: 1px solid #e9ecef;
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .table-wrapper table tr:last-child td {
+      border-bottom: none;
+    }
+    .table-wrapper table tr:hover td {
+      background: #f8f9fa;
+    }
+    .table-wrapper table .grupo {
+      font-weight: 600;
+      color: var(--azul-escuro);
+      background: #f0f4fa;
+    }
+    .table-wrapper table .subitem {
+      padding-left: 1.2rem;
+    }
+    .table-wrapper table .limite {
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    /* ===== LINKS ÚTEIS ===== */
+    .grid-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .card-link {
+      background: var(--cinza-fundo);
+      border-radius: 14px;
+      padding: 1rem 1.2rem;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border-left: 4px solid var(--azul-medio);
+    }
+    .card-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .card-link a {
+      display: block;
+      font-weight: 500;
+      color: var(--azul-medio);
+      font-size: 0.95rem;
+    }
+    .card-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== RESPONSIVO ===== */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 2.5rem 1.5rem;
+        min-height: 160px;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .conteudo {
+        padding: 1.5rem;
+      }
+      .table-wrapper table {
+        font-size: 0.8rem;
+        min-width: 560px;
+      }
+      .table-wrapper table th,
+      .table-wrapper table td {
+        padding: 0.4rem 0.5rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+      .table-wrapper table {
+        font-size: 0.7rem;
+        min-width: 460px;
+      }
+      .table-wrapper table th,
+      .table-wrapper table td {
+        padding: 0.3rem 0.4rem;
+      }
+    }
+
+    /* ===== RODAPÉ ===== */
+    .footer {
+      background: #2c2c2c;
+      color: #d4e2ed;
+      padding: 2.5rem 1.5rem 1.5rem;
+      margin-top: 2rem;
+      border-top: 4px solid var(--laranja);
+    }
+    .footer .grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    .footer h4 {
+      color: #fff;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+      font-size: 1rem;
+    }
+    .footer ul {
+      list-style: none;
+      padding: 0;
+    }
+    .footer ul li {
+      margin-bottom: 0.4rem;
+    }
+    .footer ul li a {
+      color: #b0c4de;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer ul li a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .footer .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .footer .social-links a {
+      color: #b0c4de;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer .social-links a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .footer .endereco {
+      font-size: 0.9rem;
+      color: #b0c4de;
+      line-height: 1.5;
+    }
+    .footer .endereco a {
+      color: var(--laranja);
+      text-decoration: underline;
+    }
+    .footer .copy {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #8a9aa8;
+      border-top: 1px solid #3a4a5e;
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+  <main class="main">
+
+    <!-- ===== HERO / BANNER ===== -->
+    <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
+      <h1>Atividades Complementares – <strong>Artes Visuais</strong></h1>
+      <p>Licenciatura – Resolução nº 110/2011/CONEPE</p>
+      <a href="index.html" class="btn-voltar">Voltar</a>
+    </section>
+
+    <!-- ===== CONTEÚDO ===== -->
+    <div class="conteudo">
+
+      <h2>Regulamento das Atividades Complementares</h2>
+      <p>
+        A obtenção do diploma de Licenciatura em Artes Visuais exige, além das disciplinas que integram o currículo, a integralização de <strong>210 (duzentas e dez) horas</strong> em atividades complementares, conforme o Art. 1º da Resolução nº 110/2011/CONEPE.
+      </p>
+      <p>
+        As atividades complementares compõem um conjunto de experiências didático-pedagógicas que articulam teoria e prática, complementando a formação do estudante com saberes e habilidades necessárias à sua atuação profissional. Elas asseguram flexibilização curricular e interdisciplinaridade.
+      </p>
+
+      <h3>Atividades Aproveitadas</h3>
+      <p>De acordo com o Art. 5º do Regulamento, são consideradas atividades complementares:</p>
+      <ul>
+        <li><strong>Iniciação à docência, pesquisa e extensão:</strong> participação em projetos institucionais, grupos de estudo/pesquisa da UFS sob supervisão de professores ou pós-graduandos.</li>
+        <li><strong>Participação em eventos técnico-científicos:</strong> congressos, seminários, conferências, simpósios, palestras, fóruns, semanas acadêmicas, jornadas e outros da mesma natureza.</li>
+        <li><strong>Organização de eventos técnico-científicos:</strong> dos mesmos tipos mencionados acima.</li>
+        <li><strong>Apresentação de trabalho</strong> em eventos técnico-científicos.</li>
+        <li><strong>Publicação de trabalhos</strong> em livros, cadernos, revistas indexadas ou não, jornais e anais, bem como premiação em concursos.</li>
+        <li><strong>Participação em órgãos colegiados, comitês, comissões</strong> da UFS (não relacionadas a eventos) e em entidades estudantis como membro de diretoria.</li>
+        <li><strong>Cursos regulares</strong> de língua estrangeira e de Artes Visuais.</li>
+        <li><strong>Experiências profissionais e/ou complementares:</strong> estágios não obrigatórios cadastrados na PROEX, projetos sociais governamentais ou não governamentais.</li>
+        <li><strong>Cursos de extensão</strong> e estudos a distância.</li>
+        <li><strong>Atividades artístico-culturais</strong> – produção ou elaboração de vídeos e softwares relacionados à área de formação.</li>
+      </ul>
+      <p>
+        Outras atividades consideradas relevantes pelo discente podem ser submetidas à apreciação do Colegiado de Curso, que decidirá sobre a validação e a atribuição da carga horária (Art. 5º, Parágrafo Único).
+      </p>
+
+      <h3>Tabela de Equivalência e Limites</h3>
+      <p>
+        O aluno deve integralizar <strong>210 horas</strong> (14 créditos) em atividades complementares. Os limites por atividade estão definidos no Art. 7º, conforme a tabela a seguir:
+      </p>
+
+      <!-- ===== TABELA RESPONSIVA ===== -->
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:6%;">Nº</th>
+              <th style="width:46%;">Descrição das Atividades</th>
+              <th style="width:16%;">Limite máximo por atividade</th>
+              <th style="width:16%;">Limite máximo para o conjunto</th>
+              <th style="width:16%;">Limite máximo em créditos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Grupo 1 -->
+            <tr class="grupo">
+              <td colspan="5"><strong>1. Iniciação à docência, pesquisa e extensão</strong></td>
+            </tr>
+            <tr>
+              <td>1.1</td>
+              <td class="subitem">Estágios extracurriculares (docência)</td>
+              <td class="limite">—</td>
+              <td class="limite" rowspan="3">Até 105h</td>
+              <td class="limite" rowspan="3">07 créditos</td>
+            </tr>
+            <tr>
+              <td>1.2</td>
+              <td class="subitem">Participação em pesquisa (PIBIC, PET, grupos de pesquisa)</td>
+              <td class="limite">—</td>
+            </tr>
+            <tr>
+              <td>1.3</td>
+              <td class="subitem">Participação em extensão (OCMEA, projetos)</td>
+              <td class="limite">—</td>
+            </tr>
+
+            <!-- Grupo 2 -->
+            <tr class="grupo">
+              <td colspan="5"><strong>2. Eventos técnico-científicos</strong></td>
+            </tr>
+            <tr>
+              <td>2.1</td>
+              <td class="subitem">Participação em eventos (como assistente)</td>
+              <td class="limite">Até 30h por atividade</td>
+              <td class="limite" rowspan="3">Até 180h</td>
+              <td class="limite" rowspan="3">12 créditos</td>
+            </tr>
+            <tr>
+              <td>2.2</td>
+              <td class="subitem">Organização de eventos</td>
+              <td class="limite">Até 30h por atividade</td>
+            </tr>
+            <tr>
+              <td>2.3</td>
+              <td class="subitem">Palestras oferecidas</td>
+              <td class="limite">Até 30h por atividade</td>
+            </tr>
+
+            <!-- Grupo 3 -->
+            <tr class="grupo">
+              <td colspan="5"><strong>3. Apresentação e publicação</strong></td>
+            </tr>
+            <tr>
+              <td>3.1</td>
+              <td class="subitem">Apresentação de trabalho em eventos</td>
+              <td class="limite">—</td>
+              <td class="limite" rowspan="2">Até 90h</td>
+              <td class="limite" rowspan="2">06 créditos<br><span style="font-size:0.75rem;">(1 crédito a cada 2 apresentações ou publicações)</span></td>
+            </tr>
+            <tr>
+              <td>3.2</td>
+              <td class="subitem">Publicações (livros, periódicos, anais)</td>
+              <td class="limite">—</td>
+            </tr>
+
+            <!-- Grupo 4 -->
+            <tr class="grupo">
+              <td colspan="5"><strong>4. Participação em órgãos e comissões</strong></td>
+            </tr>
+            <tr>
+              <td>4.1</td>
+              <td class="subitem">Órgãos de representação colegiada</td>
+              <td class="limite">Até 60h</td>
+              <td class="limite" rowspan="3">Até 60h</td>
+              <td class="limite" rowspan="3">04 créditos</td>
+            </tr>
+            <tr>
+              <td>4.2</td>
+              <td class="subitem">Comitês ou comissões de trabalho (não eventos)</td>
+              <td class="limite">Até 30h</td>
+            </tr>
+            <tr>
+              <td>4.3</td>
+              <td class="subitem">Entidades estudantis (diretoria)</td>
+              <td class="limite">Até 30h</td>
+            </tr>
+
+            <!-- Grupo 5 -->
+            <tr class="grupo">
+              <td colspan="5"><strong>5. Cursos regulares</strong></td>
+            </tr>
+            <tr>
+              <td>5.1</td>
+              <td class="subitem">Língua estrangeira</td>
+              <td class="limite">Até 90h</td>
+              <td class="limite" rowspan="2">Até 90h</td>
+              <td class="limite" rowspan="2">06 créditos</td>
+            </tr>
+            <tr>
+              <td>5.2</td>
+              <td class="subitem">Artes Visuais</td>
+              <td class="limite">Até 45h</td>
+            </tr>
+
+            <!-- Grupo 6 -->
+            <tr class="grupo">
+              <td colspan="5"><strong>6. Experiências profissionais</strong></td>
+            </tr>
+            <tr>
+              <td>6.1</td>
+              <td class="subitem">Docência e/ou técnicas na área de Artes Visuais (estágio não obrigatório)</td>
+              <td class="limite">Até 15h por atividade</td>
+              <td class="limite" rowspan="2">Até 45h</td>
+              <td class="limite" rowspan="2">03 créditos</td>
+            </tr>
+            <tr>
+              <td>6.2</td>
+              <td class="subitem">Docência em outras áreas</td>
+              <td class="limite">Até 15h por atividade</td>
+            </tr>
+
+            <!-- Grupo 7 -->
+            <tr class="grupo">
+              <td colspan="5"><strong>7. Cursos de extensão e a distância</strong></td>
+            </tr>
+            <tr>
+              <td>7.1</td>
+              <td class="subitem">Extensão (monitor, ministrante, colaborador)</td>
+              <td class="limite">Até 30h</td>
+              <td class="limite" rowspan="2">Até 30h</td>
+              <td class="limite" rowspan="2">02 créditos</td>
+            </tr>
+            <tr>
+              <td>7.2</td>
+              <td class="subitem">Cursos a distância</td>
+              <td class="limite">Até 15h</td>
+            </tr>
+
+            <!-- Grupo 8 -->
+            <tr class="grupo">
+              <td colspan="5"><strong>8. Atividades artístico-culturais</strong></td>
+            </tr>
+            <tr>
+              <td>8.1</td>
+              <td class="subitem">Atividades artístico-culturais relacionadas à formação</td>
+              <td class="limite">Até 30h por produção</td>
+              <td class="limite" rowspan="2">Até 30h</td>
+              <td class="limite" rowspan="2">02 créditos</td>
+            </tr>
+            <tr>
+              <td>8.2</td>
+              <td class="subitem">Produção de vídeos e softwares relacionados</td>
+              <td class="limite">Até 15h por produção</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="font-size:0.9rem; color:#4a5a6e; margin-top:-0.5rem;">
+        <strong>Observação:</strong> Os limites máximos para o conjunto de atividades e o total de créditos estão indicados por grupo. A soma de todas as atividades deve totalizar 210 horas (14 créditos).
+      </p>
+
+      <h3>Documentação Necessária</h3>
+      <p>Conforme o Art. 6º, para cada tipo de atividade, o discente deve apresentar a comprovação adequada:</p>
+      <ul>
+        <li><strong>Iniciação à docência, pesquisa e extensão:</strong> relatório do professor orientador/supervisor e declaração dos órgãos competentes.</li>
+        <li><strong>Participação/organização de eventos e palestras:</strong> certificado ou declaração de participação.</li>
+        <li><strong>Apresentação de trabalho:</strong> certificado de apresentação.</li>
+        <li><strong>Publicações:</strong> cópia da publicação com referência completa.</li>
+        <li><strong>Participação em órgãos/comissões/entidades:</strong> declaração oficial, ata ou portaria.</li>
+        <li><strong>Estágios não obrigatórios:</strong> relatório do supervisor e declaração da unidade concedente.</li>
+        <li><strong>Cursos (línguas, extensão, EaD, Artes Visuais):</strong> declaração/certificado da instituição.</li>
+        <li><strong>Experiências profissionais:</strong> declaração da entidade e relatório do supervisor.</li>
+        <li><strong>Atividades artístico-culturais:</strong> cópia dos trabalhos produzidos.</li>
+      </ul>
+
+      <h3>Procedimento</h3>
+      <p>
+        O discente deve solicitar a integralização das atividades complementares <strong>no semestre de conclusão do Curso</strong> (Art. 3º). A solicitação é feita por meio de requerimento escrito, instruído com os documentos comprobatórios e relatório das atividades, dirigido ao Colegiado de Curso (Art. 5º, Parágrafo Único).
+      </p>
+      <p>
+        A avaliação é realizada por um docente designado pelo Colegiado e, após homologação, as atividades são encaminhadas à Pró-Reitoria de Graduação para os devidos registros (Art. 8º).
+      </p>
+
+      <h3>Disposições Finais</h3>
+      <p>
+        O Colegiado de Curso é responsável por implementar as atividades complementares, definir a carga horária de cada atividade (dentro dos limites da tabela), avaliar a compatibilidade com o Projeto Pedagógico, designar o avaliador para cada requerimento e homologar a integralização (Art. 9º).
+      </p>
+      <p>
+        Casos omissos serão resolvidos pelo Colegiado de Curso (Art. 10). O Regulamento entrou em vigor no primeiro semestre de 2012 (Art. 11).
+      </p>
+
+      <!-- ===== LINKS ÚTEIS ===== -->
+      <h2>Links Úteis</h2>
+      <div class="grid-links">
+        <div class="card-link">
+          <a href="https://prograd.ufs.br/pagina/25642" target="_blank">Calendário Acadêmico</a>
+        </div>
+        <div class="card-link">
+          <a href="https://presencial.ufs.br/pagina/22196" target="_blank">Requerimentos Diversos</a>
+        </div>
+        <div class="card-link">
+          <a href="processos_artes.html" target="_blank">Processos Discentes</a>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ===== RODAPÉ ===== -->
+  <footer class="footer">
+    <div class="grid">
+      <div>
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
+          <li><a href="tel:+557931946925">(79) 3194-6925</a></li>
+          <li style="color:#b0c4de; font-size:0.9rem;">Segunda a sexta</li>
+          <li style="color:#b0c4de; font-size:0.9rem;">08h00 às 12h00 • 13h00 às 21h00</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Localização</h4>
+        <div class="endereco">
+          <p>Cidade Univ. Prof. José Aloísio de Campos<br />
+          Av. Marcelo Déda Chagas, s/n, Bairro Rosa Elze<br />
+          São Cristóvão/SE – CEP 49107-230</p>
+          <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank">Ver no mapa</a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Redes Artes</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/cenarteufs" target="_blank">Centro Acadêmico: <strong>@cenarteufs</strong></a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Redes Design</h4>
+        <div class="social-links">
+          <a href="https://instagram.com/designufs" target="_blank">Curso: <strong>@designufs</strong></a>
+          <a href="https://instagram.com/cadeufs" target="_blank">Centro Acadêmico: <strong>@cadeufs</strong></a>
+          <a href="https://instagram.com/designemcurso.ufs" target="_blank">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
+          <a href="https://instagram.com/tiposdaufs" target="_blank">Tipos da UFS: <strong>@tiposdaufs</strong></a>
+        </div>
+      </div>
+    </div>
+    <div class="copy">
+      <p>Universidade Federal de Sergipe – DAVD © 2026</p>
+      <p style="margin-top:0.3rem; font-size:0.75rem; opacity:0.6;">
+        Última atualização: <span id="updateDate"></span>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('updateDate').textContent =
+      new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+  </script>
+</body>
+</html>
