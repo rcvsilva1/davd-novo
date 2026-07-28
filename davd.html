@@ -1,146 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DAVD/UFS – Conheça</title>
+  <title>DAVD/UFS – Conheça o DAVD</title>
+  <meta name="description" content="Departamento de Artes Visuais e Design da UFS – informações sobre cursos, estágios, TCC, atividades complementares e muito mais." />
+  <meta property="og:title" content="DAVD/UFS – Departamento de Artes Visuais e Design" />
+  <meta property="og:description" content="Informações sobre Artes Visuais e Design Gráfico na Universidade Federal de Sergipe." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rcvsilva1.github.io/davd-novo/" />
+  <meta property="og:image" content="https://rcvsilva1.github.io/davd-novo/assets/imagens/banner_ufs.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Estilos específicos da página (não estão no style.css) -->
   <style>
-    /* ===== RESET E VARIÁVEIS ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    :root {
-      --azul-escuro: #272B7D;
-      --azul-medio: #004DA4;
-      --azul-claro: #1a73e8;
-      --laranja: #e67e22;
-      --cinza-fundo: #f4f7fc;
-      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
-      --radius: 24px;
-      --branco: #ffffff;
-    }
-    body {
-      font-family: 'Ubuntu', sans-serif;
-      background: var(--cinza-fundo);
-      color: #1e2a3a;
-      line-height: 1.6;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    /* ===== CONTEÚDO PRINCIPAL ===== */
-    .main {
-      flex: 1;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
-      width: 100%;
-    }
-
-    /* ===== HERO / BANNER ===== */
-    .hero {
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: var(--radius);
-      padding: 4rem 3rem;
-      margin-bottom: 2.5rem;
-      text-align: left;
-      color: #fff;
-      position: relative;
-      min-height: 200px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background-size: cover;
-      background-position: center;
-    }
-    .hero h1 {
-      font-size: 2.4rem;
-      font-weight: 400;
-      color: #fff;
-      margin-bottom: 0.5rem;
-    }
-    .hero h1 strong {
-      font-weight: 700;
-    }
-    .hero p {
-      font-size: 1.15rem;
-      color: #f0f0f0;
-      margin: 0.5rem 0 1.8rem;
-      max-width: 700px;
-    }
-    .hero .btn-voltar {
-      display: inline-block;
-      background: var(--azul-medio);
-      color: #fff;
-      padding: 0.6rem 2rem;
-      border-radius: 50px;
-      font-weight: 500;
-      font-size: 1rem;
-      transition: background 0.25s;
-      border: none;
-      cursor: pointer;
-      align-self: flex-start;
-    }
-    .hero .btn-voltar:hover {
-      background: var(--azul-escuro);
-    }
-
-    /* ===== SEÇÃO DE CONTEÚDO ===== */
-    .conteudo {
-      background: #fff;
-      border-radius: var(--radius);
-      padding: 2.5rem;
-      box-shadow: var(--card-shadow);
-      margin-bottom: 2.5rem;
-    }
-    .conteudo h2 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--azul-escuro);
-      margin: 2rem 0 1rem;
-      border-bottom: 2px solid var(--azul-medio);
-      padding-bottom: 0.5rem;
-    }
-    .conteudo h2:first-of-type {
-      margin-top: 0;
-    }
-    .conteudo h3 {
-      font-size: 1.3rem;
-      font-weight: 500;
-      color: var(--azul-medio);
-      margin: 1.5rem 0 0.8rem;
-    }
-    .conteudo p {
-      font-size: 1rem;
-      color: #2c3e50;
-      margin-bottom: 1rem;
-      line-height: 1.7;
-    }
-    .conteudo blockquote {
-      background: var(--cinza-fundo);
-      border-left: 4px solid var(--azul-medio);
-      padding: 1rem 1.5rem;
-      margin: 1rem 0;
-      border-radius: 0 12px 12px 0;
-      font-style: italic;
-      color: #3a4a5e;
-    }
-
-    /* ===== CARDS DE COORDENAÇÃO ===== */
     .grid-coordenacao {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -164,22 +41,7 @@
       color: #3a4a5e;
       margin: 0.2rem 0;
     }
-    .card-coord .btn-contato {
-      display: inline-block;
-      margin-top: 0.8rem;
-      background: var(--azul-medio);
-      color: #fff;
-      padding: 0.4rem 1.4rem;
-      border-radius: 40px;
-      font-weight: 500;
-      font-size: 0.85rem;
-      transition: background 0.2s;
-      border: none;
-      cursor: pointer;
-    }
-    .card-coord .btn-contato:hover {
-      background: var(--azul-escuro);
-    }
+    .card-coord .btn-contato,
     .card-coord .btn-saiba {
       display: inline-block;
       margin-top: 0.8rem;
@@ -192,13 +54,16 @@
       transition: background 0.2s;
       border: none;
       cursor: pointer;
-      margin-left: 0.5rem;
+      text-decoration: none;
     }
+    .card-coord .btn-contato:hover,
     .card-coord .btn-saiba:hover {
       background: var(--azul-escuro);
     }
+    .card-coord .btn-saiba {
+      margin-left: 0.5rem;
+    }
 
-    /* ===== CORPO DOCENTE ===== */
     .grid-docentes {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -228,7 +93,7 @@
     }
     .card-docente .bio {
       font-size: 0.9rem;
-      color: #3a4a5e;
+      color: var(--texto-principal);
       margin-top: 0.3rem;
       line-height: 1.4;
     }
@@ -241,7 +106,6 @@
       text-decoration: underline;
     }
 
-    /* ===== CORPO ADMINISTRATIVO ===== */
     .grid-administrativo {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -277,12 +141,12 @@
       transition: background 0.2s;
       border: none;
       cursor: pointer;
+      text-decoration: none;
     }
     .card-admin .btn-contato:hover {
       background: var(--azul-escuro);
     }
 
-    /* ===== INFORMAÇÕES DE CONTATO (Chefia e Localização) ===== */
     .info-contato {
       background: var(--cinza-fundo);
       border-radius: 18px;
@@ -297,8 +161,6 @@
     .info-contato strong {
       color: var(--azul-escuro);
     }
-
-    /* Botão específico para a Chefia – mesmo tamanho dos botões das coordenações */
     .btn-contato-chefia {
       display: inline-block;
       margin-top: 0.2rem;
@@ -311,109 +173,16 @@
       transition: background 0.2s;
       border: none;
       cursor: pointer;
+      text-decoration: none;
     }
     .btn-contato-chefia:hover {
       background: var(--azul-escuro);
     }
 
-    /* ===== RESPONSIVO ===== */
     @media (max-width: 768px) {
-      .hero {
-        padding: 2.5rem 1.5rem;
-        min-height: 160px;
-      }
-      .hero h1 {
-        font-size: 1.8rem;
-      }
-      .conteudo {
-        padding: 1.5rem;
-      }
-      .grid-coordenacao {
-        grid-template-columns: 1fr;
-      }
-      .grid-docentes {
-        grid-template-columns: 1fr;
-      }
-      .grid-administrativo {
-        grid-template-columns: 1fr;
-      }
-    }
-    @media (max-width: 480px) {
-      .hero h1 {
-        font-size: 1.5rem;
-      }
-    }
-
-    /* ===== RODAPÉ ===== */
-    .footer {
-      background: #2c2c2c;
-      color: #d4e2ed;
-      padding: 2.5rem 1.5rem 1.5rem;
-      margin-top: 2rem;
-      border-top: 4px solid var(--laranja);
-    }
-    .footer .grid {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
-    }
-    .footer h4 {
-      color: #fff;
-      font-weight: 500;
-      margin-bottom: 0.8rem;
-      font-size: 1rem;
-    }
-    .footer ul {
-      list-style: none;
-      padding: 0;
-    }
-    .footer ul li {
-      margin-bottom: 0.4rem;
-    }
-    .footer ul li a {
-      color: #b0c4de;
-      font-size: 0.9rem;
-      transition: color 0.2s;
-    }
-    .footer ul li a:hover {
-      color: #fff;
-      text-decoration: underline;
-    }
-    .footer .social-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-    }
-    .footer .social-links a {
-      color: #b0c4de;
-      font-size: 0.9rem;
-      transition: color 0.2s;
-    }
-    .footer .social-links a:hover {
-      color: #fff;
-      text-decoration: underline;
-    }
-    .footer .endereco {
-      font-size: 0.9rem;
-      color: #b0c4de;
-      line-height: 1.5;
-    }
-    .footer .endereco a {
-      color: var(--laranja);
-      text-decoration: underline;
-    }
-    .footer .copy {
-      text-align: center;
-      font-size: 0.8rem;
-      color: #8a9aa8;
-      border-top: 1px solid #3a4a5e;
-      padding-top: 1.5rem;
-      margin-top: 2rem;
-      max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
+      .grid-coordenacao { grid-template-columns: 1fr; }
+      .grid-docentes { grid-template-columns: 1fr; }
+      .grid-administrativo { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -511,7 +280,7 @@
           <div class="nome">Adriana Dantas Nogueira</div>
           <div class="titulacao">Doutora</div>
           <div class="bio">Professora Titular da UFS, ministra disciplinas de Desenho e Pintura (aquarela, pastel, guache, lápis de cor, acrílica e óleo). Membro do Grupo de Pesquisa em História da Arte da UFS e do Grupo de Pesquisa em Estudos Urbanos e Culturais. Coordenadora do Urban Sketchers Aracaju desde 2015. Coordenou o PIBID-Artes na UFS. Pós-Doutora em Artes pela UFMG (2023) e em Belas-Artes pela Universidade de Lisboa (2014). Doutora em Arquitetura e Urbanismo pela UFBA (2004).</div>
-          <a href="http://lattes.cnpq.br/1135979280785667" target="_blank" class="lattes">Currículo Lattes</a>
+          <a href="http://lattes.cnpq.br/1135979280785667" target="_blank" rel="noopener noreferrer" class="lattes">Currículo Lattes</a>
         </div>
 
         <!-- Fabricia Guimaraes Sobral Cabral -->
@@ -519,7 +288,7 @@
           <div class="nome">Fabricia Guimaraes Sobral Cabral</div>
           <div class="titulacao">Doutora</div>
           <div class="bio">Graduada em Desenho Industrial pela UFPB (2001), Mestre em Design pela PUC-Rio (2007) e Doutora em Ciências Antropológicas pela Universidad Autonoma Metropolitana – México (2016).</div>
-          <a href="http://lattes.cnpq.br/0554246039214919" target="_blank" class="lattes">Currículo Lattes</a>
+          <a href="http://lattes.cnpq.br/0554246039214919" target="_blank" rel="noopener noreferrer" class="lattes">Currículo Lattes</a>
         </div>
 
         <!-- Germana Gonçalves de Araujo -->
@@ -527,7 +296,7 @@
           <div class="nome">Germana Gonçalves de Araujo</div>
           <div class="titulacao">Doutora</div>
           <div class="bio">Professora efetiva do curso de Design Gráfico desde 2010. Doutora em Cultura e Sociedade pela UFBA (2013), Mestra em Desenho, Cultura e Interatividade pela UEFS (2008). Coordenadora gráfica da Editora UFS. Autora de diversas obras premiadas, como "Bonita Maria do Capitão" (1º lugar no Prêmio Aloísio Magalhães da Fundação Biblioteca Nacional, 2011) e "Cândido de Faria: um ilustrador sergipano das artes aplicadas" (2º lugar no 33º Prêmio Museu da Casa Brasileira, 2019).</div>
-          <a href="http://lattes.cnpq.br/5486386468044529" target="_blank" class="lattes">Currículo Lattes</a>
+          <a href="http://lattes.cnpq.br/5486386468044529" target="_blank" rel="noopener noreferrer" class="lattes">Currículo Lattes</a>
         </div>
 
         <!-- Isadora Burmeister Dickie -->
@@ -535,7 +304,7 @@
           <div class="nome">Isadora Burmeister Dickie</div>
           <div class="titulacao">Doutora</div>
           <div class="bio">Doutora em Design pela UFPR, Mestra em Design e Expressão Gráfica pela UFSC. Atua nas áreas de Métodos e Ferramentas de Projeto, Design Participativo, Design Estratégico e Sustentabilidade. Idealizadora das plataformas Projectool e Cria Junto (premiada no Design for a Better World, 2021). Diretora da ADGBrasil (Gestão 2020-2022).</div>
-          <a href="http://lattes.cnpq.br/0907445019291980" target="_blank" class="lattes">Currículo Lattes</a>
+          <a href="http://lattes.cnpq.br/0907445019291980" target="_blank" rel="noopener noreferrer" class="lattes">Currículo Lattes</a>
         </div>
 
         <!-- Luis Americo Silva Bonfim -->
@@ -543,7 +312,7 @@
           <div class="nome">Luis Americo Silva Bonfim</div>
           <div class="titulacao">Doutor</div>
           <div class="bio">Professor Associado II do DAVD, professor efetivo do Programa de Pós-graduação em Ciências da Religião (PPGCR). Líder do Grupo de Pesquisa Observare/Expressão Religiosa, Imagem e Som. Membro da SBPC, ABA, ABRALIN e SOCINE. Doutor em Ciências Sociais pela UFBA (2007), Mestre em Sociologia pela UFBA (2000).</div>
-          <a href="http://lattes.cnpq.br/3977133344349420" target="_blank" class="lattes">Currículo Lattes</a>
+          <a href="http://lattes.cnpq.br/3977133344349420" target="_blank" rel="noopener noreferrer" class="lattes">Currículo Lattes</a>
         </div>
 
         <!-- Luis Muller Posca -->
@@ -551,7 +320,7 @@
           <div class="nome">Luis Muller Posca</div>
           <div class="titulacao">Doutor</div>
           <div class="bio">Arte/Educador e Artista visual. Doutor em Artes Visuais pela UnB (2023), Mestre em Artes pela UFU (2017). Especialista em Arte e Educação e Licenciado em Artes Visuais. Atua nas áreas de Artes Visuais e Representação Tridimensional.</div>
-          <a href="https://lattes.cnpq.br/5086906765195980" target="_blank" class="lattes">Currículo Lattes</a>
+          <a href="https://lattes.cnpq.br/5086906765195980" target="_blank" rel="noopener noreferrer" class="lattes">Currículo Lattes</a>
         </div>
 
         <!-- Luiz Fernando Cajueiro dos Santos -->
@@ -559,7 +328,7 @@
           <div class="nome">Luiz Fernando Cajueiro dos Santos</div>
           <div class="titulacao">Doutor</div>
           <div class="bio">Professor efetivo da Universidade Federal de Sergipe, lotado no Departamento de Artes Visuais e Design - DAVD. Artista visual autodidata. Graduado em Artes Visuais Licenciatura pela Universidade Federal de Sergipe - UFS, em 2001. Mestre em Educação, com ênfase em Novas Tecnologias - O Uso das Imagens Digitais no Ensino da Arte, pela Universidade Federal de Sergipe no ano de 2006. Doutor em Educação pelo Programa de Pós-Graduação em Educação da Universidade Federal de Sergipe - PPGED, na Linha de pesquisa: História, Sociedade e Pensamento Educacional. Título da pesquisa: O Gênero Biográfico no Ensino das Artes Visuais: a Vida e a Pintura de José de Dome (1955-1981).</div>
-          <a href="http://lattes.cnpq.br/1082814262224101" target="_blank" class="lattes">Currículo Lattes</a>
+          <a href="http://lattes.cnpq.br/1082814262224101" target="_blank" rel="noopener noreferrer" class="lattes">Currículo Lattes</a>
         </div>
 
         <!-- Marjorie Garrido Severo -->
@@ -567,7 +336,7 @@
           <div class="nome">Marjorie Garrido Severo</div>
           <div class="titulacao">Doutora</div>
           <div class="bio">Licenciada em Artes Visuais pela UFS (2000), MBA Executive Marketing pela FGV (2002), Mestre em Educação pela UFBA (2008) e Doutora em Educação pela UFS (2017). Professora efetiva do DAVD. Tem experiência em Artes Visuais e Design Gráfico, com ênfase em currículo, prática de ensino, semiótica, gravura e cultura visual.</div>
-          <a href="http://lattes.cnpq.br/8082531492816133" target="_blank" class="lattes">Currículo Lattes</a>
+          <a href="http://lattes.cnpq.br/8082531492816133" target="_blank" rel="noopener noreferrer" class="lattes">Currículo Lattes</a>
         </div>
 
         <!-- Michell Angelo Santos Lima -->
@@ -575,7 +344,7 @@
           <div class="nome">Michell Angelo Santos Lima</div>
           <div class="titulacao">Doutor</div>
           <div class="bio">Graduado em Design Gráfico, Pós-graduado em Desenvolvimento de Aplicações Web e Mestre em Administração (Gestão da Inovação e Tecnologia). Atua em Tecnologias Assistivas, Realidade Aumentada, Design de Interação, Ergonomia & Usabilidade, User Experience e Game Design.</div>
-          <a href="http://lattes.cnpq.br/4611144274837868" target="_blank" class="lattes">Currículo Lattes</a>
+          <a href="http://lattes.cnpq.br/4611144274837868" target="_blank" rel="noopener noreferrer" class="lattes">Currículo Lattes</a>
         </div>
 
         <!-- Rosane Bezerra Soares -->
@@ -583,7 +352,7 @@
           <div class="nome">Rosane Bezerra Soares</div>
           <div class="titulacao">Doutora</div>
           <div class="bio">Professora Associada no Departamento de Artes Visuais e Design da Universidade Federal de Sergipe (DAVD/UFS), curso de Licenciatura em Artes Visuais. Líder do Grupo de Pesquisa em Artes, Cultura Visual e Educação (PEACE). Doutorado em Artes Visuais com área de concentração em História e Teoria da Arte pela Escola de Belas Artes da Universidade Federal do Rio de Janeiro (EBA/ UFRJ, 2012, Conceito pela avaliação CAPES: 6). Mestrado em Artes Visuais/História da Arte pela EBA/UFRJ (2000). Especialização em Educação Empreendedora 5.0 pela Escola Superior de Empreendedorismo SEBRAE-SP (2023) e graduação em Comunicação Visual pela Escola de Belas Artes da Universidade Federal do Rio de Janeiro (EBA/UFRJ, 1987). Foi bolsista pelo CNPq (1998-2000). Tem trabalhos expostos no Brasil e no exterior. Possui experiência na área de Artes, atuando principalmente nos seguintes temas: Arte e comunidade, Educação Empreendedora, Cultura Visual, Arte-ativismo, Arte/Educação, Inter/transculturalidade, Comunicação Visual, Arte têxtil, Arte Contemporânea. Membro do coletivo BORDAS.</div>
-          <a href="http://lattes.cnpq.br/9334899984524384" target="_blank" class="lattes">Currículo Lattes</a>
+          <a href="http://lattes.cnpq.br/9334899984524384" target="_blank" rel="noopener noreferrer" class="lattes">Currículo Lattes</a>
         </div>
 
         <!-- Vladimir de Oliva Mota -->
@@ -591,7 +360,7 @@
           <div class="nome">Vladimir de Oliva Mota</div>
           <div class="titulacao">Doutor</div>
           <div class="bio">Graduado em Filosofia pela UFS (2001), Mestre em Filosofia pela USP (2005) e Doutor em Filosofia pela USP (2012), com estágio doutoral na Université Paris I – Sorbonne. Atua em História da Filosofia Moderna e Estética Moderna e Contemporânea. Coordena o Grupo de Pesquisa em Estética e Política.</div>
-          <a href="http://lattes.cnpq.br/2566838305211068" target="_blank" class="lattes">Currículo Lattes</a>
+          <a href="http://lattes.cnpq.br/2566838305211068" target="_blank" rel="noopener noreferrer" class="lattes">Currículo Lattes</a>
         </div>
 
         <!-- Wellington Cesario -->
@@ -599,7 +368,7 @@
           <div class="nome">Wellington Cesario</div>
           <div class="titulacao">Doutor</div>
           <div class="bio">Doutor em Artes Visuais pela UFRJ, com período sanduíche na Université du Québec à Montréal. Pós-Doutor pelo PPGCA da UFF. Atua nas áreas de Artes e Cultura, Filosofia e Educação, com ênfase em arte brasileira, arte contemporânea, arte moderna, filosofia e crítica da arte.</div>
-          <a href="http://lattes.cnpq.br/5516500370064721" target="_blank" class="lattes">Currículo Lattes</a>
+          <a href="http://lattes.cnpq.br/5516500370064721" target="_blank" rel="noopener noreferrer" class="lattes">Currículo Lattes</a>
         </div>
 
         <!-- Yasmin de Freitas Nogueira -->
@@ -607,7 +376,7 @@
           <div class="nome">Yasmin de Freitas Nogueira</div>
           <div class="titulacao">Doutora</div>
           <div class="bio">Doutora em Artes Cênicas pela UFBA, Mestra em Cultura e Sociedade pela UFBA. Graduada em Artes Visuais pela UFRB. Professora Adjunta do DAVD. Atua em Artes Visuais, Design Gráfico, processos criativos, performance, arte e tecnologia.</div>
-          <a href="http://lattes.cnpq.br/7758040685083560" target="_blank" class="lattes">Currículo Lattes</a>
+          <a href="http://lattes.cnpq.br/7758040685083560" target="_blank" rel="noopener noreferrer" class="lattes">Currículo Lattes</a>
         </div>
 
       </div>
@@ -615,18 +384,17 @@
       <!-- Professores Substitutos -->
       <h3>Professores Substitutos</h3>
       <div class="grid-docentes">
-        <!-- Maria Clara Giacomet (ATUALIZADA) -->
         <div class="card-docente">
           <div class="nome">Maria Clara Giacomet</div>
           <div class="titulacao">Mestrado</div>
           <div class="bio">Possui graduação em Arquitetura e Urbanismo pela Pontifícia Universidade Católica do Paraná (1993) Mestrado em Administração e Marketing pela Universidade Federal da Paraíba (2003). Pós Graduação em Engenharia e Segurança do Trabalho pela Universidade Federal de Sergipe (1998). Tem experiência na área de Arquitetura e Urbanismo, desenvolvimento de projetos residenciais, comerciais e corporativos desde 1994, na cidade de Aracaju e em outros estados da federação. Experiência como mestre nos cursos de Arquitetura e Urbanismo, Design de interiores, desde 1996, atuando em universidades públicas e privadas. Experiência como professora em cursos de pós-graduação na área de Engenharia de Segurança do Trabalho. Atualmente é Conselheira do Conselho de Arquitetura e Urbanismo (CAU-SE) e docente no Departamento de Artes Visuais e Design da Universidade Federal de Sergipe ministrando aulas no curso de Artes Visuais e Design Gráfico.</div>
-          <a href="https://lattes.cnpq.br/2526733127103503" target="_blank" class="lattes">Currículo Lattes</a>
+          <a href="https://lattes.cnpq.br/2526733127103503" target="_blank" rel="noopener noreferrer" class="lattes">Currículo Lattes</a>
         </div>
         <div class="card-docente">
           <div class="nome">Vicent Bernardo Alves Santos</div>
           <div class="titulacao">Mestre</div>
           <div class="bio">Mestre em Design pela UFPE, investiga a aplicação do pensamento rizomático de Deleuze e Guattari ao Design, com ênfase nas visualidades do movimento Sertãopunk. Atua como professor substituto no curso de Design da UFS, ministrando disciplinas voltadas à história e à crítica do design. Coordena projetos de inovação social com foco em Design e Interculturalidade, como o desenvolvimento do SRL para avaliação de maturidade de projetos alinhados à Agenda 2030 da ONU. Possui experiência em pesquisa, extensão e desenvolvimento, com destaque para ações colaborativas entre designers e comunidades artesãs. Publicou artigos em periódicos e eventos científicos sobre cultura visual, identidade e saberes populares, contribuindo para o fortalecimento de práticas de design socialmente engajadas e academicamente relevantes.</div>
-          <a href="http://lattes.cnpq.br/2132383905871497" target="_blank" class="lattes">Currículo Lattes</a>
+          <a href="http://lattes.cnpq.br/2132383905871497" target="_blank" rel="noopener noreferrer" class="lattes">Currículo Lattes</a>
         </div>
       </div>
 
@@ -658,7 +426,7 @@
         <p><strong>Telefone:</strong> (79) 3194-6925 (Secretaria)</p>
         <p><strong>E-mail:</strong> davd@academico.ufs.br</p>
         <p style="margin-top:0.5rem;">
-          <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank" style="color:var(--azul-medio); text-decoration:underline;">Ver no mapa</a>
+          <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank" rel="noopener noreferrer" style="color:var(--azul-medio); text-decoration:underline;">Ver no mapa</a>
         </p>
       </div>
 
@@ -669,6 +437,13 @@
   <!-- ===== RODAPÉ ===== -->
   <footer class="footer">
     <div class="grid">
+      <!-- Tema -->
+      <div>
+        <h4>Tema</h4>
+        <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">
+          🌙
+        </button>
+      </div>
       <!-- Contato -->
       <div>
         <h4>Contato</h4>
@@ -687,7 +462,7 @@
           <p>Cidade Univ. Prof. José Aloísio de Campos<br />
           Av. Marcelo Déda Chagas, s/n, Bairro Rosa Elze<br />
           São Cristóvão/SE – CEP 49107-230</p>
-          <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank">Ver no mapa</a>
+          <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank" rel="noopener noreferrer">Ver no mapa</a>
         </div>
       </div>
 
@@ -695,7 +470,7 @@
       <div>
         <h4>Redes Artes</h4>
         <div class="social-links">
-          <a href="https://instagram.com/cenarteufs" target="_blank">Centro Acadêmico: <strong>@cenarteufs</strong></a>
+          <a href="https://instagram.com/cenarteufs" target="_blank" rel="noopener noreferrer">Centro Acadêmico: <strong>@cenarteufs</strong></a>
         </div>
       </div>
 
@@ -703,10 +478,10 @@
       <div>
         <h4>Redes Design</h4>
         <div class="social-links">
-          <a href="https://instagram.com/designufs" target="_blank">Curso: <strong>@designufs</strong></a>
-          <a href="https://instagram.com/cadeufs" target="_blank">Centro Acadêmico: <strong>@cadeufs</strong></a>
-          <a href="https://instagram.com/designemcurso.ufs" target="_blank">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
-          <a href="https://instagram.com/tiposdaufs" target="_blank">Tipos da UFS: <strong>@tiposdaufs</strong></a>
+          <a href="https://instagram.com/designufs" target="_blank" rel="noopener noreferrer">Curso: <strong>@designufs</strong></a>
+          <a href="https://instagram.com/cadeufs" target="_blank" rel="noopener noreferrer">Centro Acadêmico: <strong>@cadeufs</strong></a>
+          <a href="https://instagram.com/designemcurso.ufs" target="_blank" rel="noopener noreferrer">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
+          <a href="https://instagram.com/tiposdaufs" target="_blank" rel="noopener noreferrer">Tipos da UFS: <strong>@tiposdaufs</strong></a>
         </div>
       </div>
     </div>
@@ -718,18 +493,8 @@
     </div>
   </footer>
 
-  <script>
-    document.getElementById('updateDate').textContent =
-      new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
-  </script>
-  <script>
-function voltar() {
-  if (document.referrer && document.referrer.includes(window.location.hostname)) {
-    history.back();
-  } else {
-    window.location.href = 'index.html';
-  }
-}
-</script>
+  <!-- ===== SCRIPTS ===== -->
+  <script src="script.js"></script>
+
 </body>
 </html>
