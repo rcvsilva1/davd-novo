@@ -1,404 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DAVD/UFS – Design Gráfico</title>
+  <meta name="description" content="Departamento de Artes Visuais e Design da UFS – informações sobre cursos, estágios, TCC, atividades complementares e muito mais." />
+  <meta property="og:title" content="DAVD/UFS – Departamento de Artes Visuais e Design" />
+  <meta property="og:description" content="Informações sobre Artes Visuais e Design Gráfico na Universidade Federal de Sergipe." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rcvsilva1.github.io/davd-novo/" />
+  <meta property="og:image" content="https://rcvsilva1.github.io/davd-novo/assets/imagens/banner_ufs.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
-  <style>
-    /* ===== RESET E VARIÁVEIS ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    :root {
-      --azul-escuro: #272B7D;
-      --azul-medio: #004DA4;
-      --azul-claro: #1a73e8;
-      --laranja: #e67e22;
-      --cinza-fundo: #f4f7fc;
-      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
-      --radius: 24px;
-      --branco: #ffffff;
-    }
-    body {
-      font-family: 'Ubuntu', sans-serif;
-      background: var(--cinza-fundo);
-      color: #1e2a3a;
-      line-height: 1.6;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    /* ===== CONTEÚDO PRINCIPAL ===== */
-    .main {
-      flex: 1;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
-      width: 100%;
-    }
-
-    /* ===== HERO / BANNER ===== */
-    .hero {
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: var(--radius);
-      padding: 4rem 3rem;
-      margin-bottom: 2.5rem;
-      text-align: left;
-      color: #fff;
-      position: relative;
-      min-height: 200px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background-size: cover;
-      background-position: center;
-    }
-    .hero h1 {
-      font-size: 2.4rem;
-      font-weight: 400;
-      color: #fff;
-      margin-bottom: 0.5rem;
-    }
-    .hero h1 strong {
-      font-weight: 700;
-    }
-    .hero p {
-      font-size: 1.15rem;
-      color: #f0f0f0;
-      margin: 0.5rem 0 1.8rem;
-      max-width: 700px;
-    }
-    .hero .btn-voltar {
-      display: inline-block;
-      background: var(--azul-medio);
-      color: #fff;
-      padding: 0.6rem 2rem;
-      border-radius: 50px;
-      font-weight: 500;
-      font-size: 1rem;
-      transition: background 0.25s;
-      border: none;
-      cursor: pointer;
-      align-self: flex-start;
-    }
-    .hero .btn-voltar:hover {
-      background: var(--azul-escuro);
-    }
-
-    /* ===== SEÇÃO DE CONTEÚDO ===== */
-    .conteudo {
-      background: #fff;
-      border-radius: var(--radius);
-      padding: 2.5rem;
-      box-shadow: var(--card-shadow);
-      margin-bottom: 2.5rem;
-    }
-    .conteudo h2 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--azul-escuro);
-      margin: 2rem 0 1rem;
-      border-bottom: 2px solid var(--azul-medio);
-      padding-bottom: 0.5rem;
-    }
-    .conteudo h2:first-of-type {
-      margin-top: 0;
-    }
-    .conteudo h3 {
-      font-size: 1.3rem;
-      font-weight: 500;
-      color: var(--azul-medio);
-      margin: 1.5rem 0 0.8rem;
-    }
-    .conteudo p {
-      font-size: 1rem;
-      color: #2c3e50;
-      margin-bottom: 1rem;
-      line-height: 1.7;
-    }
-
-    /* ===== LINKS ÚTEIS ===== */
-    .grid-links {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1rem;
-      margin: 1.5rem 0;
-    }
-    .card-link {
-      background: var(--cinza-fundo);
-      border-radius: 14px;
-      padding: 1rem 0.8rem;
-      text-align: center;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .card-link:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
-    .card-link a {
-      display: block;
-      font-weight: 500;
-      color: var(--azul-medio);
-      font-size: 0.9rem;
-    }
-    .card-link a:hover {
-      text-decoration: underline;
-    }
-
-    /* ===== BLOCO DE INFORMAÇÕES DA ESTRUTURA CURRICULAR ===== */
-    .grid-info-curriculo {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin: 1.5rem 0;
-    }
-    .card-info {
-      background: var(--cinza-fundo);
-      border-radius: 14px;
-      padding: 1rem 1.2rem;
-      border-left: 4px solid var(--azul-medio);
-    }
-    .card-info .titulo {
-      font-weight: 700;
-      color: var(--azul-escuro);
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 0.4rem;
-    }
-    .card-info .dado {
-      font-size: 0.95rem;
-      color: #2c3e50;
-      line-height: 1.5;
-    }
-    .card-info .dado strong {
-      color: var(--azul-medio);
-      font-weight: 600;
-    }
-
-    /* ===== GRADE CURRICULAR (ACORDEÃO) ===== */
-    .periodo {
-      margin-bottom: 0.8rem;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid #e0e4e8;
-    }
-    .periodo-header {
-      background: var(--cinza-fundo);
-      padding: 0.8rem 1.2rem;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-weight: 600;
-      color: var(--azul-escuro);
-      transition: background 0.2s;
-      user-select: none;
-    }
-    .periodo-header:hover {
-      background: #dce1e8;
-    }
-    .periodo-header .seta {
-      font-size: 1.2rem;
-      transition: transform 0.25s;
-    }
-    .periodo-header .seta.aberto {
-      transform: rotate(180deg);
-    }
-    .periodo-body {
-      padding: 0 1.2rem 1.2rem;
-      display: none;
-      background: #fff;
-    }
-    .periodo-body.aberto {
-      display: block;
-    }
-    .periodo-body table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-    }
-    .periodo-body table th {
-      text-align: left;
-      background: var(--azul-medio);
-      color: #fff;
-      padding: 0.4rem 0.6rem;
-      font-weight: 500;
-    }
-    .periodo-body table td {
-      padding: 0.4rem 0.6rem;
-      border-bottom: 1px solid #e9ecef;
-    }
-    .periodo-body table tr:last-child td {
-      border-bottom: none;
-    }
-    .periodo-body .ch-total {
-      margin-top: 0.6rem;
-      font-weight: 500;
-      color: var(--azul-escuro);
-      text-align: right;
-    }
-
-    /* ===== OPTATIVAS ===== */
-    .optativas-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.6rem;
-      margin-top: 1rem;
-    }
-    .optativas-grid .item-opt {
-      background: var(--cinza-fundo);
-      padding: 0.4rem 0.8rem;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      color: #2c3e50;
-    }
-    .optativas-grid .item-opt .codigo {
-      font-weight: 500;
-      color: var(--azul-medio);
-      font-size: 0.8rem;
-      display: block;
-    }
-    .optativas-grid .item-opt .carga {
-      font-size: 0.8rem;
-      color: #4a5a6e;
-    }
-
-    /* ===== RESPONSIVO ===== */
-    @media (max-width: 768px) {
-      .hero {
-        padding: 2.5rem 1.5rem;
-        min-height: 160px;
-      }
-      .hero h1 {
-        font-size: 1.8rem;
-      }
-      .conteudo {
-        padding: 1.5rem;
-      }
-      .grid-links {
-        grid-template-columns: 1fr 1fr;
-      }
-      .grid-info-curriculo {
-        grid-template-columns: 1fr 1fr;
-      }
-      .optativas-grid {
-        grid-template-columns: 1fr;
-      }
-      .periodo-body table {
-        font-size: 0.8rem;
-      }
-      .periodo-body table th,
-      .periodo-body table td {
-        padding: 0.3rem 0.4rem;
-      }
-    }
-    @media (max-width: 480px) {
-      .hero h1 {
-        font-size: 1.5rem;
-      }
-      .grid-links {
-        grid-template-columns: 1fr;
-      }
-      .grid-info-curriculo {
-        grid-template-columns: 1fr;
-      }
-      .periodo-body table {
-        font-size: 0.7rem;
-      }
-      .periodo-body table th,
-      .periodo-body table td {
-        padding: 0.25rem 0.3rem;
-      }
-    }
-
-    /* ===== RODAPÉ ===== */
-    .footer {
-      background: #2c2c2c;
-      color: #d4e2ed;
-      padding: 2.5rem 1.5rem 1.5rem;
-      margin-top: 2rem;
-      border-top: 4px solid var(--laranja);
-    }
-    .footer .grid {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
-    }
-    .footer h4 {
-      color: #fff;
-      font-weight: 500;
-      margin-bottom: 0.8rem;
-      font-size: 1rem;
-    }
-    .footer ul {
-      list-style: none;
-      padding: 0;
-    }
-    .footer ul li {
-      margin-bottom: 0.4rem;
-    }
-    .footer ul li a {
-      color: #b0c4de;
-      font-size: 0.9rem;
-      transition: color 0.2s;
-    }
-    .footer ul li a:hover {
-      color: #fff;
-      text-decoration: underline;
-    }
-    .footer .social-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-    }
-    .footer .social-links a {
-      color: #b0c4de;
-      font-size: 0.9rem;
-      transition: color 0.2s;
-    }
-    .footer .social-links a:hover {
-      color: #fff;
-      text-decoration: underline;
-    }
-    .footer .endereco {
-      font-size: 0.9rem;
-      color: #b0c4de;
-      line-height: 1.5;
-    }
-    .footer .endereco a {
-      color: var(--laranja);
-      text-decoration: underline;
-    }
-    .footer .copy {
-      text-align: center;
-      font-size: 0.8rem;
-      color: #8a9aa8;
-      border-top: 1px solid #3a4a5e;
-      padding-top: 1.5rem;
-      margin-top: 2rem;
-      max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -437,13 +53,13 @@
           <a href="oferta_design.html">Oferta de Componentes</a>
         </div>
         <div class="card-link">
-          <a href="https://drive.google.com/file/d/1PX3pE9r5qWDE1WK1nmlBhsLAwbSV0BHC/view" target="_blank">Projeto Pedagógico (PPP)</a>
+          <a href="https://drive.google.com/file/d/1PX3pE9r5qWDE1WK1nmlBhsLAwbSV0BHC/view" target="_blank" rel="noopener noreferrer">Projeto Pedagógico (PPP)</a>
         </div>
         <div class="card-link">
           <a href="requerimento.html">Requerimentos Diversos</a>
         </div>
         <div class="card-link">
-          <a href="https://presencial.ufs.br/pagina/22196" target="_blank">Outros Requerimentos</a>
+          <a href="https://presencial.ufs.br/pagina/22196" target="_blank" rel="noopener noreferrer">Outros Requerimentos</a>
         </div>
       </div>
 
@@ -673,6 +289,13 @@
   <!-- ===== RODAPÉ ===== -->
   <footer class="footer">
     <div class="grid">
+      <!-- Tema -->
+      <div>
+        <h4>Tema</h4>
+        <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">
+          🌙
+        </button>
+      </div>
       <div>
         <h4>Contato</h4>
         <ul>
@@ -689,24 +312,24 @@
           <p>Cidade Univ. Prof. José Aloísio de Campos<br />
           Av. Marcelo Déda Chagas, s/n, Bairro Rosa Elze<br />
           São Cristóvão/SE – CEP 49107-230</p>
-          <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank">Ver no mapa</a>
+          <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank" rel="noopener noreferrer">Ver no mapa</a>
         </div>
       </div>
 
       <div>
         <h4>Redes Artes</h4>
         <div class="social-links">
-          <a href="https://instagram.com/cenarteufs" target="_blank">Centro Acadêmico: <strong>@cenarteufs</strong></a>
+          <a href="https://instagram.com/cenarteufs" target="_blank" rel="noopener noreferrer">Centro Acadêmico: <strong>@cenarteufs</strong></a>
         </div>
       </div>
 
       <div>
         <h4>Redes Design</h4>
         <div class="social-links">
-          <a href="https://instagram.com/designufs" target="_blank">Curso: <strong>@designufs</strong></a>
-          <a href="https://instagram.com/cadeufs" target="_blank">Centro Acadêmico: <strong>@cadeufs</strong></a>
-          <a href="https://instagram.com/designemcurso.ufs" target="_blank">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
-          <a href="https://instagram.com/tiposdaufs" target="_blank">Tipos da UFS: <strong>@tiposdaufs</strong></a>
+          <a href="https://instagram.com/designufs" target="_blank" rel="noopener noreferrer">Curso: <strong>@designufs</strong></a>
+          <a href="https://instagram.com/cadeufs" target="_blank" rel="noopener noreferrer">Centro Acadêmico: <strong>@cadeufs</strong></a>
+          <a href="https://instagram.com/designemcurso.ufs" target="_blank" rel="noopener noreferrer">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
+          <a href="https://instagram.com/tiposdaufs" target="_blank" rel="noopener noreferrer">Tipos da UFS: <strong>@tiposdaufs</strong></a>
         </div>
       </div>
     </div>
@@ -718,27 +341,8 @@
     </div>
   </footer>
 
-  <script>
-    // ===== FUNÇÃO PARA ABRIR/FECHAR PERÍODOS =====
-    function togglePeriodo(header) {
-      var body = header.nextElementSibling;
-      var seta = header.querySelector('.seta');
-      body.classList.toggle('aberto');
-      seta.classList.toggle('aberto');
-    }
-
-    // Data atual no rodapé
-    document.getElementById('updateDate').textContent =
-      new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
-
-    function voltar() {
-      if (document.referrer && document.referrer.includes(window.location.hostname)) {
-        history.back();
-      } else {
-        window.location.href = 'index.html';
-      }
-    }
-  </script>
+  <!-- ===== SCRIPTS ===== -->
+  <script src="script.js"></script>
 
 </body>
 </html>
