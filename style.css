@@ -645,3 +645,38 @@ img {
   margin-left: auto;
   margin-right: auto;
 }
+
+/* ===== BOTÃO DE TEMA FLUTUANTE ===== */
+#theme-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--azul-medio);
+  color: #fff;
+  font-size: 2.2rem;
+  border: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  z-index: 9999;
+  transition: transform 0.2s, background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#theme-toggle:hover {
+  transform: scale(1.08);
+  background: var(--azul-escuro);
+}
+
+/* Para temas escuros (se quiser inverter a cor do botão) */
+[data-theme="dark"] #theme-toggle {
+  background: #f39c12;
+  color: #1e2a3a;
+}
+[data-theme="dark"] #theme-toggle:hover {
+  background: #e67e22;
+}
