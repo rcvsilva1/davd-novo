@@ -1,287 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DAVD/UFS – Oferta 2026.2</title>
+  <title>DAVD/UFS – Oferta 2026.2 – Design</title>
+  <meta name="description" content="Departamento de Artes Visuais e Design da UFS – informações sobre cursos, estágios, TCC, atividades complementares e muito mais." />
+  <meta property="og:title" content="DAVD/UFS – Departamento de Artes Visuais e Design" />
+  <meta property="og:description" content="Informações sobre Artes Visuais e Design Gráfico na Universidade Federal de Sergipe." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rcvsilva1.github.io/davd-novo/" />
+  <meta property="og:image" content="https://rcvsilva1.github.io/davd-novo/assets/imagens/banner_ufs.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --azul-escuro: #272B7D;
-      --azul-medio: #004DA4;
-      --laranja: #e67e22;
-      --cinza-fundo: #f4f7fc;
-      --card-shadow: 0 8px 24px rgba(0,0,0,0.07);
-      --radius: 24px;
-    }
-    body {
-      font-family: 'Ubuntu', sans-serif;
-      background: var(--cinza-fundo);
-      color: #1e2a3a;
-      line-height: 1.6;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    a { text-decoration: none; color: inherit; }
-    .main {
-      flex: 1;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
-      width: 100%;
-    }
-    .hero {
-      background: rgba(0,0,0,0.4);
-      border-radius: var(--radius);
-      padding: 4rem 3rem;
-      margin-bottom: 2.5rem;
-      color: #fff;
-      min-height: 200px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background-size: cover;
-      background-position: center;
-    }
-    .hero h1 { font-size: 2.4rem; font-weight: 400; }
-    .hero h1 strong { font-weight: 700; }
-    .hero p { font-size: 1.15rem; margin: 0.5rem 0 1.8rem; max-width: 700px; }
-    .hero .btn-voltar {
-      display: inline-block;
-      background: var(--azul-medio);
-      color: #fff;
-      padding: 0.6rem 2rem;
-      border-radius: 50px;
-      font-weight: 500;
-      font-size: 1rem;
-      transition: background 0.25s;
-      align-self: flex-start;
-      border: none;
-      cursor: pointer;
-    }
-    .hero .btn-voltar:hover { background: var(--azul-escuro); }
-    .conteudo {
-      background: #fff;
-      border-radius: var(--radius);
-      padding: 2.5rem;
-      box-shadow: var(--card-shadow);
-      margin-bottom: 2.5rem;
-    }
-    .conteudo h2 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--azul-escuro);
-      margin: 2rem 0 1rem;
-      border-bottom: 2px solid var(--azul-medio);
-      padding-bottom: 0.5rem;
-    }
-    .conteudo h2:first-of-type { margin-top: 0; }
-    .conteudo p {
-      font-size: 1rem;
-      color: #2c3e50;
-      margin-bottom: 1rem;
-      line-height: 1.7;
-    }
-    .legenda {
-      background: var(--cinza-fundo);
-      border-radius: 14px;
-      padding: 1.5rem;
-      margin: 1.5rem 0;
-      border-left: 4px solid var(--azul-medio);
-    }
-    .legenda h3 {
-      color: var(--azul-escuro);
-      font-size: 1.1rem;
-      margin-top: 0;
-      margin-bottom: 0.8rem;
-    }
-    .legenda p {
-      font-size: 0.95rem;
-      margin-bottom: 0.5rem;
-    }
-    .legenda a {
-      color: var(--azul-medio);
-      font-weight: 500;
-      text-decoration: underline;
-    }
-    .legenda a:hover { color: var(--azul-escuro); }
-    .legenda table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.85rem;
-      margin: 0.5rem 0;
-    }
-    .legenda table th {
-      background: var(--azul-medio);
-      color: #fff;
-      padding: 0.3rem 0.5rem;
-      text-align: center;
-    }
-    .legenda table td {
-      padding: 0.3rem 0.5rem;
-      border: 1px solid #d0d7dd;
-      text-align: center;
-      background: #fff;
-    }
-    .legenda table .turno-label {
-      font-weight: 600;
-      background: var(--cinza-fundo);
-      color: var(--azul-escuro);
-    }
-    .periodo {
-      margin-bottom: 0.8rem;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid #e0e4e8;
-    }
-    .periodo-header {
-      background: var(--cinza-fundo);
-      padding: 0.8rem 1.2rem;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-weight: 600;
-      color: var(--azul-escuro);
-      transition: background 0.2s;
-      user-select: none;
-    }
-    .periodo-header:hover { background: #dce1e8; }
-    .periodo-header .seta {
-      font-size: 1.2rem;
-      transition: transform 0.25s;
-    }
-    .periodo-header .seta.aberto { transform: rotate(180deg); }
-    .periodo-body {
-      padding: 0 1.2rem 1.2rem;
-      display: none;
-      background: #fff;
-      overflow-x: auto;
-    }
-    .periodo-body.aberto { display: block; }
-    .opcao-titulo {
-      font-weight: 600;
-      color: var(--azul-escuro);
-      font-size: 0.95rem;
-      margin: 1rem 0 0.3rem;
-      padding: 0.3rem 0.5rem;
-      background: #e9edf2;
-      border-radius: 6px;
-      display: inline-block;
-    }
-    .grade-horarios {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.78rem;
-      margin-top: 0.3rem;
-      margin-bottom: 1.2rem;
-      min-width: 700px;
-      border: 1px solid #dde1e6;
-    }
-    .grade-horarios th {
-      background: var(--azul-medio);
-      color: #fff;
-      padding: 0.4rem 0.3rem;
-      text-align: center;
-      border: 1px solid var(--azul-medio);
-      font-weight: 500;
-    }
-    .grade-horarios td {
-      border: 1px solid #dde1e6;
-      padding: 0.3rem 0.2rem;
-      vertical-align: top;
-      background: #fff;
-    }
-    .grade-horarios .bloco-label {
-      background: var(--cinza-fundo);
-      font-weight: 600;
-      color: var(--azul-escuro);
-      text-align: center;
-      font-size: 0.8rem;
-      white-space: nowrap;
-    }
-    .grade-horarios .disciplina-cell {
-      font-size: 0.7rem;
-      line-height: 1.3;
-      padding: 0.15rem 0.2rem;
-      border-bottom: 1px dashed #e0e4e8;
-    }
-    .grade-horarios .disciplina-cell:last-child { border-bottom: none; }
-    .grade-horarios .disciplina-cell .nome {
-      font-weight: 500;
-      display: block;
-    }
-    .grade-horarios .disciplina-cell .docente {
-      display: block;
-      font-size: 0.6rem;
-      color: #4a5a6e;
-    }
-    .grade-horarios .disciplina-cell .turma-badge {
-      display: inline-block;
-      background: var(--azul-escuro);
-      color: #fff;
-      font-size: 0.55rem;
-      padding: 0.05rem 0.4rem;
-      border-radius: 10px;
-      font-weight: 500;
-      margin-top: 0.05rem;
-    }
-    .grade-horarios .vazio {
-      color: #b0b8c0;
-      font-size: 0.7rem;
-      text-align: center;
-      padding: 0.5rem 0;
-    }
-    @media (max-width: 768px) {
-      .hero { padding: 2.5rem 1.5rem; min-height: 160px; }
-      .hero h1 { font-size: 1.8rem; }
-      .conteudo { padding: 1.5rem; }
-      .grade-horarios { font-size: 0.7rem; min-width: 600px; }
-    }
-    @media (max-width: 480px) {
-      .hero h1 { font-size: 1.5rem; }
-      .grade-horarios { font-size: 0.6rem; min-width: 480px; }
-    }
-    .footer {
-      background: #2c2c2c;
-      color: #d4e2ed;
-      padding: 2.5rem 1.5rem 1.5rem;
-      margin-top: 2rem;
-      border-top: 4px solid var(--laranja);
-    }
-    .footer .grid {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-      gap: 2rem;
-    }
-    .footer h4 { color: #fff; font-weight: 500; margin-bottom: 0.8rem; }
-    .footer ul { list-style: none; padding: 0; }
-    .footer ul li { margin-bottom: 0.4rem; }
-    .footer ul li a { color: #b0c4de; font-size: 0.9rem; transition: color 0.2s; }
-    .footer ul li a:hover { color: #fff; text-decoration: underline; }
-    .footer .social-links { display: flex; flex-direction: column; gap: 0.3rem; }
-    .footer .social-links a { color: #b0c4de; font-size: 0.9rem; }
-    .footer .social-links a:hover { color: #fff; text-decoration: underline; }
-    .footer .endereco { font-size: 0.9rem; color: #b0c4de; line-height: 1.5; }
-    .footer .endereco a { color: var(--laranja); text-decoration: underline; }
-    .footer .copy {
-      text-align: center;
-      font-size: 0.8rem;
-      color: #8a9aa8;
-      border-top: 1px solid #3a4a5e;
-      padding-top: 1.5rem;
-      margin-top: 2rem;
-      max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -302,7 +35,7 @@
       <p>
         Os códigos como <strong>2T1234</strong> indicam dia da semana, turno e bloco horário.
         A duração de cada bloco é de 45 minutos, conforme a
-        <a href="https://drive.google.com/file/d/19n4WFqM1TQnAgWc87Col2UWUqCYTVciM/view" target="_blank">Resolução nº 04/2024/CONEPE</a>.
+        <a href="https://drive.google.com/file/d/19n4WFqM1TQnAgWc87Col2UWUqCYTVciM/view" target="_blank" rel="noopener noreferrer">Resolução nº 04/2024/CONEPE</a>.
       </p>
       <table>
         <thead>
@@ -743,8 +476,16 @@
   </div>
 </main>
 
+<!-- ===== RODAPÉ ===== -->
 <footer class="footer">
   <div class="grid">
+    <!-- Tema -->
+    <div>
+      <h4>Tema</h4>
+      <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">
+        🌙
+      </button>
+    </div>
     <div>
       <h4>Contato</h4>
       <ul>
@@ -760,22 +501,22 @@
         <p>Cidade Univ. Prof. José Aloísio de Campos<br />
         Av. Marcelo Déda Chagas, s/n, Bairro Rosa Elze<br />
         São Cristóvão/SE – CEP 49107-230</p>
-        <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank">Ver no mapa</a>
+        <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank" rel="noopener noreferrer">Ver no mapa</a>
       </div>
     </div>
     <div>
       <h4>Redes Artes</h4>
       <div class="social-links">
-        <a href="https://instagram.com/cenarteufs" target="_blank">Centro Acadêmico: <strong>@cenarteufs</strong></a>
+        <a href="https://instagram.com/cenarteufs" target="_blank" rel="noopener noreferrer">Centro Acadêmico: <strong>@cenarteufs</strong></a>
       </div>
     </div>
     <div>
       <h4>Redes Design</h4>
       <div class="social-links">
-        <a href="https://instagram.com/designufs" target="_blank">Curso: <strong>@designufs</strong></a>
-        <a href="https://instagram.com/cadeufs" target="_blank">Centro Acadêmico: <strong>@cadeufs</strong></a>
-        <a href="https://instagram.com/designemcurso.ufs" target="_blank">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
-        <a href="https://instagram.com/tiposdaufs" target="_blank">Tipos da UFS: <strong>@tiposdaufs</strong></a>
+        <a href="https://instagram.com/designufs" target="_blank" rel="noopener noreferrer">Curso: <strong>@designufs</strong></a>
+        <a href="https://instagram.com/cadeufs" target="_blank" rel="noopener noreferrer">Centro Acadêmico: <strong>@cadeufs</strong></a>
+        <a href="https://instagram.com/designemcurso.ufs" target="_blank" rel="noopener noreferrer">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
+        <a href="https://instagram.com/tiposdaufs" target="_blank" rel="noopener noreferrer">Tipos da UFS: <strong>@tiposdaufs</strong></a>
       </div>
     </div>
   </div>
@@ -787,24 +528,8 @@
   </div>
 </footer>
 
-<script>
-  function togglePeriodo(header) {
-    const body = header.nextElementSibling;
-    const seta = header.querySelector('.seta');
-    body.classList.toggle('aberto');
-    seta.classList.toggle('aberto');
-  }
-  document.getElementById('updateDate').textContent =
-    new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
-</script>
-  <script>
-function voltar() {
-  if (document.referrer && document.referrer.includes(window.location.hostname)) {
-    history.back();
-  } else {
-    window.location.href = 'index.html';
-  }
-}
-</script>
+<!-- ===== SCRIPTS ===== -->
+<script src="script.js"></script>
+
 </body>
 </html>
