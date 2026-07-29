@@ -15,6 +15,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Estilo local para deixar os links da seção "Links Úteis" em negrito -->
+  <style>
+    .grid-links .card-link a {
+      font-weight: 700 !important;
+    }
+  </style>
 </head>
 <body>
 
@@ -116,8 +123,7 @@
   <!-- ===== RODAPÉ ===== -->
   <footer class="footer">
     <div class="grid">
-      <!-- Tema -->
-      <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
+      <!-- Contato -->
       <div>
         <h4>Contato</h4>
         <ul>
@@ -162,6 +168,9 @@
       </p>
     </div>
   </footer>
+
+  <!-- Botão de tema flutuante (fora do rodapé, conforme padrão do site) -->
+  <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
 
   <!-- ===== SCRIPTS ===== -->
   <script src="script.js"></script>
