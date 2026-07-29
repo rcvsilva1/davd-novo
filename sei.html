@@ -31,6 +31,7 @@
       padding: 1.5rem;
       border-top: 6px solid var(--azul-medio);
       transition: transform 0.2s, box-shadow 0.2s;
+      text-align: center; /* centraliza o conteúdo */
     }
     .card-processo:hover {
       transform: translateY(-4px);
@@ -64,11 +65,11 @@
       background: var(--azul-escuro);
     }
 
-    /* === Lista de manuais === */
+    /* === Lista de manuais (agora em grid 2x2) === */
     .lista-manuais {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
       margin: 1rem 0 2rem;
     }
     .lista-manuais .item {
@@ -76,6 +77,8 @@
       border-radius: 12px;
       padding: 0.6rem 1rem;
       transition: transform 0.15s, background 0.15s;
+      display: flex;
+      align-items: center;
     }
     .lista-manuais .item:hover {
       background: #e9ecf0;
@@ -86,6 +89,8 @@
       font-weight: 500;
       font-size: 0.95rem;
       text-decoration: none;
+      display: block;
+      width: 100%;
     }
     .lista-manuais .item a:hover {
       text-decoration: underline;
@@ -157,6 +162,9 @@
 
     @media (max-width: 600px) {
       .grid-processos {
+        grid-template-columns: 1fr;
+      }
+      .lista-manuais {
         grid-template-columns: 1fr;
       }
     }
