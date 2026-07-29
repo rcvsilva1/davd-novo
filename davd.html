@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -18,6 +19,7 @@
 
   <!-- Estilos específicos da página (não estão no style.css) -->
   <style>
+    /* ===== CARDS DE COORDENAÇÃO ===== */
     .grid-coordenacao {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -25,10 +27,16 @@
       margin: 1.5rem 0;
     }
     .card-coord {
-      background: var(--cinza-fundo);
-      border-radius: 18px;
-      padding: 1.5rem;
-      border-left: 6px solid var(--azul-medio);
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      border-top: 6px solid var(--azul-medio);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .card-coord:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
     }
     .card-coord h4 {
       font-size: 1.2rem;
@@ -51,7 +59,7 @@
       border-radius: 40px;
       font-weight: 500;
       font-size: 0.85rem;
-      transition: background 0.2s;
+      transition: background 0.2s, transform 0.2s;
       border: none;
       cursor: pointer;
       text-decoration: none;
@@ -59,11 +67,13 @@
     .card-coord .btn-contato:hover,
     .card-coord .btn-saiba:hover {
       background: var(--azul-escuro);
+      transform: scale(1.02);
     }
     .card-coord .btn-saiba {
       margin-left: 0.5rem;
     }
 
+    /* ===== CARDS DE DOCENTES ===== */
     .grid-docentes {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -71,15 +81,16 @@
       margin: 1.5rem 0;
     }
     .card-docente {
-      background: var(--cinza-fundo);
-      border-radius: 16px;
-      padding: 1.2rem 1.5rem;
-      border-left: 4px solid var(--azul-medio);
-      transition: transform 0.2s, box-shadow 0.2s;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--card-shadow);
+      border-top: 6px solid var(--azul-medio);
+      transition: transform 0.25s, box-shadow 0.25s;
     }
     .card-docente:hover {
-      transform: translateX(4px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
     }
     .card-docente .nome {
       font-weight: 700;
@@ -93,7 +104,7 @@
     }
     .card-docente .bio {
       font-size: 0.9rem;
-      color: var(--texto-principal);
+      color: #2c3e50;
       margin-top: 0.3rem;
       line-height: 1.4;
     }
@@ -106,6 +117,7 @@
       text-decoration: underline;
     }
 
+    /* ===== CARDS ADMINISTRATIVOS ===== */
     .grid-administrativo {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -113,11 +125,16 @@
       margin: 1.5rem 0;
     }
     .card-admin {
-      background: var(--cinza-fundo);
-      border-radius: 16px;
-      padding: 1.2rem 1.5rem;
-      text-align: left;
-      border-left: 4px solid var(--azul-medio);
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--card-shadow);
+      border-top: 6px solid var(--azul-medio);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .card-admin:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
     }
     .card-admin .nome {
       font-weight: 700;
@@ -126,7 +143,7 @@
     }
     .card-admin .cargo {
       font-size: 0.85rem;
-      color: #4a5a6e;
+      color: #3a4a5e;
       margin: 0.2rem 0;
     }
     .card-admin .btn-contato {
@@ -138,25 +155,34 @@
       border-radius: 40px;
       font-weight: 500;
       font-size: 0.8rem;
-      transition: background 0.2s;
+      transition: background 0.2s, transform 0.2s;
       border: none;
       cursor: pointer;
       text-decoration: none;
     }
     .card-admin .btn-contato:hover {
       background: var(--azul-escuro);
+      transform: scale(1.02);
     }
 
+    /* ===== INFORMAÇÕES DE CONTATO ===== */
     .info-contato {
-      background: var(--cinza-fundo);
-      border-radius: 18px;
+      background: #fff;
+      border-radius: var(--radius);
       padding: 1.5rem;
       margin: 1.5rem 0;
-      border-left: 6px solid var(--azul-medio);
+      box-shadow: var(--card-shadow);
+      border-top: 6px solid var(--azul-medio);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .info-contato:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
     }
     .info-contato p {
       margin: 0.2rem 0;
       font-size: 0.95rem;
+      color: #2c3e50;
     }
     .info-contato strong {
       color: var(--azul-escuro);
@@ -170,15 +196,58 @@
       border-radius: 40px;
       font-weight: 500;
       font-size: 0.85rem;
-      transition: background 0.2s;
+      transition: background 0.2s, transform 0.2s;
       border: none;
       cursor: pointer;
       text-decoration: none;
     }
     .btn-contato-chefia:hover {
       background: var(--azul-escuro);
+      transform: scale(1.02);
     }
 
+    /* ===== TEMA ESCURO ===== */
+    [data-theme="dark"] .card-coord,
+    [data-theme="dark"] .card-docente,
+    [data-theme="dark"] .card-admin,
+    [data-theme="dark"] .info-contato {
+      background: #1a1a2e;
+      color: #e0e0e0;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      border-top-color: #4a8ac0;
+    }
+    [data-theme="dark"] .card-coord h4,
+    [data-theme="dark"] .card-docente .nome,
+    [data-theme="dark"] .card-admin .nome,
+    [data-theme="dark"] .info-contato strong {
+      color: #8ab7ff;
+    }
+    [data-theme="dark"] .card-coord p,
+    [data-theme="dark"] .card-docente .bio,
+    [data-theme="dark"] .card-admin .cargo,
+    [data-theme="dark"] .info-contato p {
+      color: #d0d0e0;
+    }
+    [data-theme="dark"] .card-docente .titulacao {
+      color: #7ab7ff;
+    }
+    [data-theme="dark"] .card-docente .lattes {
+      color: #7ab7ff;
+    }
+    [data-theme="dark"] .card-coord .btn-contato,
+    [data-theme="dark"] .card-coord .btn-saiba,
+    [data-theme="dark"] .card-admin .btn-contato,
+    [data-theme="dark"] .btn-contato-chefia {
+      background: #3a6a9a;
+    }
+    [data-theme="dark"] .card-coord .btn-contato:hover,
+    [data-theme="dark"] .card-coord .btn-saiba:hover,
+    [data-theme="dark"] .card-admin .btn-contato:hover,
+    [data-theme="dark"] .btn-contato-chefia:hover {
+      background: #2a4a7a;
+    }
+
+    /* ===== RESPONSIVO ===== */
     @media (max-width: 768px) {
       .grid-coordenacao { grid-template-columns: 1fr; }
       .grid-docentes { grid-template-columns: 1fr; }
@@ -437,8 +506,6 @@
   <!-- ===== RODAPÉ ===== -->
   <footer class="footer">
     <div class="grid">
-      <!-- Tema -->
-      <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
       <!-- Contato -->
       <div>
         <h4>Contato</h4>
@@ -487,6 +554,9 @@
       </p>
     </div>
   </footer>
+
+  <!-- Botão de tema flutuante (fora do rodapé) -->
+  <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
 
   <!-- ===== SCRIPTS ===== -->
   <script src="script.js"></script>
