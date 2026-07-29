@@ -15,6 +15,152 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+
+  <!-- ===== ESTILOS ESPECÍFICOS DESTA PÁGINA ===== -->
+  <style>
+    /* === Grid de processos === */
+    .grid-processos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1rem 0 2rem;
+    }
+    .card-processo {
+      background: var(--cinza-fundo);
+      border-radius: 18px;
+      padding: 1.5rem;
+      border-top: 6px solid var(--azul-medio);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card-processo:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    }
+    .card-processo h3 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--azul-escuro);
+      margin-bottom: 0.5rem;
+    }
+    .card-processo p {
+      font-size: 0.95rem;
+      color: #3a4a5e;
+      margin-bottom: 1rem;
+    }
+    .card-processo .btn {
+      display: inline-block;
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.5rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .card-processo .btn:hover {
+      background: var(--azul-escuro);
+    }
+
+    /* === Lista de manuais === */
+    .lista-manuais {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin: 1rem 0 2rem;
+    }
+    .lista-manuais .item {
+      background: var(--cinza-fundo);
+      border-radius: 12px;
+      padding: 0.6rem 1rem;
+      transition: transform 0.15s, background 0.15s;
+    }
+    .lista-manuais .item:hover {
+      background: #e9ecf0;
+      transform: translateX(3px);
+    }
+    .lista-manuais .item a {
+      color: var(--azul-medio);
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+    .lista-manuais .item a:hover {
+      text-decoration: underline;
+      color: var(--azul-escuro);
+    }
+
+    /* === Descrição nos cards === */
+    .descricao {
+      font-size: 0.8rem;
+      color: #4a5a6e;
+      margin-top: 0.3rem;
+    }
+
+    /* === Botão "Abrir" centralizado === */
+    .btn-left {
+      margin: 0.5rem 0 1rem;
+    }
+    .btn-left .btn {
+      display: inline-block;
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.5rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-left .btn:hover {
+      background: var(--azul-escuro);
+    }
+
+    /* ===== AJUSTES PARA O TEMA ESCURO ===== */
+    [data-theme="dark"] .card-processo {
+      background: #2a2a44;
+      border-top-color: #4a8ac0;
+    }
+    [data-theme="dark"] .card-processo h3 {
+      color: #8ab7ff;
+    }
+    [data-theme="dark"] .card-processo p {
+      color: #d0d0e0;
+    }
+    [data-theme="dark"] .lista-manuais .item {
+      background: #2a2a44;
+    }
+    [data-theme="dark"] .lista-manuais .item:hover {
+      background: #3a3a5a;
+    }
+    [data-theme="dark"] .lista-manuais .item a {
+      color: #7ab7ff;
+    }
+    [data-theme="dark"] .lista-manuais .item a:hover {
+      color: #a8d0ff;
+    }
+    [data-theme="dark"] .descricao {
+      color: #a0a0b0;
+    }
+    [data-theme="dark"] .btn-left .btn,
+    [data-theme="dark"] .card-processo .btn {
+      background: #3a6a9a;
+    }
+    [data-theme="dark"] .btn-left .btn:hover,
+    [data-theme="dark"] .card-processo .btn:hover {
+      background: #2a4a7a;
+    }
+
+    @media (max-width: 600px) {
+      .grid-processos {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -25,7 +171,6 @@
     <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
       <h1>Processos <strong>SEI</strong></h1>
       <p>Sistema Eletrônico de Informações – Gestão de processos do DAVD/UFS</p>
-      <!-- Usa a função voltar() do script.js -->
       <a href="javascript:void(0)" class="btn-voltar" onclick="voltar()">Voltar</a>
     </section>
 
@@ -47,7 +192,7 @@
         </div>
       </div>
 
-      <!-- ===== PROCESSOS DISCENTES (SUBIDO) ===== -->
+      <!-- ===== PROCESSOS DISCENTES ===== -->
       <h2>Controle de Processos de Discentes</h2>
       <div class="grid-processos">
         <div class="card-processo">
@@ -62,7 +207,7 @@
         </div>
       </div>
 
-      <!-- ===== MANUAIS E DOCUMENTOS (DESCIDO) ===== -->
+      <!-- ===== MANUAIS E DOCUMENTOS ===== -->
       <h2>Manuais e Documentos</h2>
       <div class="lista-manuais">
         <div class="item"><a href="https://drive.google.com/file/d/1n8nq17UhpRe2_SM_Ci0NOOldTVg7NJeR/view" target="_blank" rel="noopener noreferrer">Rotina de Processos SEI! do DAVD</a></div>
@@ -85,8 +230,7 @@
   <!-- ===== RODAPÉ ===== -->
   <footer class="footer">
     <div class="grid">
-      <!-- Tema -->
-      <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
+      <!-- Contato -->
       <div>
         <h4>Contato</h4>
         <ul>
@@ -96,6 +240,7 @@
           <li style="color:#b0c4de; font-size:0.9rem;">08h00 às 12h00 • 13h00 às 21h00</li>
         </ul>
       </div>
+      <!-- Localização -->
       <div>
         <h4>Localização</h4>
         <div class="endereco">
@@ -103,12 +248,14 @@
           <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank" rel="noopener noreferrer">Ver no mapa</a>
         </div>
       </div>
+      <!-- Redes Artes -->
       <div>
         <h4>Redes Artes</h4>
         <div class="social-links">
           <a href="https://instagram.com/cenarteufs" target="_blank" rel="noopener noreferrer">Centro Acadêmico: <strong>@cenarteufs</strong></a>
         </div>
       </div>
+      <!-- Redes Design -->
       <div>
         <h4>Redes Design</h4>
         <div class="social-links">
@@ -121,16 +268,15 @@
     </div>
     <div class="copy">
       <p>Universidade Federal de Sergipe – DAVD © 2026</p>
-      <!-- A data é atualizada automaticamente pelo script.js via #updateDate -->
       <p style="margin-top:0.3rem; font-size:0.75rem; opacity:0.6;">Última atualização: <span id="updateDate"></span></p>
     </div>
   </footer>
 
+  <!-- ===== BOTÃO DE TEMA FLUTUANTE (fora do rodapé) ===== -->
+  <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
+
   <!-- ===== SCRIPTS ===== -->
   <script src="script.js"></script>
-
-  <!-- ===== (OPCIONAL) SCRIPT ESPECÍFICO DA PÁGINA, SE NECESSÁRIO ===== -->
-  <!-- Nenhuma funcionalidade adicional por enquanto, mas pode ser adicionada aqui -->
 
 </body>
 </html>
