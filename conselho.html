@@ -59,7 +59,7 @@
 
     /* Estilos do acordeão */
     .accordion-ano {
-      border: 1px solid var(--borda);
+      border: 1px solid #e0e4e8;
       border-radius: 12px;
       margin-bottom: 1rem;
       overflow: hidden;
@@ -103,7 +103,7 @@
     }
 
     .slide-item {
-      border-bottom: 1px solid var(--borda);
+      border-bottom: 1px solid #e0e4e8;
       padding: 0.6rem 0;
     }
     .slide-item:last-child {
@@ -155,7 +155,49 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
-    
+
+    /* ===== TEMA ESCURO ===== */
+    [data-theme="dark"] .accordion-ano {
+      border-color: #3a3a5a;
+    }
+    [data-theme="dark"] .accordion-ano:hover {
+      border-color: #4a8ac0;
+    }
+    [data-theme="dark"] .accordion-ano-header {
+      background: #2a2a44;
+      color: #d0d0e0;
+    }
+    [data-theme="dark"] .accordion-ano-header:hover {
+      background: #3a3a5a;
+    }
+    [data-theme="dark"] .accordion-ano-body {
+      background: #1a1a2e;
+    }
+    [data-theme="dark"] .slide-item {
+      border-bottom-color: #3a3a5a;
+    }
+    [data-theme="dark"] .slide-header {
+      color: #d0d0e0;
+    }
+    [data-theme="dark"] .slide-header:hover {
+      color: #7ab7ff;
+    }
+    [data-theme="dark"] .slide-body {
+      color: #d0d0e0;
+    }
+    [data-theme="dark"] .slide-body p {
+      color: #d0d0e0;
+    }
+    [data-theme="dark"] .iframe-wrapper {
+      background: #1a1a2e;
+    }
+    [data-theme="dark"] .btn-mobile-apresentacao {
+      background: #3a6a9a;
+    }
+    [data-theme="dark"] .btn-mobile-apresentacao:hover {
+      background: #2a4a7a;
+    }
+
     /* Responsivo */
     @media (max-width: 768px) {
       .accordion-ano-header .titulo {
@@ -204,7 +246,7 @@
   <!-- ===== RODAPÉ ===== -->
   <footer class="footer">
     <div class="grid">
-      <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
+      <!-- Contato -->
       <div>
         <h4>Contato</h4>
         <ul>
@@ -243,8 +285,10 @@
     </div>
   </footer>
 
+  <!-- ===== BOTÃO DE TEMA FLUTUANTE ===== -->
+  <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
+
   <!-- ===== SCRIPTS ===== -->
-  <!-- Script centralizado (data, voltar, dark mode) -->
   <script src="script.js"></script>
 
   <!-- Script específico da página de conselho -->
