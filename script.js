@@ -1,5 +1,5 @@
 // ============================================================
-// script.js – JavaScript centralizado do DAVD/UFS
+// script.js – JAVASCRIPT CENTRALIZADO
 // ============================================================
 'use strict';
 
