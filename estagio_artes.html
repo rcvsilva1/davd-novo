@@ -1,391 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DAVD/UFS – Estágio Artes Visuais</title>
+  <meta name="description" content="Departamento de Artes Visuais e Design da UFS – informações sobre cursos, estágios, TCC, atividades complementares e muito mais." />
+  <meta property="og:title" content="DAVD/UFS – Departamento de Artes Visuais e Design" />
+  <meta property="og:description" content="Informações sobre Artes Visuais e Design Gráfico na Universidade Federal de Sergipe." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rcvsilva1.github.io/davd-novo/" />
+  <meta property="og:image" content="https://rcvsilva1.github.io/davd-novo/assets/imagens/banner_ufs.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
-  <style>
-    /* ===== RESET E VARIÁVEIS ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    :root {
-      --azul-escuro: #272B7D;
-      --azul-medio: #004DA4;
-      --azul-claro: #1a73e8;
-      --laranja: #e67e22;
-      --cinza-fundo: #f4f7fc;
-      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
-      --radius: 24px;
-      --branco: #ffffff;
-    }
-    body {
-      font-family: 'Ubuntu', sans-serif;
-      background: var(--cinza-fundo);
-      color: #1e2a3a;
-      line-height: 1.6;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    /* ===== CONTEÚDO PRINCIPAL ===== */
-    .main {
-      flex: 1;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
-      width: 100%;
-    }
-
-    /* ===== HERO / BANNER ===== */
-    .hero {
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: var(--radius);
-      padding: 4rem 3rem;
-      margin-bottom: 2.5rem;
-      text-align: left;
-      color: #fff;
-      position: relative;
-      min-height: 200px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background-size: cover;
-      background-position: center;
-    }
-    .hero h1 {
-      font-size: 2.4rem;
-      font-weight: 400;
-      color: #fff;
-      margin-bottom: 0.5rem;
-    }
-    .hero h1 strong {
-      font-weight: 700;
-    }
-    .hero p {
-      font-size: 1.15rem;
-      color: #f0f0f0;
-      margin: 0.5rem 0 1.8rem;
-      max-width: 700px;
-    }
-    .hero .btn-voltar {
-      display: inline-block;
-      background: var(--azul-medio);
-      color: #fff;
-      padding: 0.6rem 2rem;
-      border-radius: 50px;
-      font-weight: 500;
-      font-size: 1rem;
-      transition: background 0.25s;
-      border: none;
-      cursor: pointer;
-      align-self: flex-start;
-    }
-    .hero .btn-voltar:hover {
-      background: var(--azul-escuro);
-    }
-
-    /* ===== SEÇÃO DE CONTEÚDO ===== */
-    .conteudo {
-      background: #fff;
-      border-radius: var(--radius);
-      padding: 2.5rem;
-      box-shadow: var(--card-shadow);
-      margin-bottom: 2.5rem;
-    }
-    .conteudo h2 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--azul-escuro);
-      margin: 2rem 0 1rem;
-      border-bottom: 2px solid var(--azul-medio);
-      padding-bottom: 0.5rem;
-    }
-    .conteudo h2:first-of-type {
-      margin-top: 0;
-    }
-    .conteudo h3 {
-      font-size: 1.3rem;
-      font-weight: 500;
-      color: var(--azul-medio);
-      margin: 1.5rem 0 0.8rem;
-    }
-    .conteudo p {
-      font-size: 1rem;
-      color: #2c3e50;
-      margin-bottom: 1rem;
-      line-height: 1.7;
-    }
-    .conteudo ul {
-      margin: 0.5rem 0 1rem 1.5rem;
-      font-size: 1rem;
-      color: #2c3e50;
-    }
-    .conteudo ul li {
-      margin-bottom: 0.3rem;
-    }
-
-    /* ===== TABELAS RESPONSIVAS ===== */
-    .table-wrapper {
-      overflow-x: auto;
-      margin: 1rem 0;
-      border-radius: 12px;
-      border: 1px solid #e0e4e8;
-    }
-    .table-wrapper table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.95rem;
-      min-width: 400px;
-    }
-    .table-wrapper table th {
-      background: var(--azul-medio);
-      color: #fff;
-      padding: 0.6rem 1rem;
-      text-align: left;
-      font-weight: 500;
-    }
-    .table-wrapper table td {
-      padding: 0.5rem 1rem;
-      border-bottom: 1px solid #e9ecef;
-    }
-    .table-wrapper table tr:last-child td {
-      border-bottom: none;
-    }
-    .table-wrapper table tr:hover td {
-      background: #f8f9fa;
-    }
-
-    /* ===== LINKS ÚTEIS (CARDS) ===== */
-    .grid-links {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-      margin: 1.5rem 0;
-    }
-    .card-link {
-      background: var(--cinza-fundo);
-      border-radius: 14px;
-      padding: 1rem 1.2rem;
-      text-align: center;
-      transition: transform 0.2s, box-shadow 0.2s;
-      border-left: 4px solid var(--azul-medio);
-    }
-    .card-link:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-    .card-link a {
-      display: block;
-      font-weight: 500;
-      color: var(--azul-medio);
-      font-size: 0.95rem;
-    }
-    .card-link a:hover {
-      text-decoration: underline;
-    }
-
-    /* ===== LISTA DE SOLICITAÇÕES (CARDS) ===== */
-    .solicitacoes-lista {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      margin: 1rem 0;
-    }
-    .solicitacao-card {
-      background: var(--cinza-fundo);
-      border-radius: 12px;
-      padding: 0.8rem 1.2rem;
-      border-left: 4px solid var(--azul-medio);
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-    .solicitacao-card:hover {
-      transform: translateX(3px);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-    .solicitacao-card .campo {
-      display: flex;
-      flex-wrap: wrap;
-      margin-bottom: 0.2rem;
-      gap: 0.5rem;
-    }
-    .solicitacao-card .campo .rotulo {
-      font-weight: 600;
-      color: var(--azul-escuro);
-      min-width: 180px;
-      font-size: 0.85rem;
-      flex-shrink: 0;
-    }
-    .solicitacao-card .campo .valor {
-      font-size: 0.85rem;
-      color: #1e2a3a;
-      word-break: break-word;
-      flex: 1;
-    }
-    .solicitacao-card .campo .valor.vazio {
-      color: #999;
-      font-style: italic;
-    }
-
-    /* ===== STATUS DE CARREGAMENTO ===== */
-    .loading {
-      text-align: center;
-      padding: 1.5rem;
-      color: #4a5a6e;
-    }
-    .loading .spinner {
-      display: inline-block;
-      width: 32px;
-      height: 32px;
-      border: 3px solid #e9ecef;
-      border-top: 3px solid var(--azul-medio);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* ===== MENSAGEM DE ERRO ===== */
-    .erro {
-      background: #fde8e8;
-      border: 1px solid #f5c6c6;
-      border-radius: 12px;
-      padding: 1.2rem;
-      color: #721c24;
-    }
-    .erro a { color: var(--azul-medio); text-decoration: underline; }
-
-    /* ===== RESPONSIVO ===== */
-    @media (max-width: 768px) {
-      .hero {
-        padding: 2.5rem 1.5rem;
-        min-height: 160px;
-      }
-      .hero h1 {
-        font-size: 1.8rem;
-      }
-      .conteudo {
-        padding: 1.5rem;
-      }
-      .solicitacao-card .campo .rotulo {
-        min-width: 120px;
-        font-size: 0.8rem;
-      }
-      .solicitacao-card .campo .valor {
-        font-size: 0.8rem;
-      }
-      .table-wrapper table {
-        font-size: 0.85rem;
-        min-width: 300px;
-      }
-      .table-wrapper table th,
-      .table-wrapper table td {
-        padding: 0.4rem 0.6rem;
-      }
-    }
-    @media (max-width: 480px) {
-      .hero h1 {
-        font-size: 1.5rem;
-      }
-      .solicitacao-card {
-        padding: 0.6rem 0.8rem;
-      }
-      .solicitacao-card .campo .rotulo {
-        min-width: 100px;
-        font-size: 0.75rem;
-      }
-      .solicitacao-card .campo .valor {
-        font-size: 0.75rem;
-      }
-      .table-wrapper table {
-        font-size: 0.75rem;
-        min-width: 250px;
-      }
-    }
-
-    /* ===== RODAPÉ ===== */
-    .footer {
-      background: #2c2c2c;
-      color: #d4e2ed;
-      padding: 2.5rem 1.5rem 1.5rem;
-      margin-top: 2rem;
-      border-top: 4px solid var(--laranja);
-    }
-    .footer .grid {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
-    }
-    .footer h4 {
-      color: #fff;
-      font-weight: 500;
-      margin-bottom: 0.8rem;
-      font-size: 1rem;
-    }
-    .footer ul {
-      list-style: none;
-      padding: 0;
-    }
-    .footer ul li {
-      margin-bottom: 0.4rem;
-    }
-    .footer ul li a {
-      color: #b0c4de;
-      font-size: 0.9rem;
-      transition: color 0.2s;
-    }
-    .footer ul li a:hover {
-      color: #fff;
-      text-decoration: underline;
-    }
-    .footer .social-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-    }
-    .footer .social-links a {
-      color: #b0c4de;
-      font-size: 0.9rem;
-      transition: color 0.2s;
-    }
-    .footer .social-links a:hover {
-      color: #fff;
-      text-decoration: underline;
-    }
-    .footer .endereco {
-      font-size: 0.9rem;
-      color: #b0c4de;
-      line-height: 1.5;
-    }
-    .footer .endereco a {
-      color: var(--laranja);
-      text-decoration: underline;
-    }
-    .footer .copy {
-      text-align: center;
-      font-size: 0.8rem;
-      color: #8a9aa8;
-      border-top: 1px solid #3a4a5e;
-      padding-top: 1.5rem;
-      margin-top: 2rem;
-      max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -473,13 +102,13 @@
       <h2>Links Úteis</h2>
       <div class="grid-links">
         <div class="card-link">
-          <a href="https://proex.ufs.br/pagina/18183" target="_blank">Coordenação de Estágios (CENEUFS)</a>
+          <a href="https://proex.ufs.br/pagina/18183" target="_blank" rel="noopener noreferrer">Coordenação de Estágios (CENEUFS)</a>
         </div>
         <div class="card-link">
-          <a href="https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11788.htm" target="_blank">Lei do Estágio (nº 11.788/2008)</a>
+          <a href="https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11788.htm" target="_blank" rel="noopener noreferrer">Lei do Estágio (nº 11.788/2008)</a>
         </div>
         <div class="card-link">
-          <a href="https://forms.gle/zpiWqivK337Wt6Vr6" target="_blank">Formulário de Solicitação de Estágio</a>
+          <a href="https://forms.gle/zpiWqivK337Wt6Vr6" target="_blank" rel="noopener noreferrer">Formulário de Solicitação de Estágio</a>
         </div>
       </div>
 
@@ -501,6 +130,13 @@
   <!-- ===== RODAPÉ ===== -->
   <footer class="footer">
     <div class="grid">
+      <!-- Tema -->
+      <div>
+        <h4>Tema</h4>
+        <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">
+          🌙
+        </button>
+      </div>
       <div>
         <h4>Contato</h4>
         <ul>
@@ -517,24 +153,24 @@
           <p>Cidade Univ. Prof. José Aloísio de Campos<br />
           Av. Marcelo Déda Chagas, s/n, Bairro Rosa Elze<br />
           São Cristóvão/SE – CEP 49107-230</p>
-          <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank">Ver no mapa</a>
+          <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank" rel="noopener noreferrer">Ver no mapa</a>
         </div>
       </div>
 
       <div>
         <h4>Redes Artes</h4>
         <div class="social-links">
-          <a href="https://instagram.com/cenarteufs" target="_blank">Centro Acadêmico: <strong>@cenarteufs</strong></a>
+          <a href="https://instagram.com/cenarteufs" target="_blank" rel="noopener noreferrer">Centro Acadêmico: <strong>@cenarteufs</strong></a>
         </div>
       </div>
 
       <div>
         <h4>Redes Design</h4>
         <div class="social-links">
-          <a href="https://instagram.com/designufs" target="_blank">Curso: <strong>@designufs</strong></a>
-          <a href="https://instagram.com/cadeufs" target="_blank">Centro Acadêmico: <strong>@cadeufs</strong></a>
-          <a href="https://instagram.com/designemcurso.ufs" target="_blank">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
-          <a href="https://instagram.com/tiposdaufs" target="_blank">Tipos da UFS: <strong>@tiposdaufs</strong></a>
+          <a href="https://instagram.com/designufs" target="_blank" rel="noopener noreferrer">Curso: <strong>@designufs</strong></a>
+          <a href="https://instagram.com/cadeufs" target="_blank" rel="noopener noreferrer">Centro Acadêmico: <strong>@cadeufs</strong></a>
+          <a href="https://instagram.com/designemcurso.ufs" target="_blank" rel="noopener noreferrer">Empresa Júnior: <strong>@designemcurso.ufs</strong></a>
+          <a href="https://instagram.com/tiposdaufs" target="_blank" rel="noopener noreferrer">Tipos da UFS: <strong>@tiposdaufs</strong></a>
         </div>
       </div>
     </div>
@@ -546,6 +182,10 @@
     </div>
   </footer>
 
+  <!-- ===== SCRIPTS ===== -->
+  <script src="script.js"></script>
+
+  <!-- ===== SCRIPT ESPECÍFICO DA PÁGINA (SOLICITAÇÕES DE ESTÁGIO) ===== -->
   <script>
     // ============================================================
     // CONFIGURAÇÃO
@@ -554,42 +194,14 @@
     const SHEET_ID = '1ne8WMDdLLD15nOk9C03e5WNSS845i4-MYB1qu0M5LNc';
     const SHEET_NAME = 'PUBLICO';
 
-    // ===== ATENÇÃO: as ORIGENS devem corresponder EXATAMENTE aos cabeçalhos da sua planilha =====
-    // Se você RENOMEOU as colunas na planilha, atualize a propriedade 'origem' com os novos nomes.
-    // Caso contrário, mantenha os nomes originais e altere apenas os 'rotulo' (rótulos exibidos).
-const COLUNAS = [
-  { rotulo: 'Matrícula', origem: 'Matrícula' },
-  { rotulo: 'Nome', origem: 'Nome' },
-  { rotulo: 'Atividade', origem: 'Atividade' },
-  { rotulo: 'Instituição', origem: 'Instituição' },
-  { rotulo: 'Diretor(a)', origem: 'Diretor(a)' },
-  { rotulo: 'Preceptor(a)', origem: 'Preceptor(a)' }
-];
-
-    // ============================================================
-    // FUNÇÕES AUXILIARES
-    // ============================================================
-    function normalizarTexto(texto) {
-      return (texto || '').trim().replace(/\s+/g, ' ');
-    }
-
-    function encontrarIndiceFlexivel(headers, nomeBuscado) {
-      const normalizado = normalizarTexto(nomeBuscado);
-      for (let i = 0; i < headers.length; i++) {
-        if (normalizarTexto(headers[i]) === normalizado) {
-          return i;
-        }
-      }
-      // Fallback: procura por substring (ignorando "a/" vs "/a")
-      const semBarra = normalizado.replace(/[\/a]/g, '').toLowerCase();
-      for (let i = 0; i < headers.length; i++) {
-        const headerClean = normalizarTexto(headers[i]).replace(/[\/a]/g, '').toLowerCase();
-        if (headerClean.includes(semBarra) || semBarra.includes(headerClean)) {
-          return i;
-        }
-      }
-      return -1;
-    }
+    const COLUNAS = [
+      { rotulo: 'Matrícula', origem: 'Matrícula' },
+      { rotulo: 'Nome', origem: 'Nome' },
+      { rotulo: 'Atividade', origem: 'Atividade' },
+      { rotulo: 'Instituição', origem: 'Instituição' },
+      { rotulo: 'Diretor(a)', origem: 'Diretor(a)' },
+      { rotulo: 'Preceptor(a)', origem: 'Preceptor(a)' }
+    ];
 
     // ============================================================
     // FUNÇÃO PRINCIPAL
@@ -687,22 +299,8 @@ const COLUNAS = [
       }
     }
 
-    // ============================================================
-    // EXECUÇÃO
-    // ============================================================
     document.addEventListener('DOMContentLoaded', carregarSolicitacoes);
-
-    document.getElementById('updateDate').textContent =
-      new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
   </script>
-  <script>
-function voltar() {
-  if (document.referrer && document.referrer.includes(window.location.hostname)) {
-    history.back();
-  } else {
-    window.location.href = 'index.html';
-  }
-}
-</script>
+
 </body>
 </html>
