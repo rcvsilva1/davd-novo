@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DAVD/UFS – Informes</title>
-  <meta name="description" content="Últimas notícias do Departamento de Artes Visuais e Design da UFS." />
+  <meta name="description" content="Últimos informes do Departamento de Artes Visuais e Design da UFS." />
   <meta property="og:title" content="DAVD/UFS – Informes" />
   <meta property="og:description" content="Informes do DAVD – Departamento de Artes Visuais e Design." />
   <meta property="og:type" content="website" />
@@ -172,18 +172,18 @@
 
     <!-- ===== HERO / BANNER ===== -->
     <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
-      <h1>Últimas <strong>Notícias</strong></h1>
+      <h1>Últimos <strong>Informes</strong></h1>
       <p>Fique por dentro das novidades do Departamento de Artes Visuais e Design</p>
       <a href="javascript:void(0)" class="btn-voltar" onclick="voltar()">Voltar</a>
     </section>
 
-    <!-- ===== LISTA DE NOTÍCIAS ===== -->
+    <!-- ===== LISTA DE INFORMES ===== -->
     <div class="conteudo">
       <div id="lista-noticias">
         <!-- Carregamento -->
         <div class="loading">
           <div class="spinner"></div>
-          <p style="margin-top: 0.8rem;">Carregando notícias...</p>
+          <p style="margin-top: 0.8rem;">Carregando...</p>
         </div>
       </div>
     </div>
@@ -264,7 +264,7 @@
       if (API_KEY === 'SUA_API_KEY_AQUI') {
         container.innerHTML = `
           <div class="erro">
-            <strong>⚠️ Atenção:</strong><br>
+            <strong>Atenção:</strong><br>
             Você precisa configurar sua <strong>chave de API</strong> no código da página (variável <code>API_KEY</code>).
           </div>
         `;
@@ -301,14 +301,14 @@
         if (idxTitulo === -1 || idxCorpo === -1) {
           container.innerHTML = `
             <div class="erro">
-              <strong>⚠️ Erro:</strong><br>
+              <strong>Erro:</strong><br>
               Colunas 'título' e 'corpo' não encontradas. Verifique o cabeçalho da planilha.
             </div>
           `;
           return;
         }
 
-        // Monta lista de notícias
+        // Monta lista de informes
         let noticias = [];
         for (let i = 1; i < rows.length; i++) {
           const row = rows[i];
@@ -367,7 +367,7 @@
         console.error(error);
         container.innerHTML = `
           <div class="erro">
-            <strong>⚠️ Erro ao carregar as notícias:</strong><br>
+            <strong>Erro ao carregar os informes:</strong><br>
             ${error.message}<br><br>
             <strong>Possíveis causas:</strong>
             <ul style="margin-top:0.5rem; padding-left:1.2rem;">
