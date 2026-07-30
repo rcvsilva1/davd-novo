@@ -178,7 +178,6 @@ img {
 .card-link a:hover {
   text-decoration: underline;
 }
-/* Ícones nos cards (opcional) */
 .card-link .icone {
   font-size: 1.8rem;
   display: block;
@@ -468,11 +467,16 @@ img {
   text-decoration: underline;
 }
 
+/* ===== HORÁRIOS DO RODAPÉ ===== */
+.footer-horario {
+  color: #b0c4de;
+  font-size: 0.9rem;
+}
+
 /* ============================================================
    RESPONSIVO
    ============================================================ */
 
-/* Tablets */
 @media (max-width: 768px) {
   .hero {
     padding: 2.5rem 1.5rem;
@@ -524,7 +528,6 @@ img {
   }
 }
 
-/* Celulares */
 @media (max-width: 480px) {
   .hero h1 {
     font-size: 1.5rem;
@@ -672,7 +675,6 @@ img {
   background: var(--azul-escuro);
 }
 
-/* Para temas escuros (se quiser inverter a cor do botão) */
 [data-theme="dark"] #theme-toggle {
   background: #f39c12;
   color: #1e2a3a;
@@ -685,7 +687,6 @@ img {
    TEMA ESCURO – REGRAS COMPLETAS
    ============================================================ */
 
-/* ---- Fundo geral e textos ---- */
 [data-theme="dark"] body {
   background: #0d0d1a;
   color: #e0e0e0;
@@ -695,7 +696,6 @@ img {
   background: transparent;
 }
 
-/* ---- Hero / Banner ---- */
 [data-theme="dark"] .hero {
   background: linear-gradient(135deg, rgba(13, 13, 30, 0.92), rgba(0, 40, 80, 0.92)), url('assets/imagens/banner_ufs.jpg');
   background-size: cover;
@@ -712,7 +712,6 @@ img {
   background: #1a3a5a;
 }
 
-/* ---- Conteúdo principal ---- */
 [data-theme="dark"] .conteudo {
   background: #1a1a2e;
   color: #e0e0e0;
@@ -742,7 +741,6 @@ img {
   color: #d0d0e0;
 }
 
-/* ---- Links e cards ---- */
 [data-theme="dark"] .card-link {
   background: #2a2a44;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -757,7 +755,6 @@ img {
   color: #a8d0ff;
 }
 
-/* ---- Info currículo ---- */
 [data-theme="dark"] .card-info {
   background: #2a2a44;
   border-left-color: #4a8ac0;
@@ -772,7 +769,6 @@ img {
   color: #7ab7ff;
 }
 
-/* ---- Acordeão (períodos) ---- */
 [data-theme="dark"] .periodo {
   border-color: #3a3a5a;
 }
@@ -799,7 +795,6 @@ img {
   color: #8ab7ff;
 }
 
-/* ---- Tabelas responsivas ---- */
 [data-theme="dark"] .table-wrapper {
   border-color: #3a3a5a;
 }
@@ -818,7 +813,6 @@ img {
   color: #8ab7ff;
 }
 
-/* ---- Optativas ---- */
 [data-theme="dark"] .optativas-grid .item-opt {
   background: #2a2a44;
   color: #d0d0e0;
@@ -830,7 +824,6 @@ img {
   color: #8a9aa8;
 }
 
-/* ---- Solicitações e Processos ---- */
 [data-theme="dark"] .solicitacao-card,
 [data-theme="dark"] .processo-card {
   background: #2a2a44;
@@ -862,7 +855,6 @@ img {
   border-bottom-color: #7ab7ff;
 }
 
-/* ---- Loading e erro ---- */
 [data-theme="dark"] .loading {
   color: #a0a0b0;
 }
@@ -879,7 +871,6 @@ img {
   color: #7ab7ff;
 }
 
-/* ---- Rodapé ---- */
 [data-theme="dark"] .footer {
   background: #0d0d1a;
   border-top-color: #3a3a5a;
@@ -903,8 +894,10 @@ img {
   border-top-color: #2a2a44;
   color: #8a9aa8;
 }
+[data-theme="dark"] .footer-horario {
+  color: #b0c4de;
+}
 
-/* ---- Botões gerais (se usados) ---- */
 [data-theme="dark"] .btn,
 [data-theme="dark"] .btn-mais,
 [data-theme="dark"] .btn-primary {
@@ -917,7 +910,6 @@ img {
   background: #2a4a7a;
 }
 
-/* ---- Hero .btn-primary (se usado fora do hero) ---- */
 [data-theme="dark"] .hero .btn-primary {
   background: #3a6a9a;
 }
@@ -925,16 +917,12 @@ img {
   background: #2a4a7a;
 }
 
-/* ---- Ajustes para elementos que podem ter fundo branco inline (ex: cards específicos) ---- */
 [data-theme="dark"] .info-curso,
 [data-theme="dark"] .gestao,
 [data-theme="dark"] .manuais {
   background: #1a1a2e;
   color: #e0e0e0;
   border-color: #3a3a5a;
-}
-[data-theme="dark"] .info-curso .icone {
-  /* mantém a cor original, se quiser pode ajustar */
 }
 [data-theme="dark"] .info-curso h3 {
   color: #8ab7ff;
@@ -946,7 +934,6 @@ img {
   color: #7ab7ff;
 }
 
-/* ---- Grid de gestão (cards) ---- */
 [data-theme="dark"] .gestao .card-gestao {
   background: #2a2a44;
   border-top-color: #4a8ac0;
@@ -958,7 +945,6 @@ img {
   color: #d0d0e0;
 }
 
-/* ---- Manuais (blocos) ---- */
 [data-theme="dark"] .manuais .bloco {
   background: #2a2a44;
 }
@@ -980,9 +966,7 @@ img {
   color: #a8d0ff;
 }
 
-/* ---- Estilos específicos de páginas de TCC (se houver) ---- */
 [data-theme="dark"] .tcc-documento {
   background: #1a1a2e;
   color: #d0d0e0;
 }
-/* --- Fim do tema escuro --- */
