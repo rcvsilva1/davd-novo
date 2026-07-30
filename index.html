@@ -75,6 +75,66 @@
       transform: scale(1.02);
     }
 
+    /* ===== NOVA SEÇÃO: INFORMES ===== */
+    .informes {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 2.5rem;
+    }
+    .informes h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--azul-escuro);
+      margin: 0 0 1rem 0;
+      border-bottom: 2px solid var(--azul-medio);
+      padding-bottom: 0.5rem;
+    }
+    .lista-informes {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .lista-informes .item-informe {
+      padding: 0.5rem 0.8rem;
+      border-radius: 10px;
+      background: var(--cinza-fundo);
+      transition: background 0.15s, transform 0.15s;
+    }
+    .lista-informes .item-informe:hover {
+      background: #e9ecf0;
+      transform: translateX(4px);
+    }
+    .lista-informes .item-informe a {
+      display: block;
+      font-weight: 500;
+      color: var(--azul-medio);
+      font-size: 1rem;
+      text-decoration: none;
+    }
+    .lista-informes .item-informe a:hover {
+      color: var(--azul-escuro);
+      text-decoration: underline;
+    }
+    .btn-informes {
+      display: inline-block;
+      margin-top: 1.2rem;
+      background: var(--azul-medio);
+      color: #fff;
+      padding: 0.5rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-informes:hover {
+      background: var(--azul-escuro);
+    }
+
     .gestao {
       background: #fff;
       border-radius: var(--radius);
@@ -234,6 +294,74 @@
       transform: translateY(-2px);
     }
 
+    /* ---- TEMA ESCURO ---- */
+    [data-theme="dark"] .info-curso,
+    [data-theme="dark"] .informes,
+    [data-theme="dark"] .gestao,
+    [data-theme="dark"] .manuais {
+      background: #1a1a2e;
+      color: #e0e0e0;
+      border-color: #3a3a5a;
+    }
+    [data-theme="dark"] .info-curso h3,
+    [data-theme="dark"] .informes h2,
+    [data-theme="dark"] .gestao h2,
+    [data-theme="dark"] .manuais h2 {
+      color: #8ab7ff;
+    }
+    [data-theme="dark"] .info-curso p,
+    [data-theme="dark"] .gestao .card-gestao p,
+    [data-theme="dark"] .manuais .bloco h3,
+    [data-theme="dark"] .manuais .bloco .item-manual a {
+      color: #d0d0e0;
+    }
+    [data-theme="dark"] .info-curso .destaque {
+      color: #7ab7ff;
+    }
+    [data-theme="dark"] .gestao .card-gestao {
+      background: #2a2a44;
+      border-top-color: #4a8ac0;
+    }
+    [data-theme="dark"] .gestao .card-gestao h3 {
+      color: #8ab7ff;
+    }
+    [data-theme="dark"] .manuais .bloco {
+      background: #2a2a44;
+    }
+    [data-theme="dark"] .manuais .bloco .item-manual {
+      background: #1a1a2e;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    [data-theme="dark"] .manuais .bloco .item-manual:hover {
+      background: #2a2a44;
+    }
+    [data-theme="dark"] .manuais .bloco .item-manual a {
+      color: #7ab7ff;
+    }
+    [data-theme="dark"] .manuais .bloco .item-manual a:hover {
+      color: #a8d0ff;
+    }
+
+    /* Informes no tema escuro */
+    [data-theme="dark"] .lista-informes .item-informe {
+      background: #2a2a44;
+    }
+    [data-theme="dark"] .lista-informes .item-informe:hover {
+      background: #3a3a5a;
+    }
+    [data-theme="dark"] .lista-informes .item-informe a {
+      color: #7ab7ff;
+    }
+    [data-theme="dark"] .lista-informes .item-informe a:hover {
+      color: #a8d0ff;
+    }
+    [data-theme="dark"] .btn-informes {
+      background: #3a6a9a;
+    }
+    [data-theme="dark"] .btn-informes:hover {
+      background: #2a4a7a;
+    }
+
     @media (max-width: 768px) {
       .info-cursos { grid-template-columns: 1fr; }
       .gestao .grid-gestao { grid-template-columns: 1fr; }
@@ -271,6 +399,19 @@
         <a href="design.html" class="btn">Saiba Mais</a>
       </div>
     </div>
+
+    <!-- ===== INFORMES ===== -->
+    <section class="informes" id="informes">
+      <h2>📰 Informes do DAVD</h2>
+      <div id="lista-informes" class="lista-informes">
+        <!-- será preenchido via JS -->
+        <div class="loading">
+          <div class="spinner" style="width:24px;height:24px;border-width:2px;"></div>
+          <p style="margin-top:0.5rem; font-size:0.9rem;">Carregando informes...</p>
+        </div>
+      </div>
+      <a href="informes.html" class="btn-informes">Ver todos os informes →</a>
+    </section>
 
     <!-- ===== ADMINISTRATIVO ===== -->
     <section class="gestao" id="gestao">
@@ -421,6 +562,104 @@
 
   <!-- ===== SCRIPTS ===== -->
   <script src="script.js"></script>
+  <script>
+    // ============================================================
+    // CARREGAR INFORMES NA PÁGINA INICIAL
+    // ============================================================
+    (function() {
+      const API_KEY = 'AIzaSyB4HGlhilR63RhEzu3L8dYV-SxtosOsoII';
+      const SHEET_ID = '14vyuZzkJggy6b64HLDJOk-Ht-dhUcskCVmUgewuYBLA';
+      const SHEET_NAME = 'INFORMES';
+      const LIMITE = 4; // número de informes a exibir
+
+      const container = document.getElementById('lista-informes');
+
+      async function carregarInformes() {
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(SHEET_NAME)}?key=${API_KEY}`;
+
+        try {
+          const response = await fetch(url);
+          if (!response.ok) throw new Error(`Erro ${response.status}`);
+          const data = await response.json();
+          const rows = data.values;
+
+          if (!rows || rows.length < 2) {
+            container.innerHTML = '<p style="color:#4a5a6e;">Nenhum informe disponível no momento.</p>';
+            return;
+          }
+
+          // Cabeçalhos
+          const headers = rows[0];
+          const idxTitulo = headers.indexOf('título');
+          const idxData = headers.indexOf('data');
+
+          if (idxTitulo === -1) {
+            container.innerHTML = '<p style="color:#e67e22;">Coluna "título" não encontrada.</p>';
+            return;
+          }
+
+          // Monta lista
+          let informes = [];
+          for (let i = 1; i < rows.length; i++) {
+            const row = rows[i];
+            if (!row || row.length === 0 || row.every(cell => !cell || cell.trim() === '')) continue;
+            const titulo = (row[idxTitulo] || '').trim();
+            if (!titulo) continue;
+            let data = '';
+            if (idxData !== -1 && row[idxData]) {
+              data = row[idxData].trim();
+            }
+            informes.push({ titulo, data });
+          }
+
+          // Ordena por data (mais recente primeiro)
+          if (idxData !== -1) {
+            informes.sort((a, b) => {
+              const da = new Date(a.data);
+              const db = new Date(b.data);
+              if (!isNaN(da) && !isNaN(db)) return db - da;
+              return b.data.localeCompare(a.data);
+            });
+          }
+
+          // Limita
+          informes = informes.slice(0, LIMITE);
+
+          if (informes.length === 0) {
+            container.innerHTML = '<p style="color:#4a5a6e;">Nenhum informe disponível no momento.</p>';
+            return;
+          }
+
+          // Renderiza lista de títulos como links para informes.html
+          let html = '';
+          informes.forEach(item => {
+            html += `
+              <div class="item-informe">
+                <a href="informes.html">${item.titulo}</a>
+              </div>
+            `;
+          });
+          container.innerHTML = html;
+
+        } catch (error) {
+          console.error('Erro ao carregar informes:', error);
+          container.innerHTML = `
+            <div class="erro" style="padding:0.8rem; font-size:0.9rem;">
+              <strong>Erro ao carregar informes.</strong><br>
+              ${error.message}
+            </div>
+          `;
+        }
+      }
+
+      // Aguarda o DOM carregar
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', carregarInformes);
+      } else {
+        carregarInformes();
+      }
+    })();
+  </script>
 
 </body>
 </html>
