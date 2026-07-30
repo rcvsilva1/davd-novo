@@ -75,7 +75,7 @@
       transform: scale(1.02);
     }
 
-    /* ===== NOVA SEÇÃO: INFORMES ===== */
+    /* ===== SEÇÃO: INFORMES ===== */
     .informes {
       background: #fff;
       border-radius: var(--radius);
@@ -91,48 +91,32 @@
       border-bottom: 2px solid var(--azul-medio);
       padding-bottom: 0.5rem;
     }
-    .lista-informes {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
+    .grid-informes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 0.5rem;
     }
-    .lista-informes .item-informe {
-      padding: 0.5rem 0.8rem;
-      border-radius: 10px;
+    .grid-informes .item-informe {
       background: var(--cinza-fundo);
+      border-radius: 12px;
+      padding: 0.7rem 1rem;
       transition: background 0.15s, transform 0.15s;
     }
-    .lista-informes .item-informe:hover {
+    .grid-informes .item-informe:hover {
       background: #e9ecf0;
       transform: translateX(4px);
     }
-    .lista-informes .item-informe a {
+    .grid-informes .item-informe a {
       display: block;
       font-weight: 500;
       color: var(--azul-medio);
       font-size: 1rem;
       text-decoration: none;
     }
-    .lista-informes .item-informe a:hover {
+    .grid-informes .item-informe a:hover {
       color: var(--azul-escuro);
       text-decoration: underline;
-    }
-    .btn-informes {
-      display: inline-block;
-      margin-top: 1.2rem;
-      background: var(--azul-medio);
-      color: #fff;
-      padding: 0.5rem 1.8rem;
-      border-radius: 40px;
-      font-weight: 500;
-      font-size: 0.9rem;
-      transition: background 0.2s;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .btn-informes:hover {
-      background: var(--azul-escuro);
     }
 
     .gestao {
@@ -343,23 +327,17 @@
     }
 
     /* Informes no tema escuro */
-    [data-theme="dark"] .lista-informes .item-informe {
+    [data-theme="dark"] .grid-informes .item-informe {
       background: #2a2a44;
     }
-    [data-theme="dark"] .lista-informes .item-informe:hover {
+    [data-theme="dark"] .grid-informes .item-informe:hover {
       background: #3a3a5a;
     }
-    [data-theme="dark"] .lista-informes .item-informe a {
+    [data-theme="dark"] .grid-informes .item-informe a {
       color: #7ab7ff;
     }
-    [data-theme="dark"] .lista-informes .item-informe a:hover {
+    [data-theme="dark"] .grid-informes .item-informe a:hover {
       color: #a8d0ff;
-    }
-    [data-theme="dark"] .btn-informes {
-      background: #3a6a9a;
-    }
-    [data-theme="dark"] .btn-informes:hover {
-      background: #2a4a7a;
     }
 
     @media (max-width: 768px) {
@@ -367,6 +345,7 @@
       .gestao .grid-gestao { grid-template-columns: 1fr; }
       .manuais .grid-manuais { grid-template-columns: 1fr; }
       .manuais .bloco .lista-manuais { grid-template-columns: 1fr; }
+      .grid-informes { grid-template-columns: 1fr; } /* em mobile, uma coluna */
     }
   </style>
 </head>
@@ -402,15 +381,14 @@
 
     <!-- ===== INFORMES ===== -->
     <section class="informes" id="informes">
-      <h2>📰 Informes do DAVD</h2>
-      <div id="lista-informes" class="lista-informes">
+      <h2>Informes do DAVD</h2>
+      <div id="grid-informes" class="grid-informes">
         <!-- será preenchido via JS -->
-        <div class="loading">
+        <div class="loading" style="grid-column: 1 / -1; text-align:center; padding:0.5rem;">
           <div class="spinner" style="width:24px;height:24px;border-width:2px;"></div>
           <p style="margin-top:0.5rem; font-size:0.9rem;">Carregando informes...</p>
         </div>
       </div>
-      <a href="informes.html" class="btn-informes">Ver todos os informes →</a>
     </section>
 
     <!-- ===== ADMINISTRATIVO ===== -->
@@ -572,7 +550,7 @@
       const SHEET_NAME = 'INFORMES';
       const LIMITE = 4; // número de informes a exibir
 
-      const container = document.getElementById('lista-informes');
+      const container = document.getElementById('grid-informes');
 
       async function carregarInformes() {
         const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(SHEET_NAME)}?key=${API_KEY}`;
@@ -584,7 +562,7 @@
           const rows = data.values;
 
           if (!rows || rows.length < 2) {
-            container.innerHTML = '<p style="color:#4a5a6e;">Nenhum informe disponível no momento.</p>';
+            container.innerHTML = '<p style="color:#4a5a6e; grid-column:1/-1; text-align:center;">Nenhum informe disponível no momento.</p>';
             return;
           }
 
@@ -594,7 +572,7 @@
           const idxData = headers.indexOf('data');
 
           if (idxTitulo === -1) {
-            container.innerHTML = '<p style="color:#e67e22;">Coluna "título" não encontrada.</p>';
+            container.innerHTML = '<p style="color:#e67e22; grid-column:1/-1; text-align:center;">Coluna "título" não encontrada.</p>';
             return;
           }
 
@@ -626,11 +604,11 @@
           informes = informes.slice(0, LIMITE);
 
           if (informes.length === 0) {
-            container.innerHTML = '<p style="color:#4a5a6e;">Nenhum informe disponível no momento.</p>';
+            container.innerHTML = '<p style="color:#4a5a6e; grid-column:1/-1; text-align:center;">Nenhum informe disponível no momento.</p>';
             return;
           }
 
-          // Renderiza lista de títulos como links para informes.html
+          // Renderiza grid
           let html = '';
           informes.forEach(item => {
             html += `
@@ -644,7 +622,7 @@
         } catch (error) {
           console.error('Erro ao carregar informes:', error);
           container.innerHTML = `
-            <div class="erro" style="padding:0.8rem; font-size:0.9rem;">
+            <div class="erro" style="grid-column:1/-1; padding:0.8rem; font-size:0.9rem;">
               <strong>Erro ao carregar informes.</strong><br>
               ${error.message}
             </div>
