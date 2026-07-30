@@ -9,16 +9,14 @@
   <meta property="og:title" content="DAVD/UFS – Departamento de Artes Visuais e Design" />
   <meta property="og:description" content="Informações sobre Artes Visuais e Design Gráfico na Universidade Federal de Sergipe." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://rcvsilva1.github.io/davd-novo/" />
+  <meta property="og:url" content="https://rcvsilva1.github.io/davd-novo/calendario.html" />
   <meta property="og:image" content="https://rcvsilva1.github.io/davd-novo/assets/imagens/banner_ufs.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Estilos específicos da página de calendário -->
   <style>
-    /* ===== RESUMO ===== */
     .resumo-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -50,8 +48,6 @@
       color: var(--azul-escuro);
       margin-top: 0.2rem;
     }
-
-    /* ===== CALENDÁRIOS MENSAIS ===== */
     .calendarios {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -91,7 +87,6 @@
       grid-template-columns: repeat(7, 1fr);
       gap: 0.15rem;
     }
-    /* ---- CORREÇÃO PRINCIPAL: dias com tamanho fixo ---- */
     .mes .grid-dias .dia {
       width: 100%;
       aspect-ratio: 1 / 1;
@@ -126,8 +121,6 @@
       color: #155724;
       font-weight: 700;
     }
-
-    /* ===== LEGENDA ===== */
     .legenda {
       display: flex;
       flex-wrap: wrap;
@@ -155,8 +148,6 @@
       background: #d4edda;
       border-color: #28a745;
     }
-
-    /* ===== EVENTOS ===== */
     .eventos {
       margin-top: 2rem;
     }
@@ -192,8 +183,6 @@
     .eventos .item .desc .badge.recesso {
       background: #e67e22;
     }
-
-    /* ===== RESPONSIVO ===== */
     @media (max-width: 768px) {
       .calendarios { grid-template-columns: 1fr 1fr; }
       .eventos .item { flex-wrap: wrap; }
@@ -203,8 +192,6 @@
       .calendarios { grid-template-columns: 1fr; }
       .resumo-grid { grid-template-columns: 1fr 1fr; }
     }
-
-    /* ===== TEMA ESCURO ===== */
     [data-theme="dark"] .resumo-card,
     [data-theme="dark"] .mes {
       background: #1a1a2e;
@@ -263,17 +250,14 @@
 
   <main class="main">
 
-    <!-- ===== HERO / BANNER ===== -->
     <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
       <h1>Calendário Acadêmico <strong>2026.2</strong></h1>
       <p style="margin-bottom: 1.2rem;">Período letivo: 17 de agosto a 21 de dezembro de 2026</p>
-      <a href="javascript:void(0)" class="btn-voltar" onclick="voltar()">Voltar</a>
+      <a href="#" class="btn-voltar" onclick="voltar(); return false;">Voltar</a>
     </section>
 
-    <!-- ===== CONTEÚDO ===== -->
     <div class="conteudo">
 
-      <!-- Resumo -->
       <div class="resumo-grid">
         <div class="resumo-card"><div class="label">Início</div><div class="value">17/08/2026</div></div>
         <div class="resumo-card"><div class="label">Término</div><div class="value">21/12/2026</div></div>
@@ -281,23 +265,19 @@
         <div class="resumo-card"><div class="label">Feriados</div><div class="value">9</div></div>
       </div>
 
-      <!-- Calendários mensais -->
       <h2>Calendário</h2>
       <div class="calendarios" id="calendarios"></div>
 
-      <!-- Legenda -->
       <div class="legenda">
         <span class="item"><span class="cor feriado"></span> Feriado / Recesso</span>
         <span class="item"><span class="cor destaque"></span> Início / Término do período</span>
       </div>
 
-      <!-- Lista de feriados e eventos -->
       <div class="eventos">
         <h2>Feriados e Recessos</h2>
         <div id="lista-eventos"></div>
       </div>
 
-      <!-- Links úteis -->
       <h2 style="margin-top:2rem;">Links Úteis</h2>
       <div class="grid-links">
         <div class="card-link">
@@ -314,21 +294,17 @@
     </div>
   </main>
 
-  <!-- ===== RODAPÉ ===== -->
   <footer class="footer">
     <div class="grid">
-      <!-- Contato -->
       <div>
         <h4>Contato</h4>
         <ul>
           <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
           <li><a href="tel:+557931946925">(79) 3194-6925</a></li>
-          <li style="color:#b0c4de; font-size:0.9rem;">Segunda a sexta</li>
-          <li style="color:#b0c4de; font-size:0.9rem;">08h00 às 21h30</li>
+          <li class="footer-horario">Segunda a sexta</li>
+          <li class="footer-horario">08h00 às 21h30</li>
         </ul>
       </div>
-
-      <!-- Localização -->
       <div>
         <h4>Localização</h4>
         <div class="endereco">
@@ -336,16 +312,12 @@
           <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank" rel="noopener noreferrer">Ver no mapa</a>
         </div>
       </div>
-
-      <!-- Redes Artes -->
       <div>
         <h4>Redes Artes</h4>
         <div class="social-links">
           <a href="https://instagram.com/cenarteufs" target="_blank" rel="noopener noreferrer">Centro Acadêmico: <strong>@cenarteufs</strong></a>
         </div>
       </div>
-
-      <!-- Redes Design -->
       <div>
         <h4>Redes Design</h4>
         <div class="social-links">
@@ -362,14 +334,11 @@
     </div>
   </footer>
 
-  <!-- Botão de tema flutuante -->
   <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
 
-  <!-- ===== SCRIPTS ===== -->
   <script src="script.js"></script>
 
   <script>
-    // ===== DADOS DO CALENDÁRIO 2026.2 =====
     const MESES = [
       { nome: 'Agosto', ano: 2026, mes: 7 },
       { nome: 'Setembro', ano: 2026, mes: 8 },
@@ -444,7 +413,6 @@
     });
     container.innerHTML = htmlCalendarios;
 
-    // ===== LISTA DE EVENTOS =====
     const eventosLista = [
       { data: '07/09', desc: 'Independência do Brasil', tipo: 'feriado' },
       { data: '08/09', desc: 'Nossa Senhora da Vitória', tipo: 'feriado' },
