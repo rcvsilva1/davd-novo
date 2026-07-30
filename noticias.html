@@ -31,19 +31,19 @@
       transform: translateY(-3px);
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
     }
-    .noticia-completa h2 {
-      font-size: 1.8rem;
+    .noticia-completa h1 {
+      font-size: 2.2rem;
       font-weight: 700;
       color: var(--azul-escuro);
       margin: 0 0 0.3rem 0;
-      line-height: 1.3;
+      line-height: 1.2;
     }
-    .noticia-completa .data {
-      display: block;
-      font-size: 0.85rem;
-      color: #8a9aa8;
-      margin-bottom: 1rem;
-      font-weight: 400;
+    .noticia-completa h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--azul-medio);
+      margin: 1.5rem 0 0.5rem;
+      line-height: 1.3;
     }
     .noticia-completa .corpo {
       font-size: 1rem;
@@ -98,6 +98,14 @@
     .noticia-completa .corpo li {
       margin-bottom: 0.3rem;
     }
+    .noticia-completa .data {
+      display: block;
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: #8a9aa8;
+      text-align: right;
+      font-style: italic;
+    }
 
     /* ---- TEMA ESCURO ---- */
     [data-theme="dark"] .noticia-completa {
@@ -108,8 +116,11 @@
     [data-theme="dark"] .noticia-completa:hover {
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
     }
-    [data-theme="dark"] .noticia-completa h2 {
+    [data-theme="dark"] .noticia-completa h1 {
       color: #8ab7ff;
+    }
+    [data-theme="dark"] .noticia-completa h2 {
+      color: #6aa0e0;
     }
     [data-theme="dark"] .noticia-completa .data {
       color: #8a9aa8;
@@ -143,13 +154,19 @@
       .noticia-completa {
         padding: 1.2rem;
       }
+      .noticia-completa h1 {
+        font-size: 1.6rem;
+      }
       .noticia-completa h2 {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
       }
     }
     @media (max-width: 480px) {
+      .noticia-completa h1 {
+        font-size: 1.3rem;
+      }
       .noticia-completa h2 {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
       }
       .noticia-completa .corpo {
         font-size: 0.9rem;
@@ -234,7 +251,6 @@
 
   <!-- ===== SCRIPTS ===== -->
   <script src="script.js"></script>
-  <!-- Importa a biblioteca marked para renderizar Markdown -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <script>
@@ -243,7 +259,7 @@
     // ============================================================
     const API_KEY = 'AIzaSyB4HGlhilR63RhEzu3L8dYV-SxtosOsoII';           // <-- Insira sua chave de API
     const SHEET_ID = '14vyuZzkJggy6b64HLDJOk-Ht-dhUcskCVmUgewuYBLA';
-    const SHEET_NAME = 'NOTÍCIAS';                // Nome da aba da planilha
+    const SHEET_NAME = 'Página1';                // Nome da aba da planilha
     const LIMITE_NOTICIAS = 5;                   // Número máximo de notícias a exibir
 
     // ============================================================
@@ -286,9 +302,9 @@
 
         // Cabeçalhos (primeira linha)
         const headers = rows[0];
-        const idxTitulo = headers.indexOf('Título');
-        const idxCorpo = headers.indexOf('Corpo');
-        const idxData = headers.indexOf('Data'); // coluna opcional para ordenação
+        const idxTitulo = headers.indexOf('título');
+        const idxCorpo = headers.indexOf('corpo');
+        const idxData = headers.indexOf('data');
 
         if (idxTitulo === -1 || idxCorpo === -1) {
           container.innerHTML = `
@@ -320,13 +336,11 @@
         // Ordena por data (da mais recente para a mais antiga)
         if (idxData !== -1) {
           noticias.sort((a, b) => {
-            // Tenta converter para timestamp
             const da = new Date(a.data);
             const db = new Date(b.data);
             if (!isNaN(da) && !isNaN(db)) {
               return db - da;
             }
-            // Fallback: ordenação lexicográfica
             return b.data.localeCompare(a.data);
           });
         }
@@ -342,17 +356,14 @@
         // Renderiza cada notícia
         let html = '';
         noticias.forEach(noticia => {
-          // Converte Markdown para HTML
           let corpoHtml = marked.parse(noticia.corpo);
-
-          // Se não houver data, usa a data atual como fallback
           const dataExibicao = noticia.data || 'Data não informada';
 
           html += `
             <div class="noticia-completa">
-              <h2>${noticia.titulo}</h2>
-              <span class="data">📅 ${dataExibicao}</span>
+              <h1>${noticia.titulo}</h1>
               <div class="corpo">${corpoHtml}</div>
+              <span class="data">${dataExibicao}</span>
             </div>
           `;
         });
