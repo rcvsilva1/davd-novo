@@ -9,7 +9,7 @@
   <meta property="og:title" content="DAVD/UFS – Departamento de Artes Visuais e Design" />
   <meta property="og:description" content="Informações sobre Artes Visuais e Design Gráfico na Universidade Federal de Sergipe." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://rcvsilva1.github.io/davd-novo/" />
+  <meta property="og:url" content="https://rcvsilva1.github.io/davd-novo/processos_artes.html" />
   <meta property="og:image" content="https://rcvsilva1.github.io/davd-novo/assets/imagens/banner_ufs.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -36,7 +36,7 @@
     <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
       <h1>Processos Discentes – <strong>Artes Visuais</strong></h1>
       <p>Acompanhamento de processos dos alunos do curso de Artes Visuais</p>
-      <a href="javascript:void(0)" class="btn-voltar" onclick="voltar()">Voltar</a>
+      <a href="#" class="btn-voltar" onclick="voltar(); return false;">Voltar</a>
     </section>
 
     <!-- ===== CONTEÚDO ===== -->
@@ -58,17 +58,17 @@
   <!-- ===== RODAPÉ ===== -->
   <footer class="footer">
     <div class="grid">
-      <!-- Tema -->
-      <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
+      <!-- Contato -->
       <div>
         <h4>Contato</h4>
         <ul>
           <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
           <li><a href="tel:+557931946925">(79) 3194-6925</a></li>
-          <li style="color:#b0c4de; font-size:0.8rem;">Segunda a sexta</li>
-          <li style="color:#b0c4de; font-size:0.8rem;">08h00 às 21h30</li>
+          <li class="footer-horario">Segunda a sexta</li>
+          <li class="footer-horario">08h00 às 21h30</li>
         </ul>
       </div>
+      <!-- Localização -->
       <div>
         <h4>Localização</h4>
         <div class="endereco">
@@ -76,12 +76,14 @@
           <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank" rel="noopener noreferrer">Ver no mapa</a>
         </div>
       </div>
+      <!-- Redes Artes -->
       <div>
         <h4>Redes Artes</h4>
         <div class="social-links">
           <a href="https://instagram.com/cenarteufs" target="_blank" rel="noopener noreferrer">Centro Acadêmico: <strong>@cenarteufs</strong></a>
         </div>
       </div>
+      <!-- Redes Design -->
       <div>
         <h4>Redes Design</h4>
         <div class="social-links">
@@ -98,6 +100,9 @@
     </div>
   </footer>
 
+  <!-- ===== BOTÃO DE TEMA FLUTUANTE ===== -->
+  <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
+
   <!-- ===== SCRIPTS ===== -->
   <script src="script.js"></script>
 
@@ -108,7 +113,7 @@
     const SHEET_ID = '1x7ystz407_zDG2qvYwicVULCD795QmtZ6cZPVMsdD20';
     const SHEET_NAME = 'ARTES VISUAIS';
 
-    // ===== COLUNAS A EXIBIR (rótulo e nome original na planilha) =====
+    // ===== COLUNAS A EXIBIR =====
     const COLUNAS = [
       { rotulo: 'Processo', origem: 'Processo Nº' },
       { rotulo: 'Interessado', origem: 'Interessado/a/e' },
@@ -121,28 +126,6 @@
       { rotulo: 'Inserção de Parecer no SEI', origem: 'Data de inserção de parecer no SEI pelo/a relator/a' },
       { rotulo: 'Observação', origem: 'OBS.' }
     ];
-
-    // ===== FUNÇÃO PARA FORMATAR DATAS =====
-    function formatarData(valor) {
-      if (!valor || valor.trim() === '') return '';
-      if (!isNaN(valor) && typeof valor === 'string') {
-        const num = parseFloat(valor);
-        if (!isNaN(num) && num > 30000 && num < 60000) {
-          const data = new Date((num - 25569) * 86400 * 1000);
-          return data.toLocaleDateString('pt-BR');
-        }
-      }
-      const match = valor.match(/(\d{2})\/(\d{2})\/(\d{4})/);
-      if (match) return `${match[1]}/${match[2]}/${match[3]}`;
-      return valor;
-    }
-
-    // ===== FUNÇÃO PARA SUBMETER O FORMULÁRIO AO SEI =====
-    function consultarAndamento(processo) {
-      const form = document.getElementById('formSei');
-      document.getElementById('seiProtocolo').value = processo;
-      form.submit();
-    }
 
     // ===== BUSCAR DADOS DA API =====
     async function carregarProcessos() {
@@ -219,10 +202,9 @@
             const display = valor || '—';
 
             if (col.rotulo === 'Processo' && valor) {
-              const processoNum = valor;
               return `<div class="campo"><span class="rotulo">${col.rotulo}</span>
                       <span class="${classe}">
-                        <a href="#" class="processo-link" onclick="consultarAndamento('${processoNum}'); return false;" title="Consulte o Andamento">${display}</a>
+                        <a href="#" class="processo-link" data-processo="${valor}" title="Consulte o Andamento">${display}</a>
                       </span></div>`;
             }
             return `<div class="campo"><span class="rotulo">${col.rotulo}</span><span class="${classe}">${display}</span></div>`;
@@ -233,9 +215,17 @@
         html += '</div>';
         container.innerHTML = html;
 
+        // Event delegation para links de processo (seguro, sem onclick inline)
+        container.querySelectorAll('.processo-link').forEach(function(link) {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            consultarAndamento(this.dataset.processo);
+          });
+        });
+
       } catch (error) {
         console.error(error);
-        container.innerHTML = `<div class="erro"><strong>⚠️ Erro ao carregar os dados:</strong><br>${error.message}</div>`;
+        container.innerHTML = `<div class="erro"><strong>Erro ao carregar os dados:</strong><br>${error.message}</div>`;
         contador.textContent = 'Erro ao carregar processos.';
       }
     }
