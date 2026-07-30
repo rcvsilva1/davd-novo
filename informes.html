@@ -38,13 +38,6 @@
       margin: 0 0 0.3rem 0;
       line-height: 1.3;
     }
-    .noticia-completa .data {
-      display: block;
-      font-size: 0.85rem;
-      color: #8a9aa8;
-      margin-bottom: 1rem;
-      font-weight: 400;
-    }
     .noticia-completa .corpo {
       font-size: 1rem;
       line-height: 1.7;
@@ -120,9 +113,6 @@
     }
     [data-theme="dark"] .noticia-completa h2 {
       color: #8ab7ff;
-    }
-    [data-theme="dark"] .noticia-completa .data {
-      color: #8a9aa8;
     }
     [data-theme="dark"] .noticia-completa .corpo {
       color: #d0d0e0;
@@ -363,13 +353,9 @@
           // Converte Markdown para HTML
           let corpoHtml = marked.parse(noticia.corpo);
 
-          // Se não houver data, usa a data atual como fallback
-          const dataExibicao = noticia.data || 'Data não informada';
-
           html += `
             <div class="noticia-completa">
               <h2>${noticia.titulo}</h2>
-              <span class="data">📅 ${dataExibicao}</span>
               <div class="corpo">${corpoHtml}</div>
             </div>
           `;
