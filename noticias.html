@@ -286,9 +286,9 @@
 
         // Cabeçalhos (primeira linha)
         const headers = rows[0];
-        const idxTitulo = headers.indexOf('título');
-        const idxCorpo = headers.indexOf('corpo');
-        const idxData = headers.indexOf('data'); // coluna opcional para ordenação
+        const idxTitulo = headers.indexOf('Título');
+        const idxCorpo = headers.indexOf('Corpo');
+        const idxData = headers.indexOf('Data'); // coluna opcional para ordenação
 
         if (idxTitulo === -1 || idxCorpo === -1) {
           container.innerHTML = `
