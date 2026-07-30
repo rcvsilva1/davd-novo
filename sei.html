@@ -9,16 +9,14 @@
   <meta property="og:title" content="DAVD/UFS – Departamento de Artes Visuais e Design" />
   <meta property="og:description" content="Informações sobre Artes Visuais e Design Gráfico na Universidade Federal de Sergipe." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://rcvsilva1.github.io/davd-novo/" />
+  <meta property="og:url" content="https://rcvsilva1.github.io/davd-novo/sei.html" />
   <meta property="og:image" content="https://rcvsilva1.github.io/davd-novo/assets/imagens/banner_ufs.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 
-  <!-- ===== ESTILOS ESPECÍFICOS DESTA PÁGINA ===== -->
   <style>
-    /* === Grid de processos === */
     .grid-processos {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -31,7 +29,7 @@
       padding: 1.5rem;
       border-top: 6px solid var(--azul-medio);
       transition: transform 0.2s, box-shadow 0.2s;
-      text-align: center; /* centraliza o conteúdo */
+      text-align: center;
     }
     .card-processo:hover {
       transform: translateY(-4px);
@@ -64,8 +62,6 @@
     .card-processo .btn:hover {
       background: var(--azul-escuro);
     }
-
-    /* === Lista de manuais (agora em grid 2x2) === */
     .lista-manuais {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -96,96 +92,40 @@
       text-decoration: underline;
       color: var(--azul-escuro);
     }
-
-    /* === Descrição nos cards === */
     .descricao {
       font-size: 0.8rem;
       color: #4a5a6e;
       margin-top: 0.3rem;
     }
-
-    /* === Botão "Abrir" centralizado === */
-    .btn-left {
-      margin: 0.5rem 0 1rem;
-    }
-    .btn-left .btn {
-      display: inline-block;
-      background: var(--azul-medio);
-      color: #fff;
-      padding: 0.5rem 1.8rem;
-      border-radius: 40px;
-      font-weight: 500;
-      font-size: 0.9rem;
-      transition: background 0.2s;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .btn-left .btn:hover {
-      background: var(--azul-escuro);
-    }
-
-    /* ===== AJUSTES PARA O TEMA ESCURO ===== */
     [data-theme="dark"] .card-processo {
       background: #2a2a44;
       border-top-color: #4a8ac0;
     }
-    [data-theme="dark"] .card-processo h3 {
-      color: #8ab7ff;
-    }
-    [data-theme="dark"] .card-processo p {
-      color: #d0d0e0;
-    }
-    [data-theme="dark"] .lista-manuais .item {
-      background: #2a2a44;
-    }
-    [data-theme="dark"] .lista-manuais .item:hover {
-      background: #3a3a5a;
-    }
-    [data-theme="dark"] .lista-manuais .item a {
-      color: #7ab7ff;
-    }
-    [data-theme="dark"] .lista-manuais .item a:hover {
-      color: #a8d0ff;
-    }
-    [data-theme="dark"] .descricao {
-      color: #a0a0b0;
-    }
-    [data-theme="dark"] .btn-left .btn,
-    [data-theme="dark"] .card-processo .btn {
-      background: #3a6a9a;
-    }
-    [data-theme="dark"] .btn-left .btn:hover,
-    [data-theme="dark"] .card-processo .btn:hover {
-      background: #2a4a7a;
-    }
-
+    [data-theme="dark"] .card-processo h3 { color: #8ab7ff; }
+    [data-theme="dark"] .card-processo p { color: #d0d0e0; }
+    [data-theme="dark"] .lista-manuais .item { background: #2a2a44; }
+    [data-theme="dark"] .lista-manuais .item:hover { background: #3a3a5a; }
+    [data-theme="dark"] .lista-manuais .item a { color: #7ab7ff; }
+    [data-theme="dark"] .lista-manuais .item a:hover { color: #a8d0ff; }
+    [data-theme="dark"] .descricao { color: #a0a0b0; }
+    [data-theme="dark"] .card-processo .btn { background: #3a6a9a; }
+    [data-theme="dark"] .card-processo .btn:hover { background: #2a4a7a; }
     @media (max-width: 600px) {
-      .grid-processos {
-        grid-template-columns: 1fr;
-      }
-      .lista-manuais {
-        grid-template-columns: 1fr;
-      }
+      .grid-processos { grid-template-columns: 1fr; }
+      .lista-manuais { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== CONTEÚDO PRINCIPAL ===== -->
   <main class="main">
-
-    <!-- ===== HERO / BANNER ===== -->
     <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
       <h1>Processos <strong>SEI</strong></h1>
       <p>Sistema Eletrônico de Informações – Gestão de processos do DAVD/UFS</p>
-      <a href="javascript:void(0)" class="btn-voltar" onclick="voltar()">Voltar</a>
+      <a href="#" class="btn-voltar" onclick="voltar(); return false;">Voltar</a>
     </section>
 
-    <!-- ===== CONTEÚDO ===== -->
     <div class="conteudo">
-
-      <!-- ===== ACESSO AO SEI ===== -->
       <h2>Acesso ao SEI</h2>
       <div class="grid-links">
         <div class="card-link">
@@ -200,7 +140,6 @@
         </div>
       </div>
 
-      <!-- ===== PROCESSOS DISCENTES ===== -->
       <h2>Controle de Processos de Discentes</h2>
       <div class="grid-processos">
         <div class="card-processo">
@@ -215,7 +154,6 @@
         </div>
       </div>
 
-      <!-- ===== MANUAIS E DOCUMENTOS ===== -->
       <h2>Manuais e Documentos</h2>
       <div class="lista-manuais">
         <div class="item"><a href="https://drive.google.com/file/d/1n8nq17UhpRe2_SM_Ci0NOOldTVg7NJeR/view" target="_blank" rel="noopener noreferrer">Rotina de Processos SEI! do DAVD</a></div>
@@ -223,32 +161,20 @@
         <div class="item"><a href="https://manuais.ufs.br/pagina/30319" target="_blank" rel="noopener noreferrer">Manuais do SIGAA</a></div>
         <div class="item"><a href="calendario.html">Calendário Acadêmico</a></div>
       </div>
-
-      <!-- ===== PROCESSOS ADMINISTRATIVOS ===== -->
-      <h2>Controle de Processos Administrativos</h2>
-      <p style="font-size:0.95rem; color:#4a5a6e; margin-bottom:0.5rem;">Docentes, servidores, terceirizados e demais solicitações dos setores da UFS.</p>
-      <div class="btn-left">
-        <a href="seu_link_aqui" target="_blank" rel="noopener noreferrer" class="btn">Abrir</a>
-      </div>
-
     </div>
-
   </main>
 
-  <!-- ===== RODAPÉ ===== -->
   <footer class="footer">
     <div class="grid">
-      <!-- Contato -->
       <div>
         <h4>Contato</h4>
         <ul>
           <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
           <li><a href="tel:+557931946925">(79) 3194-6925</a></li>
-          <li style="color:#b0c4de; font-size:0.9rem;">Segunda a sexta</li>
-          <li style="color:#b0c4de; font-size:0.9rem;">08h00 às 21h30</li>
+          <li class="footer-horario">Segunda a sexta</li>
+          <li class="footer-horario">08h00 às 21h30</li>
         </ul>
       </div>
-      <!-- Localização -->
       <div>
         <h4>Localização</h4>
         <div class="endereco">
@@ -256,14 +182,12 @@
           <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank" rel="noopener noreferrer">Ver no mapa</a>
         </div>
       </div>
-      <!-- Redes Artes -->
       <div>
         <h4>Redes Artes</h4>
         <div class="social-links">
           <a href="https://instagram.com/cenarteufs" target="_blank" rel="noopener noreferrer">Centro Acadêmico: <strong>@cenarteufs</strong></a>
         </div>
       </div>
-      <!-- Redes Design -->
       <div>
         <h4>Redes Design</h4>
         <div class="social-links">
@@ -280,11 +204,8 @@
     </div>
   </footer>
 
-  <!-- ===== BOTÃO DE TEMA FLUTUANTE (fora do rodapé) ===== -->
   <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
 
-  <!-- ===== SCRIPTS ===== -->
   <script src="script.js"></script>
-
 </body>
 </html>
