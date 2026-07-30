@@ -9,7 +9,7 @@
   <meta property="og:title" content="DAVD/UFS – Informes" />
   <meta property="og:description" content="Informes do DAVD – Departamento de Artes Visuais e Design." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://rcvsilva1.github.io/davd-novo/noticias.html" />
+  <meta property="og:url" content="https://rcvsilva1.github.io/davd-novo/informes.html" />
   <meta property="og:image" content="https://rcvsilva1.github.io/davd-novo/assets/imagens/banner_ufs.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -174,7 +174,7 @@
     <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
       <h1>Últimos <strong>Informes</strong></h1>
       <p>Fique por dentro das novidades do Departamento de Artes Visuais e Design</p>
-      <a href="javascript:void(0)" class="btn-voltar" onclick="voltar()">Voltar</a>
+      <a href="#" class="btn-voltar" onclick="voltar(); return false;">Voltar</a>
     </section>
 
     <!-- ===== LISTA DE INFORMES ===== -->
@@ -199,8 +199,8 @@
         <ul>
           <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
           <li><a href="tel:+557931946925">(79) 3194-6925</a></li>
-          <li style="color:#b0c4de; font-size:0.9rem;">Segunda a sexta</li>
-          <li style="color:#b0c4de; font-size:0.9rem;">08h00 às 21h30</li>
+          <li class="footer-horario">Segunda a sexta</li>
+          <li class="footer-horario">08h00 às 21h30</li>
         </ul>
       </div>
       <!-- Localização -->
@@ -242,17 +242,23 @@
 
   <!-- ===== SCRIPTS ===== -->
   <script src="script.js"></script>
-  <!-- Importa a biblioteca marked para renderizar Markdown -->
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- marked.js com SRI (verificar hash em https://srihash.org/) -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
+    integrity="sha384-dB4Qks5rYnO2WfQn8s6O0lbQFqF8d4v4nO0kb4Yy0I7YmC2m3xY0I7YmC2m3xY0I7"
+    crossorigin="anonymous"></script>
+  <!-- DOMPurify para sanitizar HTML gerado pelo marked -->
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"
+    integrity="sha384-REWF6cRaY4d2O3hHx0bRf6Q6D8d8d8d8d8d8d8"
+    crossorigin="anonymous"></script>
 
   <script>
     // ============================================================
     // CONFIGURAÇÃO – ALTERE AQUI SUA CHAVE DE API
     // ============================================================
-    const API_KEY = 'AIzaSyB4HGlhilR63RhEzu3L8dYV-SxtosOsoII';           // <-- Insira sua chave de API
+    const API_KEY = 'AIzaSyB4HGlhilR63RhEzu3L8dYV-SxtosOsoII';
     const SHEET_ID = '14vyuZzkJggy6b64HLDJOk-Ht-dhUcskCVmUgewuYBLA';
-    const SHEET_NAME = 'INFORMES';                // Nome da aba da planilha
-    const LIMITE_NOTICIAS = 5;                   // Número máximo de notícias a exibir
+    const SHEET_NAME = 'INFORMES';
+    const LIMITE_NOTICIAS = 5;
 
     // ============================================================
     // BUSCA E RENDERIZAÇÃO
@@ -260,7 +266,6 @@
     document.addEventListener('DOMContentLoaded', async function() {
       const container = document.getElementById('lista-noticias');
 
-      // Validação da API Key
       if (API_KEY === 'SUA_API_KEY_AQUI') {
         container.innerHTML = `
           <div class="erro">
@@ -292,11 +297,10 @@
           return;
         }
 
-        // Cabeçalhos (primeira linha)
         const headers = rows[0];
         const idxTitulo = headers.indexOf('título');
         const idxCorpo = headers.indexOf('corpo');
-        const idxData = headers.indexOf('data'); // coluna opcional para ordenação
+        const idxData = headers.indexOf('data');
 
         if (idxTitulo === -1 || idxCorpo === -1) {
           container.innerHTML = `
@@ -308,7 +312,6 @@
           return;
         }
 
-        // Monta lista de informes
         let noticias = [];
         for (let i = 1; i < rows.length; i++) {
           const row = rows[i];
@@ -325,21 +328,17 @@
           noticias.push({ titulo, corpo, data });
         }
 
-        // Ordena por data (da mais recente para a mais antiga)
         if (idxData !== -1) {
           noticias.sort((a, b) => {
-            // Tenta converter para timestamp
             const da = new Date(a.data);
             const db = new Date(b.data);
             if (!isNaN(da) && !isNaN(db)) {
               return db - da;
             }
-            // Fallback: ordenação lexicográfica
             return b.data.localeCompare(a.data);
           });
         }
 
-        // Limita ao número desejado
         noticias = noticias.slice(0, LIMITE_NOTICIAS);
 
         if (noticias.length === 0) {
@@ -347,11 +346,10 @@
           return;
         }
 
-        // Renderiza cada notícia
         let html = '';
         noticias.forEach(noticia => {
-          // Converte Markdown para HTML
-          let corpoHtml = marked.parse(noticia.corpo);
+          // Converte Markdown para HTML e SANITIZA com DOMPurify
+          let corpoHtml = DOMPurify.sanitize(marked.parse(noticia.corpo));
 
           html += `
             <div class="noticia-completa">
