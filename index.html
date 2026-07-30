@@ -16,7 +16,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   
-  <!-- Estilos específicos da página (não estão no style.css) -->
   <style>
     .info-cursos {
       display: grid;
@@ -74,8 +73,6 @@
       background: var(--azul-escuro);
       transform: scale(1.02);
     }
-
-    /* ===== SEÇÃO: INFORMES ===== */
     .informes {
       background: #fff;
       border-radius: var(--radius);
@@ -118,7 +115,6 @@
       color: var(--azul-escuro);
       text-decoration: underline;
     }
-
     .gestao {
       background: #fff;
       border-radius: var(--radius);
@@ -177,7 +173,6 @@
     .gestao .card-gestao .btn:hover {
       background: var(--azul-escuro);
     }
-
     .manuais {
       background: #fff;
       border-radius: var(--radius);
@@ -257,7 +252,6 @@
     .btn-mais:hover {
       background: var(--azul-escuro);
     }
-
     .hero .btn-primary {
       display: inline-block;
       background: var(--azul-medio);
@@ -277,8 +271,6 @@
       background: var(--azul-escuro);
       transform: translateY(-2px);
     }
-
-    /* ---- TEMA ESCURO ---- */
     [data-theme="dark"] .info-curso,
     [data-theme="dark"] .informes,
     [data-theme="dark"] .gestao,
@@ -325,8 +317,6 @@
     [data-theme="dark"] .manuais .bloco .item-manual a:hover {
       color: #a8d0ff;
     }
-
-    /* Informes no tema escuro */
     [data-theme="dark"] .grid-informes .item-informe {
       background: #2a2a44;
     }
@@ -339,38 +329,32 @@
     [data-theme="dark"] .grid-informes .item-informe a:hover {
       color: #a8d0ff;
     }
-
     @media (max-width: 768px) {
       .info-cursos { grid-template-columns: 1fr; }
       .gestao .grid-gestao { grid-template-columns: 1fr; }
       .manuais .grid-manuais { grid-template-columns: 1fr; }
       .manuais .bloco .lista-manuais { grid-template-columns: 1fr; }
-      .grid-informes { grid-template-columns: 1fr; } /* em mobile, uma coluna */
+      .grid-informes { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== CONTEÚDO PRINCIPAL ===== -->
   <main class="main">
 
-    <!-- ===== HERO / BANNER ===== -->
     <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
       <h1>Departamento de <strong>Artes Visuais e Design</strong></h1>
       <p>Formação em Artes Visuais (Licenciatura) e Design Gráfico (Bacharelado) – Universidade Federal de Sergipe</p>
       <a href="davd.html" class="btn-primary">Conheça o DAVD</a>
     </section>
 
-    <!-- ===== BLOCO DE INFORMAÇÕES GERAIS ===== -->
     <div class="info-cursos">
-      <!-- Artes Visuais -->
       <div class="info-curso">
         <span class="icone">🎨</span>
         <h3>Artes Visuais – Licenciatura</h3>
         <p>Formação de professores para a Educação Básica, com ênfase em criação, pesquisa e ensino das Artes Visuais. Carga horária mínima de <span class="destaque">3045h</span>. Curso com conceito 4 (Muito Bom) no Enade.</p>
         <a href="artes.html" class="btn">Saiba Mais</a>
       </div>
-      <!-- Design Gráfico -->
       <div class="info-curso">
         <span class="icone">🖥️</span>
         <h3>Design Gráfico – Bacharelado</h3>
@@ -379,11 +363,9 @@
       </div>
     </div>
 
-    <!-- ===== INFORMES ===== -->
     <section class="informes" id="informes">
       <h2>Informes do DAVD</h2>
       <div id="grid-informes" class="grid-informes">
-        <!-- será preenchido via JS -->
         <div class="loading" style="grid-column: 1 / -1; text-align:center; padding:0.5rem;">
           <div class="spinner" style="width:24px;height:24px;border-width:2px;"></div>
           <p style="margin-top:0.5rem; font-size:0.9rem;">Carregando informes...</p>
@@ -391,7 +373,6 @@
       </div>
     </section>
 
-    <!-- ===== ADMINISTRATIVO ===== -->
     <section class="gestao" id="gestao">
       <h2>Administrativo</h2>
       <div class="grid-gestao">
@@ -418,12 +399,9 @@
       </div>
     </section>
 
-    <!-- ===== MANUAIS (4 blocos) ===== -->
     <section class="manuais" id="manuais">
       <h2>Manuais</h2>
       <div class="grid-manuais">
-
-        <!-- BLOCO 1 – DISCENTE -->
         <div class="bloco">
           <h3>Discente</h3>
           <div style="margin-top:0.5rem;">
@@ -436,8 +414,6 @@
             </div>
           </div>
         </div>
-
-        <!-- BLOCO 2 – DOCENTE -->
         <div class="bloco">
           <h3>Docente</h3>
           <div style="margin-top:0.5rem;">
@@ -451,8 +427,6 @@
             </div>
           </div>
         </div>
-
-        <!-- BLOCO 3 – EXTENSÃO -->
         <div class="bloco">
           <h3>Extensão</h3>
           <div style="margin-top:0.5rem;">
@@ -464,8 +438,6 @@
             </div>
           </div>
         </div>
-
-        <!-- BLOCO 4 – PESQUISA -->
         <div class="bloco">
           <h3>Pesquisa</h3>
           <div style="margin-top:0.5rem;">
@@ -477,30 +449,23 @@
             </div>
           </div>
         </div>
-
       </div>
       <a href="https://manuais.ufs.br" target="_blank" rel="noopener noreferrer" class="btn-mais">Mais manuais</a>
     </section>
 
   </main>
 
-  <!-- ===== RODAPÉ ===== -->
   <footer class="footer">
     <div class="grid">
-      <!-- Tema -->
-      <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
-      <!-- Contato -->
       <div>
         <h4>Contato</h4>
         <ul>
           <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
           <li><a href="tel:+557931946925">(79) 3194-6925</a></li>
-          <li style="color:#b0c4de; font-size:0.9rem;">Segunda a sexta</li>
-          <li style="color:#b0c4de; font-size:0.9rem;">08h00 às 21h30</li>
+          <li class="footer-horario">Segunda a sexta</li>
+          <li class="footer-horario">08h00 às 21h30</li>
         </ul>
       </div>
-
-      <!-- Localização -->
       <div>
         <h4>Localização</h4>
         <div class="endereco">
@@ -510,16 +475,12 @@
           <a href="https://maps.app.goo.gl/xTTnCPPfii6JNPFW8" target="_blank" rel="noopener noreferrer">Ver no mapa</a>
         </div>
       </div>
-
-      <!-- Redes Artes -->
       <div>
         <h4>Redes Artes</h4>
         <div class="social-links">
           <a href="https://instagram.com/cenarteufs" target="_blank" rel="noopener noreferrer">Centro Acadêmico: <strong>@cenarteufs</strong></a>
         </div>
       </div>
-
-      <!-- Redes Design -->
       <div>
         <h4>Redes Design</h4>
         <div class="social-links">
@@ -538,17 +499,15 @@
     </div>
   </footer>
 
-  <!-- ===== SCRIPTS ===== -->
+  <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
+
   <script src="script.js"></script>
   <script>
-    // ============================================================
-    // CARREGAR INFORMES NA PÁGINA INICIAL
-    // ============================================================
     (function() {
       const API_KEY = 'AIzaSyB4HGlhilR63RhEzu3L8dYV-SxtosOsoII';
       const SHEET_ID = '14vyuZzkJggy6b64HLDJOk-Ht-dhUcskCVmUgewuYBLA';
       const SHEET_NAME = 'INFORMES';
-      const LIMITE = 4; // número de informes a exibir
+      const LIMITE = 4;
 
       const container = document.getElementById('grid-informes');
 
@@ -566,7 +525,6 @@
             return;
           }
 
-          // Cabeçalhos
           const headers = rows[0];
           const idxTitulo = headers.indexOf('título');
           const idxData = headers.indexOf('data');
@@ -576,7 +534,6 @@
             return;
           }
 
-          // Monta lista
           let informes = [];
           for (let i = 1; i < rows.length; i++) {
             const row = rows[i];
@@ -590,7 +547,6 @@
             informes.push({ titulo, data });
           }
 
-          // Ordena por data (mais recente primeiro)
           if (idxData !== -1) {
             informes.sort((a, b) => {
               const da = new Date(a.data);
@@ -600,7 +556,6 @@
             });
           }
 
-          // Limita
           informes = informes.slice(0, LIMITE);
 
           if (informes.length === 0) {
@@ -608,29 +563,18 @@
             return;
           }
 
-          // Renderiza grid
           let html = '';
           informes.forEach(item => {
-            html += `
-              <div class="item-informe">
-                <a href="informes.html">${item.titulo}</a>
-              </div>
-            `;
+            html += `<div class="item-informe"><a href="informes.html">${item.titulo}</a></div>`;
           });
           container.innerHTML = html;
 
         } catch (error) {
           console.error('Erro ao carregar informes:', error);
-          container.innerHTML = `
-            <div class="erro" style="grid-column:1/-1; padding:0.8rem; font-size:0.9rem;">
-              <strong>Erro ao carregar informes.</strong><br>
-              ${error.message}
-            </div>
-          `;
+          container.innerHTML = `<div class="erro" style="grid-column:1/-1; padding:0.8rem; font-size:0.9rem;"><strong>Erro ao carregar informes.</strong><br>${error.message}</div>`;
         }
       }
 
-      // Aguarda o DOM carregar
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', carregarInformes);
       } else {
