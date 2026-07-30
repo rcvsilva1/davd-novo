@@ -91,8 +91,10 @@
       grid-template-columns: repeat(7, 1fr);
       gap: 0.15rem;
     }
+    /* ---- CORREÇÃO PRINCIPAL: dias com tamanho fixo ---- */
     .mes .grid-dias .dia {
-      aspect-ratio: 1/1;
+      width: 100%;
+      aspect-ratio: 1 / 1;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -100,10 +102,14 @@
       font-weight: 500;
       border-radius: 50%;
       background: var(--cinza-fundo);
+      color: #1e2a3a;
       transition: background 0.15s, color 0.15s;
       cursor: default;
       position: relative;
-      color: #1e2a3a;
+      box-sizing: border-box;
+      padding: 0;
+      min-width: 0;
+      min-height: 0;
     }
     .mes .grid-dias .dia.vazio {
       background: transparent;
@@ -356,7 +362,7 @@
     </div>
   </footer>
 
-  <!-- Botão de tema flutuante (fora do rodapé) -->
+  <!-- Botão de tema flutuante -->
   <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
 
   <!-- ===== SCRIPTS ===== -->
