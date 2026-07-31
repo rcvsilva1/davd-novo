@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>   
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'none'">
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -180,122 +180,24 @@
 
   <!-- ===== SCRIPTS ===== -->
   <script src="script.js"></script>
-
-  <!-- ===== SCRIPT ESPECÍFICO DA PÁGINA (SOLICITAÇÕES DE ESTÁGIO) ===== -->
   <script>
-    // ============================================================
-    // CONFIGURAÇÃO
-    // ============================================================
-    const API_KEY = 'AIzaSyB4HGlhilR63RhEzu3L8dYV-SxtosOsoII';
-    const SHEET_ID = '1ne8WMDdLLD15nOk9C03e5WNSS845i4-MYB1qu0M5LNc';
-    const SHEET_NAME = 'PUBLICO';
-
-    const COLUNAS = [
-      { rotulo: 'Matrícula', origem: 'Matrícula' },
-      { rotulo: 'Nome', origem: 'Nome' },
-      { rotulo: 'Atividade', origem: 'Atividade' },
-      { rotulo: 'Instituição', origem: 'Instituição' },
-      { rotulo: 'Diretor(a)', origem: 'Diretor(a)' },
-      { rotulo: 'Preceptor(a)', origem: 'Preceptor(a)' }
-    ];
-
-    // ============================================================
-    // FUNÇÃO PRINCIPAL
-    // ============================================================
-    async function carregarSolicitacoes() {
-      const container = document.getElementById('solicitacoes-container');
-      const contador = document.getElementById('contador-solicitacoes');
-
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(SHEET_NAME)}?key=${API_KEY}`;
-
-      try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          let erroMsg = `Erro ${response.status}`;
-          try {
-            const erroJson = await response.json();
-            if (erroJson.error && erroJson.error.message) erroMsg += `: ${erroJson.error.message}`;
-          } catch (e) {}
-          throw new Error(erroMsg);
-        }
-
-        const data = await response.json();
-        const rows = data.values;
-
-        if (!rows || rows.length === 0) {
-          container.innerHTML = '<p style="color:#e67e22;">Nenhum dado encontrado na planilha.</p>';
-          contador.textContent = 'Nenhuma solicitação encontrada.';
-          return;
-        }
-
-        // Encontra a linha do cabeçalho (primeira linha que contém "Matrícula")
-        let headerRowIndex = -1;
-        for (let i = 0; i < Math.min(rows.length, 5); i++) {
-          const row = rows[i];
-          if (row && row.some(cell => cell && cell.trim() === 'Matrícula')) {
-            headerRowIndex = i;
-            break;
-          }
-        }
-
-        if (headerRowIndex === -1) throw new Error('Cabeçalho "Matrícula" não encontrado.');
-
-        const headers = rows[headerRowIndex].map(cell => (cell || '').trim());
-
-        // Mapeia índices usando a origem de cada coluna
-        const indices = COLUNAS.map(col => {
-          const idx = headers.indexOf(col.origem);
-          if (idx === -1) {
-            console.warn(`Coluna "${col.origem}" não encontrada.`);
-          }
-          return idx;
-        });
-
-        // Filtra linhas válidas (ignora cabeçalho, linhas vazias e a linha do timestamp)
-        const linhasFiltradas = [];
-        for (let i = headerRowIndex + 1; i < rows.length; i++) {
-          const row = rows[i];
-          if (!row || row.length === 0 || row.every(cell => !cell || cell.trim() === '')) continue;
-          if (row.some(cell => cell && cell.includes('Última atualização'))) continue;
-
-          const matricula = (indices[0] !== -1 && row[indices[0]]) ? row[indices[0]].trim() : '';
-          const nome = (indices[1] !== -1 && row[indices[1]]) ? row[indices[1]].trim() : '';
-          if (!matricula && !nome) continue;
-
-          linhasFiltradas.push(row);
-        }
-
-        if (linhasFiltradas.length === 0) {
-          container.innerHTML = '<p style="color:#4a5a6e;">Nenhuma solicitação em andamento.</p>';
-          contador.textContent = 'Nenhuma solicitação em andamento.';
-          return;
-        }
-
-        const total = linhasFiltradas.length;
-        contador.textContent = `${total} solicitação(ões) em andamento.`;
-
-        let html = '<div class="solicitacoes-lista">';
-        linhasFiltradas.forEach((row) => {
-          const campos = COLUNAS.map((col, idx) => {
-            const i = indices[idx];
-            let valor = (i !== -1 && row[i]) ? row[i].trim() : '';
-            const classe = valor ? 'valor' : 'valor vazio';
-            const display = valor || '—';
-            return `<div class="campo"><span class="rotulo">${col.rotulo}</span><span class="${classe}">${display}</span></div>`;
-          }).join('');
-          html += `<div class="solicitacao-card">${campos}</div>`;
-        });
-        html += '</div>';
-        container.innerHTML = html;
-
-      } catch (error) {
-        console.error(error);
-        container.innerHTML = `<div class="erro"><strong>⚠️ Erro ao carregar os dados:</strong><br>${error.message}</div>`;
-        contador.textContent = 'Erro ao carregar solicitações.';
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', carregarSolicitacoes);
+    document.addEventListener('DOMContentLoaded', function() {
+      carregarSolicitacoes({
+        apiKey: 'AIzaSyB4HGlhilR63RhEzu3L8dYV-SxtosOsoII',
+        sheetId: '1ne8WMDdLLD15nOk9C03e5WNSS845i4-MYB1qu0M5LNc',
+        sheetName: 'PUBLICO',
+        colunas: [
+          { rotulo: 'Matrícula', origem: 'Matrícula' },
+          { rotulo: 'Nome', origem: 'Nome' },
+          { rotulo: 'Atividade', origem: 'Atividade' },
+          { rotulo: 'Instituição', origem: 'Instituição' },
+          { rotulo: 'Diretor(a)', origem: 'Diretor(a)' },
+          { rotulo: 'Preceptor(a)', origem: 'Preceptor(a)' }
+        ],
+        containerId: 'solicitacoes-container',
+        contadorId: 'contador-solicitacoes'
+      });
+    });
   </script>
 
 </body>
