@@ -1,137 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'none'">
+  
+<head>
+  
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DAVD/UFS – Reuniões de Conselho</title>
-  <meta name="description" content="Departamento de Artes Visuais e Design da UFS – informações sobre cursos, estágios, TCC, atividades complementares e muito mais." />
-  <meta property="og:title" content="DAVD/UFS – Departamento de Artes Visuais e Design" />
-  <meta property="og:description" content="Informações sobre Artes Visuais e Design Gráfico na Universidade Federal de Sergipe." />
+  <title>DAVD/UFS – Informes</title>
+  <meta name="description" content="Últimos informes do Departamento de Artes Visuais e Design da UFS." />
+  <meta property="og:title" content="DAVD/UFS – Informes" />
+  <meta property="og:description" content="Informes do DAVD – Departamento de Artes Visuais e Design." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://rcvsilva1.github.io/davd-novo/conselho.html" />
+  <meta property="og:url" content="https://rcvsilva1.github.io/davd-novo/informes.html" />
   <meta property="og:image" content="https://rcvsilva1.github.io/davd-novo/assets/imagens/banner_ufs.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  
-  <style>
-    .iframe-wrapper {
-      position: relative;
-      overflow: hidden;
-      padding-top: 56.25%;
-      border-radius: 8px;
-      background: #f8f9fa;
-    }
-    .iframe-wrapper iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-    .btn-mobile-apresentacao {
-      display: inline-block;
-      background: var(--azul-medio);
-      color: #fff;
-      padding: 0.8rem 2rem;
-      border-radius: 50px;
-      font-weight: 500;
-      font-size: 1rem;
-      text-align: center;
-      transition: background 0.25s, transform 0.2s;
-      border: none;
-      cursor: pointer;
-      width: 100%;
-      box-sizing: border-box;
-      text-decoration: none;
-    }
-    .btn-mobile-apresentacao:hover {
-      background: var(--azul-escuro);
-      transform: scale(1.02);
-    }
-    .accordion-ano {
-      border: 1px solid #e0e4e8;
-      border-radius: 12px;
-      margin-bottom: 1rem;
-      overflow: hidden;
-      transition: border-color 0.2s;
-    }
-    .accordion-ano:hover { border-color: var(--azul-medio); }
-    .accordion-ano-header {
-      background: var(--cinza-fundo);
-      padding: 0.8rem 1.2rem;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-weight: 600;
-      color: var(--azul-escuro);
-      transition: background 0.2s;
-      user-select: none;
-    }
-    .accordion-ano-header:hover { background: #dce1e8; }
-    .accordion-ano-header .titulo { font-size: 1.1rem; }
-    .accordion-ano-header .seta {
-      font-size: 1.2rem;
-      transition: transform 0.3s ease;
-    }
-    .accordion-ano-header .seta.aberto { transform: rotate(180deg); }
-    .accordion-ano-body {
-      padding: 0.8rem 1.2rem;
-      display: none;
-      background: #fff;
-    }
-    .accordion-ano-body.aberto { display: block; }
-    .slide-item {
-      border-bottom: 1px solid #e0e4e8;
-      padding: 0.6rem 0;
-    }
-    .slide-item:last-child { border-bottom: none; }
-    .slide-header {
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-weight: 500;
-      color: var(--azul-escuro);
-      padding: 0.3rem 0.2rem;
-      transition: color 0.2s;
-    }
-    .slide-header:hover { color: var(--azul-medio); }
-    .slide-header .seta {
-      font-size: 1rem;
-      transition: transform 0.25s ease;
-    }
-    .slide-header .seta.aberto { transform: rotate(180deg); }
-    .slide-body {
-      padding: 0.5rem 0 0.2rem;
-      display: none;
-    }
-    .slide-body.aberto { display: block; }
-    [data-theme="dark"] .accordion-ano { border-color: #3a3a5a; }
-    [data-theme="dark"] .accordion-ano:hover { border-color: #4a8ac0; }
-    [data-theme="dark"] .accordion-ano-header { background: #2a2a44; color: #d0d0e0; }
-    [data-theme="dark"] .accordion-ano-header:hover { background: #3a3a5a; }
-    [data-theme="dark"] .accordion-ano-body { background: #1a1a2e; }
-    [data-theme="dark"] .slide-item { border-bottom-color: #3a3a5a; }
-    [data-theme="dark"] .slide-header { color: #d0d0e0; }
-    [data-theme="dark"] .slide-header:hover { color: #7ab7ff; }
-    [data-theme="dark"] .slide-body { color: #d0d0e0; }
-    [data-theme="dark"] .slide-body p { color: #d0d0e0; }
-    [data-theme="dark"] .iframe-wrapper { background: #1a1a2e; }
-    [data-theme="dark"] .btn-mobile-apresentacao { background: #3a6a9a; }
-    [data-theme="dark"] .btn-mobile-apresentacao:hover { background: #2a4a7a; }
-    @media (max-width: 768px) { .accordion-ano-header .titulo { font-size: 1rem; } }
-    @media (max-width: 480px) {
-      .accordion-ano-header { padding: 0.6rem 0.8rem; }
-      .accordion-ano-header .titulo { font-size: 0.9rem; }
-      .slide-header { font-size: 0.9rem; }
-    }
-  </style>
+
 </head>
+  
 <body>
 
   <main class="main">
