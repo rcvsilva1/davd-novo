@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="pt-BR"> 
-<head> 
-<meta http-equiv="Content-Security-Policy" 
-      content="default-src 'self'; 
-               script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; 
-               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
-               img-src 'self' data:; 
-               font-src 'self' https://fonts.gstatic.com; connect-src https://sheets.googleapis.com; frame-ancestors 'none'">
+<html lang="pt-BR">
+<head>
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
+                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+                 img-src 'self' data:;
+                 font-src 'self' https://fonts.gstatic.com;
+                 connect-src https://sheets.googleapis.com;
+                 frame-ancestors 'none'">
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-</head>  
+</head>
 <body>
   <main class="main">
     <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
@@ -50,7 +52,7 @@
           <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
           <li><a href="tel:+557931946925">(79) 3194-6925</a></li>
           <li class="footer-horario">Segunda a sexta</li>
-          <li class="footer-horario">08h00 às 12h00 • 13h00 às 21h00</li>
+          <li class="footer-horario">08h00 às 21h30</li>
         </ul>
       </div>
       <div>
@@ -85,12 +87,123 @@
   <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
 
   <script src="script.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      carregarNoticias('accordion-container');
-    });
+    const API_KEY = 'AIzaSyB4HGlhilR63RhEzu3L8dYV-SxtosOsoII';
+    const SHEET_ID = '1RLccS1BBtFQZP6JD0_t18t5BW2kBZ9a1JMEjtPM5dWs';
+    const SHEET_NAME = 'CONSELHO';
+
+    async function carregarReunioes() {
+      const container = document.getElementById('accordion-container');
+      const contador = document.getElementById('contador');
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(SHEET_NAME)}?key=${API_KEY}`;
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          let erroMsg = `Erro ${response.status}`;
+          try {
+            const erroJson = await response.json();
+            if (erroJson.error && erroJson.error.message) erroMsg += `: ${erroJson.error.message}`;
+          } catch (e) {}
+          throw new Error(erroMsg);
+        }
+
+        const data = await response.json();
+        const rows = data.values;
+        if (!rows || rows.length === 0) {
+          container.innerHTML = '<p style="color:#e67e22;">Nenhum dado encontrado na planilha.</p>';
+          contador.textContent = 'Nenhum dado encontrado.';
+          return;
+        }
+
+        const headers = rows[0];
+        const idxAno = headers.indexOf('Ano');
+        const idxConvocacao = headers.indexOf('Convocação');
+        const idxData = headers.indexOf('Data');
+        const idxLink = headers.indexOf('Link da Apresentação');
+
+        if (idxAno === -1 || idxConvocacao === -1 || idxData === -1 || idxLink === -1) {
+          throw new Error('Colunas necessárias não encontradas: Ano, Convocação, Data, Link da Apresentação');
+        }
+
+        const anos = {};
+        for (let i = 1; i < rows.length; i++) {
+          const row = rows[i];
+          if (!row || row.length === 0 || row.every(cell => !cell || cell.trim() === '')) continue;
+          const ano = row[idxAno]?.trim() || '';
+          if (!ano) continue;
+          if (!anos[ano]) anos[ano] = [];
+          anos[ano].push({
+            convocacao: row[idxConvocacao]?.trim() || '',
+            data: row[idxData]?.trim() || '',
+            link: row[idxLink]?.trim() || ''
+          });
+        }
+
+        const anosOrdenados = Object.keys(anos).sort((a, b) => b - a);
+
+        if (anosOrdenados.length === 0) {
+          container.innerHTML = '<p style="color:#4a5a6e;">Nenhuma reunião cadastrada.</p>';
+          contador.textContent = 'Nenhuma reunião encontrada.';
+          return;
+        }
+
+        const total = anosOrdenados.reduce((acc, ano) => acc + anos[ano].length, 0);
+        contador.textContent = `${total} convocações encontradas.`;
+
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+        let html = '';
+        anosOrdenados.forEach(ano => {
+          const slides = anos[ano].reverse();
+          html += `<div class="accordion-ano">
+            <div class="accordion-ano-header" onclick="toggleAno(this)">
+              <span class="titulo">ANO ${ano}</span>
+              <span class="seta">▼</span>
+            </div>
+            <div class="accordion-ano-body">`;
+
+          slides.forEach(slide => {
+            let docId = slide.link;
+            if (docId.includes('/d/')) {
+              const match = docId.match(/\/d\/([a-zA-Z0-9_-]+)/);
+              if (match) docId = match[1];
+            }
+            const titulo = `${slide.convocacao} | ${slide.data}`;
+            let conteudoSlide = '';
+            if (isMobile) {
+              const viewLink = `https://docs.google.com/presentation/d/${docId}/edit?usp=sharing`;
+              conteudoSlide = `
+                <a href="${viewLink}" target="_blank" rel="noopener noreferrer" class="btn-mobile-apresentacao">Abrir Apresentação</a>
+                <p style="font-size:0.8rem; color:#4a5a6e; margin-top:0.5rem; text-align:center;">A apresentação será aberta em uma nova aba.</p>`;
+            } else {
+              conteudoSlide = `<div class="iframe-wrapper"><iframe data-src="https://docs.google.com/presentation/d/${docId}/embed?authuser=0" frameborder="0" allowfullscreen></iframe></div>`;
+            }
+            html += `<div class="slide-item">
+              <div class="slide-header" onclick="toggleSlide(this)"><span>${titulo}</span><span class="seta">▶</span></div>
+              <div class="slide-body">${conteudoSlide}</div>
+            </div>`;
+          });
+
+          html += `</div></div>`;
+        });
+
+        container.innerHTML = html;
+
+        const primeirosAnos = container.querySelectorAll('.accordion-ano');
+        if (primeirosAnos.length > 0) {
+          const primeiroHeader = primeirosAnos[0].querySelector('.accordion-ano-header');
+          if (primeiroHeader) toggleAno(primeiroHeader);
+        }
+
+      } catch (error) {
+        console.error(error);
+        container.innerHTML = `<div style="background:#fde8e8; border:1px solid #f5c6c6; border-radius:12px; padding:1.2rem; color:#721c24;"><strong>Erro ao carregar os dados:</strong><br>${error.message}</div>`;
+        contador.textContent = 'Erro ao carregar dados.';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', carregarReunioes);
   </script>
 </body>
 </html>
