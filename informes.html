@@ -94,13 +94,23 @@
 
   <!-- ===== BOTÃO DE TEMA FLUTUANTE ===== -->
   <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
+    
+<!-- ===== SCRIPTS ===== -->
 
-  <!-- ===== SCRIPT UNIFICADO ===== -->
+<script src="script.js"></script>
+
+<!-- CARREGAMENTO DAS BIBLIOTECAS COM CDN -->
+    
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js" crossorigin="anonymous"></script>
+
+<!-- CHAMADA DA FUNÇÃO (SUBSTITUI O BLOCO GRANDE) -->
     
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     carregarNoticias('lista-noticias');
   });
+  
 </script>
 </body>
 </html>
