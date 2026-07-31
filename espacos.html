@@ -16,17 +16,23 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  
+
 </head>
 <body>
+
   <main class="main">
+
     <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
       <h1>Espaços <strong>Compartilhados</strong></h1>
       <p>Agendamento e disponibilidade dos espaços do DAVD</p>
       <a href="#" class="btn-voltar" onclick="voltar(); return false;">Voltar</a>
     </section>
+
     <div class="conteudo">
       <h2>Agendamento de Espaços</h2>
       <p>Clique em um espaço para visualizar as opções de agenda.</p>
+
       <div class="accordion">
         <div class="accordion-item">
           <div class="accordion-header" onclick="toggleAccordion(this)">
@@ -40,6 +46,7 @@
             </div>
           </div>
         </div>
+
         <div class="accordion-item">
           <div class="accordion-header" onclick="toggleAccordion(this)">
             <span class="titulo">Laboratório de Bi-Tridimensionais</span>
@@ -52,6 +59,7 @@
             </div>
           </div>
         </div>
+
         <div class="accordion-item">
           <div class="accordion-header" onclick="toggleAccordion(this)">
             <span class="titulo">Laboratório de Computação Gráfica</span>
@@ -64,6 +72,7 @@
             </div>
           </div>
         </div>
+
         <div class="accordion-item">
           <div class="accordion-header" onclick="toggleAccordion(this)">
             <span class="titulo">Sala de Reuniões</span>
@@ -77,11 +86,14 @@
           </div>
         </div>
       </div>
+
       <div class="agendamento-link">
         <a href="mailto:davd@academico.ufs.br">Para agendar, clique aqui</a>
       </div>
     </div>
+
   </main>
+
   <footer class="footer">
     <div class="grid">
       <div>
@@ -121,7 +133,10 @@
       <p style="margin-top:0.2rem; font-size:0.7rem; opacity:0.6;">Última atualização: <span id="updateDate"></span></p>
     </div>
   </footer>
+
   <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
+
   <script src="script.js"></script>
+
 </body>
 </html>
