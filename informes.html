@@ -242,14 +242,10 @@
 
   <!-- ===== SCRIPTS ===== -->
   <script src="script.js"></script>
-  <!-- marked.js com SRI (verificar hash em https://srihash.org/) -->
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
-    integrity="sha384-dB4Qks5rYnO2WfQn8s6O0lbQFqF8d4v4nO0kb4Yy0I7YmC2m3xY0I7YmC2m3xY0I7"
-    crossorigin="anonymous"></script>
-  <!-- DOMPurify para sanitizar HTML gerado pelo marked -->
-  <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"
-    integrity="sha384-REWF6cRaY4d2O3hHx0bRf6Q6D8d8d8d8d8d8d8"
-    crossorigin="anonymous"></script>
+
+  <!-- CARREGAMENTO DAS BIBLIOTECAS COM CDN (SEM SRI PARA EVITAR BLOQUEIO) -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js" crossorigin="anonymous"></script>
 
   <script>
     // ============================================================
@@ -266,11 +262,21 @@
     document.addEventListener('DOMContentLoaded', async function() {
       const container = document.getElementById('lista-noticias');
 
-      if (API_KEY === 'SUA_API_KEY_AQUI') {
+      // Verifica se as bibliotecas foram carregadas
+      if (typeof marked === 'undefined') {
         container.innerHTML = `
           <div class="erro">
-            <strong>Atenção:</strong><br>
-            Você precisa configurar sua <strong>chave de API</strong> no código da página (variável <code>API_KEY</code>).
+            <strong>Erro:</strong><br>
+            A biblioteca <strong>marked</strong> não foi carregada. Verifique sua conexão com a internet.
+          </div>
+        `;
+        return;
+      }
+      if (typeof DOMPurify === 'undefined') {
+        container.innerHTML = `
+          <div class="erro">
+            <strong>Erro:</strong><br>
+            A biblioteca <strong>DOMPurify</strong> não foi carregada. Verifique sua conexão com a internet.
           </div>
         `;
         return;
