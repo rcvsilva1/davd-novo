@@ -1070,8 +1070,8 @@ body > .container-404 {
   justify-content: center;
   min-height: 100vh;
   text-align: center;
-  margin: 0;
-  width: auto;
+  margin: auto;
+  align-self: center;
 }
 .container-404 {
   background: #ffffff;
