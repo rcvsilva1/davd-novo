@@ -162,7 +162,6 @@ img {
   background: var(--cinza-fundo);
   border-radius: 14px;
   padding: 1rem 0.8rem;
-  text-align: center;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 .card-link:hover {
@@ -2273,3 +2272,4 @@ body > .container-404 {
   .accordion-header .titulo { font-size: 0.85rem; }
   .botoes-agenda .btn { font-size: 0.75rem; padding: 0.3rem 1rem; }
 }
+
