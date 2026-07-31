@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>  
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'none'">
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -340,12 +340,106 @@
   <script src="script.js"></script>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      gerarCalendario({
-        containerId: 'calendarios',
-        containerEventosId: 'lista-eventos'
-      });
+    const MESES = [
+      { nome: 'Agosto', ano: 2026, mes: 7 },
+      { nome: 'Setembro', ano: 2026, mes: 8 },
+      { nome: 'Outubro', ano: 2026, mes: 9 },
+      { nome: 'Novembro', ano: 2026, mes: 10 },
+      { nome: 'Dezembro', ano: 2026, mes: 11 }
+    ];
+
+    const feriados = {
+      '07/09': 'Independência do Brasil',
+      '08/09': 'Nossa Senhora da Vitória (feriado municipal)',
+      '12/10': 'Nossa Senhora Aparecida',
+      '28/10': 'Dia do Servidor Público (recesso)',
+      '02/11': 'Dia de Finados',
+      '15/11': 'Proclamação da República',
+      '20/11': 'Consciência Negra',
+      '24/12': 'Véspera do Natal (recesso)',
+      '25/12': 'Natal',
+      '31/12': 'Véspera do Ano Novo (recesso)'
+    };
+
+    const destaques = {
+      '17/08': 'Início do período',
+      '21/12': 'Término do período'
+    };
+
+    const DIAS_SEMANA = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+
+    function gerarMes(ano, mes, nome) {
+      const primeiroDia = new Date(ano, mes, 1);
+      const ultimoDia = new Date(ano, mes + 1, 0);
+      const dias = ultimoDia.getDate();
+      const inicioSemana = primeiroDia.getDay();
+
+      let html = `<div class="mes"><div class="nome">${nome}</div>`;
+      html += `<div class="dias-semana">`;
+      for (let i = 0; i < 7; i++) {
+        html += `<span>${DIAS_SEMANA[i].substring(0,3)}</span>`;
+      }
+      html += `</div><div class="grid-dias">`;
+
+      for (let i = 0; i < inicioSemana; i++) {
+        html += `<div class="dia vazio"></div>`;
+      }
+
+      for (let d = 1; d <= dias; d++) {
+        const chave = `${String(d).padStart(2,'0')}/${String(mes+1).padStart(2,'0')}`;
+        const feriadoNome = feriados[chave] || null;
+        const destaqueNome = destaques[chave] || null;
+        const isFeriado = !!feriadoNome;
+        const isDestaque = !!destaqueNome;
+
+        let classe = 'dia';
+        if (isFeriado) classe += ' feriado';
+        else if (isDestaque) classe += ' destaque';
+
+        let title = '';
+        if (isFeriado) title = feriadoNome;
+        else if (isDestaque) title = destaqueNome;
+
+        html += `<div class="${classe}" title="${title}">${d}</div>`;
+      }
+
+      html += `</div></div>`;
+      return html;
+    }
+
+    const container = document.getElementById('calendarios');
+    let htmlCalendarios = '';
+    MESES.forEach(m => {
+      htmlCalendarios += gerarMes(m.ano, m.mes, m.nome);
     });
+    container.innerHTML = htmlCalendarios;
+
+    const eventosLista = [
+      { data: '07/09', desc: 'Independência do Brasil', tipo: 'feriado' },
+      { data: '08/09', desc: 'Nossa Senhora da Vitória', tipo: 'feriado' },
+      { data: '12/10', desc: 'Nossa Senhora Aparecida', tipo: 'feriado' },
+      { data: '28/10', desc: 'Dia do Servidor Público', tipo: 'recesso' },
+      { data: '02/11', desc: 'Dia de Finados', tipo: 'feriado' },
+      { data: '15/11', desc: 'Proclamação da República', tipo: 'feriado' },
+      { data: '20/11', desc: 'Consciência Negra', tipo: 'feriado' },
+      { data: '24/12', desc: 'Véspera do Natal', tipo: 'recesso' },
+      { data: '25/12', desc: 'Natal', tipo: 'feriado' },
+      { data: '31/12', desc: 'Véspera do Ano Novo', tipo: 'recesso' }
+    ];
+
+    const containerEventos = document.getElementById('lista-eventos');
+    let htmlEventos = '';
+    eventosLista.forEach(e => {
+      const badge = e.tipo === 'feriado' ? 'Feriado' : 'Recesso';
+      const badgeClass = e.tipo === 'feriado' ? 'feriado' : 'recesso';
+      htmlEventos += `
+        <div class="item">
+          <span class="data">${e.data}</span>
+          <span class="desc">${e.desc} <span class="badge ${badgeClass}">${badge}</span></span>
+        </div>
+      `;
+    });
+    containerEventos.innerHTML = htmlEventos;
   </script>
 
 </body>
