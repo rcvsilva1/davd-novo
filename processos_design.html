@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>   
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'none'">
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,7 +18,6 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
   <!-- ===== FORMULÁRIO OCULTO PARA ENVIO AO SEI ===== -->
   <form id="formSei" method="POST" target="_blank" rel="noopener noreferrer"
         action="https://sei.ufs.br/sei/modulos/pesquisa/md_pesq_processo_pesquisar.php?acao_externa=protocolo_pesquisar&acao_origem_externa=protocolo_pesquisar&id_orgao_acesso_externo=0">
@@ -29,22 +28,18 @@
     <input type="hidden" name="partialfields" value="" />
     <input type="hidden" name="requiredfields" value="" />
   </form>
-
   <!-- ===== CONTEÚDO PRINCIPAL ===== -->
   <main class="main">
-
     <!-- ===== HERO / BANNER ===== -->
     <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
       <h1>Processos Discentes – <strong>Design Gráfico</strong></h1>
       <p>Acompanhamento de processos dos alunos do curso de Design Gráfico</p>
       <a href="#" class="btn-voltar" onclick="voltar(); return false;">Voltar</a>
     </section>
-
     <!-- ===== CONTEÚDO ===== -->
     <div class="conteudo">
       <h2>Processos em andamento</h2>
       <p id="contador-processos">Carregando processos...</p>
-
       <!-- ===== LISTA DE PROCESSOS ===== -->
       <div id="processos-container">
         <div class="loading">
@@ -53,9 +48,7 @@
         </div>
       </div>
     </div>
-
   </main>
-
   <!-- ===== RODAPÉ ===== -->
   <footer class="footer">
     <div class="grid">
@@ -100,151 +93,34 @@
       <p style="margin-top:0.2rem; font-size:0.7rem; opacity:0.6;">Última atualização: <span id="updateDate"></span></p>
     </div>
   </footer>
-
   <!-- ===== BOTÃO DE TEMA FLUTUANTE ===== -->
   <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
-
   <!-- ===== SCRIPTS ===== -->
   <script src="script.js"></script>
-
-  <!-- ===== SCRIPT ESPECÍFICO DA PÁGINA ===== -->
   <script>
-    (function() {
-      'use strict';
-
-      // ===== CONFIGURAÇÕES EXCLUSIVAS =====
-      const API_KEY = 'AIzaSyB4HGlhilR63RhEzu3L8dYV-SxtosOsoII';
-      const SHEET_ID = '1ij52WFzjCCeVD6ehtt4Q_BtxNxrUHv26iPx-8wdk1XQ';
-      const SHEET_NAME = 'DESIGN';
-
-      // ===== COLUNAS A EXIBIR =====
-      const COLUNAS = [
-        { rotulo: 'Processo', origem: 'Nº do Processo no SEI' },
-        { rotulo: 'Interessado', origem: 'Interessado/a/e' },
-        { rotulo: 'Assunto', origem: 'Assunto' },
-        { rotulo: 'Envio ao DAVD', origem: 'Data de movimentação do SEMOP para o DAVD' },
-        { rotulo: 'Atribuído em', origem: 'Data de atribuição ao professor pelo DAVD' },
-        { rotulo: 'Relator(a)', origem: 'Relator/a' },
-        { rotulo: 'Relatoria em Colegiado', origem: 'Data de relatoria no Colegiado' },
-        { rotulo: 'Relatoria em Conselho', origem: 'Data de relatoria no Conselho' },
-        { rotulo: 'Inserção de Parecer no SEI', origem: 'Data de inserção do parecer no SEI pelo/a relator/a' },
-        { rotulo: 'Observação', origem: 'OBSERVAÇÕES' }
-      ];
-
-      // ===== FUNÇÃO PRINCIPAL =====
-      async function carregarProcessosDesign() {
-        const container = document.getElementById('processos-container');
-        const contador = document.getElementById('contador-processos');
-        const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(SHEET_NAME)}?key=${API_KEY}`;
-
-        try {
-          const response = await fetch(url);
-          if (!response.ok) {
-            let erroMsg = `Erro ${response.status}`;
-            try {
-              const erroJson = await response.json();
-              if (erroJson.error && erroJson.error.message) erroMsg += `: ${erroJson.error.message}`;
-            } catch (_) { /* ignora */ }
-            throw new Error(erroMsg);
-          }
-
-          const data = await response.json();
-          const rows = data.values;
-          if (!rows || rows.length === 0) {
-            container.innerHTML = '<p style="color:#e67e22;">Nenhum dado encontrado na planilha.</p>';
-            contador.textContent = 'Nenhum dado encontrado.';
-            return;
-          }
-
-          // Localiza cabeçalho
-          let headerRowIndex = -1;
-          for (let i = 0; i < Math.min(rows.length, 5); i++) {
-            if (rows[i] && rows[i].includes('Nº do Processo no SEI')) {
-              headerRowIndex = i;
-              break;
-            }
-          }
-          if (headerRowIndex === -1) throw new Error('Cabeçalho "Nº do Processo no SEI" não encontrado.');
-
-          const headers = rows[headerRowIndex];
-          const idxProcesso = headers.indexOf('Nº do Processo no SEI');
-          const idxStatus = headers.indexOf('STATUS');
-          if (idxProcesso === -1) throw new Error('Coluna "Nº do Processo no SEI" não encontrada.');
-
-          const indices = COLUNAS.map(c => headers.indexOf(c.origem));
-
-          // Filtra linhas com status vazio (= em andamento)
-          const linhasFiltradas = [];
-          for (let i = headerRowIndex + 1; i < rows.length; i++) {
-            const row = rows[i];
-            if (!row || row.length === 0 || row.every(cell => !cell || cell.trim() === '')) continue;
-            const processo = row[idxProcesso];
-            if (!processo || processo.trim() === '' || isNaN(parseFloat(processo))) continue;
-            if (idxStatus !== -1) {
-              const status = row[idxStatus];
-              if (status && status.trim() !== '') continue;
-            }
-            linhasFiltradas.push(row);
-          }
-
-          if (linhasFiltradas.length === 0) {
-            container.innerHTML = '<p style="color:#4a5a6e;">Nenhum processo em andamento no momento.</p>';
-            contador.textContent = 'Nenhum processo em andamento.';
-            return;
-          }
-
-          const total = linhasFiltradas.length;
-          contador.textContent = `${total} processo(s) em andamento.`;
-
-          let html = '<div class="processos-lista">';
-          linhasFiltradas.forEach((row) => {
-            const camposHtml = COLUNAS.map((col, i) => {
-              const idx = indices[i];
-              let valor = (idx !== -1 && row[idx]) ? row[idx].trim() : '';
-              if (col.rotulo.includes('Data') || col.rotulo.includes('Envio') || col.rotulo.includes('Atribuído') || col.rotulo.includes('Inserção')) {
-                valor = formatarData(valor);
-              }
-              const classe = valor ? 'valor' : 'valor vazio';
-              const display = valor || '—';
-
-              if (col.rotulo === 'Processo' && valor) {
-                return `<div class="campo"><span class="rotulo">${col.rotulo}</span>
-                        <span class="${classe}">
-                          <a href="#" class="processo-link" data-processo="${valor}" title="Consulte o Andamento">${display}</a>
-                        </span></div>`;
-              }
-              return `<div class="campo"><span class="rotulo">${col.rotulo}</span><span class="${classe}">${display}</span></div>`;
-            }).join('');
-
-            html += `<div class="processo-card">${camposHtml}</div>`;
-          });
-          html += '</div>';
-          container.innerHTML = html;
-
-          // Event delegation para links de processo (seguro, sem onclick inline)
-          container.querySelectorAll('.processo-link').forEach(function(link) {
-            link.addEventListener('click', function(e) {
-              e.preventDefault();
-              consultarAndamento(this.dataset.processo);
-            });
-          });
-
-        } catch (error) {
-          console.error(error);
-          container.innerHTML = `<div class="erro"><strong>Erro ao carregar os dados:</strong><br>${error.message}</div>`;
-          contador.textContent = 'Erro ao carregar processos.';
-        }
-      }
-
-      // Inicia quando o DOM estiver pronto
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', carregarProcessosDesign);
-      } else {
-        carregarProcessosDesign();
-      }
-
-    })();
+    document.addEventListener('DOMContentLoaded', function() {
+      carregarProcessosDesign({
+        apiKey: 'AIzaSyB4HGlhilR63RhEzu3L8dYV-SxtosOsoII',
+        sheetId: '1ij52WFzjCCeVD6ehtt4Q_BtxNxrUHv26iPx-8wdk1XQ',
+        sheetName: 'DESIGN',
+        colunas: [
+          { rotulo: 'Processo', origem: 'Nº do Processo no SEI' },
+          { rotulo: 'Interessado', origem: 'Interessado/a/e' },
+          { rotulo: 'Assunto', origem: 'Assunto' },
+          { rotulo: 'Envio ao DAVD', origem: 'Data de movimentação do SEMOP para o DAVD' },
+          { rotulo: 'Atribuído em', origem: 'Data de atribuição ao professor pelo DAVD' },
+          { rotulo: 'Relator(a)', origem: 'Relator/a' },
+          { rotulo: 'Relatoria em Colegiado', origem: 'Data de relatoria no Colegiado' },
+          { rotulo: 'Relatoria em Conselho', origem: 'Data de relatoria no Conselho' },
+          { rotulo: 'Inserção de Parecer no SEI', origem: 'Data de inserção do parecer no SEI pelo/a relator/a' },
+          { rotulo: 'Observação', origem: 'OBSERVAÇÕES' }
+        ],
+        containerId: 'processos-container',
+        contadorId: 'contador-processos',
+        headerKeyword: 'Nº do Processo no SEI',
+        processoColName: 'Nº do Processo no SEI'
+      });
+    });
   </script>
-
 </body>
 </html>
