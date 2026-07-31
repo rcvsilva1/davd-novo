@@ -88,13 +88,14 @@
 
   <script src="script.js"></script>
   <script>
-    const SHEET_ID = '1RLccS1BBtFQZP6JD0_t18t5BW2kBZ9a1JMEjtPM5dWs';
-    const SHEET_NAME = 'CONSELHO';
+    (function() {
+      const SHEET_ID_CONSELHO = '1RLccS1BBtFQZP6JD0_t18t5BW2kBZ9a1JMEjtPM5dWs';
+      const SHEET_NAME_CONSELHO = 'CONSELHO';
 
-    async function carregarReunioes() {
-      const container = document.getElementById('accordion-container');
-      const contador = document.getElementById('contador');
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(SHEET_NAME)}?key=${API_KEY}`;
+      async function carregarReunioes() {
+        const container = document.getElementById('accordion-container');
+        const contador = document.getElementById('contador');
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID_CONSELHO}/values/${encodeURIComponent(SHEET_NAME_CONSELHO)}?key=${API_KEY}`;
 
       try {
         const response = await fetch(url);
@@ -203,6 +204,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', carregarReunioes);
+    })();
   </script>
 </body>
 </html>
