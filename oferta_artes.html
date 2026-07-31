@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>   
@@ -16,260 +17,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-
-  <style>
-    /* ===== LEGENDA ===== */
-    .legenda {
-      background: var(--cinza-fundo);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-      box-shadow: var(--card-shadow);
-    }
-    .legenda h3 {
-      font-size: 1.3rem;
-      font-weight: 500;
-      color: var(--azul-escuro);
-      margin-bottom: 0.5rem;
-    }
-    .legenda p {
-      font-size: 0.95rem;
-      color: #2c3e50;
-      margin-bottom: 1rem;
-    }
-    .legenda table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.85rem;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid #e0e4e8;
-    }
-    .legenda table th {
-      background: var(--azul-medio);
-      color: #fff;
-      padding: 0.5rem 0.8rem;
-      text-align: center;
-      font-weight: 500;
-    }
-    .legenda table td {
-      padding: 0.4rem 0.8rem;
-      text-align: center;
-      border-bottom: 1px solid #e0e4e8;
-    }
-    .legenda table .turno-label {
-      font-weight: 700;
-      background: var(--cinza-fundo);
-    }
-    .legenda table tr:last-child td {
-      border-bottom: none;
-    }
-
-    /* ===== TABELAS DE GRADE ===== */
-    .grade-horarios {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.75rem;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid #e0e4e8;
-      margin: 0.5rem 0 1.2rem;
-    }
-    .grade-horarios th {
-      background: var(--azul-medio);
-      color: #fff;
-      padding: 0.4rem 0.3rem;
-      text-align: center;
-      font-weight: 500;
-      font-size: 0.8rem;
-    }
-    .grade-horarios td {
-      padding: 0.3rem 0.2rem;
-      border-bottom: 1px solid #e9ecef;
-      vertical-align: middle;
-      text-align: center;
-    }
-    .grade-horarios td.vazio {
-      color: #999;
-      font-size: 0.9rem;
-    }
-    .grade-horarios .bloco-label {
-      font-weight: 700;
-      background: var(--cinza-fundo);
-      color: var(--azul-escuro);
-      font-size: 0.8rem;
-      white-space: nowrap;
-      padding: 0.3rem 0.2rem;
-    }
-    .grade-horarios .disciplina-cell {
-      background: #fff;
-      border-radius: 6px;
-      padding: 0.2rem 0.3rem;
-      display: block;
-      text-align: left;
-      font-size: 0.7rem;
-      line-height: 1.3;
-      border-left: 3px solid var(--azul-medio);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
-    }
-    .grade-horarios .disciplina-cell .nome {
-      display: block;
-      font-weight: 600;
-      color: #1e2a3a;
-    }
-    .grade-horarios .disciplina-cell .docente {
-      display: block;
-      font-size: 0.65rem;
-      color: #4a5a6e;
-      font-weight: 400;
-    }
-    .grade-horarios .disciplina-cell .turma-badge {
-      display: inline-block;
-      background: var(--azul-medio);
-      color: #fff;
-      font-size: 0.6rem;
-      padding: 0.05rem 0.4rem;
-      border-radius: 10px;
-      margin-top: 0.1rem;
-      font-weight: 500;
-    }
-    .grade-horarios .disciplina-cell .nao-ofertada {
-      color: #d32f2f;
-      font-weight: 600;
-    }
-
-    .opcao-titulo {
-      display: block;
-      font-weight: 700;
-      color: var(--azul-escuro);
-      font-size: 0.9rem;
-      margin: 0.8rem 0 0.4rem;
-      border-bottom: 2px solid var(--azul-medio);
-      padding-bottom: 0.2rem;
-    }
-
-    /* ===== TEMA ESCURO ===== */
-    [data-theme="dark"] .legenda {
-      background: #1a1a2e;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-    }
-    [data-theme="dark"] .legenda h3 {
-      color: #8ab7ff;
-    }
-    [data-theme="dark"] .legenda p {
-      color: #d0d0e0;
-    }
-    [data-theme="dark"] .legenda table {
-      border-color: #3a3a5a;
-    }
-    [data-theme="dark"] .legenda table th {
-      background: #3a6a9a;
-      color: #fff;
-    }
-    [data-theme="dark"] .legenda table td {
-      border-bottom-color: #3a3a5a;
-      color: #d0d0e0;
-    }
-    [data-theme="dark"] .legenda table .turno-label {
-      background: #2a2a44;
-      color: #8ab7ff;
-    }
-
-    [data-theme="dark"] .grade-horarios {
-      border-color: #3a3a5a;
-    }
-    [data-theme="dark"] .grade-horarios th {
-      background: #3a6a9a;
-      color: #fff;
-    }
-    [data-theme="dark"] .grade-horarios td {
-      border-bottom-color: #3a3a5a;
-      color: #d0d0e0;
-    }
-    [data-theme="dark"] .grade-horarios td.vazio {
-      color: #8a8a9a;
-    }
-    [data-theme="dark"] .grade-horarios .bloco-label {
-      background: #2a2a44;
-      color: #8ab7ff;
-    }
-    [data-theme="dark"] .grade-horarios .disciplina-cell {
-      background: #2a2a44;
-      border-left-color: #4a8ac0;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-    }
-    [data-theme="dark"] .grade-horarios .disciplina-cell .nome {
-      color: #e0e0e0;
-    }
-    [data-theme="dark"] .grade-horarios .disciplina-cell .docente {
-      color: #a0a0b0;
-    }
-    [data-theme="dark"] .grade-horarios .disciplina-cell .turma-badge {
-      background: #3a6a9a;
-      color: #fff;
-    }
-    [data-theme="dark"] .grade-horarios .disciplina-cell .nao-ofertada {
-      color: #f0a0a0;
-    }
-
-    [data-theme="dark"] .opcao-titulo {
-      color: #8ab7ff;
-      border-bottom-color: #4a8ac0;
-    }
-
-    /* ===== RESPONSIVO ===== */
-    @media (max-width: 768px) {
-      .grade-horarios {
-        font-size: 0.65rem;
-      }
-      .grade-horarios .disciplina-cell {
-        font-size: 0.6rem;
-      }
-      .grade-horarios .disciplina-cell .docente {
-        font-size: 0.55rem;
-      }
-      .grade-horarios .disciplina-cell .turma-badge {
-        font-size: 0.5rem;
-      }
-    }
-    @media (max-width: 480px) {
-      .grade-horarios {
-        font-size: 0.55rem;
-      }
-      .grade-horarios th {
-        font-size: 0.6rem;
-        padding: 0.2rem 0.1rem;
-      }
-      .grade-horarios td {
-        padding: 0.15rem 0.05rem;
-      }
-      .grade-horarios .disciplina-cell {
-        padding: 0.1rem 0.15rem;
-        font-size: 0.5rem;
-      }
-      .grade-horarios .disciplina-cell .docente {
-        font-size: 0.45rem;
-      }
-      .grade-horarios .disciplina-cell .turma-badge {
-        font-size: 0.4rem;
-        padding: 0.02rem 0.25rem;
-      }
-    }
-  </style>
 </head>
 <body>
-
 <main class="main">
   <section class="hero" style="background: linear-gradient(135deg, rgba(39,43,125,0.75), rgba(0,77,164,0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
     <h1>Oferta <strong>2026.2</strong></h1>
     <p>Artes Visuais – Licenciatura – Grade de horários</p>
     <a href="#" class="btn-voltar" onclick="voltar(); return false;">Voltar</a>
   </section>
-
   <div class="conteudo">
     <h2>Grade de Horários</h2>
     <p>Relação das disciplinas oferecidas no período letivo 2026.2. Clique em cada período para visualizar os horários.</p>
-
     <!-- ===== LEGENDA ===== -->
     <div class="legenda">
       <h3>Legenda – Códigos de horário</h3>
@@ -327,14 +85,12 @@
         </tbody>
       </table>
     </div>
-
     <!-- ============= 2º PERÍODO ============= -->
     <div class="periodo">
       <div class="periodo-header" onclick="togglePeriodo(this)">
         2º Período <span class="seta">▼</span>
       </div>
       <div class="periodo-body">
-
         <!-- Opção 1 -->
         <span class="opcao-titulo">Opção 1</span>
         <table class="grade-horarios">
@@ -384,7 +140,6 @@
             </tr>
           </tbody>
         </table>
-
         <!-- Opção 2 -->
         <span class="opcao-titulo">Opção 2</span>
         <table class="grade-horarios">
@@ -434,17 +189,14 @@
             </tr>
           </tbody>
         </table>
-
       </div><!-- /periodo-body -->
     </div><!-- /periodo -->
-
     <!-- ============= 4º PERÍODO ============= -->
     <div class="periodo">
       <div class="periodo-header" onclick="togglePeriodo(this)">
         4º Período <span class="seta">▼</span>
       </div>
       <div class="periodo-body">
-
         <!-- Opção 1 -->
         <span class="opcao-titulo">Opção 1</span>
         <table class="grade-horarios">
@@ -494,7 +246,6 @@
             </tr>
           </tbody>
         </table>
-
         <!-- Opção 2 -->
         <span class="opcao-titulo">Opção 2</span>
         <table class="grade-horarios">
@@ -544,17 +295,14 @@
             </tr>
           </tbody>
         </table>
-
       </div>
     </div>
-
     <!-- ============= 6º PERÍODO ============= -->
     <div class="periodo">
       <div class="periodo-header" onclick="togglePeriodo(this)">
         6º Período <span class="seta">▼</span>
       </div>
       <div class="periodo-body">
-
         <!-- Opção 1 -->
         <span class="opcao-titulo">Opção 1</span>
         <table class="grade-horarios">
@@ -604,7 +352,6 @@
             </tr>
           </tbody>
         </table>
-
         <!-- Opção 2 -->
         <span class="opcao-titulo">Opção 2</span>
         <table class="grade-horarios">
@@ -654,10 +401,8 @@
             </tr>
           </tbody>
         </table>
-
       </div>
     </div>
-
     <!-- ============= 8º PERÍODO ============= -->
     <div class="periodo">
       <div class="periodo-header" onclick="togglePeriodo(this)">
@@ -713,10 +458,8 @@
         </table>
       </div>
     </div>
-
   </div>
 </main>
-
 <!-- ===== RODAPÉ ===== -->
 <footer class="footer">
   <div class="grid">
@@ -762,11 +505,8 @@
     </p>
   </div>
 </footer>
-
 <!-- Botão de tema flutuante -->
 <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
-
 <script src="script.js"></script>
-
 </body>
 </html>
