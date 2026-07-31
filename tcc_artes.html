@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>   
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'none'">
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,7 +16,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-
   <!-- Estilos específicos -->
   <style>
     .periodo-body {
@@ -28,25 +27,20 @@
   </style>
 </head>
 <body>
-
   <!-- ===== CONTEÚDO PRINCIPAL ===== -->
   <main class="main">
-
     <!-- ===== HERO / BANNER ===== -->
     <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
       <h1>Trabalho de Conclusão de Curso – <strong>Normas</strong></h1>
       <p>Artes Visuais – Licenciatura</p>
       <a href="#" class="btn-voltar" onclick="voltar(); return false;">Voltar</a>
     </section>
-
     <!-- ===== CONTEÚDO ===== -->
     <div class="conteudo">
-
       <h2>Normas do TCC – Artes Visuais</h2>
       <p>
         O Trabalho de Conclusão de Curso (TCC) é uma etapa fundamental na formação do licenciando em Artes Visuais. Ele se divide em duas disciplinas – <strong>TCC I</strong> e <strong>TCC II</strong> – e envolve a elaboração de um projeto de pesquisa, sua execução e a defesa pública perante uma banca examinadora. As regras abaixo buscam orientar estudantes e professores nesse processo, garantindo transparência, qualidade acadêmica e respeito mútuo.
       </p>
-
       <!-- ===== TCC I ===== -->
       <div class="periodo">
         <div class="periodo-header" onclick="togglePeriodo(this)">
@@ -73,7 +67,6 @@
           </p>
         </div>
       </div>
-
       <!-- ===== TCC II ===== -->
       <div class="periodo">
         <div class="periodo-header" onclick="togglePeriodo(this)">
@@ -94,7 +87,6 @@
           </p>
         </div>
       </div>
-
       <!-- ===== APRESENTAÇÃO E DEFESA ===== -->
       <div class="periodo">
         <div class="periodo-header" onclick="togglePeriodo(this)">
@@ -118,7 +110,6 @@
           </p>
         </div>
       </div>
-
       <!-- ===== AVALIAÇÃO FINAL E PÓS-DEFESA ===== -->
       <div class="periodo">
         <div class="periodo-header" onclick="togglePeriodo(this)">
@@ -146,7 +137,6 @@
           </p>
         </div>
       </div>
-
       <!-- ===== PAPEL DO PROFESSOR ===== -->
       <div class="periodo">
         <div class="periodo-header" onclick="togglePeriodo(this)">
@@ -165,7 +155,6 @@
           </ul>
         </div>
       </div>
-
       <!-- ===== DOCUMENTOS DO TCC ===== -->
       <h2>Documentos do TCC</h2>
       <div class="grid-links">
@@ -179,12 +168,9 @@
           <a href="ata_tcc_artes.html">Ata de Defesa</a>
         </div>
       </div>
-
     </div>
     <!-- ===== FIM DO CONTEÚDO ===== -->
-
   </main>
-
   <!-- ===== RODAPÉ ===== -->
   <footer class="footer">
     <div class="grid">
@@ -229,11 +215,8 @@
       </p>
     </div>
   </footer>
-
   <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
-
   <!-- ===== SCRIPTS ===== -->
   <script src="script.js"></script>
-
 </body>
 </html>
