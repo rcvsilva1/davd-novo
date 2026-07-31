@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -9,7 +10,7 @@
   <meta property="og:title" content="DAVD/UFS – Departamento de Artes Visuais e Design" />
   <meta property="og:description" content="Informações sobre Artes Visuais e Design Gráfico na Universidade Federal de Sergipe." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://rcvsilva1.github.io/davd-novo/" />
+  <meta property="og:url" content="https://rcvsilva1.github.io/davd-novo/aproveitamento.html" />
   <meta property="og:image" content="https://rcvsilva1.github.io/davd-novo/assets/imagens/banner_ufs.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,7 +26,7 @@
     <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
       <h1>Aproveitamento de <strong>Estudos</strong></h1>
       <p>Como solicitar o aproveitamento de disciplinas</p>
-      <a href="javascript:void(0)" class="btn-voltar" onclick="voltar()">Voltar</a>
+      <a href="#" class="btn-voltar" onclick="voltar(); return false;">Voltar</a>
     </section>
 
     <!-- ===== CONTEÚDO ===== -->
@@ -106,14 +107,13 @@
   <!-- ===== RODAPÉ ===== -->
   <footer class="footer">
     <div class="grid">
-      <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
       <div>
         <h4>Contato</h4>
         <ul>
           <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
           <li><a href="tel:+557931946925">(79) 3194-6925</a></li>
-          <li style="color:#b0c4de; font-size:0.9rem;">Segunda a sexta</li>
-          <li style="color:#b0c4de; font-size:0.9rem;">08h00 às 21h30</li>
+          <li class="footer-horario">Segunda a sexta</li>
+          <li class="footer-horario">08h00 às 21h30</li>
         </ul>
       </div>
 
@@ -145,12 +145,14 @@
       </div>
     </div>
     <div class="copy">
-      <p>Universidade Federal de Sergipe – DAVD © 2026</p>
+      <p>Universidade Federal de Sergipe – DAVD &copy; 2026</p>
       <p style="margin-top:0.3rem; font-size:0.75rem; opacity:0.6;">
         Última atualização: <span id="updateDate"></span>
       </p>
     </div>
   </footer>
+
+  <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
 
   <!-- ===== SCRIPTS ===== -->
   <script src="script.js"></script>
