@@ -222,3 +222,125 @@ function gerarCalendario(config) {
 }
 
 console.log('script.js carregado com sucesso!');
+
+// ============================================================
+// CONFIGURAÇÃO DA API PARA INFORMES E CONSELHO
+// ============================================================
+const API_KEY = 'AIzaSyB4HGlhilR63RhEzu3L8dYV-SxtosOsoII'; // Substitua pela sua chave restrita
+const SHEET_ID = '14vyuZzkJggy6b64HLDJOk-Ht-dhUcskCVmUgewuYBLA';
+const SHEET_NAME = 'INFORMES';
+const LIMITE_NOTICIAS = 5;
+
+// ============================================================
+// FUNÇÃO PARA CARREGAR NOTÍCIAS (usada em informes.html e conselho.html)
+// ============================================================
+async function carregarNoticias(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  // Verifica se as bibliotecas foram carregadas
+  if (typeof marked === 'undefined') {
+    container.innerHTML = `<div class="erro"><strong>Erro:</strong> Biblioteca marked não carregada.</div>`;
+    return;
+  }
+  if (typeof DOMPurify === 'undefined') {
+    container.innerHTML = `<div class="erro"><strong>Erro:</strong> Biblioteca DOMPurify não carregada.</div>`;
+    return;
+  }
+
+  try {
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(SHEET_NAME)}?key=${API_KEY}`;
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      let erroMsg = `Erro ${response.status}`;
+      try {
+        const erroJson = await response.json();
+        if (erroJson.error && erroJson.error.message) erroMsg += `: ${erroJson.error.message}`;
+      } catch (_) {}
+      throw new Error(erroMsg);
+    }
+
+    const data = await response.json();
+    const rows = data.values;
+
+    if (!rows || rows.length < 2) {
+      container.innerHTML = '<p style="color:#e67e22;">Nenhuma notícia encontrada.</p>';
+      return;
+    }
+
+    const headers = rows[0];
+    const idxTitulo = headers.indexOf('título');
+    const idxCorpo = headers.indexOf('corpo');
+    const idxData = headers.indexOf('data');
+
+    if (idxTitulo === -1 || idxCorpo === -1) {
+      container.innerHTML = `<div class="erro"><strong>Erro:</strong> Colunas 'título' e 'corpo' não encontradas.</div>`;
+      return;
+    }
+
+    let noticias = [];
+    for (let i = 1; i < rows.length; i++) {
+      const row = rows[i];
+      if (!row || row.length === 0 || row.every(cell => !cell || cell.trim() === '')) continue;
+      const titulo = (row[idxTitulo] || '').trim();
+      const corpo = (row[idxCorpo] || '').trim();
+      if (!titulo && !corpo) continue;
+
+      let data = '';
+      if (idxData !== -1 && row[idxData]) {
+        data = row[idxData].trim();
+      }
+
+      noticias.push({ titulo, corpo, data });
+    }
+
+    if (idxData !== -1) {
+      noticias.sort((a, b) => {
+        const da = new Date(a.data);
+        const db = new Date(b.data);
+        if (!isNaN(da) && !isNaN(db)) {
+          return db - da;
+        }
+        return b.data.localeCompare(a.data);
+      });
+    }
+
+    noticias = noticias.slice(0, LIMITE_NOTICIAS);
+
+    if (noticias.length === 0) {
+      container.innerHTML = '<p style="color:#4a5a6e;">Nenhuma notícia disponível no momento.</p>';
+      return;
+    }
+
+    let html = '';
+    noticias.forEach(noticia => {
+      // Converte Markdown e SANITIZA
+      let corpoHtml = DOMPurify.sanitize(marked.parse(noticia.corpo));
+      html += `
+        <div class="noticia-completa">
+          <h2>${noticia.titulo}</h2>
+          <div class="corpo">${corpoHtml}</div>
+        </div>
+      `;
+    });
+
+    container.innerHTML = html;
+
+  } catch (error) {
+    console.error(error);
+    container.innerHTML = `
+      <div class="erro">
+        <strong>Erro ao carregar os informes:</strong><br>
+        ${error.message}<br><br>
+        <strong>Possíveis causas:</strong>
+        <ul style="margin-top:0.5rem; padding-left:1.2rem;">
+          <li>Chave de API inválida ou sem permissão.</li>
+          <li>Planilha não está pública.</li>
+          <li>Nome da aba (${SHEET_NAME}) incorreto.</li>
+          <li>ID da planilha incorreto.</li>
+        </ul>
+      </div>
+    `;
+  }
+}
