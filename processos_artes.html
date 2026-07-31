@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
   <!-- ===== FORMULÁRIO OCULTO PARA ENVIO AO SEI ===== -->
   <form id="formSei" method="POST" target="_blank" rel="noopener noreferrer"
         action="https://sei.ufs.br/sei/modulos/pesquisa/md_pesq_processo_pesquisar.php?acao_externa=protocolo_pesquisar&acao_origem_externa=protocolo_pesquisar&id_orgao_acesso_externo=0">
@@ -28,18 +29,22 @@
     <input type="hidden" name="partialfields" value="" />
     <input type="hidden" name="requiredfields" value="" />
   </form>
+
   <!-- ===== CONTEÚDO PRINCIPAL ===== -->
   <main class="main">
+
     <!-- ===== HERO / BANNER ===== -->
     <section class="hero" style="background: linear-gradient(135deg, rgba(39, 43, 125, 0.75), rgba(0, 77, 164, 0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
       <h1>Processos Discentes – <strong>Artes Visuais</strong></h1>
       <p>Acompanhamento de processos dos alunos do curso de Artes Visuais</p>
       <a href="#" class="btn-voltar" onclick="voltar(); return false;">Voltar</a>
     </section>
+
     <!-- ===== CONTEÚDO ===== -->
     <div class="conteudo">
       <h2>Processos em andamento</h2>
       <p id="contador-processos">Carregando processos...</p>
+
       <!-- ===== LISTA DE PROCESSOS ===== -->
       <div id="processos-container">
         <div class="loading">
@@ -48,7 +53,9 @@
         </div>
       </div>
     </div>
+
   </main>
+
   <!-- ===== RODAPÉ ===== -->
   <footer class="footer">
     <div class="grid">
@@ -93,8 +100,10 @@
       <p style="margin-top:0.2rem; font-size:0.7rem; opacity:0.6;">Última atualização: <span id="updateDate"></span></p>
     </div>
   </footer>
+
   <!-- ===== BOTÃO DE TEMA FLUTUANTE ===== -->
   <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
+
   <!-- ===== SCRIPTS ===== -->
   <script src="script.js"></script>
   <script>
@@ -122,5 +131,6 @@
       });
     });
   </script>
+
 </body>
 </html>
