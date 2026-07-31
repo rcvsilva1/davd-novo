@@ -32,7 +32,7 @@
     </section>
 
     <!-- ===== CONTEÚDO ===== -->
-    <div class="conteudo">
+    <div class="conteudo" id="estagio-design">
 
       <!-- ===== TEXTO EXPLICATIVO ===== -->
       <p>O estágio no curso de Design Gráfico – Bacharelado é um componente curricular obrigatório que visa proporcionar ao estudante a oportunidade de vivenciar a prática profissional em ambientes reais de trabalho, integrando os conhecimentos teóricos adquiridos ao longo do curso com as demandas do mercado de design, conforme estabelece a <strong>Resolução nº 59/2009/CONEPE</strong>.</p>
@@ -168,6 +168,25 @@
 
   <!-- ===== SCRIPTS ===== -->
   <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      carregarSolicitacoes({
+        apiKey: 'AIzaSyB4HGlhilR63RhEzu3L8dYV-SxtosOsoII',
+        sheetId: '1ne8WMDdLLD15nOk9C03e5WNSS845i4-MYB1qu0M5LNc',
+        sheetName: 'PUBLICO',
+        colunas: [
+          { rotulo: 'Matrícula', origem: 'Matrícula' },
+          { rotulo: 'Nome', origem: 'Nome' },
+          { rotulo: 'Atividade', origem: 'Atividade' },
+          { rotulo: 'Instituição', origem: 'Instituição' },
+          { rotulo: 'Diretor(a)', origem: 'Diretor(a)' },
+          { rotulo: 'Preceptor(a)', origem: 'Preceptor(a)' }
+        ],
+        containerId: 'solicitacoes-container',
+        contadorId: 'contador-solicitacoes'
+      });
+    });
+  </script>
 
 </body>
 </html>
