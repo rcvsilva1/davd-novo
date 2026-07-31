@@ -917,59 +917,6 @@ img {
   background: #2a4a7a;
 }
 
-[data-theme="dark"] .info-curso,
-[data-theme="dark"] .gestao,
-[data-theme="dark"] .manuais {
-  background: #1a1a2e;
-  color: #e0e0e0;
-  border-color: #3a3a5a;
-}
-[data-theme="dark"] .info-curso h3 {
-  color: #8ab7ff;
-}
-[data-theme="dark"] .info-curso p {
-  color: #d0d0e0;
-}
-[data-theme="dark"] .info-curso .destaque {
-  color: #7ab7ff;
-}
-
-[data-theme="dark"] .gestao .card-gestao {
-  background: #2a2a44;
-  border-top-color: #4a8ac0;
-}
-[data-theme="dark"] .gestao .card-gestao h3 {
-  color: #8ab7ff;
-}
-[data-theme="dark"] .gestao .card-gestao p {
-  color: #d0d0e0;
-}
-
-[data-theme="dark"] .manuais .bloco {
-  background: #2a2a44;
-}
-[data-theme="dark"] .manuais .bloco h3 {
-  color: #8ab7ff;
-  border-bottom-color: #4a8ac0;
-}
-[data-theme="dark"] .manuais .bloco .item-manual {
-  background: #1a1a2e;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-}
-[data-theme="dark"] .manuais .bloco .item-manual:hover {
-  background: #2a2a44;
-}
-[data-theme="dark"] .manuais .bloco .item-manual a {
-  color: #7ab7ff;
-}
-[data-theme="dark"] .manuais .bloco .item-manual a:hover {
-  color: #a8d0ff;
-}
-
-[data-theme="dark"] .tcc-documento {
-  background: #1a1a2e;
-  color: #d0d0e0;
-}
 /* ===== ESTILOS PARA INFORMES E CONSELHO (páginas de notícias) ===== */
 .noticia-completa {
   background: var(--cinza-fundo, #f5f7fa);
@@ -1116,13 +1063,15 @@ img {
 /* ============================================================
    PÁGINA 404
    ============================================================ */
-body {
-  min-height: 100vh;
+body > .container-404 {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-height: 100vh;
   text-align: center;
-  padding: 2rem;
+  margin: 0;
+  width: auto;
 }
 .container-404 {
   background: #ffffff;
@@ -1228,3 +1177,1099 @@ body {
   }
 }
 
+/* ============================================================
+   INDEX.HTML – INFO CURSOS, INFORMES, GESTÃO, MANUAIS
+   ============================================================ */
+.info-cursos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+.info-curso {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: var(--card-shadow);
+  border-top: 6px solid var(--azul-medio);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.info-curso:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+.info-curso .icone {
+  font-size: 2.8rem;
+  margin-bottom: 0.3rem;
+  display: block;
+}
+.info-curso h3 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--azul-escuro);
+  margin-bottom: 0.5rem;
+}
+.info-curso p {
+  font-size: 0.95rem;
+  color: #3a4a5e;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+.info-curso .destaque {
+  font-weight: 500;
+  color: var(--azul-medio);
+}
+.info-curso .btn {
+  display: inline-block;
+  background: var(--azul-medio);
+  color: #fff;
+  padding: 0.6rem 2rem;
+  border-radius: 40px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: background 0.2s, transform 0.2s;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+.info-curso .btn:hover {
+  background: var(--azul-escuro);
+  transform: scale(1.02);
+}
+.informes {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 2.5rem;
+}
+.informes h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--azul-escuro);
+  margin: 0 0 1rem 0;
+  border-bottom: 2px solid var(--azul-medio);
+  padding-bottom: 0.5rem;
+}
+.grid-informes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+.grid-informes .item-informe {
+  background: var(--cinza-fundo);
+  border-radius: 12px;
+  padding: 0.7rem 1rem;
+  transition: background 0.15s, transform 0.15s;
+}
+.grid-informes .item-informe:hover {
+  background: #e9ecf0;
+  transform: translateX(4px);
+}
+.grid-informes .item-informe a {
+  display: block;
+  font-weight: 500;
+  color: var(--azul-medio);
+  font-size: 1rem;
+  text-decoration: none;
+}
+.grid-informes .item-informe a:hover {
+  color: var(--azul-escuro);
+  text-decoration: underline;
+}
+.gestao {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 2.5rem;
+}
+.gestao h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: left;
+  color: var(--azul-escuro);
+  margin-bottom: 1.5rem;
+}
+.gestao .grid-gestao {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.gestao .card-gestao {
+  background: var(--cinza-fundo);
+  border-radius: 18px;
+  padding: 1.5rem;
+  border-top: 6px solid var(--azul-medio);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.gestao .card-gestao:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+}
+.gestao .card-gestao h3 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--azul-escuro);
+  margin-bottom: 0.5rem;
+}
+.gestao .card-gestao p {
+  font-size: 0.95rem;
+  color: #3a4a5e;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+.gestao .card-gestao .btn {
+  display: inline-block;
+  background: var(--azul-medio);
+  color: #fff;
+  padding: 0.5rem 1.8rem;
+  border-radius: 40px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+.gestao .card-gestao .btn:hover {
+  background: var(--azul-escuro);
+}
+.manuais {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 2.5rem;
+}
+.manuais h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: left;
+  color: var(--azul-escuro);
+  margin-bottom: 1.5rem;
+}
+.manuais .grid-manuais {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.manuais .bloco {
+  background: var(--cinza-fundo);
+  border-radius: 18px;
+  padding: 1.5rem;
+}
+.manuais .bloco h3 {
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--azul-escuro);
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--azul-medio);
+  padding-bottom: 0.4rem;
+}
+.manuais .bloco .lista-manuais {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 1rem;
+}
+.manuais .bloco .item-manual {
+  background: #fff;
+  border-radius: 12px;
+  padding: 0.6rem 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+.manuais .bloco .item-manual:hover {
+  background: #e9ecf0;
+  transform: translateX(3px);
+}
+.manuais .bloco .item-manual a {
+  color: var(--azul-medio);
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+  text-decoration: none;
+}
+.manuais .bloco .item-manual a:hover {
+  color: var(--azul-escuro);
+  text-decoration: underline;
+}
+.btn-mais {
+  display: inline-block;
+  margin-top: 1.5rem;
+  background: var(--azul-medio);
+  color: #fff;
+  padding: 0.5rem 1.8rem;
+  border-radius: 40px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn-mais:hover {
+  background: var(--azul-escuro);
+}
+.hero .btn-primary {
+  display: inline-block;
+  background: var(--azul-medio);
+  color: #fff;
+  padding: 0.8rem 2.8rem;
+  border-radius: 50px;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: background 0.25s, transform 0.2s;
+  box-shadow: 0 4px 14px rgba(0, 77, 164, 0.35);
+  border: none;
+  cursor: pointer;
+  align-self: flex-start;
+  text-decoration: none;
+}
+.hero .btn-primary:hover {
+  background: var(--azul-escuro);
+  transform: translateY(-2px);
+}
+
+/* DAVD.HTML – COORDENAÇÃO, DOCENTES, ADMINISTRATIVO */
+.grid-coordenacao {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 1.5rem 0;
+}
+.card-coord {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 2rem;
+  box-shadow: var(--card-shadow);
+  border-top: 6px solid var(--azul-medio);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.card-coord:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+.card-coord h4 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--azul-escuro);
+  margin-bottom: 0.5rem;
+}
+.card-coord p {
+  font-size: 0.95rem;
+  color: #3a4a5e;
+  margin: 0.2rem 0;
+}
+.card-coord .btn-contato,
+.card-coord .btn-saiba {
+  display: inline-block;
+  margin-top: 0.8rem;
+  background: var(--azul-medio);
+  color: #fff;
+  padding: 0.4rem 1.4rem;
+  border-radius: 40px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition: background 0.2s, transform 0.2s;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+.card-coord .btn-contato:hover,
+.card-coord .btn-saiba:hover {
+  background: var(--azul-escuro);
+  transform: scale(1.02);
+}
+.card-coord .btn-saiba {
+  margin-left: 0.5rem;
+}
+.grid-docentes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+.card-docente {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  border-top: 6px solid var(--azul-medio);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.card-docente:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+.card-docente .nome {
+  font-weight: 700;
+  color: var(--azul-escuro);
+  font-size: 1.05rem;
+}
+.card-docente .titulacao {
+  font-size: 0.85rem;
+  color: var(--azul-medio);
+  font-weight: 500;
+}
+.card-docente .bio {
+  font-size: 0.9rem;
+  color: #2c3e50;
+  margin-top: 0.3rem;
+  line-height: 1.4;
+}
+.card-docente .lattes {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--azul-medio);
+  font-weight: 500;
+  text-decoration: underline;
+}
+.grid-administrativo {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+.card-admin {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  border-top: 6px solid var(--azul-medio);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.card-admin:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+.card-admin .nome {
+  font-weight: 700;
+  color: var(--azul-escuro);
+  font-size: 1rem;
+}
+.card-admin .cargo {
+  font-size: 0.85rem;
+  color: #3a4a5e;
+  margin: 0.2rem 0;
+}
+.card-admin .btn-contato {
+  display: inline-block;
+  margin-top: 0.5rem;
+  background: var(--azul-medio);
+  color: #fff;
+  padding: 0.3rem 1.2rem;
+  border-radius: 40px;
+  font-weight: 500;
+  font-size: 0.8rem;
+  transition: background 0.2s, transform 0.2s;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+.card-admin .btn-contato:hover {
+  background: var(--azul-escuro);
+  transform: scale(1.02);
+}
+.info-contato {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  box-shadow: var(--card-shadow);
+  border-top: 6px solid var(--azul-medio);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.info-contato:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+.info-contato p {
+  margin: 0.2rem 0;
+  font-size: 0.95rem;
+  color: #2c3e50;
+}
+.info-contato strong {
+  color: var(--azul-escuro);
+}
+.btn-contato-chefia {
+  display: inline-block;
+  margin-top: 0.2rem;
+  background: var(--azul-medio);
+  color: #fff;
+  padding: 0.4rem 1.4rem;
+  border-radius: 40px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition: background 0.2s, transform 0.2s;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn-contato-chefia:hover {
+  background: var(--azul-escuro);
+  transform: scale(1.02);
+}
+
+/* SEI.HTML – PROCESSOS, MANUAIS SEI */
+.grid-processos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin: 1rem 0 2rem;
+}
+.card-processo {
+  background: var(--cinza-fundo);
+  border-radius: 18px;
+  padding: 1.5rem;
+  border-top: 6px solid var(--azul-medio);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-align: center;
+}
+.card-processo:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+.card-processo h3 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--azul-escuro);
+  margin-bottom: 0.5rem;
+}
+.card-processo p {
+  font-size: 0.95rem;
+  color: #3a4a5e;
+  margin-bottom: 1rem;
+}
+.card-processo .btn {
+  display: inline-block;
+  background: var(--azul-medio);
+  color: #fff;
+  padding: 0.5rem 1.8rem;
+  border-radius: 40px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+.card-processo .btn:hover {
+  background: var(--azul-escuro);
+}
+.lista-manuais {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin: 1rem 0 2rem;
+}
+.lista-manuais .item {
+  background: var(--cinza-fundo);
+  border-radius: 12px;
+  padding: 0.6rem 1rem;
+  transition: transform 0.15s, background 0.15s;
+  display: flex;
+  align-items: center;
+}
+.lista-manuais .item:hover {
+  background: #e9ecf0;
+  transform: translateX(3px);
+}
+.lista-manuais .item a {
+  color: var(--azul-medio);
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
+.lista-manuais .item a:hover {
+  text-decoration: underline;
+  color: var(--azul-escuro);
+}
+.descricao {
+  font-size: 0.8rem;
+  color: #4a5a6e;
+  margin-top: 0.3rem;
+}
+
+/* ESTAGIO_DESIGN.HTML */
+#estagio-design .grid-links .card-link a {
+  font-weight: 700 !important;
+}
+
+/* ============================================================
+   TEMA ESCURO – TODAS AS SEÇÕES ADICIONAIS
+   ============================================================ */
+[data-theme="dark"] .info-curso,
+[data-theme="dark"] .informes,
+[data-theme="dark"] .gestao,
+[data-theme="dark"] .manuais {
+  background: #1a1a2e;
+  color: #e0e0e0;
+  border-color: #3a3a5a;
+}
+[data-theme="dark"] .info-curso h3,
+[data-theme="dark"] .informes h2,
+[data-theme="dark"] .gestao h2,
+[data-theme="dark"] .manuais h2 {
+  color: #8ab7ff;
+}
+[data-theme="dark"] .info-curso p,
+[data-theme="dark"] .gestao .card-gestao p,
+[data-theme="dark"] .manuais .bloco h3,
+[data-theme="dark"] .manuais .bloco .item-manual a {
+  color: #d0d0e0;
+}
+[data-theme="dark"] .info-curso .destaque {
+  color: #7ab7ff;
+}
+[data-theme="dark"] .gestao .card-gestao {
+  background: #2a2a44;
+  border-top-color: #4a8ac0;
+}
+[data-theme="dark"] .gestao .card-gestao h3 {
+  color: #8ab7ff;
+}
+[data-theme="dark"] .manuais .bloco {
+  background: #2a2a44;
+}
+[data-theme="dark"] .manuais .bloco .item-manual {
+  background: #1a1a2e;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+[data-theme="dark"] .manuais .bloco .item-manual:hover {
+  background: #2a2a44;
+}
+[data-theme="dark"] .manuais .bloco .item-manual a {
+  color: #7ab7ff;
+}
+[data-theme="dark"] .manuais .bloco .item-manual a:hover {
+  color: #a8d0ff;
+}
+[data-theme="dark"] .grid-informes .item-informe {
+  background: #2a2a44;
+}
+[data-theme="dark"] .grid-informes .item-informe:hover {
+  background: #3a3a5a;
+}
+[data-theme="dark"] .grid-informes .item-informe a {
+  color: #7ab7ff;
+}
+[data-theme="dark"] .grid-informes .item-informe a:hover {
+  color: #a8d0ff;
+}
+
+[data-theme="dark"] .card-coord,
+[data-theme="dark"] .card-docente,
+[data-theme="dark"] .card-admin,
+[data-theme="dark"] .info-contato {
+  background: #1a1a2e;
+  color: #e0e0e0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  border-top-color: #4a8ac0;
+}
+[data-theme="dark"] .card-coord h4,
+[data-theme="dark"] .card-docente .nome,
+[data-theme="dark"] .card-admin .nome,
+[data-theme="dark"] .info-contato strong {
+  color: #8ab7ff;
+}
+[data-theme="dark"] .card-coord p,
+[data-theme="dark"] .card-docente .bio,
+[data-theme="dark"] .card-admin .cargo,
+[data-theme="dark"] .info-contato p {
+  color: #d0d0e0;
+}
+[data-theme="dark"] .card-docente .titulacao {
+  color: #7ab7ff;
+}
+[data-theme="dark"] .card-docente .lattes {
+  color: #7ab7ff;
+}
+[data-theme="dark"] .card-coord .btn-contato,
+[data-theme="dark"] .card-coord .btn-saiba,
+[data-theme="dark"] .card-admin .btn-contato,
+[data-theme="dark"] .btn-contato-chefia {
+  background: #3a6a9a;
+}
+[data-theme="dark"] .card-coord .btn-contato:hover,
+[data-theme="dark"] .card-coord .btn-saiba:hover,
+[data-theme="dark"] .card-admin .btn-contato:hover,
+[data-theme="dark"] .btn-contato-chefia:hover {
+  background: #2a4a7a;
+}
+
+[data-theme="dark"] .card-processo {
+  background: #2a2a44;
+  border-top-color: #4a8ac0;
+}
+[data-theme="dark"] .card-processo h3 { color: #8ab7ff; }
+[data-theme="dark"] .card-processo p { color: #d0d0e0; }
+[data-theme="dark"] .lista-manuais .item { background: #2a2a44; }
+[data-theme="dark"] .lista-manuais .item:hover { background: #3a3a5a; }
+[data-theme="dark"] .lista-manuais .item a { color: #7ab7ff; }
+[data-theme="dark"] .lista-manuais .item a:hover { color: #a8d0ff; }
+[data-theme="dark"] .descricao { color: #a0a0b0; }
+[data-theme="dark"] .card-processo .btn { background: #3a6a9a; }
+[data-theme="dark"] .card-processo .btn:hover { background: #2a4a7a; }
+
+/* ============================================================
+   RESPONSIVO – SEÇÕES ADICIONAIS
+   ============================================================ */
+@media (max-width: 768px) {
+  .info-cursos { grid-template-columns: 1fr; }
+  .gestao .grid-gestao { grid-template-columns: 1fr; }
+  .manuais .grid-manuais { grid-template-columns: 1fr; }
+  .manuais .bloco .lista-manuais { grid-template-columns: 1fr; }
+  .grid-informes { grid-template-columns: 1fr; }
+  .grid-coordenacao { grid-template-columns: 1fr; }
+  .grid-docentes { grid-template-columns: 1fr; }
+  .grid-administrativo { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .grid-processos { grid-template-columns: 1fr; }
+  .lista-manuais { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   OFERTA_DESIGN.HTML / OFERTA_ARTES.HTML – LEGENDA, GRADE, TEMA ESCURO
+   ============================================================ */
+
+/* ===== LEGENDA ===== */
+.legenda {
+  background: var(--cinza-fundo);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--card-shadow);
+}
+.legenda h3 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--azul-escuro);
+  margin-bottom: 0.5rem;
+}
+.legenda p {
+  font-size: 0.95rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+.legenda table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e0e4e8;
+}
+.legenda table th {
+  background: var(--azul-medio);
+  color: #fff;
+  padding: 0.5rem 0.8rem;
+  text-align: center;
+  font-weight: 500;
+}
+.legenda table td {
+  padding: 0.4rem 0.8rem;
+  text-align: center;
+  border-bottom: 1px solid #e0e4e8;
+}
+.legenda table .turno-label {
+  font-weight: 700;
+  background: var(--cinza-fundo);
+}
+.legenda table tr:last-child td {
+  border-bottom: none;
+}
+
+/* ===== TABELAS DE GRADE ===== */
+.grade-horarios {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.75rem;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e0e4e8;
+  margin: 0.5rem 0 1.2rem;
+}
+.grade-horarios th {
+  background: var(--azul-medio);
+  color: #fff;
+  padding: 0.4rem 0.3rem;
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+.grade-horarios td {
+  padding: 0.3rem 0.2rem;
+  border-bottom: 1px solid #e9ecef;
+  vertical-align: middle;
+  text-align: center;
+}
+.grade-horarios td.vazio {
+  color: #999;
+  font-size: 0.9rem;
+}
+.grade-horarios .bloco-label {
+  font-weight: 700;
+  background: var(--cinza-fundo);
+  color: var(--azul-escuro);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  padding: 0.3rem 0.2rem;
+}
+.grade-horarios .disciplina-cell {
+  background: #fff;
+  border-radius: 6px;
+  padding: 0.2rem 0.3rem;
+  display: block;
+  text-align: left;
+  font-size: 0.7rem;
+  line-height: 1.3;
+  border-left: 3px solid var(--azul-medio);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+.grade-horarios .disciplina-cell .nome {
+  display: block;
+  font-weight: 600;
+  color: #1e2a3a;
+}
+.grade-horarios .disciplina-cell .docente {
+  display: block;
+  font-size: 0.65rem;
+  color: #4a5a6e;
+  font-weight: 400;
+}
+.grade-horarios .disciplina-cell .turma-badge {
+  display: inline-block;
+  background: var(--azul-medio);
+  color: #fff;
+  font-size: 0.6rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: 10px;
+  margin-top: 0.1rem;
+  font-weight: 500;
+}
+.grade-horarios .disciplina-cell .nao-ofertada {
+  color: #d32f2f;
+  font-weight: 600;
+}
+
+.opcao-titulo {
+  display: block;
+  font-weight: 700;
+  color: var(--azul-escuro);
+  font-size: 0.9rem;
+  margin: 0.8rem 0 0.4rem;
+  border-bottom: 2px solid var(--azul-medio);
+  padding-bottom: 0.2rem;
+}
+
+/* ===== RESPONSIVIDADE: wrappers com scroll ===== */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0.5rem 0 1.2rem;
+  border-radius: 12px;
+  border: 1px solid #e0e4e8;
+}
+.table-responsive .grade-horarios {
+  border: none;
+  border-radius: 0;
+  margin: 0;
+}
+.table-responsive .grade-horarios th,
+.table-responsive .grade-horarios td {
+  white-space: nowrap;
+}
+@media (max-width: 600px) {
+  .table-responsive .grade-horarios th,
+  .table-responsive .grade-horarios td {
+    white-space: normal;
+    min-width: 80px;
+  }
+  .grade-horarios .disciplina-cell {
+    font-size: 0.6rem;
+    padding: 0.1rem 0.2rem;
+  }
+  .grade-horarios .disciplina-cell .docente {
+    font-size: 0.5rem;
+  }
+  .grade-horarios .disciplina-cell .turma-badge {
+    font-size: 0.45rem;
+    padding: 0.02rem 0.25rem;
+  }
+}
+
+/* ===== TEMA ESCURO ===== */
+[data-theme="dark"] .legenda {
+  background: #1a1a2e;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+[data-theme="dark"] .legenda h3 {
+  color: #8ab7ff;
+}
+[data-theme="dark"] .legenda p {
+  color: #d0d0e0;
+}
+[data-theme="dark"] .legenda table {
+  border-color: #3a3a5a;
+}
+[data-theme="dark"] .legenda table th {
+  background: #3a6a9a;
+  color: #fff;
+}
+[data-theme="dark"] .legenda table td {
+  border-bottom-color: #3a3a5a;
+  color: #d0d0e0;
+}
+[data-theme="dark"] .legenda table .turno-label {
+  background: #2a2a44;
+  color: #8ab7ff;
+}
+
+[data-theme="dark"] .grade-horarios {
+  border-color: #3a3a5a;
+}
+[data-theme="dark"] .grade-horarios th {
+  background: #3a6a9a;
+  color: #fff;
+}
+[data-theme="dark"] .grade-horarios td {
+  border-bottom-color: #3a3a5a;
+  color: #d0d0e0;
+}
+[data-theme="dark"] .grade-horarios td.vazio {
+  color: #8a8a9a;
+}
+[data-theme="dark"] .grade-horarios .bloco-label {
+  background: #2a2a44;
+  color: #8ab7ff;
+}
+[data-theme="dark"] .grade-horarios .disciplina-cell {
+  background: #2a2a44;
+  border-left-color: #4a8ac0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+[data-theme="dark"] .grade-horarios .disciplina-cell .nome {
+  color: #e0e0e0;
+}
+[data-theme="dark"] .grade-horarios .disciplina-cell .docente {
+  color: #a0a0b0;
+}
+[data-theme="dark"] .grade-horarios .disciplina-cell .turma-badge {
+  background: #3a6a9a;
+  color: #fff;
+}
+[data-theme="dark"] .grade-horarios .disciplina-cell .nao-ofertada {
+  color: #f0a0a0;
+}
+
+[data-theme="dark"] .opcao-titulo {
+  color: #8ab7ff;
+  border-bottom-color: #4a8ac0;
+}
+
+[data-theme="dark"] .table-responsive {
+  border-color: #3a3a5a;
+}
+
+/* OFERTA_ARTES.HTML – RESPONSIVO ADICIONAL */
+@media (max-width: 768px) {
+  .grade-horarios {
+    font-size: 0.65rem;
+  }
+  .grade-horarios .disciplina-cell {
+    font-size: 0.6rem;
+  }
+  .grade-horarios .disciplina-cell .docente {
+    font-size: 0.55rem;
+  }
+  .grade-horarios .disciplina-cell .turma-badge {
+    font-size: 0.5rem;
+  }
+}
+@media (max-width: 480px) {
+  .grade-horarios {
+    font-size: 0.55rem;
+  }
+  .grade-horarios th {
+    font-size: 0.6rem;
+    padding: 0.2rem 0.1rem;
+  }
+  .grade-horarios td {
+    padding: 0.15rem 0.05rem;
+  }
+  .grade-horarios .disciplina-cell {
+    padding: 0.1rem 0.15rem;
+    font-size: 0.5rem;
+  }
+  .grade-horarios .disciplina-cell .docente {
+    font-size: 0.45rem;
+  }
+  .grade-horarios .disciplina-cell .turma-badge {
+    font-size: 0.4rem;
+    padding: 0.02rem 0.25rem;
+  }
+}
+
+/* ============================================================
+   ESPACOS.HTML – BOTÕES AGENDA, ACCORDION, TEMA ESCURO
+   ============================================================ */
+
+.botoes-agenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 0.5rem;
+}
+.botoes-agenda .btn {
+  display: inline-block;
+  background: var(--azul-medio);
+  color: #fff;
+  padding: 0.5rem 1.4rem;
+  border-radius: 40px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: background 0.2s, transform 0.2s;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  flex: 0 1 auto;
+  text-decoration: none;
+}
+.botoes-agenda .btn:hover {
+  background: var(--azul-escuro);
+  transform: translateY(-2px);
+}
+.botoes-agenda .btn-outline {
+  background: transparent;
+  color: var(--azul-medio);
+  border: 2px solid var(--azul-medio);
+}
+.botoes-agenda .btn-outline:hover {
+  background: var(--azul-medio);
+  color: #fff;
+}
+.agendamento-link {
+  margin-top: 1.8rem;
+  text-align: center;
+  font-size: 1.05rem;
+}
+.agendamento-link a {
+  display: inline-block;
+  background: var(--azul-medio);
+  color: #fff;
+  padding: 0.7rem 2.5rem;
+  border-radius: 50px;
+  font-weight: 500;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 77, 164, 0.3);
+  text-decoration: none;
+}
+.agendamento-link a:hover {
+  background: var(--azul-escuro);
+  transform: translateY(-2px);
+}
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.accordion-item {
+  border: 1px solid #e0e4e8;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.accordion-item:hover {
+  border-color: var(--azul-medio);
+}
+.accordion-header {
+  background: var(--cinza-fundo);
+  padding: 0.8rem 1.2rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  color: var(--azul-escuro);
+  transition: background 0.2s;
+  user-select: none;
+}
+.accordion-header:hover {
+  background: #dce1e8;
+}
+.accordion-header .titulo {
+  font-size: 1.05rem;
+}
+.accordion-header .seta {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+.accordion-header .seta.aberto {
+  transform: rotate(180deg);
+}
+.accordion-body {
+  padding: 1.2rem 1.2rem 1.2rem;
+  display: none;
+  background: #fff;
+}
+.accordion-body.aberto {
+  display: block;
+}
+[data-theme="dark"] .accordion-item {
+  border-color: #3a3a5a;
+}
+[data-theme="dark"] .accordion-item:hover {
+  border-color: #4a8ac0;
+}
+[data-theme="dark"] .accordion-header {
+  background: #2a2a44;
+  color: #d0d0e0;
+}
+[data-theme="dark"] .accordion-header:hover {
+  background: #3a3a5a;
+}
+[data-theme="dark"] .accordion-body {
+  background: #1a1a2e;
+  color: #d0d0e0;
+}
+[data-theme="dark"] .botoes-agenda .btn {
+  background: #3a6a9a;
+}
+[data-theme="dark"] .botoes-agenda .btn:hover {
+  background: #2a4a7a;
+}
+[data-theme="dark"] .botoes-agenda .btn-outline {
+  background: transparent;
+  color: #7ab7ff;
+  border-color: #4a8ac0;
+}
+[data-theme="dark"] .botoes-agenda .btn-outline:hover {
+  background: #3a6a9a;
+  color: #fff;
+  border-color: #3a6a9a;
+}
+[data-theme="dark"] .agendamento-link a {
+  background: #3a6a9a;
+}
+[data-theme="dark"] .agendamento-link a:hover {
+  background: #2a4a7a;
+}
+@media (max-width: 768px) {
+  .accordion-header .titulo { font-size: 0.95rem; }
+  .botoes-agenda .btn { font-size: 0.8rem; padding: 0.4rem 1.2rem; }
+  .botoes-agenda { gap: 0.5rem; }
+}
+@media (max-width: 480px) {
+  .accordion-header { padding: 0.6rem 0.8rem; }
+  .accordion-header .titulo { font-size: 0.85rem; }
+  .botoes-agenda .btn { font-size: 0.75rem; padding: 0.3rem 1rem; }
+}
