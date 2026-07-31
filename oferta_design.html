@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>   
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'none'">
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,723 +16,412 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-
-  <style>
-    /* ===== LEGENDA ===== */
-    .legenda {
-      background: var(--cinza-fundo);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-      box-shadow: var(--card-shadow);
-    }
-    .legenda h3 {
-      font-size: 1.3rem;
-      font-weight: 500;
-      color: var(--azul-escuro);
-      margin-bottom: 0.5rem;
-    }
-    .legenda p {
-      font-size: 0.95rem;
-      color: #2c3e50;
-      margin-bottom: 1rem;
-    }
-    .legenda table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.85rem;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid #e0e4e8;
-    }
-    .legenda table th {
-      background: var(--azul-medio);
-      color: #fff;
-      padding: 0.5rem 0.8rem;
-      text-align: center;
-      font-weight: 500;
-    }
-    .legenda table td {
-      padding: 0.4rem 0.8rem;
-      text-align: center;
-      border-bottom: 1px solid #e0e4e8;
-    }
-    .legenda table .turno-label {
-      font-weight: 700;
-      background: var(--cinza-fundo);
-    }
-    .legenda table tr:last-child td {
-      border-bottom: none;
-    }
-
-    /* ===== TABELAS DE GRADE ===== */
-    .grade-horarios {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.75rem;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid #e0e4e8;
-      margin: 0.5rem 0 1.2rem;
-    }
-    .grade-horarios th {
-      background: var(--azul-medio);
-      color: #fff;
-      padding: 0.4rem 0.3rem;
-      text-align: center;
-      font-weight: 500;
-      font-size: 0.8rem;
-    }
-    .grade-horarios td {
-      padding: 0.3rem 0.2rem;
-      border-bottom: 1px solid #e9ecef;
-      vertical-align: middle;
-      text-align: center;
-    }
-    .grade-horarios td.vazio {
-      color: #999;
-      font-size: 0.9rem;
-    }
-    .grade-horarios .bloco-label {
-      font-weight: 700;
-      background: var(--cinza-fundo);
-      color: var(--azul-escuro);
-      font-size: 0.8rem;
-      white-space: nowrap;
-      padding: 0.3rem 0.2rem;
-    }
-    .grade-horarios .disciplina-cell {
-      background: #fff;
-      border-radius: 6px;
-      padding: 0.2rem 0.3rem;
-      display: block;
-      text-align: left;
-      font-size: 0.7rem;
-      line-height: 1.3;
-      border-left: 3px solid var(--azul-medio);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
-    }
-    .grade-horarios .disciplina-cell .nome {
-      display: block;
-      font-weight: 600;
-      color: #1e2a3a;
-    }
-    .grade-horarios .disciplina-cell .docente {
-      display: block;
-      font-size: 0.65rem;
-      color: #4a5a6e;
-      font-weight: 400;
-    }
-    .grade-horarios .disciplina-cell .turma-badge {
-      display: inline-block;
-      background: var(--azul-medio);
-      color: #fff;
-      font-size: 0.6rem;
-      padding: 0.05rem 0.4rem;
-      border-radius: 10px;
-      margin-top: 0.1rem;
-      font-weight: 500;
-    }
-    .grade-horarios .disciplina-cell .nao-ofertada {
-      color: #d32f2f;
-      font-weight: 600;
-    }
-
-    .opcao-titulo {
-      display: block;
-      font-weight: 700;
-      color: var(--azul-escuro);
-      font-size: 0.9rem;
-      margin: 0.8rem 0 0.4rem;
-      border-bottom: 2px solid var(--azul-medio);
-      padding-bottom: 0.2rem;
-    }
-
-    /* ===== RESPONSIVIDADE: wrappers com scroll ===== */
-    .table-responsive {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      margin: 0.5rem 0 1.2rem;
-      border-radius: 12px;
-      border: 1px solid #e0e4e8;
-    }
-    .table-responsive .grade-horarios {
-      border: none;
-      border-radius: 0;
-      margin: 0;
-    }
-    .table-responsive .grade-horarios th,
-    .table-responsive .grade-horarios td {
-      white-space: nowrap;
-    }
-    @media (max-width: 600px) {
-      .table-responsive .grade-horarios th,
-      .table-responsive .grade-horarios td {
-        white-space: normal;
-        min-width: 80px;
-      }
-      .grade-horarios .disciplina-cell {
-        font-size: 0.6rem;
-        padding: 0.1rem 0.2rem;
-      }
-      .grade-horarios .disciplina-cell .docente {
-        font-size: 0.5rem;
-      }
-      .grade-horarios .disciplina-cell .turma-badge {
-        font-size: 0.45rem;
-        padding: 0.02rem 0.25rem;
-      }
-    }
-
-    /* ===== TEMA ESCURO ===== */
-    [data-theme="dark"] .legenda {
-      background: #1a1a2e;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-    }
-    [data-theme="dark"] .legenda h3 {
-      color: #8ab7ff;
-    }
-    [data-theme="dark"] .legenda p {
-      color: #d0d0e0;
-    }
-    [data-theme="dark"] .legenda table {
-      border-color: #3a3a5a;
-    }
-    [data-theme="dark"] .legenda table th {
-      background: #3a6a9a;
-      color: #fff;
-    }
-    [data-theme="dark"] .legenda table td {
-      border-bottom-color: #3a3a5a;
-      color: #d0d0e0;
-    }
-    [data-theme="dark"] .legenda table .turno-label {
-      background: #2a2a44;
-      color: #8ab7ff;
-    }
-
-    [data-theme="dark"] .grade-horarios {
-      border-color: #3a3a5a;
-    }
-    [data-theme="dark"] .grade-horarios th {
-      background: #3a6a9a;
-      color: #fff;
-    }
-    [data-theme="dark"] .grade-horarios td {
-      border-bottom-color: #3a3a5a;
-      color: #d0d0e0;
-    }
-    [data-theme="dark"] .grade-horarios td.vazio {
-      color: #8a8a9a;
-    }
-    [data-theme="dark"] .grade-horarios .bloco-label {
-      background: #2a2a44;
-      color: #8ab7ff;
-    }
-    [data-theme="dark"] .grade-horarios .disciplina-cell {
-      background: #2a2a44;
-      border-left-color: #4a8ac0;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-    }
-    [data-theme="dark"] .grade-horarios .disciplina-cell .nome {
-      color: #e0e0e0;
-    }
-    [data-theme="dark"] .grade-horarios .disciplina-cell .docente {
-      color: #a0a0b0;
-    }
-    [data-theme="dark"] .grade-horarios .disciplina-cell .turma-badge {
-      background: #3a6a9a;
-      color: #fff;
-    }
-    [data-theme="dark"] .grade-horarios .disciplina-cell .nao-ofertada {
-      color: #f0a0a0;
-    }
-
-    [data-theme="dark"] .opcao-titulo {
-      color: #8ab7ff;
-      border-bottom-color: #4a8ac0;
-    }
-
-    [data-theme="dark"] .table-responsive {
-      border-color: #3a3a5a;
-    }
-  </style>
 </head>
 <body>
-
 <main class="main">
   <section class="hero" style="background: linear-gradient(135deg, rgba(39,43,125,0.75), rgba(0,77,164,0.75)), url('assets/imagens/banner_ufs.jpg'); background-size: cover; background-position: center;">
-    <h1>Oferta <strong>2026.2</strong></h1>
-    <p>Artes Visuais – Licenciatura – Grade de horários</p>
-    <a href="#" class="btn-voltar" onclick="voltar(); return false;">Voltar</a>
+    <h1>Design – <strong>Bacharelado</strong></h1>
+    <p>Oferta 2026.2 – Grade de horários – Noturno</p>
+    <a href="javascript:void(0)" class="btn-voltar" onclick="voltar()">Voltar</a>
   </section>
-
   <div class="conteudo">
     <h2>Grade de Horários</h2>
     <p>Relação das disciplinas oferecidas no período letivo 2026.2. Clique em cada período para visualizar os horários.</p>
-
     <!-- ===== LEGENDA ===== -->
     <div class="legenda">
       <h3>Legenda – Códigos de horário</h3>
       <p>
-        Os códigos como <strong>2T1234</strong> indicam dia da semana, turno e bloco horário.
+        Os códigos como <strong>2N1234</strong> indicam dia da semana, turno e bloco horário.
         A duração de cada bloco é de 45 minutos, conforme a
         <a href="https://drive.google.com/file/d/19n4WFqM1TQnAgWc87Col2UWUqCYTVciM/view" target="_blank" rel="noopener noreferrer">Resolução nº 04/2024/CONEPE</a>.
       </p>
-      <div class="table-responsive" style="border: none; margin:0; padding:0;">
-        <table>
-          <thead>
-            <tr>
-              <th>Bloco</th>
-              <th>Manhã (M)</th>
-              <th>Tarde (T)</th>
-              <th>Noite (N)</th>
-            </tr>
-          </thead>
+      <table>
+        <thead>
+          <tr>
+            <th>Bloco</th>
+            <th>Manhã (M)</th>
+            <th>Tarde (T)</th>
+            <th>Noite (N)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="turno-label">1</td>
+            <td>07h30 – 08h15</td>
+            <td>13h30 – 14h15</td>
+            <td>19h00 – 19h45</td>
+          </tr>
+          <tr>
+            <td class="turno-label">2</td>
+            <td>08h15 – 09h00</td>
+            <td>14h15 – 15h00</td>
+            <td>19h45 – 20h30</td>
+          </tr>
+          <tr>
+            <td class="turno-label">3</td>
+            <td>09h15 – 10h00</td>
+            <td>15h15 – 16h00</td>
+            <td>20h45 – 21h30</td>
+          </tr>
+          <tr>
+            <td class="turno-label">4</td>
+            <td>10h00 – 10h45</td>
+            <td>16h00 – 16h45</td>
+            <td>21h30 – 22h15</td>
+          </tr>
+          <tr>
+            <td class="turno-label">5</td>
+            <td>11h00 – 11h45</td>
+            <td>17h00 – 17h45</td>
+            <td>–</td>
+          </tr>
+          <tr>
+            <td class="turno-label">6</td>
+            <td>11h45 – 12h30</td>
+            <td>17h45 – 18h30</td>
+            <td>–</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- ============================================================ -->
+    <!-- 1º PERÍODO -->
+    <!-- ============================================================ -->
+    <div class="periodo">
+      <div class="periodo-header" onclick="togglePeriodo(this)">
+        1º Período <span class="seta">▼</span>
+      </div>
+      <div class="periodo-body">
+        <table class="grade-horarios">
+          <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
           <tbody>
-            <tr>
-              <td class="turno-label">1</td>
-              <td>07h30 – 08h15</td>
-              <td>13h30 – 14h15</td>
-              <td>19h00 – 19h45</td>
+            <tr><td class="bloco-label">N1</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0109 – Sist. de Repres. Bidimensional</span><span class="docente">Profª Fabrícia</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0110 – Sist. de Repres. Tridimensional</span><span class="docente">Profª Maria Clara</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0110 – Sist. de Repres. Tridimensional</span><span class="docente">Profª Maria Clara</span><span class="turma-badge">Turma 2</span></div></td>
             </tr>
-            <tr>
-              <td class="turno-label">2</td>
-              <td>08h15 – 09h00</td>
-              <td>14h15 – 15h00</td>
-              <td>19h45 – 20h30</td>
+            <tr><td class="bloco-label">N2</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0109 – Sist. de Repres. Bidimensional</span><span class="docente">Profª Fabrícia</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0110 – Sist. de Repres. Tridimensional</span><span class="docente">Profª Maria Clara</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0110 – Sist. de Repres. Tridimensional</span><span class="docente">Profª Maria Clara</span><span class="turma-badge">Turma 2</span></div></td>
             </tr>
-            <tr>
-              <td class="turno-label">3</td>
-              <td>09h15 – 10h00</td>
-              <td>15h15 – 16h00</td>
-              <td>20h45 – 21h30</td>
+            <tr><td class="bloco-label">N3</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0109 – Sist. de Repres. Bidimensional</span><span class="docente">Profª Fabrícia</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0110 – Sist. de Repres. Tridimensional</span><span class="docente">Profª Maria Clara</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0110 – Sist. de Repres. Tridimensional</span><span class="docente">Profª Maria Clara</span><span class="turma-badge">Turma 2</span></div></td>
             </tr>
-            <tr>
-              <td class="turno-label">4</td>
-              <td>10h00 – 10h45</td>
-              <td>16h00 – 16h45</td>
-              <td>21h30 – 22h15</td>
+            <tr><td class="bloco-label">N4</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0109 – Sist. de Repres. Bidimensional</span><span class="docente">Profª Fabrícia</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0110 – Sist. de Repres. Tridimensional</span><span class="docente">Profª Maria Clara</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0110 – Sist. de Repres. Tridimensional</span><span class="docente">Profª Maria Clara</span><span class="turma-badge">Turma 2</span></div></td>
             </tr>
-            <tr>
-              <td class="turno-label">5</td>
-              <td>11h00 – 11h45</td>
-              <td>17h00 – 17h45</td>
-              <td>–</td>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- ============================================================ -->
+    <!-- 2º PERÍODO -->
+    <!-- ============================================================ -->
+    <div class="periodo">
+      <div class="periodo-header" onclick="togglePeriodo(this)">
+        2º Período <span class="seta">▼</span>
+      </div>
+      <div class="periodo-body">
+        <!-- Opção 1 -->
+        <span class="opcao-titulo">Opção 1</span>
+        <table class="grade-horarios">
+          <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
+          <tbody>
+            <tr><td class="bloco-label">N1</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0124 – Introdução à Computação Gráfica</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0125 – Desenho Geométrico (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0131 – Cultura e Design</span><span class="docente">Prof. Luís Américo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0113 – História do Design no Brasil</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0112 – História da Arte (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 1</span></div></td>
             </tr>
-            <tr>
-              <td class="turno-label">6</td>
-              <td>11h45 – 12h30</td>
-              <td>17h45 – 18h30</td>
-              <td>–</td>
+            <tr><td class="bloco-label">N2</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0124 – Introdução à Computação Gráfica</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0125 – Desenho Geométrico (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0131 – Cultura e Design</span><span class="docente">Prof. Luís Américo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0113 – História do Design no Brasil</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0112 – História da Arte (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 1</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">N3</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0124 – Introdução à Computação Gráfica</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0125 – Desenho Geométrico (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0131 – Cultura e Design</span><span class="docente">Prof. Luís Américo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0113 – História do Design no Brasil</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0112 – História da Arte (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 1</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">N4</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0124 – Introdução à Computação Gráfica</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0125 – Desenho Geométrico (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0131 – Cultura e Design</span><span class="docente">Prof. Luís Américo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0113 – História do Design no Brasil</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0112 – História da Arte (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 1</span></div></td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Opção 2 -->
+        <span class="opcao-titulo">Opção 2</span>
+        <table class="grade-horarios">
+          <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
+          <tbody>
+            <tr><td class="bloco-label">N1</td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0125 – Desenho Geométrico (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 2</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0124 – Introdução à Computação Gráfica</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 2</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0131 – Cultura e Design</span><span class="docente">Prof. Luís Américo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0113 – História do Design no Brasil</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0112 – História da Arte (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 1</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">N2</td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0125 – Desenho Geométrico (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 2</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0124 – Introdução à Computação Gráfica</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 2</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0131 – Cultura e Design</span><span class="docente">Prof. Luís Américo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0113 – História do Design no Brasil</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0112 – História da Arte (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 1</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">N3</td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0125 – Desenho Geométrico (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 2</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0124 – Introdução à Computação Gráfica</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 2</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0131 – Cultura e Design</span><span class="docente">Prof. Luís Américo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0113 – História do Design no Brasil</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0112 – História da Arte (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 1</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">N4</td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0125 – Desenho Geométrico (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 2</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0124 – Introdução à Computação Gráfica</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 2</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0131 – Cultura e Design</span><span class="docente">Prof. Luís Américo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0113 – História do Design no Brasil</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0112 – História da Arte (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 1</span></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- ============================================================ -->
+    <!-- 4º PERÍODO -->
+    <!-- ============================================================ -->
+    <div class="periodo">
+      <div class="periodo-header" onclick="togglePeriodo(this)">
+        4º Período <span class="seta">▼</span>
+      </div>
+      <div class="periodo-body">
+        <!-- Opção 1 -->
+        <span class="opcao-titulo">Opção 1</span>
+        <table class="grade-horarios">
+          <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
+          <tbody>
+            <tr><td class="bloco-label">N1</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0128 – Diagramação I</span><span class="docente">Profª Germana</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">OPTATIVA / ELETIVA</span><span class="docente">–</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0121 – Tipografia Digital</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0132 – Experimentação Gráfica</span><span class="docente">Profª Germana</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0114 – Arte e Tecnologia (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 1</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">N2</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0128 – Diagramação I</span><span class="docente">Profª Germana</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">OPTATIVA / ELETIVA</span><span class="docente">–</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0121 – Tipografia Digital</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0132 – Experimentação Gráfica</span><span class="docente">Profª Germana</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0114 – Arte e Tecnologia (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 1</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">N3</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0128 – Diagramação I</span><span class="docente">Profª Germana</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">OPTATIVA / ELETIVA</span><span class="docente">–</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0121 – Tipografia Digital</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0132 – Experimentação Gráfica</span><span class="docente">Profª Germana</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0114 – Arte e Tecnologia (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 1</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">N4</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0128 – Diagramação I</span><span class="docente">Profª Germana</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">OPTATIVA / ELETIVA</span><span class="docente">–</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0121 – Tipografia Digital</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0132 – Experimentação Gráfica</span><span class="docente">Profª Germana</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0114 – Arte e Tecnologia (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 1</span></div></td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Opção 2 -->
+        <span class="opcao-titulo">Opção 2</span>
+        <table class="grade-horarios">
+          <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
+          <tbody>
+            <tr><td class="bloco-label">N1</td>
+              <td><div class="disciplina-cell"><span class="nome">OPTATIVA / ELETIVA</span><span class="docente">–</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0128 – Diagramação I</span><span class="docente">Profª Germana</span><span class="turma-badge">Turma 2</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0121 – Tipografia Digital</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0132 – Experimentação Gráfica</span><span class="docente">Profª Germana</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0114 – Arte e Tecnologia (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 1</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">N2</td>
+              <td><div class="disciplina-cell"><span class="nome">OPTATIVA / ELETIVA</span><span class="docente">–</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0128 – Diagramação I</span><span class="docente">Profª Germana</span><span class="turma-badge">Turma 2</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0121 – Tipografia Digital</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0132 – Experimentação Gráfica</span><span class="docente">Profª Germana</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0114 – Arte e Tecnologia (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 1</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">N3</td>
+              <td><div class="disciplina-cell"><span class="nome">OPTATIVA / ELETIVA</span><span class="docente">–</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0128 – Diagramação I</span><span class="docente">Profª Germana</span><span class="turma-badge">Turma 2</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0121 – Tipografia Digital</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0132 – Experimentação Gráfica</span><span class="docente">Profª Germana</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0114 – Arte e Tecnologia (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 1</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">N4</td>
+              <td><div class="disciplina-cell"><span class="nome">OPTATIVA / ELETIVA</span><span class="docente">–</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0128 – Diagramação I</span><span class="docente">Profª Germana</span><span class="turma-badge">Turma 2</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0121 – Tipografia Digital</span><span class="docente">Prof. Vicent Bernardo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0132 – Experimentação Gráfica</span><span class="docente">Profª Germana</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome nao-ofertada">COMSO0114 – Arte e Tecnologia (não será ofertada)</span><span class="docente">Sem professor</span><span class="turma-badge">Turma 1</span></div></td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- ============= 2º PERÍODO ============= -->
-    <div class="periodo">
-      <div class="periodo-header" onclick="togglePeriodo(this)">
-        2º Período <span class="seta">▼</span>
-      </div>
-      <div class="periodo-body">
-
-        <!-- Opção 1 -->
-        <span class="opcao-titulo">Opção 1</span>
-        <div class="table-responsive">
-          <table class="grade-horarios">
-            <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
-            <tbody>
-              <tr><td class="bloco-label">T1</td>
-                <td><div class="disciplina-cell"><span class="nome">PSIC0089 – INTRODUÇÃO À PSICOLOGIA DO DESENVOLVIMENTO</span><span class="docente">KLEBER JEAN MATOS LOPES</span><span class="turma-badge">Turma 7</span></div></td>
-                <td class="vazio">–</td>
-                <td><div class="disciplina-cell"><span class="nome">PSIC0089 – INTRODUÇÃO À PSICOLOGIA DO DESENVOLVIMENTO</span><span class="docente">KLEBER JEAN MATOS LOPES</span><span class="turma-badge">Turma 7</span></div></td>
-                <td class="vazio">–</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0053 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS I</span><span class="docente">LUIS MULLER POSCA</span><span class="turma-badge">Turma 2</span></div></td>
-              </tr>
-              <tr><td class="bloco-label">T2</td>
-                <td><div class="disciplina-cell"><span class="nome">PSIC0089 – INTRODUÇÃO À PSICOLOGIA DO DESENVOLVIMENTO</span><span class="docente">KLEBER JEAN MATOS LOPES</span><span class="turma-badge">Turma 7</span></div></td>
-                <td class="vazio">–</td>
-                <td><div class="disciplina-cell"><span class="nome">PSIC0089 – INTRODUÇÃO À PSICOLOGIA DO DESENVOLVIMENTO</span><span class="docente">KLEBER JEAN MATOS LOPES</span><span class="turma-badge">Turma 7</span></div></td>
-                <td class="vazio">–</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0053 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS I</span><span class="docente">LUIS MULLER POSCA</span><span class="turma-badge">Turma 2</span></div></td>
-              </tr>
-              <tr><td class="bloco-label">T3</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0054 – FUNDAMENTOS DA ARTE II</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0051 – LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS II</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0052 – HISTÓRIA DAS ARTES VISUAIS II</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">EDU0108 – ESTRUTURA E FUNCIONAMENTO DA EDUCAÇÃO BÁSICA</span><span class="docente">ANAMARIA GONCALVES BUENO DE FREITAS</span><span class="turma-badge">Turma 7</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0053 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS I</span><span class="docente">LUIS MULLER POSCA</span><span class="turma-badge">Turma 2</span></div></td>
-              </tr>
-              <tr><td class="bloco-label">T4</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0054 – FUNDAMENTOS DA ARTE II</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0051 – LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS II</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0052 – HISTÓRIA DAS ARTES VISUAIS II</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">EDU0108 – ESTRUTURA E FUNCIONAMENTO DA EDUCAÇÃO BÁSICA</span><span class="docente">ANAMARIA GONCALVES BUENO DE FREITAS</span><span class="turma-badge">Turma 7</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0053 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS I</span><span class="docente">LUIS MULLER POSCA</span><span class="turma-badge">Turma 2</span></div></td>
-              </tr>
-              <tr><td class="bloco-label">T5</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0054 – FUNDAMENTOS DA ARTE II</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0051 – LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS II</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0052 – HISTÓRIA DAS ARTES VISUAIS II</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">EDU0108 – ESTRUTURA E FUNCIONAMENTO DA EDUCAÇÃO BÁSICA</span><span class="docente">ANAMARIA GONCALVES BUENO DE FREITAS</span><span class="turma-badge">Turma 7</span></div></td>
-                <td class="vazio">–</td>
-              </tr>
-              <tr><td class="bloco-label">T6</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0054 – FUNDAMENTOS DA ARTE II</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0051 – LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS II</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0052 – HISTÓRIA DAS ARTES VISUAIS II</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">EDU0108 – ESTRUTURA E FUNCIONAMENTO DA EDUCAÇÃO BÁSICA</span><span class="docente">ANAMARIA GONCALVES BUENO DE FREITAS</span><span class="turma-badge">Turma 7</span></div></td>
-                <td class="vazio">–</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Opção 2 -->
-        <span class="opcao-titulo">Opção 2</span>
-        <div class="table-responsive">
-          <table class="grade-horarios">
-            <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
-            <tbody>
-              <tr><td class="bloco-label">T1</td>
-                <td><div class="disciplina-cell"><span class="nome">PSIC0089 – INTRODUÇÃO À PSICOLOGIA DO DESENVOLVIMENTO</span><span class="docente">KLEBER JEAN MATOS LOPES</span><span class="turma-badge">Turma 7</span></div></td>
-                <td class="vazio">–</td>
-                <td><div class="disciplina-cell"><span class="nome">PSIC0089 – INTRODUÇÃO À PSICOLOGIA DO DESENVOLVIMENTO</span><span class="docente">KLEBER JEAN MATOS LOPES</span><span class="turma-badge">Turma 7</span></div></td>
-                <td class="vazio">–</td>
-                <td class="vazio">–</td>
-              </tr>
-              <tr><td class="bloco-label">T2</td>
-                <td><div class="disciplina-cell"><span class="nome">PSIC0089 – INTRODUÇÃO À PSICOLOGIA DO DESENVOLVIMENTO</span><span class="docente">KLEBER JEAN MATOS LOPES</span><span class="turma-badge">Turma 7</span></div></td>
-                <td class="vazio">–</td>
-                <td><div class="disciplina-cell"><span class="nome">PSIC0089 – INTRODUÇÃO À PSICOLOGIA DO DESENVOLVIMENTO</span><span class="docente">KLEBER JEAN MATOS LOPES</span><span class="turma-badge">Turma 7</span></div></td>
-                <td class="vazio">–</td>
-                <td class="vazio">–</td>
-              </tr>
-              <tr><td class="bloco-label">T3</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0054 – FUNDAMENTOS DA ARTE II</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0053 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS I</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0052 – HISTÓRIA DAS ARTES VISUAIS II</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">EDU0108 – ESTRUTURA E FUNCIONAMENTO DA EDUCAÇÃO BÁSICA</span><span class="docente">ANAMARIA GONCALVES BUENO DE FREITAS</span><span class="turma-badge">Turma 7</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0051 – LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS II</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 2</span></div></td>
-              </tr>
-              <tr><td class="bloco-label">T4</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0054 – FUNDAMENTOS DA ARTE II</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0053 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS I</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0052 – HISTÓRIA DAS ARTES VISUAIS II</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">EDU0108 – ESTRUTURA E FUNCIONAMENTO DA EDUCAÇÃO BÁSICA</span><span class="docente">ANAMARIA GONCALVES BUENO DE FREITAS</span><span class="turma-badge">Turma 7</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0051 – LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS II</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 2</span></div></td>
-              </tr>
-              <tr><td class="bloco-label">T5</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0054 – FUNDAMENTOS DA ARTE II</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0053 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS I</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0052 – HISTÓRIA DAS ARTES VISUAIS II</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">EDU0108 – ESTRUTURA E FUNCIONAMENTO DA EDUCAÇÃO BÁSICA</span><span class="docente">ANAMARIA GONCALVES BUENO DE FREITAS</span><span class="turma-badge">Turma 7</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0051 – LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS II</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 2</span></div></td>
-              </tr>
-              <tr><td class="bloco-label">T6</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0054 – FUNDAMENTOS DA ARTE II</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0053 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS I</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0052 – HISTÓRIA DAS ARTES VISUAIS II</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">EDU0108 – ESTRUTURA E FUNCIONAMENTO DA EDUCAÇÃO BÁSICA</span><span class="docente">ANAMARIA GONCALVES BUENO DE FREITAS</span><span class="turma-badge">Turma 7</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0051 – LAB ENSINO FORMAS EXPRESSIVAS BIDIMENSIONAIS II</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 2</span></div></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-      </div><!-- /periodo-body -->
-    </div><!-- /periodo -->
-
-    <!-- ============= 4º PERÍODO ============= -->
-    <div class="periodo">
-      <div class="periodo-header" onclick="togglePeriodo(this)">
-        4º Período <span class="seta">▼</span>
-      </div>
-      <div class="periodo-body">
-
-        <!-- Opção 1 -->
-        <span class="opcao-titulo">Opção 1</span>
-        <div class="table-responsive">
-          <table class="grade-horarios">
-            <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
-            <tbody>
-              <tr><td class="bloco-label">T1</td>
-                <td class="vazio">–</td>
-                <td><div class="disciplina-cell"><span class="nome">EDU0026 – DIDATICA</span><span class="docente">PAULO HEIMAR SOUTO</span><span class="turma-badge">Turma 3</span></div></td>
-                <td class="vazio">–</td>
-                <td class="vazio">–</td>
-                <td class="vazio">–</td>
-              </tr>
-              <tr><td class="bloco-label">T2</td>
-                <td class="vazio">–</td>
-                <td><div class="disciplina-cell"><span class="nome">EDU0026 – DIDATICA</span><span class="docente">PAULO HEIMAR SOUTO</span><span class="turma-badge">Turma 3</span></div></td>
-                <td class="vazio">–</td>
-                <td class="vazio">–</td>
-                <td class="vazio">–</td>
-              </tr>
-              <tr><td class="bloco-label">T3</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0058 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS III</span><span class="docente">LUIS MULLER POSCA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">EDU0026 – DIDATICA</span><span class="docente">PAULO HEIMAR SOUTO</span><span class="turma-badge">Turma 3</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0062 – LABORATORIO ENSINO FORMAS EXPRESSIVAS BIDIMEN IV</span><span class="docente">ADRIANA DANTAS NOGUEIRA</span><span class="turma-badge">Turma 2</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0059 – HISTÓRIA DAS ARTES VISUAIS IV</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td class="vazio">–</td>
-              </tr>
-              <tr><td class="bloco-label">T4</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0058 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS III</span><span class="docente">LUIS MULLER POSCA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0060 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL I</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0062 – LABORATORIO ENSINO FORMAS EXPRESSIVAS BIDIMEN IV</span><span class="docente">ADRIANA DANTAS NOGUEIRA</span><span class="turma-badge">Turma 2</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0059 – HISTÓRIA DAS ARTES VISUAIS IV</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td class="vazio">–</td>
-              </tr>
-              <tr><td class="bloco-label">T5</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0060 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL I</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0061 – ESTÁGIO SUPERVISIONADO P ENSINO ARTES VISUAIS I</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 1</span></div></td>
-                <td class="vazio">–</td>
-                <td class="vazio">–</td>
-                <td class="vazio">–</td>
-              </tr>
-              <tr><td class="bloco-label">T6</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0060 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL I</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0061 – ESTÁGIO SUPERVISIONADO P ENSINO ARTES VISUAIS I</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 1</span></div></td>
-                <td class="vazio">–</td>
-                <td class="vazio">–</td>
-                <td class="vazio">–</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Opção 2 -->
-        <span class="opcao-titulo">Opção 2</span>
-        <div class="table-responsive">
-          <table class="grade-horarios">
-            <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
-            <tbody>
-              <tr><td class="bloco-label">T1</td>
-                <td class="vazio">–</td>
-                <td><div class="disciplina-cell"><span class="nome">EDU0026 – DIDATICA</span><span class="docente">PAULO HEIMAR SOUTO</span><span class="turma-badge">Turma 3</span></div></td>
-                <td class="vazio">–</td>
-                <td class="vazio">–</td>
-                <td class="vazio">–</td>
-              </tr>
-              <tr><td class="bloco-label">T2</td>
-                <td class="vazio">–</td>
-                <td><div class="disciplina-cell"><span class="nome">EDU0026 – DIDATICA</span><span class="docente">PAULO HEIMAR SOUTO</span><span class="turma-badge">Turma 3</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0062 – LABORATORIO ENSINO FORMAS EXPRESSIVAS BIDIMEN IV</span><span class="docente">ADRIANA DANTAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0062 – LABORATORIO ENSINO FORMAS EXPRESSIVAS BIDIMEN IV</span><span class="docente">ADRIANA DANTAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td class="vazio">–</td>
-              </tr>
-              <tr><td class="bloco-label">T3</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0058 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS III</span><span class="docente">LUIS MULLER POSCA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">EDU0026 – DIDATICA</span><span class="docente">PAULO HEIMAR SOUTO</span><span class="turma-badge">Turma 3</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0062 – LABORATORIO ENSINO FORMAS EXPRESSIVAS BIDIMEN IV</span><span class="docente">ADRIANA DANTAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0059 – HISTÓRIA DAS ARTES VISUAIS IV</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td class="vazio">–</td>
-              </tr>
-              <tr><td class="bloco-label">T4</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0058 – LAB ENSINO FORMAS EXPRESSIVAS TRIDIMENSIONAIS III</span><span class="docente">LUIS MULLER POSCA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0060 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL I</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0062 – LABORATORIO ENSINO FORMAS EXPRESSIVAS BIDIMEN IV</span><span class="docente">ADRIANA DANTAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0059 – HISTÓRIA DAS ARTES VISUAIS IV</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td class="vazio">–</td>
-              </tr>
-              <tr><td class="bloco-label">T5</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0060 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL I</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0061 – ESTÁGIO SUPERVISIONADO P ENSINO ARTES VISUAIS I</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 1</span></div></td>
-                <td class="vazio">–</td>
-                <td class="vazio">–</td>
-                <td class="vazio">–</td>
-              </tr>
-              <tr><td class="bloco-label">T6</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0060 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL I</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0061 – ESTÁGIO SUPERVISIONADO P ENSINO ARTES VISUAIS I</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 1</span></div></td>
-                <td class="vazio">–</td>
-                <td class="vazio">–</td>
-                <td class="vazio">–</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ============= 6º PERÍODO ============= -->
+    <!-- ============================================================ -->
+    <!-- 6º PERÍODO -->
+    <!-- ============================================================ -->
     <div class="periodo">
       <div class="periodo-header" onclick="togglePeriodo(this)">
         6º Período <span class="seta">▼</span>
       </div>
       <div class="periodo-body">
-
         <!-- Opção 1 -->
         <span class="opcao-titulo">Opção 1</span>
-        <div class="table-responsive">
-          <table class="grade-horarios">
-            <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
-            <tbody>
-              <tr><td class="bloco-label">T1</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0071 – ARTES VISUAIS E NOVAS TECNOLOGIAS</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0070 – FUNDAMENTOS ENSINO DE ARTES VISUAIS NO BRASIL II</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">EDU0104 – FUNDAMENTOS DA EDUCAÇÃO INCLUSIVA</span><span class="docente">MARGARIDA MARIA TELES</span><span class="turma-badge">Turma 3</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0068 – LABORATORIO ENSINO FORMAS EXPRES BIDIMENSIONAIS VI</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td class="vazio">–</td>
-              </tr>
-              <tr><td class="bloco-label">T2</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0071 – ARTES VISUAIS E NOVAS TECNOLOGIAS</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0070 – FUNDAMENTOS ENSINO DE ARTES VISUAIS NO BRASIL II</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">EDU0104 – FUNDAMENTOS DA EDUCAÇÃO INCLUSIVA</span><span class="docente">MARGARIDA MARIA TELES</span><span class="turma-badge">Turma 3</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0068 – LABORATORIO ENSINO FORMAS EXPRES BIDIMENSIONAIS VI</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td class="vazio">–</td>
-              </tr>
-              <tr><td class="bloco-label">T3</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0071 – ARTES VISUAIS E NOVAS TECNOLOGIAS</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0070 – FUNDAMENTOS ENSINO DE ARTES VISUAIS NO BRASIL II</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">EDU0104 – FUNDAMENTOS DA EDUCAÇÃO INCLUSIVA</span><span class="docente">MARGARIDA MARIA TELES</span><span class="turma-badge">Turma 3</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0068 – LABORATORIO ENSINO FORMAS EXPRES BIDIMENSIONAIS VI</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td class="vazio">–</td>
-              </tr>
-              <tr><td class="bloco-label">T4</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0071 – ARTES VISUAIS E NOVAS TECNOLOGIAS</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0070 – FUNDAMENTOS ENSINO DE ARTES VISUAIS NO BRASIL II</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">EDU0104 – FUNDAMENTOS DA EDUCAÇÃO INCLUSIVA</span><span class="docente">MARGARIDA MARIA TELES</span><span class="turma-badge">Turma 3</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0068 – LABORATORIO ENSINO FORMAS EXPRES BIDIMENSIONAIS VI</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td class="vazio">–</td>
-              </tr>
-              <tr><td class="bloco-label">T5</td>
-                <td class="vazio">–</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0069 – ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS III</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0067 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL III</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0067 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL III</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
-                <td class="vazio">–</td>
-              </tr>
-              <tr><td class="bloco-label">T6</td>
-                <td class="vazio">–</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0069 – ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS III</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0067 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL III</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0067 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL III</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
-                <td class="vazio">–</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
+        <table class="grade-horarios">
+          <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
+          <tbody>
+            <tr><td class="bloco-label">N1</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0116 – Gestão em Design</span><span class="docente">Profª Isadora</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0123 – Metodologia do Projeto em Design</span><span class="docente">Profª Isadora</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0129 – Interfaces Digitais</span><span class="docente">Prof. Michell</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0118 – Antropologia Visual</span><span class="docente">Prof. Luís Américo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0134 – Introdução à Fotografia</span><span class="docente">Profa Fabrícia</span><span class="turma-badge">Turma 2</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">N2</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0116 – Gestão em Design</span><span class="docente">Profª Isadora</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0123 – Metodologia do Projeto em Design</span><span class="docente">Profª Isadora</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0129 – Interfaces Digitais</span><span class="docente">Prof. Michell</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0118 – Antropologia Visual</span><span class="docente">Prof. Luís Américo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0134 – Introdução à Fotografia</span><span class="docente">Profa Fabrícia</span><span class="turma-badge">Turma 2</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">N3</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0116 – Gestão em Design</span><span class="docente">Profª Isadora</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0123 – Metodologia do Projeto em Design</span><span class="docente">Profª Isadora</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0129 – Interfaces Digitais</span><span class="docente">Prof. Michell</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0118 – Antropologia Visual</span><span class="docente">Prof. Luís Américo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0134 – Introdução à Fotografia</span><span class="docente">Profa Fabrícia</span><span class="turma-badge">Turma 2</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">N4</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0116 – Gestão em Design</span><span class="docente">Profª Isadora</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0123 – Metodologia do Projeto em Design</span><span class="docente">Profª Isadora</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0129 – Interfaces Digitais</span><span class="docente">Prof. Michell</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0118 – Antropologia Visual</span><span class="docente">Prof. Luís Américo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0134 – Introdução à Fotografia</span><span class="docente">Profa Fabrícia</span><span class="turma-badge">Turma 2</span></div></td>
+            </tr>
+          </tbody>
+        </table>
         <!-- Opção 2 -->
         <span class="opcao-titulo">Opção 2</span>
-        <div class="table-responsive">
-          <table class="grade-horarios">
-            <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
-            <tbody>
-              <tr><td class="bloco-label">T1</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0071 – ARTES VISUAIS E NOVAS TECNOLOGIAS</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0070 – FUNDAMENTOS ENSINO DE ARTES VISUAIS NO BRASIL II</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">EDU0104 – FUNDAMENTOS DA EDUCAÇÃO INCLUSIVA</span><span class="docente">MARGARIDA MARIA TELES</span><span class="turma-badge">Turma 3</span></div></td>
-                <td class="vazio">–</td>
-                <td class="vazio">–</td>
-              </tr>
-              <tr><td class="bloco-label">T2</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0071 – ARTES VISUAIS E NOVAS TECNOLOGIAS</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0070 – FUNDAMENTOS ENSINO DE ARTES VISUAIS NO BRASIL II</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">EDU0104 – FUNDAMENTOS DA EDUCAÇÃO INCLUSIVA</span><span class="docente">MARGARIDA MARIA TELES</span><span class="turma-badge">Turma 3</span></div></td>
-                <td class="vazio">–</td>
-                <td class="vazio">–</td>
-              </tr>
-              <tr><td class="bloco-label">T3</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0071 – ARTES VISUAIS E NOVAS TECNOLOGIAS</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0070 – FUNDAMENTOS ENSINO DE ARTES VISUAIS NO BRASIL II</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">EDU0104 – FUNDAMENTOS DA EDUCAÇÃO INCLUSIVA</span><span class="docente">MARGARIDA MARIA TELES</span><span class="turma-badge">Turma 3</span></div></td>
-                <td class="vazio">–</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0068 – LABORATORIO ENSINO FORMAS EXPRES BIDIMENSIONAIS VI</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 2</span></div></td>
-              </tr>
-              <tr><td class="bloco-label">T4</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0071 – ARTES VISUAIS E NOVAS TECNOLOGIAS</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0070 – FUNDAMENTOS ENSINO DE ARTES VISUAIS NO BRASIL II</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">EDU0104 – FUNDAMENTOS DA EDUCAÇÃO INCLUSIVA</span><span class="docente">MARGARIDA MARIA TELES</span><span class="turma-badge">Turma 3</span></div></td>
-                <td class="vazio">–</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0068 – LABORATORIO ENSINO FORMAS EXPRES BIDIMENSIONAIS VI</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 2</span></div></td>
-              </tr>
-              <tr><td class="bloco-label">T5</td>
-                <td class="vazio">–</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0069 – ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS III</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0067 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL III</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0067 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL III</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0068 – LABORATORIO ENSINO FORMAS EXPRES BIDIMENSIONAIS VI</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 2</span></div></td>
-              </tr>
-              <tr><td class="bloco-label">T6</td>
-                <td class="vazio">–</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0069 – ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS III</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0067 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL III</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0067 – HISTÓRIA DAS ARTES VISUAIS NO BRASIL III</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0068 – LABORATORIO ENSINO FORMAS EXPRES BIDIMENSIONAIS VI</span><span class="docente">MARIA CLARA GIACOMET</span><span class="turma-badge">Turma 2</span></div></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
+        <table class="grade-horarios">
+          <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
+          <tbody>
+            <tr><td class="bloco-label">N1</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0116 – Gestão em Design</span><span class="docente">Profª Isadora</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0123 – Metodologia do Projeto em Design</span><span class="docente">Profª Isadora</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0134 – Introdução à Fotografia</span><span class="docente">Profa Fabrícia</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0118 – Antropologia Visual</span><span class="docente">Prof. Luís Américo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0129 – Interfaces Digitais</span><span class="docente">Prof. Michell</span><span class="turma-badge">Turma 2</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">N2</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0116 – Gestão em Design</span><span class="docente">Profª Isadora</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0123 – Metodologia do Projeto em Design</span><span class="docente">Profª Isadora</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0134 – Introdução à Fotografia</span><span class="docente">Profa Fabrícia</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0118 – Antropologia Visual</span><span class="docente">Prof. Luís Américo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0129 – Interfaces Digitais</span><span class="docente">Prof. Michell</span><span class="turma-badge">Turma 2</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">N3</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0116 – Gestão em Design</span><span class="docente">Profª Isadora</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0123 – Metodologia do Projeto em Design</span><span class="docente">Profª Isadora</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0134 – Introdução à Fotografia</span><span class="docente">Profa Fabrícia</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0118 – Antropologia Visual</span><span class="docente">Prof. Luís Américo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0129 – Interfaces Digitais</span><span class="docente">Prof. Michell</span><span class="turma-badge">Turma 2</span></div></td>
+            </tr>
+            <tr><td class="bloco-label">N4</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0116 – Gestão em Design</span><span class="docente">Profª Isadora</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0123 – Metodologia do Projeto em Design</span><span class="docente">Profª Isadora</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0134 – Introdução à Fotografia</span><span class="docente">Profa Fabrícia</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0118 – Antropologia Visual</span><span class="docente">Prof. Luís Américo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0129 – Interfaces Digitais</span><span class="docente">Prof. Michell</span><span class="turma-badge">Turma 2</span></div></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-
-    <!-- ============= 8º PERÍODO ============= -->
+    <!-- ============================================================ -->
+    <!-- 7º PERÍODO -->
+    <!-- ============================================================ -->
+    <div class="periodo">
+      <div class="periodo-header" onclick="togglePeriodo(this)">
+        7º Período <span class="seta">▼</span>
+      </div>
+      <div class="periodo-body">
+        <table class="grade-horarios">
+          <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
+          <tbody>
+            <tr><td class="bloco-label">N1</td><td class="vazio">–</td><td class="vazio">–</td><td class="vazio">–</td><td class="vazio">–</td><td class="vazio">–</td></tr>
+            <tr><td class="bloco-label">N2</td><td class="vazio">–</td><td class="vazio">–</td><td class="vazio">–</td><td class="vazio">–</td><td class="vazio">–</td></tr>
+            <tr><td class="bloco-label">N3</td><td class="vazio">–</td><td class="vazio">–</td><td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0138 – Estágio Supervisionado I</span><span class="docente">Prof. Michell</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">N4</td><td class="vazio">–</td><td class="vazio">–</td><td class="vazio">–</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0138 – Estágio Supervisionado I</span><span class="docente">Prof. Michell</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- ============================================================ -->
+    <!-- 8º PERÍODO -->
+    <!-- ============================================================ -->
     <div class="periodo">
       <div class="periodo-header" onclick="togglePeriodo(this)">
         8º Período <span class="seta">▼</span>
       </div>
       <div class="periodo-body">
-        <div class="table-responsive">
-          <table class="grade-horarios">
-            <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
-            <tbody>
-              <tr><td class="bloco-label">T1</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0099 – TÓPICOS ESPECIAIS EM ARTESANATO BRASILEIRO</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0096 – TÓPICOS EM ARTE AFRO-BRASILEIRA</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td class="vazio">–</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0094 – TÓPICOS ESPECIAIS EM HISTÓRIA DA ARTE CONTEMPORÂNEA I</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td class="vazio">–</td>
-              </tr>
-              <tr><td class="bloco-label">T2</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0099 – TÓPICOS ESPECIAIS EM ARTESANATO BRASILEIRO</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0096 – TÓPICOS EM ARTE AFRO-BRASILEIRA</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td class="vazio">–</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0094 – TÓPICOS ESPECIAIS EM HISTÓRIA DA ARTE CONTEMPORÂNEA I</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td class="vazio">–</td>
-              </tr>
-              <tr><td class="bloco-label">T3</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0099 – TÓPICOS ESPECIAIS EM ARTESANATO BRASILEIRO</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0096 – TÓPICOS EM ARTE AFRO-BRASILEIRA</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0104 – TÓPICOS ESPECIAIS: ARTE, CULTURA E ESPAÇO PÚBLICO</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0094 – TÓPICOS ESPECIAIS EM HISTÓRIA DA ARTE CONTEMPORÂNEA I</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0093 – TÓPICOS ESPECIAIS EM ESTÉTICA E POLÍTICA</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
-              </tr>
-              <tr><td class="bloco-label">T4</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0099 – TÓPICOS ESPECIAIS EM ARTESANATO BRASILEIRO</span><span class="docente">LUIZ FERNANDO CAJUEIRO DOS SANTOS</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0096 – TÓPICOS EM ARTE AFRO-BRASILEIRA</span><span class="docente">YASMIN DE FREITAS NOGUEIRA</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0104 – TÓPICOS ESPECIAIS: ARTE, CULTURA E ESPAÇO PÚBLICO</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0094 – TÓPICOS ESPECIAIS EM HISTÓRIA DA ARTE CONTEMPORÂNEA I</span><span class="docente">WELLINGTON CESARIO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0093 – TÓPICOS ESPECIAIS EM ESTÉTICA E POLÍTICA</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
-              </tr>
-              <tr><td class="bloco-label">T5</td>
-                <td class="vazio">–</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0077 – ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS V</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0104 – TÓPICOS ESPECIAIS: ARTE, CULTURA E ESPAÇO PÚBLICO</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 1</span></div></td>
-                <td class="vazio">–</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0093 – TÓPICOS ESPECIAIS EM ESTÉTICA E POLÍTICA</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
-              </tr>
-              <tr><td class="bloco-label">T6</td>
-                <td class="vazio">–</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0077 – ESTÁGIO SUPERVISIONADO ENSINO ARTES VISUAIS V</span><span class="docente">MARJORIE GARRIDO SEVERO</span><span class="turma-badge">Turma 1</span></div></td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0104 – TÓPICOS ESPECIAIS: ARTE, CULTURA E ESPAÇO PÚBLICO</span><span class="docente">ROSANE BEZERRA SOARES</span><span class="turma-badge">Turma 1</span></div></td>
-                <td class="vazio">–</td>
-                <td><div class="disciplina-cell"><span class="nome">DESIG0093 – TÓPICOS ESPECIAIS EM ESTÉTICA E POLÍTICA</span><span class="docente">VLADIMIR DE OLIVA MOTA</span><span class="turma-badge">Turma 1</span></div></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <table class="grade-horarios">
+          <thead><tr><th>Bloco</th><th>Segunda (2)</th><th>Terça (3)</th><th>Quarta (4)</th><th>Quinta (5)</th><th>Sexta (6)</th></tr></thead>
+          <tbody>
+            <tr><td class="bloco-label">N1</td><td class="vazio">–</td><td class="vazio">–</td><td class="vazio">–</td><td class="vazio">–</td><td class="vazio">–</td></tr>
+            <tr><td class="bloco-label">N2</td><td class="vazio">–</td><td class="vazio">–</td><td class="vazio">–</td><td class="vazio">–</td><td class="vazio">–</td></tr>
+            <tr><td class="bloco-label">N3</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0139 – Estágio Supervisionado II</span><span class="docente">Prof. Michell</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0137 – TCC II</span><span class="docente">Prof. Luís Américo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td><td class="vazio">–</td><td class="vazio">–</td>
+            </tr>
+            <tr><td class="bloco-label">N4</td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0139 – Estágio Supervisionado II</span><span class="docente">Prof. Michell</span><span class="turma-badge">Turma 1</span></div></td>
+              <td><div class="disciplina-cell"><span class="nome">COMSO0137 – TCC II</span><span class="docente">Prof. Luís Américo</span><span class="turma-badge">Turma 1</span></div></td>
+              <td class="vazio">–</td><td class="vazio">–</td><td class="vazio">–</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
 </main>
-
 <!-- ===== RODAPÉ ===== -->
 <footer class="footer">
   <div class="grid">
@@ -742,7 +431,7 @@
         <li><a href="mailto:davd@academico.ufs.br">davd@academico.ufs.br</a></li>
         <li><a href="tel:+557931946925">(79) 3194-6925</a></li>
         <li class="footer-horario">Segunda a sexta</li>
-        <li class="footer-horario">08h00 às 21h30</li>
+        <li class="footer-horario">08h00 às 12h00 • 13h00 às 21h00</li>
       </ul>
     </div>
     <div>
@@ -773,11 +462,7 @@
     <p class="footer-horario">Última atualização: <span id="updateDate"></span></p>
   </div>
 </footer>
-
-<!-- Botão de tema flutuante -->
 <button id="theme-toggle" class="btn-theme" aria-label="Alternar tema">🌙</button>
-
 <script src="script.js"></script>
-
 </body>
 </html>
