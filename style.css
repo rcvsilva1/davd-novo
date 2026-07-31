@@ -1819,7 +1819,8 @@ body > .container-404 {
 
 /* ESTAGIO_DESIGN.HTML */
 #estagio-design .grid-links .card-link a,
-#estagio-artes .grid-links .card-link a {
+#estagio-artes .grid-links .card-link a,
+#aproveitamento .grid-links .card-link a {
   font-weight: 700 !important;
 }
 
